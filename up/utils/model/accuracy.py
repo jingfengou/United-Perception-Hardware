@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Standard Library
 from functools import reduce
 
@@ -12,7 +13,7 @@ def binary_accuracy(output, target, thresh=0.5, ignore_index=-1):
     target = target.view(-1)
     keep = torch.nonzero(target != ignore_index).squeeze()
     if keep.dim() <= 0:
-        return [torch.cuda.FloatTensor([1]).zero_()]
+        return [output.new_zeros((1,))]
     assert (keep.dim() == 1)
     target = target[keep]
     output = output[keep]
@@ -44,7 +45,7 @@ def accuracy(output, target, topk=(1, ), ignore_indices=[-1]):
     mask = reduce(lambda x, y: x & y, masks)
     keep = torch.nonzero(mask).squeeze()
     if keep.numel() <= 0:
-        return [torch.cuda.FloatTensor([1]).zero_()]
+        return [output.new_zeros((1,))]
     if keep.dim() == 0:
         keep = keep.view(-1)
     assert keep.dim() == 1, keep.dim()

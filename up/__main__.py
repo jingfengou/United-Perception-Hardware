@@ -6,7 +6,8 @@ from up.utils.general.registry_factory import SUBCOMMAND_REGISTRY
 
 
 def main():
-
+    from up import initialize
+    initialize()
     parser = argparse.ArgumentParser(description="Run Easy Object Detector")
     parser.add_argument('--version', action='version', version=__version__)
 

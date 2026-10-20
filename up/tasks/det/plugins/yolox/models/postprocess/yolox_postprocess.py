@@ -1,8 +1,9 @@
+from up.accelerator import get_accelerator
 import copy
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.distributed as dist
+from up.accelerator import distributed as dist
 from up.utils.model import accuracy as A  # noqa F401
 from up.tasks.det.models.utils.anchor_generator import build_anchor_generator
 from up.models.losses import build_loss
@@ -172,7 +173,7 @@ class YoloxPostProcess(nn.Module):
             else:
                 l1_loss = ori_loc_preds.sum()
         else:
-            l1_loss = torch.tensor(0.0).cuda()
+            l1_loss = torch.tensor(0.0).to(get_accelerator().device)
         return {
             self.prefix + '.cls_loss': cls_loss,
             self.prefix + '.loc_loss': loc_loss,

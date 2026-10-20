@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch.nn as nn
 import torch
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
@@ -30,7 +31,7 @@ class Multiscale(nn.Module):
 
     def get_target_size(self, input):
         _, _, h, w = input['image'].size()
-        tensor = torch.LongTensor(2).cuda()
+        tensor = torch.LongTensor(2).to(get_accelerator().device)
         if env.is_master():
             size = random.randint(*self.random_size)
             scale = float(size * self.scale_step) / max(h, w)

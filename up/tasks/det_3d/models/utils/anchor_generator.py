@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 import numpy as np
 import json
@@ -37,10 +38,10 @@ class AnchorGenerator(object):
                 x_offset, y_offset = 0, 0
             x_shifts = torch.arange(
                 self.anchor_range[0] + x_offset, self.anchor_range[3] + 1e-5, step=x_stride, dtype=torch.float32,
-            ).cuda()
+            ).to(get_accelerator().device)
             y_shifts = torch.arange(
                 self.anchor_range[1] + y_offset, self.anchor_range[4] + 1e-5, step=y_stride, dtype=torch.float32,
-            ).cuda()
+            ).to(get_accelerator().device)
             z_shifts = x_shifts.new_tensor(anchor_height)
 
             num_anchor_size, num_anchor_rotation = anchor_size.__len__(), anchor_rotation.__len__()

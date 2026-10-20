@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Import from third library
 import torch
 import torch.nn.functional as F
@@ -357,7 +358,7 @@ class CrossSigmoidFocalLoss(SigmoidFocalLoss):
             data.append(cls + 1)
             data.extend(neg)
         data = np.require(data, dtype=np.int32)
-        data = torch.from_numpy(data).cuda()
+        data = torch.from_numpy(data).to(get_accelerator().device)
         return data
 
     def forward(self, input, target, reduction, normalizer=None):

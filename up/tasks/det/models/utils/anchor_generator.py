@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import json
 import numpy as np
 import torch
@@ -132,7 +133,7 @@ class BoxAnchorGenerator(AnchorGenerator):
         else:
             ratios = np.array(ratios)
             scales = np.array(scales)
-            anchor = np.array([1, 1, stride, stride], dtype=np.float) - 1
+            anchor = np.array([1, 1, stride, stride], dtype=float) - 1
             anchors = self._ratio_enum(anchor, ratios)
             anchors = np.vstack([self._scale_enum(anchors[i, :], scales) for i in range(anchors.shape[0])])
         return anchors
@@ -278,9 +279,9 @@ class PointAnchorGenerator(AnchorGenerator):
         l_b = [center - step, center + step]
         r_b = [center + step, center + step]
         if self.dense_points == 4:
-            points = torch.cuda.FloatTensor([l_t, r_t, l_b, r_b], device=device)
+            points = get_accelerator().float_tensor([l_t, r_t, l_b, r_b], device=device)
         elif self.dense_points == 5:
-            points = torch.cuda.FloatTensor([l_t, r_t, [center, center], l_b, r_b], device=device)
+            points = get_accelerator().float_tensor([l_t, r_t, [center, center], l_b, r_b], device=device)
         else:
             logger.info("dense points only support 1, 4, 5")
         points.reshape(1, -1, 2)

@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import copy
 import time
 import json
@@ -327,7 +328,7 @@ class BaseController(object):
         bn_mean = {}
         bn_var = {}
         forward_model = copy.deepcopy(model)
-        forward_model.cuda()
+        forward_model.to(get_accelerator().device)
         forward_model = DistModule(forward_model, True)
         reset_model_bn_forward(forward_model, bn_mean, bn_var)
 
@@ -339,8 +340,8 @@ class BaseController(object):
         with torch.no_grad():
             for count in range(max_iter):
                 batch = next(iterator)
-                if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:
-                    batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)
+                if batch['image'].device != get_accelerator().device or batch['image'].dtype != model_dtype:
+                    batch = to_device(batch, device=get_accelerator().device, dtype=model_dtype)
 
                 forward_model(batch)
 

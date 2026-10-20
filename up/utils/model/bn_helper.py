@@ -1,16 +1,14 @@
 import numpy as np
 import torch
 import torch.nn as nn
+from up.accelerator import distributed
 from torch.nn import functional as F
-from torch.nn.modules._functions import SyncBatchNorm as sync_batch_norm
+from up.accelerator import ops as _hardware_ops
 
 from ..env.dist_helper import env
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.env.dist_helper import simple_group_split
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 
 class FrozenBatchNorm2d(torch.nn.BatchNorm2d):
@@ -54,7 +52,10 @@ class GroupNorm(torch.nn.GroupNorm):
         super(GroupNorm, self).__init__(**kwargs)
 
 
-class PyTorchSyncBN(torch.nn.SyncBatchNorm):
+from up.accelerator.layers import SyncBatchNorm
+
+
+class PyTorchSyncBN(SyncBatchNorm):
     def __init__(self, num_features, group_size=None, **kwargs):
         super(PyTorchSyncBN, self).__init__(
             num_features,
@@ -76,7 +77,7 @@ class PyTorchSyncBN(torch.nn.SyncBatchNorm):
         rank_list = np.split(np.arange(world_size), num_groups)
         rank_list = [list(map(int, x)) for x in rank_list]
         for i in range(num_groups):
-            groups.append(torch.distributed.new_group(rank_list[i]))
+            groups.append(distributed.new_group(rank_list[i]))
         group_size = world_size // num_groups
         return groups[rank // group_size]
 
@@ -224,10 +225,10 @@ class TorchSyncTaskBatchNorm2d(PyTorchSyncBN):
         # Don't sync batchnorm stats in inference mode (model.eval()).
         need_sync = (bn_training and self.training)
         if need_sync:
-            process_group = torch.distributed.group.WORLD
+            process_group = distributed.group.WORLD
             if self.process_group:
                 process_group = self.process_group
-            world_size = torch.distributed.get_world_size(process_group)
+            world_size = distributed.get_world_size(process_group)
             need_sync = world_size > 1
 
         # fallback to framework BN when synchronization is not necessary
@@ -244,7 +245,7 @@ class TorchSyncTaskBatchNorm2d(PyTorchSyncBN):
             )
         else:
             assert bn_training
-            y = sync_batch_norm.apply(x,
+            y = _hardware_ops.sync_batch_norm(x,
                                       self.weight,
                                       self.bias,
                                       self.task_bn[0].running_mean,

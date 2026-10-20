@@ -1,8 +1,9 @@
+from up.accelerator import get_accelerator
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.general.cfg_helper import format_cfg
 from up.utils.env.gene_env import get_env_info, print_network
 from up.utils.env.dist_helper import env, DistModule
-from torch.nn.parallel import DistributedDataParallel as DDP
+from up.accelerator.distributed import wrap_model as DDP
 from up.utils.general.registry_factory import (
     RUNNER_REGISTRY,
     MODEL_HELPER_REGISTRY
@@ -86,7 +87,7 @@ class SparseRunner(BaseRunner):
                 self.data_loaders[dataset_name].batch_sampler.set_start_iter(self.start_iter)
 
     def train(self):
-        self.model.cuda().train()
+        self.model.to(get_accelerator().device).train()
         for iter_idx in range(self.start_iter, self.max_iter):
             batch = self.get_batch('train')
             loss = self.forward_train(batch)
@@ -123,8 +124,8 @@ class SparseRunner(BaseRunner):
             logger.debug(self.model)
             logger.debug(self.model_list)
             logger.debug(self.model_map)
-        if self.device == 'cuda':
-            self.model = self.model.cuda()
+        if self.device != 'cpu':
+            self.model = self.model.to(get_accelerator().device)
         if self.config['runtime']['special_bn_init']:
             self.special_bn_init()
         if self.fp16 and self.backend == 'linklink':
@@ -132,7 +133,8 @@ class SparseRunner(BaseRunner):
         logger.debug(print_network(self.model))
 
     def get_leaf_module(self, leaf_module):
-        from msbench.nn.modules import FrozenBatchNorm2d
+        from up.accelerator.layers import OptionalModule
+        FrozenBatchNorm2d = getattr(OptionalModule('pruning', 'nn.modules'), 'FrozenBatchNorm2d')
         from up.tasks.det.plugins.yolov5.models.components import Space2Depth
         leaf_module_map = {'FrozenBatchNorm2d': FrozenBatchNorm2d,
                            'Space2Depth': Space2Depth}
@@ -155,7 +157,8 @@ class SparseRunner(BaseRunner):
         if leaf_module is not None:
             prepare_custom_config_dict["leaf_module"] = self.get_leaf_module(leaf_module)
 
-        from msbench.scheduler import build_sparse_scheduler
+        from up.accelerator.layers import OptionalModule
+        build_sparse_scheduler = getattr(OptionalModule('pruning', 'scheduler'), 'build_sparse_scheduler')
         self.sparse_scheduler = build_sparse_scheduler(prepare_custom_config_dict)
         self.model.train()
         if prepare_custom_config_dict["scheduler"]["type"] == 'AmpereScheduler':

@@ -1,8 +1,10 @@
+from up.accelerator import get_accelerator
 import torch
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.general.registry_factory import DEPLOY_REGISTRY
 from up.tasks.quant.runner import QuantRunner
-from mqbench.utils.state import enable_quantization
+from up.accelerator.layers import optional_symbol
+enable_quantization = optional_symbol('quantization', 'utils.state', 'enable_quantization')
 from up.utils.general.global_flag import DEPLOY_FLAG
 
 
@@ -29,7 +31,7 @@ class QuantDeploy(QuantRunner):
         self.model.load_state_dict(self.ckpt['model'])
 
     def get_onnx_dummy_input(self):
-        self.model.cuda().eval()
+        self.model.to(get_accelerator().device).eval()
         DEPLOY_FLAG.flag = False
         self.build_dataloaders()
         self.build_hooks()
@@ -40,9 +42,10 @@ class QuantDeploy(QuantRunner):
 
     def deploy(self):
         logger.info("deploy model")
-        from mqbench.convert_deploy import convert_deploy
+        from up.accelerator.layers import OptionalModule
+        convert_deploy = getattr(OptionalModule('quantization', 'convert_deploy'), 'convert_deploy')
         deploy_backend = self.config['quant']['deploy_backend']
-        self.model.cuda().eval()
+        self.model.to(get_accelerator().device).eval()
         print('ONNX input shape is: ', self.dummy_input['image'].shape)
 
         for index, mname in enumerate(self.model_list):

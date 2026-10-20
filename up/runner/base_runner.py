@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch.optim
 import time
 import os
@@ -5,7 +6,7 @@ import copy
 import shutil
 import json
 from collections import defaultdict
-from torch.nn.parallel import DistributedDataParallel as DDP
+from up.accelerator.distributed import wrap_model as DDP
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.general.hook_helper import build_hooks
 from up.utils.env.gene_env import set_random_seed, to_device
@@ -49,7 +50,10 @@ class BaseRunner(object):
         self._temporaries = defaultdict(float)
         config = copy.deepcopy(config)
         self.config = self.upgrade_config(config)
+        from up.accelerator import configure_accelerator
+        accelerator = configure_accelerator(self.config)
         self.set_default_cfg()
+        self.config['runtime']['device'] = str(accelerator.device)
         self.iter_base = self.config['runtime']['iter_base']
         self.device = self.config['runtime']['device']
         self.aligned = self.config['runtime']['aligned']
@@ -65,7 +69,7 @@ class BaseRunner(object):
     def prepare_fp16(self):
         if self.config['runtime'].get('fp16', False):
             if self.backend == 'dist':
-                self.scaler = torch.cuda.amp.GradScaler(enabled=True)
+                self.scaler = get_accelerator().grad_scaler(enabled=True)
             else:
                 register_float_module(self.config['runtime']['fp16'].get('keep_batchnorm_fp32', True))
                 loss_scale = self.config['runtime']['fp16'].get('scale_factor', 'dynamic')
@@ -83,7 +87,7 @@ class BaseRunner(object):
         self.config['runtime']['random_seed'] = self.config['runtime'].setdefault('random_seed', 131)
         self.config['runtime']['aligned'] = self.config['runtime'].setdefault('aligned', False)
         self.config['runtime']['iter_base'] = self.config['runtime'].setdefault('iter_base', False)
-        self.config['runtime']['device'] = self.config['runtime'].setdefault('device', 'cuda')
+        self.config['runtime']['device'] = self.config['runtime'].setdefault('device', str(get_accelerator().device))
         self.config['runtime']['async_norm'] = self.config['runtime'].setdefault('async_norm', False)
         self.config['runtime']['special_bn_init'] = self.config['runtime'].setdefault('special_bn_init', False)
         model_helper_cfg = self.config['runtime'].get('model_helper', {})
@@ -225,7 +229,7 @@ class BaseRunner(object):
         rank_init = self.config['runtime']['rank_init']
         random_seed = self.config['runtime']['random_seed']
         set_random_seed(random_seed, rank_init)
-        torch.backends.cudnn.enabled = not self.args.get('nocudnn', False)
+        get_accelerator().configure_convolution(enabled=not self.args.get('nocudnn', False))
         logger.info(f'world size:{env.world_size}')
 
     def resume_model(self):
@@ -363,7 +367,7 @@ class BaseRunner(object):
 
     def train(self):
         self._hooks('before_train')
-        self.model.cuda().train()
+        self.model.to(get_accelerator().device).train()
         for iter_idx in range(self.start_iter, self.max_iter):
             batch = self.get_batch('train')
             loss = self.forward_train(batch)
@@ -392,7 +396,7 @@ class BaseRunner(object):
 
     @torch.no_grad()
     def _inference(self):
-        self.model.cuda().eval()
+        self.model.to(get_accelerator().device).eval()
         test_loader = self.data_loaders['test']
         all_results_list = []
         test_resume = ((hasattr(test_loader.dataset, 'test_resume')) and (test_loader.dataset.test_resume is True))
@@ -524,8 +528,8 @@ class BaseRunner(object):
         model_dtype = torch.float32
         if self.fp16 and self.backend == 'linklink':
             model_dtype = self.model.dtype
-        if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:
-            batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)
+        if batch['image'].device != get_accelerator().device or batch['image'].dtype != model_dtype:
+            batch = to_device(batch, device=get_accelerator().device, dtype=model_dtype)
         return batch
 
     def get_batch(self, batch_type='train'):
@@ -636,8 +640,8 @@ class BaseRunner(object):
         model_helper_kwargs = self.config['runtime']['model_helper']['kwargs']
         model_helper_ins = MODEL_HELPER_REGISTRY[model_helper_type]
         self.model = model_helper_ins(self.config['net'], **model_helper_kwargs)
-        if self.device == 'cuda':
-            self.model = self.model.cuda()
+        if self.device != 'cpu':
+            self.model = self.model.to(get_accelerator().device)
         if self.config['runtime']['special_bn_init']:
             self.special_bn_init()
         if self.fp16 and self.backend == 'linklink':
@@ -663,8 +667,8 @@ class BaseRunner(object):
             model_helper_kwargs = self.config['runtime']['model_helper']['kwargs']
             model_helper_ins = MODEL_HELPER_REGISTRY[model_helper_type]
             model = model_helper_ins(net_cfg, **model_helper_kwargs)
-            if self.device == 'cuda':
-                model = model.cuda()
+            if self.device != 'cpu':
+                model = model.to(get_accelerator().device)
             if self.fp16 and self.backend == 'linklink':
                 model = model.half()
             if self.config['runtime']['special_bn_init']:
@@ -726,7 +730,7 @@ class BaseRunner(object):
 
     def forward(self, batch, return_output=False):
         if self.backend == 'dist' and self.fp16:
-            with torch.cuda.amp.autocast(enabled=True):
+            with get_accelerator().autocast(enabled=True):
                 output = self.forward_model(batch)
         else:
             output = self.forward_model(batch)

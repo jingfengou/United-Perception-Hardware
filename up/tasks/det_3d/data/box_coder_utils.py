@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import numpy as np
 import torch
 from up.utils.general.registry_factory import BOX_CODER_REGISTRY
@@ -153,7 +154,7 @@ class PointResidualCoder(object):
         self.code_size = code_size
         self.use_mean_size = use_mean_size
         if self.use_mean_size:
-            self.mean_size = torch.from_numpy(np.array(kwargs['mean_size'])).cuda().float()
+            self.mean_size = torch.from_numpy(np.array(kwargs['mean_size'])).to(get_accelerator().device).float()
             assert self.mean_size.min() > 0
 
     def encode_torch(self, gt_boxes, points, gt_classes=None):

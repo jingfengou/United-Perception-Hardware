@@ -1,0 +1,27 @@
+# Observed application/test dependencies from the A800 validation environment.
+# Use only inside the matching validated NVIDIA environment.
+# Keep its existing torch, torchvision and NVIDIA pycocotools distribution.
+# This is a dependency subset, not a complete container lock.
+# It is not an Ascend, Cambricon or MetaX installation profile.
+easydict==1.13
+lvis==0.5.3
+matplotlib==3.10.3
+numba==0.59.1
+numba-cuda==0.4.0
+numpy==1.26.4
+onnx==1.17.0
+opencv-python==4.11.0.86
+packaging==23.2
+pandas==2.2.3
+pillow==11.2.1
+prettytable==3.16.0
+psutil==7.0.0
+pytest==8.1.1
+PyYAML==6.0.2
+scikit-image==0.25.2
+scikit-learn==1.6.1
+scipy==1.15.3
+setuptools==78.1.1
+tensorboardX==2.6.4
+tqdm==4.67.1
+wheel==0.45.1

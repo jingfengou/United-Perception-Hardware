@@ -30,19 +30,11 @@ _norm_cfg = {
     'ln': ('ln', torch.nn.LayerNorm)
 }
 
-try:
-    from mqbench.nn.modules import FrozenBatchNorm2d as MqbenchFrozenBatchNorm2d
-    _norm_cfg.update({'mqbench_freeze_bn': ('bn', MqbenchFrozenBatchNorm2d)})
-except Exception as err:
-    logger.warning(f"import error {err}; If you need Mqbench to quantize model, \
-     you should add Mqbench to this project. Or just ignore this error.")
-
-try:
-    from msbench.nn.modules import FrozenBatchNorm2d as MsbenchFrozenBatchNorm2d
-    _norm_cfg.update({'msbench_freeze_bn': ('bn', MsbenchFrozenBatchNorm2d)})
-except Exception as err:
-    logger.warning(f"import error {err}; If you need Msbench to prune model, \
-    you should add Msbench to this project. Or just ignore this error.")
+from up.accelerator.layers import optional_symbol
+_norm_cfg.update({
+    'mqbench_freeze_bn': ('bn', optional_symbol("quantization", "nn.modules", "FrozenBatchNorm2d")),
+    'msbench_freeze_bn': ('bn', optional_symbol("pruning", "nn.modules", "FrozenBatchNorm2d")),
+})
 
 
 def is_bn(m):

@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Import from third library
 import torch
 
@@ -84,7 +85,7 @@ class EqualizedFocalLoss(GeneralizedCrossEntropyLoss):
         cls_loss = ce_loss * torch.pow((1 - pred_t), ff.detach()) * wf.detach()
 
         # to avoid an OOM error
-        # torch.cuda.empty_cache()
+        # get_accelerator().empty_cache()
 
         if self.focal_alpha >= 0:
             alpha_t = self.focal_alpha * targets + (1 - self.focal_alpha) * (1 - targets)

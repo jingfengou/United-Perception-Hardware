@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Import from third library
 import torch
 
@@ -14,12 +15,12 @@ __all_ = ['MaxIoUMatcher', 'RetinaOTAMatcher']
 
 
 def cuda_memory_available(device, needed_memory):
-    if torch.cuda.is_available():
+    if get_accelerator().device_type != "cpu" and get_accelerator().is_available():
         global GPU_MEMORY
         gbytes = 1024.0**3
         if GPU_MEMORY is None:
-            GPU_MEMORY = torch.cuda.get_device_properties(device.index).total_memory
-        alloated_memory = torch.cuda.memory_allocated()
+            GPU_MEMORY = get_accelerator().get_device_properties(device.index).total_memory
+        alloated_memory = get_accelerator().memory_allocated()
         spare_memory = 0.5 * gbytes
         available_memory = GPU_MEMORY - alloated_memory - spare_memory
         if needed_memory < available_memory:
@@ -191,7 +192,7 @@ class RetinaOTAMatcher(object):
         else:
             preds_box = masked_preds[:, self.num_classes:]
 
-        with torch.cuda.amp.autocast(enabled=False):
+        with get_accelerator().autocast(enabled=False):
             decoded_preds_box = offset2bbox(masked_all_anchors, preds_box.float())
 
             pair_wise_ious = bbox_iou_overlaps(
@@ -238,11 +239,11 @@ class RetinaOTAMatcher(object):
         del pair_wise_cls_loss, cost, pair_wise_ious, pair_wise_ious_loss
 
         if mode == "cpu":
-            gt_matched_classes = gt_matched_classes.cuda()
-            fg_mask = fg_mask.cuda()
-            # pred_ious_this_matching = pred_ious_this_matching.cuda()
-            matched_gt_inds = matched_gt_inds.cuda()
-            # expanded_strides = expanded_strides.cuda()
+            gt_matched_classes = gt_matched_classes.to(get_accelerator().device)
+            fg_mask = fg_mask.to(get_accelerator().device)
+            # pred_ious_this_matching = pred_ious_this_matching.to(get_accelerator().device)
+            matched_gt_inds = matched_gt_inds.to(get_accelerator().device)
+            # expanded_strides = expanded_strides.to(get_accelerator().device)
 
         return num_fg, gt_matched_classes, matched_gt_inds, fg_mask
 

@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -25,7 +26,7 @@ class KDLoss(nn.Module):
                 loss = torch.sum(l_kl)
                 loss = loss / mask.sum()
             else:
-                loss = torch.Tensor([0]).cuda()
+                loss = torch.Tensor([0]).to(get_accelerator().device)
         else:
             p = F.log_softmax(s_preds / self.t, dim=1)
             q = F.softmax(t_preds / self.t, dim=1)

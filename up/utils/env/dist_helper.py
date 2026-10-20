@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Standard Library
 import os
 import sys
@@ -6,16 +7,13 @@ import functools
 
 # Import from third library
 import torch
-import torch.distributed as dist
+from up.accelerator import distributed as dist
 import torch.nn as nn
 import pickle
 import numpy as np
 from collections import OrderedDict
 from up.utils.general.global_flag import DIST_BACKEND
-try:
-    import spring.linklink as link
-except:   # noqa
-    link = None
+from up.accelerator.layers import link
 
 MASTER_RANK = 0
 _LOCAL_PROCESS_GROUP = None
@@ -167,7 +165,8 @@ def get_world_size(*args, **kwargs):
 
 def get_local_rank(*args, **kwargs):
     rank = get_rank(*args, **kwargs)
-    return rank % torch.cuda.device_count()
+    return int(os.environ.get("LOCAL_RANK", os.environ.get(
+        "SLURM_LOCALID", rank % max(1, get_accelerator().device_count()))))
 
 
 def all_reduce(*args, **kwargs):
@@ -272,7 +271,7 @@ def find_free_port():
         return str(s.getsockname()[1])
 
 
-def dist_init_slurm(backend='nccl', port='13333'):
+def dist_init_slurm(backend=None, port='13333'):
     proc_id = int(os.environ['SLURM_PROCID'])
     ntasks = int(os.environ['SLURM_NTASKS'])
     node_list = os.environ['SLURM_NODELIST']
@@ -290,16 +289,13 @@ def dist_init_slurm(backend='nccl', port='13333'):
     os.environ['MASTER_ADDR'] = addr
     os.environ['WORLD_SIZE'] = str(ntasks)
     os.environ['RANK'] = str(proc_id)
-    if backend == 'nccl':
-        dist.init_process_group(backend='nccl')
-    else:
-        dist.init_process_group(backend='gloo', rank=proc_id, world_size=ntasks)
+    dist.init_process_group(backend=backend, rank=proc_id, world_size=ntasks)
     rank = dist.get_rank()
-    device = rank % torch.cuda.device_count()
-    torch.cuda.set_device(device)
+    device = rank % get_accelerator().device_count()
+    get_accelerator().set_device(device)
 
 
-def dist_init_mpi(backend='nccl',
+def dist_init_mpi(backend=None,
                   addr='localhost',
                   port="13333",
                   rank=None,
@@ -308,18 +304,17 @@ def dist_init_mpi(backend='nccl',
     Overview:
         Init the distributed training setting
     """
-    assert backend in ['nccl', 'gloo'], backend
     os.environ['MASTER_ADDR'] = addr or os.environ.get('MASTER_ADDR', addr)
     os.environ['MASTER_PORT'] = str(port) or os.environ.get('MASTER_PORT', str(port))
 
     if rank is None:
-        local_id = os.environ.ge(os.environ.get('OMPI_COMM_WORLD_RANK', None))
+        local_id = os.environ.get('OMPI_COMM_WORLD_RANK', os.environ.get('RANK'))
         if local_id is None:
             raise RuntimeError("please indicate rank explicitly in dist_init method")
         else:
             rank = int(local_id)
     if world_size is None:
-        ntasks = os.environ.get(os.environ.get('OMPI_COMM_WORLD_SIZE', None))
+        ntasks = os.environ.get('OMPI_COMM_WORLD_SIZE', os.environ.get('WORLD_SIZE'))
         if ntasks is None:
             raise RuntimeError("please indicate world_size explicitly in dist_init method")
         else:
@@ -327,24 +322,24 @@ def dist_init_mpi(backend='nccl',
 
     dist.init_process_group(backend=backend, rank=rank, world_size=world_size)
     rank = dist.get_rank()
-    device = rank % torch.cuda.device_count()
-    torch.cuda.set_device(device)
+    device = rank % get_accelerator().device_count()
+    get_accelerator().set_device(device)
 
 
 def setup_distributed_dist(port, launch):
     if launch == 'slurm':
-        device = get_rank() % torch.cuda.device_count()
-        torch.cuda.set_device(device)
+        device = get_rank() % get_accelerator().device_count()
+        get_accelerator().set_device(device)
         dist_init_slurm(port=port)
     else:
         dist_init_mpi(port=port)
-        device = get_rank() % torch.cuda.device_count()
-        torch.cuda.set_device(device)
+        device = get_rank() % get_accelerator().device_count()
+        get_accelerator().set_device(device)
 
 
 def setup_distributed_link(port, launch):
     link.initialize()
-    torch.cuda.set_device(link.get_local_rank())
+    get_accelerator().set_device(link.get_local_rank())
 
 
 def setup_distributed(port=33334, launch='slurm', backend='dist'):
@@ -365,25 +360,12 @@ def _get_global_gloo_group():
     Return a process group based on gloo backend, containing all the ranks
     The result is cached.
     """
-    if DIST_BACKEND.backend == 'dist':
-        if dist.get_backend() == "nccl":
-            return dist.new_group(backend="gloo")
-        else:
-            return dist.group.WORLD
-    elif DIST_BACKEND.backend == 'linklink':
-        if link.get_backend() == "nccl":
-            return link.new_group(backend="gloo")
-        else:
-            return link.group.WORLD
-    else:
-        raise NotImplementedError
+    return dist.cpu_group(DIST_BACKEND.backend)
 
 
 def _serialize_to_tensor(data, group):
     if DIST_BACKEND.backend == 'dist':
-        backend = dist.get_backend(group)
-        assert backend in ["gloo", "nccl"]
-        device = torch.device("cpu" if backend == "gloo" else "cuda")
+        device = dist.collective_device(group)
     else:
         device = torch.device("cpu")
 
@@ -541,8 +523,10 @@ def finalize():
         pass
 
 
-def pyobj2tensor(pyobj, device="cuda"):
+def pyobj2tensor(pyobj, device=None):
     """serialize picklable python object to tensor"""
+    if device is None:
+        device = get_accelerator().device
     storage = torch.ByteStorage.from_buffer(pickle.dumps(pyobj))
     return torch.ByteTensor(storage).to(device=device)
 
@@ -615,45 +599,10 @@ def run_shell(cmd):
 
 
 def gpu_check():
-    import logging
-    logger = logging.getLogger('global')
-
-    try:
-        local_rank = get_local_rank()
-    except RuntimeError:
-        logger.warning('not using linklink, skip gpu check')
-        return True
-    logger.info('Prepare for gpu check')
-    succ_flag = True
-    if local_rank == 0:
-        nodename = run_shell('hostname')
-        if not os.path.exists('/mnt/lustre/share/gpu_burn'):
-            logger.warning('gpu-burn tool not found, skip gpu check, please contact @yufengwei or @wangyiru')
-            return
-        test_info = run_shell(
-            'bash -c "cd /mnt/lustre/share/gpu_burn; CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 ./gpu_burn 60"')
-
-        nodename = nodename.replace('\n', '')
-        test_result = nodename
-        err_idx = -1
-        for idx, line in enumerate(test_info.split('\n')):
-            if "OK" in line:
-                test_result += line
-            elif "FAULTY" in line:
-                test_result += line
-                err_idx = idx
-                succ_flag = False
-        print(test_result)
-        print(nodename + "\tPass = " + str(succ_flag))
-        if not succ_flag:
-            user = run_shell('echo $USER').strip()
-            f = open('/mnt/lustre/%s/gpu_err.txt' % user, 'a')
-            f.write('%s %s GPU%d error\n' % (datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S'), nodename, err_idx))
-            f.close()
-            assert succ_flag, nodename + " GPU test Failed! Contact DCP for help."
+    """Backend health smoke check; no vendor-specific external stress executable."""
+    result = get_accelerator().health_check()
     barrier()
-    logger.info('all gpu check passed')
-    return
+    return result
 
 
 def broadcast_object(obj, group=None):
@@ -662,8 +611,8 @@ def broadcast_object(obj, group=None):
     if get_world_size() <= 1:
         return obj
 
-    serialized_tensor = _serialize_to_tensor(obj, group=None).cuda()
-    numel = torch.IntTensor([serialized_tensor.numel()]).cuda()
+    serialized_tensor = _serialize_to_tensor(obj, group=None).to(get_accelerator().device)
+    numel = torch.IntTensor([serialized_tensor.numel()]).to(get_accelerator().device)
     broadcast(numel, MASTER_RANK)
     # serialized_tensor from storage is not resizable
     serialized_tensor = serialized_tensor.clone()

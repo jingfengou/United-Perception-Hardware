@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 import torch.nn.functional as F
 from up.utils.general.registry_factory import ROI_PREDICTOR_REGISTRY
@@ -27,7 +28,7 @@ class CenterPredictor(object):
     def predict(self, batch_size, voxel_infos, pred_dict):
         self.voxel_size = voxel_infos['voxel_size']
         self.point_cloud_range = voxel_infos['point_cloud_range']
-        post_center_limit_range = torch.tensor(self.post_center_limit_range).cuda().float()
+        post_center_limit_range = torch.tensor(self.post_center_limit_range).to(get_accelerator().device).float()
         ret_dict = [{
             'pred_boxes': [],
             'pred_scores': [],

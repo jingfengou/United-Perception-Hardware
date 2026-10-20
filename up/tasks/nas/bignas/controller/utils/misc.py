@@ -1,4 +1,4 @@
-from collections import Iterable
+from collections.abc import Iterable
 import json
 import numpy as np
 
@@ -6,10 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 from up.utils.env.dist_helper import allreduce
 from up.utils.env.dist_helper import get_world_size

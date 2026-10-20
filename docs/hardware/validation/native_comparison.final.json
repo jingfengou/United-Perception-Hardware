@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "compared_cases": 32,
+  "regressions": {},
+  "upstream_gaps": {},
+  "environment": {
+    "torch": "2.8.0a0+5228986c39.nv25.06",
+    "cuda": "12.9",
+    "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
+    "device": "NVIDIA A800-SXM4-80GB",
+    "mode": "routed"
+  },
+  "artifact_sha256": {
+    "../results/upstream_ops.pt": "2a36214bfb89af072d0dc4168998846b00569e2c464f82e7d33a25ae1304a71a",
+    "../results/routed_ops.final.pt": "93b446c8a2bcf53b54005794c605a1ca2739ee16b1aaaf95ea73075ea4f855d5"
+  }
+}

@@ -1,0 +1,2443 @@
+{
+  "upstream_commit": "52aaeb9ed27a490820696d7754d19f98cd6ecd11",
+  "python_hardware_sites": 262,
+  "current_boundary_violations": [],
+  "sites": [
+    {
+      "path": "up/apis/inference.py",
+      "line": 87,
+      "rule": "device_transfer",
+      "source": "self.detector = MODEL_HELPER_REGISTRY.build(model_helper_cfg).cuda().eval()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/apis/inference.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/apis/inference.py",
+      "line": 189,
+      "rule": "device_transfer",
+      "source": "data.image = data.image.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/apis/inference.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/commands/flops.py",
+      "line": 67,
+      "rule": "device_transfer",
+      "source": "model = model_helper_ins(cfg['net'], **model_helper_kwargs).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/commands/flops.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 6,
+      "rule": "native_extension_import",
+      "source": "from ..ext import cross_focal_loss",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 35,
+      "rule": "device_predicate",
+      "source": "assert (preds.is_cuda and targets.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 47,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor([losses.sum()])",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 49,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor(losses)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 51,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor([losses.sum()])",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 64,
+      "rule": "device_predicate",
+      "source": "assert (preds.is_cuda and targets.is_cuda and grad_input.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/deformable_conv.py",
+      "line": 15,
+      "rule": "native_extension_import",
+      "source": "from ..ext import deform_conv_v1",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/deformable_conv.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/deformable_conv.py",
+      "line": 53,
+      "rule": "device_predicate",
+      "source": "if not input.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/deformable_conv.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/deformable_conv.py",
+      "line": 76,
+      "rule": "device_predicate",
+      "source": "if not grad_output.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/deformable_conv.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 6,
+      "rule": "native_extension_import",
+      "source": "from ..ext import focal_loss",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 35,
+      "rule": "device_predicate",
+      "source": "assert(preds.is_cuda and targets.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 48,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor(losses)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 50,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor([losses.sum()])",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 63,
+      "rule": "device_predicate",
+      "source": "assert(preds.is_cuda and targets.is_cuda and grad_input.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 107,
+      "rule": "device_predicate",
+      "source": "assert(preds.is_cuda and targets.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 121,
+      "rule": "hardware_runtime",
+      "source": "return torch.cuda.FloatTensor([losses.sum()])",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 136,
+      "rule": "device_predicate",
+      "source": "assert(preds.is_cuda and targets.is_cuda and grad_input.is_cuda and buff.is_cuda)",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 8,
+      "rule": "native_extension_import",
+      "source": "from ..ext import iou3d_nms as iou3d_nms_cuda",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 22,
+      "rule": "device_predicate",
+      "source": "assert not (boxes_a.is_cuda or boxes_b.is_cuda), 'Only support CPU tensors'",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 40,
+      "rule": "hardware_runtime",
+      "source": "ans_iou = torch.cuda.FloatTensor(torch.Size((boxes_a.shape[0], boxes_b.shape[0]))).zero_()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 65,
+      "rule": "hardware_runtime",
+      "source": "overlaps_bev = torch.cuda.FloatTensor(torch.Size((boxes_a.shape[0], boxes_b.shape[0]))).zero_()  # (N, M)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 96,
+      "rule": "device_transfer",
+      "source": "return order[keep[:num_out].cuda()].contiguous(), None",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 113,
+      "rule": "device_transfer",
+      "source": "return order[keep[:num_out].cuda()].contiguous(), None",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou_overlap.py",
+      "line": 2,
+      "rule": "native_extension_import",
+      "source": "from ..ext import overlaps",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou_overlap.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/iou_overlap.py",
+      "line": 18,
+      "rule": "device_predicate",
+      "source": "assert b1.is_cuda and b2.is_cuda",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/iou_overlap.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/nms.py",
+      "line": 4,
+      "rule": "native_extension_import",
+      "source": "from ..ext import naive_nms as nms",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/nms.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/nms.py",
+      "line": 5,
+      "rule": "native_extension_import",
+      "source": "from ..ext import softer_nms as softer_nms_c",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/nms.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/nms.py",
+      "line": 16,
+      "rule": "hardware_literal",
+      "source": "if dets.device.type == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/nms.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_align.py",
+      "line": 4,
+      "rule": "native_extension_import",
+      "source": "from ..ext import psroi_align",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_align.py",
+      "line": 30,
+      "rule": "hardware_runtime",
+      "source": "mapping_channel = torch.cuda.IntTensor(",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_align.py",
+      "line": 34,
+      "rule": "device_predicate",
+      "source": "if not features.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_align.py",
+      "line": 51,
+      "rule": "device_predicate",
+      "source": "assert grad_output.is_cuda",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_pool.py",
+      "line": 9,
+      "rule": "native_extension_import",
+      "source": "from ..ext import psroi_pooling",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_pool.py",
+      "line": 38,
+      "rule": "device_predicate",
+      "source": "if not features.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_pool.py",
+      "line": 43,
+      "rule": "device_transfer",
+      "source": "mapping_channel = mapping_channel.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/psroi_pool.py",
+      "line": 57,
+      "rule": "device_predicate",
+      "source": "assert grad_output.is_cuda",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/roi_align.py",
+      "line": 10,
+      "rule": "native_extension_import",
+      "source": "from ..ext import roi_align",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/roi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/roi_align.py",
+      "line": 49,
+      "rule": "device_predicate",
+      "source": "if not features.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/roi_align.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/roiaware_pool3d_utils.py",
+      "line": 6,
+      "rule": "native_extension_import",
+      "source": "from ..ext import roiaware_pool3d as roiaware_pool3d_cuda",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/extensions/python/roipoint_pool3d_utils.py",
+      "line": 4,
+      "rule": "native_extension_import",
+      "source": "from ..ext import roipoint_pool3d as roipoint_pool3d_cuda",
+      "route": "ops semantic dispatch and deferred NVIDIA loader",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/roipoint_pool3d_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 9,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/models/backbones/mobilenet_v3.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 2,
+      "rule": "vendor_import",
+      "source": "from spring import linklink",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/models/backbones/regnet.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/models/model_helper.py",
+      "line": 119,
+      "rule": "hardcoded_device",
+      "source": "self.device = torch.device('cuda')",
+      "route": "selected backend device",
+      "implementation_or_facade": "up/models/model_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/models/model_helper.py",
+      "line": 119,
+      "rule": "hardware_literal",
+      "source": "self.device = torch.device('cuda')",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/models/model_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/models/model_helper.py",
+      "line": 120,
+      "rule": "device_transfer",
+      "source": "return super(ModelHelper, self).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/models/model_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 86,
+      "rule": "hardware_literal",
+      "source": "self.config['runtime']['device'] = self.config['runtime'].setdefault('device', 'cuda')",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 338,
+      "rule": "distributed_wrapper_bypass",
+      "source": "self.model = DDP(self.model, device_ids=[env.local_rank], broadcast_buffers=False)",
+      "route": "up.accelerator.distributed.wrap_model",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 366,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().train()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 395,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().eval()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 527,
+      "rule": "hardware_literal",
+      "source": "if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 528,
+      "rule": "hardware_literal",
+      "source": "batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 639,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 640,
+      "rule": "device_transfer",
+      "source": "self.model = self.model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 666,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 667,
+      "rule": "device_transfer",
+      "source": "model = model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/runner/base_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/cls/data/cls_transforms.py",
+      "line": 214,
+      "rule": "hardware_literal",
+      "source": "def _get_pixels(self, per_pixel, rand_color, patch_size, dtype=torch.float32, device='cuda'):",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/cls/data/cls_transforms.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 46,
+      "rule": "device_transfer",
+      "source": "one_hot = torch.zeros_like(input).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/cls/models/losses/cls_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 360,
+      "rule": "device_transfer",
+      "source": "data = torch.from_numpy(data).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/losses/focal_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/losses/l1_loss.py",
+      "line": 53,
+      "rule": "device_transfer",
+      "source": "self.code_weights = torch.from_numpy(self.code_weights).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/losses/l1_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/losses/smooth_l1_loss.py",
+      "line": 45,
+      "rule": "device_transfer",
+      "source": "self.code_weights = torch.from_numpy(self.code_weights).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/losses/smooth_l1_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/roi_supervisor.py",
+      "line": 448,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.empty_cache()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/anchor_generator.py",
+      "line": 281,
+      "rule": "hardware_runtime",
+      "source": "points = torch.cuda.FloatTensor([l_t, r_t, l_b, r_b], device=device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/anchor_generator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/anchor_generator.py",
+      "line": 283,
+      "rule": "hardware_runtime",
+      "source": "points = torch.cuda.FloatTensor([l_t, r_t, [center, center], l_b, r_b], device=device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/anchor_generator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 43,
+      "rule": "device_predicate",
+      "source": "if not b1.is_cuda or aligned:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 49,
+      "rule": "hardware_runtime",
+      "source": "GPU_MEMORY = torch.cuda.get_device_properties(b1.device.index).total_memory",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 50,
+      "rule": "hardware_runtime",
+      "source": "alloated_memory = torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 131,
+      "rule": "device_predicate",
+      "source": "if not b1.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 136,
+      "rule": "hardware_runtime",
+      "source": "GPU_MEMORY = torch.cuda.get_device_properties(b1.device.index).total_memory",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 137,
+      "rule": "hardware_runtime",
+      "source": "alloated_memory = torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 470,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.synchronize()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 473,
+      "rule": "hardware_runtime",
+      "source": "memory = torch.cuda.max_memory_allocated() / 1024.0 / 1024.0 / 1024",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 478,
+      "rule": "device_transfer",
+      "source": "box = torch.randn(n, 4).cuda() * 10",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/utils/bbox_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 17,
+      "rule": "hardware_runtime",
+      "source": "if torch.cuda.is_available():",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 21,
+      "rule": "hardware_runtime",
+      "source": "GPU_MEMORY = torch.cuda.get_device_properties(device.index).total_memory",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 22,
+      "rule": "hardware_runtime",
+      "source": "alloated_memory = torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 194,
+      "rule": "hardware_runtime",
+      "source": "with torch.cuda.amp.autocast(enabled=False):",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 241,
+      "rule": "device_transfer",
+      "source": "gt_matched_classes = gt_matched_classes.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 242,
+      "rule": "device_transfer",
+      "source": "fg_mask = fg_mask.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 244,
+      "rule": "device_transfer",
+      "source": "matched_gt_inds = matched_gt_inds.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/models/utils/matcher.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/nms_wrapper.py",
+      "line": 1,
+      "rule": "specialized_op_import",
+      "source": "from torchvision.ops import nms as t_nms",
+      "route": "ops semantic dispatch for compiled vision operations",
+      "implementation_or_facade": "up/tasks/det/models/utils/nms_wrapper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/nms_wrapper.py",
+      "line": 6,
+      "rule": "specialized_op_bypass",
+      "source": "idx = t_nms(cls_rois[:, :4], cls_rois[:, 4], thresh)",
+      "route": "ops semantic dispatch for compiled vision operations",
+      "implementation_or_facade": "up/tasks/det/models/utils/nms_wrapper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "line": 145,
+      "rule": "collective_bypass",
+      "source": "if self.all_reduce_norm and dist.is_initialized():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "line": 172,
+      "rule": "device_transfer",
+      "source": "l1_loss = torch.tensor(0.0).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 76,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.empty_cache()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 158,
+      "rule": "hardware_runtime",
+      "source": "with torch.cuda.amp.autocast(enabled=False):",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 190,
+      "rule": "device_transfer",
+      "source": "gt_matched_classes = gt_matched_classes.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 191,
+      "rule": "device_transfer",
+      "source": "fg_mask = fg_mask.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 192,
+      "rule": "device_transfer",
+      "source": "pred_ious_this_matching = pred_ious_this_matching.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 193,
+      "rule": "device_transfer",
+      "source": "matched_gt_inds = matched_gt_inds.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 194,
+      "rule": "device_transfer",
+      "source": "expanded_strides = expanded_strides.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 143,
+      "rule": "collective_bypass",
+      "source": "if self.all_reduce_norm and dist.is_initialized():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 175,
+      "rule": "device_transfer",
+      "source": "l1_loss = torch.tensor(0.0).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/preprocess/multiscale.py",
+      "line": 33,
+      "rule": "device_transfer",
+      "source": "tensor = torch.LongTensor(2).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det/plugins/yolox/models/preprocess/multiscale.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/data/box_coder_utils.py",
+      "line": 156,
+      "rule": "device_transfer",
+      "source": "self.mean_size = torch.from_numpy(np.array(kwargs['mean_size'])).cuda().float()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/data/box_coder_utils.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/data/metrics/kitti_object_eval_python/rotate_iou.py",
+      "line": 10,
+      "rule": "cuda_jit_import",
+      "source": "from numba import cuda",
+      "route": "ops.rotate_iou_eval and NVIDIA evaluator implementation",
+      "implementation_or_facade": "up/accelerator/backends/nvidia_ops/rotate_iou.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/map_to_bev.py",
+      "line": 21,
+      "rule": "sparse_tensor_access",
+      "source": "spatial_features = encoded_spconv_tensor.dense()",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/map_to_bev.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 11,
+      "rule": "vendor_import",
+      "source": "import spconv.pytorch as spconv",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 12,
+      "rule": "vendor_import",
+      "source": "from spconv.pytorch import SparseModule",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 14,
+      "rule": "vendor_import",
+      "source": "import spconv as spconv",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 15,
+      "rule": "vendor_import",
+      "source": "from spconv import SparseModule",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 67,
+      "rule": "sparse_tensor_access",
+      "source": "out = replace_feature(out, self.bn1(out.features))",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 68,
+      "rule": "sparse_tensor_access",
+      "source": "out = replace_feature(out, self.relu(out.features))",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 70,
+      "rule": "sparse_tensor_access",
+      "source": "out = replace_feature(out, self.bn2(out.features))",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 73,
+      "rule": "sparse_tensor_access",
+      "source": "out = replace_feature(out, out.features + identity.features)",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 74,
+      "rule": "sparse_tensor_access",
+      "source": "out = replace_feature(out, self.relu(out.features))",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 358,
+      "rule": "sparse_tensor_access",
+      "source": "return out.replace_feature(new_features)",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 360,
+      "rule": "sparse_tensor_access",
+      "source": "out.features = new_features",
+      "route": "accelerator.sparse tensor operations",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 222,
+      "rule": "hardware_runtime",
+      "source": "torch.backends.cudnn.enabled = False",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 224,
+      "rule": "hardware_runtime",
+      "source": "torch.backends.cudnn.enabled = True",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_post_process.py",
+      "line": 52,
+      "rule": "device_transfer",
+      "source": "self.anchors = [x.cuda() for x in anchors]",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_post_process.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "line": 139,
+      "rule": "device_transfer",
+      "source": "anchor_to_gt_argmax = torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=1)).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "line": 143,
+      "rule": "device_transfer",
+      "source": "gt_to_anchor_argmax = torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=0)).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+      "line": 30,
+      "rule": "device_transfer",
+      "source": "post_center_limit_range = torch.tensor(self.post_center_limit_range).cuda().float()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "line": 38,
+      "rule": "device_transfer",
+      "source": "x_shifts = torch.arange(",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "line": 41,
+      "rule": "device_transfer",
+      "source": "y_shifts = torch.arange(",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "line": 44,
+      "rule": "device_transfer",
+      "source": "x_shifts = torch.arange(",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "line": 47,
+      "rule": "device_transfer",
+      "source": "y_shifts = torch.arange(",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 27,
+      "rule": "device_transfer",
+      "source": "batch[key] = torch.from_numpy(val).int().cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/runner/point_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 29,
+      "rule": "device_transfer",
+      "source": "batch[key] = torch.from_numpy(val).float().cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/det_3d/runner/point_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 31,
+      "rule": "hardware_literal",
+      "source": "if batch['points'].device != torch.device('cuda') or batch['points'].dtype != model_dtype:",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/det_3d/runner/point_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 32,
+      "rule": "hardware_literal",
+      "source": "batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/det_3d/runner/point_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 28,
+      "rule": "device_transfer",
+      "source": "loss = torch.Tensor([0]).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/distill/losses/kl_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 31,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/distill/runner/kd_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 32,
+      "rule": "device_transfer",
+      "source": "self.model = self.model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/distill/runner/kd_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 34,
+      "rule": "device_transfer",
+      "source": "self.teacher_models[tmk] = self.teacher_models[tmk].cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/distill/runner/kd_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 130,
+      "rule": "hardware_runtime",
+      "source": "with torch.cuda.amp.autocast(enabled=True):",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/tasks/distill/runner/kd_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 149,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().train()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/distill/runner/kd_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/multitask/runner/multitask_runner.py",
+      "line": 195,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().train()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/multitask/runner/multitask_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 330,
+      "rule": "device_transfer",
+      "source": "forward_model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/base_controller.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 342,
+      "rule": "hardcoded_device",
+      "source": "if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:",
+      "route": "selected backend device",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/base_controller.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 342,
+      "rule": "hardware_literal",
+      "source": "if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/base_controller.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 343,
+      "rule": "hardcoded_device",
+      "source": "batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)",
+      "route": "selected backend device",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/base_controller.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 343,
+      "rule": "hardware_literal",
+      "source": "batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/base_controller.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/utils/misc.py",
+      "line": 10,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/nas/bignas/controller/utils/misc.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "line": 17,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 9,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 475,
+      "rule": "device_predicate",
+      "source": "if not input.is_cuda:",
+      "route": "get_accelerator().is_accelerator_tensor",
+      "implementation_or_facade": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 510,
+      "rule": "collective_bypass",
+      "source": "world_size = torch.distributed.get_world_size(process_group)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/search_space/base_bignas_searchspace.py",
+      "line": 22,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/nas/bignas/models/search_space/base_bignas_searchspace.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 46,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as linklink",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 71,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 74,
+      "rule": "device_transfer",
+      "source": "self.teacher_models[tmk] = self.teacher_models[tmk].cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 129,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().train()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/nas/bignas/utils/saver_helper.py",
+      "line": 78,
+      "rule": "device_transfer",
+      "source": "subnet = self.get_subnet_weight(super_model.cuda(), self.save_cfg)",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/nas/bignas/utils/saver_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 5,
+      "rule": "vendor_import",
+      "source": "from mqbench.utils.state import enable_quantization",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/deploy/quant_deploy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 32,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().eval()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/deploy/quant_deploy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 43,
+      "rule": "vendor_import",
+      "source": "from mqbench.convert_deploy import convert_deploy",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/deploy/quant_deploy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 45,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().eval()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/deploy/quant_deploy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 8,
+      "rule": "vendor_import",
+      "source": "from mqbench.utils.state import enable_quantization, enable_calibration_woquantization",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 54,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 55,
+      "rule": "device_transfer",
+      "source": "self.model = self.model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 84,
+      "rule": "vendor_import",
+      "source": "from mqbench.prepare_by_platform import BackendType",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 98,
+      "rule": "vendor_import",
+      "source": "from mqbench.nn.modules import FrozenBatchNorm2d",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 106,
+      "rule": "vendor_import",
+      "source": "from mqbench.nn.intrinsic.qat.modules import ConvFreezebn2d, ConvFreezebnReLU2d",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 117,
+      "rule": "vendor_import",
+      "source": "from mqbench.prepare_by_platform import prepare_by_platform",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 118,
+      "rule": "vendor_import",
+      "source": "from mqbench.fake_quantize.quantize_base import FakeQuantizeBase",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 132,
+      "rule": "device_transfer",
+      "source": "self.model.train().cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 152,
+      "rule": "device_transfer",
+      "source": "self.model.train().cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 172,
+      "rule": "device_transfer",
+      "source": "self.model.eval().cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 277,
+      "rule": "vendor_import",
+      "source": "from mqbench.advanced_ptq import ptq_reconstruction",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/quant/runner/quant_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 78,
+      "rule": "distributed_wrapper_bypass",
+      "source": "self.model = DDP(self.model, device_ids=[env.local_rank], broadcast_buffers=False)",
+      "route": "up.accelerator.distributed.wrap_model",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 89,
+      "rule": "device_transfer",
+      "source": "self.model.cuda().train()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 126,
+      "rule": "hardware_literal",
+      "source": "if self.device == 'cuda':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 127,
+      "rule": "device_transfer",
+      "source": "self.model = self.model.cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 135,
+      "rule": "vendor_import",
+      "source": "from msbench.nn.modules import FrozenBatchNorm2d",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 158,
+      "rule": "vendor_import",
+      "source": "from msbench.scheduler import build_sparse_scheduler",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/tasks/sparse/runner/sparse_runner.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 22,
+      "rule": "device_transfer",
+      "source": "label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 39,
+      "rule": "device_transfer",
+      "source": "label_1 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 40,
+      "rule": "device_transfer",
+      "source": "label_2 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 60,
+      "rule": "device_transfer",
+      "source": "label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 94,
+      "rule": "device_transfer",
+      "source": "idx_shuffle = torch.randperm(batch_size_all).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/tasks/ssl/wrapper/moco.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 16,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 30,
+      "rule": "collective_bypass",
+      "source": "return dist.all_reduce(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 41,
+      "rule": "collective_bypass",
+      "source": "return dist.broadcast(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 52,
+      "rule": "collective_bypass",
+      "source": "return dist.all_gather(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 63,
+      "rule": "collective_bypass",
+      "source": "return dist.gather(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 69,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_available():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 71,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_initialized():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 73,
+      "rule": "collective_bypass",
+      "source": "return dist.get_rank(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 85,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_available():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 87,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_initialized():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 89,
+      "rule": "collective_bypass",
+      "source": "return dist.get_world_size(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 117,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_available():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 119,
+      "rule": "collective_bypass",
+      "source": "if not dist.is_initialized():",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 121,
+      "rule": "collective_bypass",
+      "source": "world_size = dist.get_world_size()",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 124,
+      "rule": "collective_bypass",
+      "source": "dist.barrier(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 170,
+      "rule": "hardware_runtime",
+      "source": "return rank % torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 177,
+      "rule": "collective_bypass",
+      "source": "return dist.all_reduce(*args, **kwargs)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 275,
+      "rule": "hardware_literal",
+      "source": "def dist_init_slurm(backend='nccl', port='13333'):",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 293,
+      "rule": "hardware_literal",
+      "source": "if backend == 'nccl':",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 294,
+      "rule": "collective_bypass",
+      "source": "dist.init_process_group(backend='nccl')",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 294,
+      "rule": "hardware_literal",
+      "source": "dist.init_process_group(backend='nccl')",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 296,
+      "rule": "collective_bypass",
+      "source": "dist.init_process_group(backend='gloo', rank=proc_id, world_size=ntasks)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 297,
+      "rule": "collective_bypass",
+      "source": "rank = dist.get_rank()",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 298,
+      "rule": "hardware_runtime",
+      "source": "device = rank % torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 299,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 302,
+      "rule": "hardware_literal",
+      "source": "def dist_init_mpi(backend='nccl',",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 311,
+      "rule": "hardware_literal",
+      "source": "assert backend in ['nccl', 'gloo'], backend",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 328,
+      "rule": "collective_bypass",
+      "source": "dist.init_process_group(backend=backend, rank=rank, world_size=world_size)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 329,
+      "rule": "collective_bypass",
+      "source": "rank = dist.get_rank()",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 330,
+      "rule": "hardware_runtime",
+      "source": "device = rank % torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 331,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 336,
+      "rule": "hardware_runtime",
+      "source": "device = get_rank() % torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 337,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 341,
+      "rule": "hardware_runtime",
+      "source": "device = get_rank() % torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 342,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(device)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 347,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(link.get_local_rank())",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 369,
+      "rule": "collective_bypass",
+      "source": "if dist.get_backend() == \"nccl\":",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 369,
+      "rule": "hardware_literal",
+      "source": "if dist.get_backend() == \"nccl\":",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 370,
+      "rule": "collective_bypass",
+      "source": "return dist.new_group(backend=\"gloo\")",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 374,
+      "rule": "hardware_literal",
+      "source": "if link.get_backend() == \"nccl\":",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 384,
+      "rule": "collective_bypass",
+      "source": "backend = dist.get_backend(group)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 385,
+      "rule": "hardware_literal",
+      "source": "assert backend in [\"gloo\", \"nccl\"]",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 386,
+      "rule": "hardware_literal",
+      "source": "device = torch.device(\"cpu\" if backend == \"gloo\" else \"cuda\")",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 535,
+      "rule": "collective_bypass",
+      "source": "dist.destroy_process_group()",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 544,
+      "rule": "hardware_literal",
+      "source": "def pyobj2tensor(pyobj, device=\"cuda\"):",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 665,
+      "rule": "device_transfer",
+      "source": "serialized_tensor = _serialize_to_tensor(obj, group=None).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 666,
+      "rule": "device_transfer",
+      "source": "numel = torch.IntTensor([serialized_tensor.numel()]).cuda()",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/utils/env/dist_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 33,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.manual_seed(seed ** 4)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/gene_env.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 39,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.manual_seed(seed + seed_add)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/gene_env.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 42,
+      "rule": "hardware_literal",
+      "source": "def to_device(input, device=\"cuda\", dtype=None):",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/gene_env.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 24,
+      "rule": "hardware_literal",
+      "source": "backend=\"nccl\",",
+      "route": "backend configuration or collective device policy",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 83,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.is_available()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 88,
+      "rule": "collective_bypass",
+      "source": "dist.init_process_group(",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 106,
+      "rule": "collective_bypass",
+      "source": "pg = dist.new_group(ranks_on_i)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 115,
+      "rule": "hardware_runtime",
+      "source": "assert num_gpus_per_machine <= torch.cuda.device_count()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 116,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_device(local_rank)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/env/launch.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 14,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.synchronize()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/computation_calculator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 19,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.synchronize()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/computation_calculator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 101,
+      "rule": "hardware_runtime",
+      "source": "m.pre_memory = torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/computation_calculator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 105,
+      "rule": "hardware_runtime",
+      "source": "m.total_memory = torch.cuda.memory_allocated() - m.pre_memory",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/computation_calculator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 106,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.empty_cache()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/computation_calculator.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 22,
+      "rule": "hardware_runtime",
+      "source": "torch_cuda_rng_state = torch.cuda.get_rng_state()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 56,
+      "rule": "hardware_runtime",
+      "source": "prev_allocated = torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 57,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.synchronize()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 60,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.synchronize()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 61,
+      "rule": "hardware_runtime",
+      "source": "data = time.time() - prev_time, torch.cuda.memory_allocated() - prev_allocated",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 176,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.set_rng_state(torch_cuda_rng_state)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 387,
+      "rule": "hardware_runtime",
+      "source": "self.checkpoint_reduce_memory = -torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 403,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.empty_cache()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 404,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.memory.reset_peak_memory_stats()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 418,
+      "rule": "hardware_runtime",
+      "source": "logger.info(f\"current memory usage: {torch.cuda.memory_allocated() / (1024 ** 2):.2f} MB\")",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 439,
+      "rule": "hardware_runtime",
+      "source": "available_memory = self.max_memory - torch.cuda.memory_allocated()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 467,
+      "rule": "hardware_runtime",
+      "source": "self.collect_model_memory(torch.cuda.max_memory_allocated() + self.checkpoint_reduce_memory)",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/dc_manager.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/fp16_helper.py",
+      "line": 52,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as linklink",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/general/fp16_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 278,
+      "rule": "hardware_runtime",
+      "source": "memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0,",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/hook_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 310,
+      "rule": "hardware_runtime",
+      "source": "memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0,",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/hook_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 947,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.empty_cache()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/hook_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 948,
+      "rule": "hardware_runtime",
+      "source": "torch.cuda.memory.reset_peak_memory_stats()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/hook_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/saver_helper.py",
+      "line": 92,
+      "rule": "hardware_runtime",
+      "source": "device = torch.cuda.current_device()",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/general/saver_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/general/saver_helper.py",
+      "line": 94,
+      "rule": "device_transfer",
+      "source": "ckpt_dict = PetrelHelper.load(ckpt_path, map_location=lambda storage, loc: storage.cuda(device))",
+      "route": "device-neutral .to(get_accelerator().device)",
+      "implementation_or_facade": "up/utils/general/saver_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/accuracy.py",
+      "line": 15,
+      "rule": "hardware_runtime",
+      "source": "return [torch.cuda.FloatTensor([1]).zero_()]",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/model/accuracy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/accuracy.py",
+      "line": 47,
+      "rule": "hardware_runtime",
+      "source": "return [torch.cuda.FloatTensor([1]).zero_()]",
+      "route": "get_accelerator runtime/AMP/resource methods",
+      "implementation_or_facade": "up/utils/model/accuracy.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 11,
+      "rule": "vendor_import",
+      "source": "import spring.linklink as link",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/model/bn_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 79,
+      "rule": "collective_bypass",
+      "source": "groups.append(torch.distributed.new_group(rank_list[i]))",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/model/bn_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 230,
+      "rule": "collective_bypass",
+      "source": "world_size = torch.distributed.get_world_size(process_group)",
+      "route": "up.accelerator.distributed",
+      "implementation_or_facade": "up/utils/model/bn_helper.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 34,
+      "rule": "vendor_import",
+      "source": "from mqbench.nn.modules import FrozenBatchNorm2d as MqbenchFrozenBatchNorm2d",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/model/normalize.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 41,
+      "rule": "vendor_import",
+      "source": "from msbench.nn.modules import FrozenBatchNorm2d as MsbenchFrozenBatchNorm2d",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/model/normalize.py",
+      "status": "isolated"
+    },
+    {
+      "path": "up/utils/model/optimizer_helper.py",
+      "line": 136,
+      "rule": "vendor_import",
+      "source": "from spring import linklink",
+      "route": "accelerator layers, sparse interface or backend provider",
+      "implementation_or_facade": "up/utils/model/optimizer_helper.py",
+      "status": "isolated"
+    }
+  ],
+  "native_operation_families": {
+    "cross_focal_loss": [
+      "up/extensions/csrc/cross_focal_loss/cross_focal_loss.h",
+      "up/extensions/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp",
+      "up/extensions/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu"
+    ],
+    "deform_conv": [
+      "up/extensions/csrc/deform_conv/deform_conv.cpp",
+      "up/extensions/csrc/deform_conv/deform_conv_cuda.cpp",
+      "up/extensions/csrc/deform_conv/deform_conv_cuda_kernel.cu",
+      "up/extensions/csrc/deform_conv/deformable_conv.h"
+    ],
+    "focal_loss": [
+      "up/extensions/csrc/focal_loss/focal_loss.h",
+      "up/extensions/csrc/focal_loss/focal_loss_cuda.cpp",
+      "up/extensions/csrc/focal_loss/focal_loss_sigmoid_kernel.cu",
+      "up/extensions/csrc/focal_loss/focal_loss_softmax_kernel.cu"
+    ],
+    "iou3d_nms": [
+      "up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp",
+      "up/extensions/csrc/iou3d_nms/iou3d_cpu.h",
+      "up/extensions/csrc/iou3d_nms/iou3d_nms.cpp",
+      "up/extensions/csrc/iou3d_nms/iou3d_nms.h",
+      "up/extensions/csrc/iou3d_nms/iou3d_nms_api.cpp",
+      "up/extensions/csrc/iou3d_nms/iou3d_nms_kernel.cu"
+    ],
+    "iou_overlap": [
+      "up/extensions/csrc/iou_overlap/iou_overlap.cpp",
+      "up/extensions/csrc/iou_overlap/iou_overlap.h",
+      "up/extensions/csrc/iou_overlap/iou_overlap_kernel.cu"
+    ],
+    "nms": [
+      "up/extensions/csrc/nms/nms.h",
+      "up/extensions/csrc/nms/nms_cuda.cpp",
+      "up/extensions/csrc/nms/nms_kernel.cu"
+    ],
+    "psroi_align": [
+      "up/extensions/csrc/psroi_align/psroi_align.h",
+      "up/extensions/csrc/psroi_align/psroi_align_cuda.cpp",
+      "up/extensions/csrc/psroi_align/psroi_align_kernel.cu"
+    ],
+    "psroi_pooling": [
+      "up/extensions/csrc/psroi_pooling/psroi_pooling.cpp",
+      "up/extensions/csrc/psroi_pooling/psroi_pooling.h",
+      "up/extensions/csrc/psroi_pooling/psroi_pooling_cuda.cpp",
+      "up/extensions/csrc/psroi_pooling/psroi_pooling_kernel.cu"
+    ],
+    "pybind.cpp": [
+      "up/extensions/csrc/pybind.cpp"
+    ],
+    "roi_align": [
+      "up/extensions/csrc/roi_align/roi_align.cpp",
+      "up/extensions/csrc/roi_align/roi_align.h",
+      "up/extensions/csrc/roi_align/roi_align_cuda.cpp",
+      "up/extensions/csrc/roi_align/roi_align_kernel.cu"
+    ],
+    "roiaware_pool3d": [
+      "up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp",
+      "up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.h",
+      "up/extensions/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu"
+    ],
+    "roipoint_pool3d": [
+      "up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp",
+      "up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.h",
+      "up/extensions/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu"
+    ],
+    "softer_nms": [
+      "up/extensions/csrc/softer_nms/softer_nms.cpp",
+      "up/extensions/csrc/softer_nms/softer_nms.h"
+    ]
+  },
+  "native_loading_policy": "only the selected backend may load its own binary",
+  "compatibility_entries": {
+    "ModelHelper.cuda": "legacy name forwards to selected backend",
+    "up.extensions": "legacy modules and Function.apply forward to ops",
+    "matcher mode='cuda'": "legacy strategy label; no hardware binding",
+    "CPU export stubs": "export-only, never registered as CPU numerical implementations"
+  }
+}

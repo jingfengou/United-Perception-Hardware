@@ -6,17 +6,8 @@ from up.tasks.det_3d.models.backbones_3d.vfe.mean_vfe import build_vfe
 from up.tasks.det_3d.models.backbones_3d.map_to_bev import build_map_to_bev
 from up.utils.general.log_helper import default_logger as logger
 from typing import Set
-try:
-    try:
-        import spconv.pytorch as spconv
-        from spconv.pytorch import SparseModule
-    except BaseException:
-        import spconv as spconv
-        from spconv import SparseModule
-except Exception as err:  # ugly code, fake spconv module to avoid error
-    logger.warning(f"import error {err}; If you need spconv, you should install spconv !!!. Or just ignore this error")
-    spconv = None
-    SparseModule = nn.Module
+from up.accelerator import sparse as spconv
+from up.accelerator.sparse import SparseModule
 
 __all__ = ["VoxelResBackBone8x", "VoxelBackBone8x"]
 
@@ -64,14 +55,14 @@ class SparseBasicBlock(SparseModule):
     def forward(self, x):
         identity = x
         out = self.conv1(x)
-        out = replace_feature(out, self.bn1(out.features))
-        out = replace_feature(out, self.relu(out.features))
+        out = replace_feature(out, self.bn1(spconv.features(out)))
+        out = replace_feature(out, self.relu(spconv.features(out)))
         out = self.conv2(out)
-        out = replace_feature(out, self.bn2(out.features))
+        out = replace_feature(out, self.bn2(spconv.features(out)))
         if self.downsample is not None:
             identity = self.downsample(x)
-        out = replace_feature(out, out.features + identity.features)
-        out = replace_feature(out, self.relu(out.features))
+        out = replace_feature(out, spconv.features(out) + spconv.features(identity))
+        out = replace_feature(out, self.relu(spconv.features(out)))
         return out
 
 
@@ -343,7 +334,7 @@ def find_all_spconv_keys(model: nn.Module, prefix="") -> Set[str]:
     for name, child in model.named_children():
         new_prefix = f"{prefix}.{name}" if prefix != "" else name
 
-        if isinstance(child, spconv.conv.SparseConvolution):
+        if spconv.is_sparse_convolution(child):
             new_prefix = f"{new_prefix}.weight"
             found_keys.add(new_prefix)
 
@@ -353,9 +344,4 @@ def find_all_spconv_keys(model: nn.Module, prefix="") -> Set[str]:
 
 
 def replace_feature(out, new_features):
-    if "replace_feature" in out.__dir__():
-        # spconv 2.x behaviour
-        return out.replace_feature(new_features)
-    else:
-        out.features = new_features
-        return out
+    return spconv.replace_feature(out, new_features)

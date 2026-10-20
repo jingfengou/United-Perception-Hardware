@@ -1,10 +1,15 @@
+from up.accelerator import ops
 import torch
 from torch.autograd import Function
-from up.utils.general.log_helper import default_logger as logger
-from ..ext import psroi_align
+import logging
+logger = logging.getLogger("global")
 
 
-class PSRoIAlignFunction(Function):
+class PSRoIAlignFunction:
+    @staticmethod
+    def apply(*args, **kwargs):
+        return ops.psroi_align(*args, **kwargs)
+
     @staticmethod
     def symbolic(g, features, rois, group_size, spatial_scale, output_dim, sampling_ratio):
         return g.op(
@@ -16,46 +21,6 @@ class PSRoIAlignFunction(Function):
             spatial_scale_f=spatial_scale,
             sample_num_i=sampling_ratio)
 
-    @staticmethod
-    def forward(self, features, rois, group_size, spatial_scale, output_dim, sampling_ratio):
-        self.save_for_backward(features, rois)
-        self.group_size = group_size
-        self.spatial_scale = spatial_scale
-        self.output_dim = output_dim
-        self.sampling_ratio = sampling_ratio
-
-        batch_size, num_channels, data_height, data_width = features.size()
-        num_rois = rois.shape[0]
-        output = features.new(num_rois, self.output_dim, self.group_size, self.group_size).zero_()
-        mapping_channel = torch.cuda.IntTensor(
-            num_rois, self.output_dim, self.group_size, self.group_size).zero_()
-
-        forward_fn = psroi_align.forward_cuda
-        if not features.is_cuda:
-            logger.warning(
-                '---CPU version of PSRoIAligning is a dummpy function, which is used to support tocaffe')
-            forward_fn = psroi_align.forward_cpu
-
-        forward_fn(
-            self.group_size, self.group_size, self.output_dim,
-            self.spatial_scale, self.sampling_ratio, features, rois, output, mapping_channel)
-
-        self.mapping_channel = mapping_channel
-        return output
-
-    @staticmethod
-    def backward(self, grad_output):
-        grad_output = grad_output.data
-
-        feature, rois = self.saved_tensors
-        assert grad_output.is_cuda
-
-        batch_size, num_channels, data_height, data_width = feature.shape
-        grad_input = grad_output.new(batch_size, num_channels, data_height, data_width).zero_()
-        psroi_align.backward_cuda(
-            self.group_size, self.group_size, self.output_dim,
-            self.spatial_scale, self.sampling_ratio, grad_output, rois, grad_input, self.mapping_channel)
-        return grad_input, None, None, None, None, None
 
 
 class PSRoIAlign(torch.nn.Module):

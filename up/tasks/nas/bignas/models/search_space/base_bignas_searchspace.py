@@ -18,10 +18,7 @@ from up.tasks.nas.bignas.utils.sample import sample_search_settings
 from up.tasks.nas.bignas.utils.registry_factory import STATIC_BLOCKS_REGISTRY
 from up.utils.general.log_helper import default_logger as logger
 
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 
 class BignasSearchSpace(nn.Module):

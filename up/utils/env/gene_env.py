@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import random
 import numpy as np
 import uuid
@@ -30,17 +31,19 @@ def set_random_seed(seed, rank_init=False):
         random.seed(seed)
         np.random.seed(seed ** 2)
         torch.manual_seed(seed ** 3)
-        torch.cuda.manual_seed(seed ** 4)
+        get_accelerator().manual_seed(seed ** 4)
     else:
         seed_add = env.rank
         random.seed(seed + seed_add)
         np.random.seed(seed + seed_add)
         torch.manual_seed(seed + seed_add)
-        torch.cuda.manual_seed(seed + seed_add)
+        get_accelerator().manual_seed(seed + seed_add)
 
 
-def to_device(input, device="cuda", dtype=None):
+def to_device(input, device=None, dtype=None):
     """Transfer data between devidces"""
+    if device is None:
+        device = get_accelerator().device
 
     if 'image' in input:
         input['image'] = input['image'].to(dtype=dtype)

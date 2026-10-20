@@ -1,0 +1,8 @@
+/workspace/up-hardware-routing-20261020/changed/up/accelerator/backends/nvidia_ops/psroi_align.py:36: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/tensor/python_tensor.cpp:78.)
+  mapping_channel = torch.cuda.IntTensor(
+/usr/local/lib/python3.12/dist-packages/numba_cuda/numba/cuda/dispatcher.py:605: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+{
+  "cases": 32,
+  "errors": {}
+}

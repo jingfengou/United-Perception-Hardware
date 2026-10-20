@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 from up.runner.base_runner import BaseRunner
 from up.utils.general.registry_factory import MODEL_HELPER_REGISTRY, RUNNER_REGISTRY, MIMIC_REGISTRY
@@ -28,10 +29,10 @@ class KDRunner(BaseRunner):
         logger.info(f"The student model mimics from {str(self.teacher_nums)} teacher networks \
             which are {','.join(self.teacher_models.keys())}.")
 
-        if self.device == 'cuda':
-            self.model = self.model.cuda()
+        if self.device != 'cpu':
+            self.model = self.model.to(get_accelerator().device)
             for tmk in self.teacher_models:
-                self.teacher_models[tmk] = self.teacher_models[tmk].cuda()
+                self.teacher_models[tmk] = self.teacher_models[tmk].to(get_accelerator().device)
         if self.config['runtime']['special_bn_init']:
             self.special_bn_init()
         if self.fp16 and self.backend == 'linklink':
@@ -127,7 +128,7 @@ class KDRunner(BaseRunner):
 
     def forward(self, batch, return_output=False):
         if self.backend == 'dist' and self.fp16:
-            with torch.cuda.amp.autocast(enabled=True):
+            with get_accelerator().autocast(enabled=True):
                 output = self.forward_model(batch)
         else:
             output = self.forward_model(batch)
@@ -146,7 +147,7 @@ class KDRunner(BaseRunner):
         return loss, output
 
     def train(self):
-        self.model.cuda().train()
+        self.model.to(get_accelerator().device).train()
         for iter_idx in range(self.start_iter, self.max_iter):
             for key in self.mimic_configs.keys():
                 self.mimic_jobs[key].prepare()

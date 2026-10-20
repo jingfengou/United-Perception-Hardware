@@ -219,9 +219,9 @@ class PFNLayer(nn.Module):
                 x = torch.cat(part_linear_out, dim=0)
             else:
                 x = self.linear(inputs)
-            torch.backends.cudnn.enabled = False
-            x = self.norm(x.permute(0, 2, 1)).permute(0, 2, 1) if self.use_norm else x
-            torch.backends.cudnn.enabled = True
+            from up.accelerator import get_accelerator
+            with get_accelerator().convolution_flags(enabled=False):
+                x = self.norm(x.permute(0, 2, 1)).permute(0, 2, 1) if self.use_norm else x
 
         x = F.relu(x)
         if self.tocaffe:

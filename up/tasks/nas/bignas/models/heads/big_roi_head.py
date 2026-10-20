@@ -13,10 +13,7 @@ from up.tasks.nas.bignas.models.ops.normal_blocks import ConvBlock
 # from up.tasks.nas.bignas.models.ops.dynamic_utils import build_norm_layer
 from up.utils.model.normalize import build_norm_layer
 
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 
 big_roi_head_kwargs = {

@@ -23,3 +23,8 @@ build
 .vscode/
 *_build
 .env
+*.egg-info/
+dist/
+*.whl
+.pytest_cache/
+!docs/hardware/validation/*.log

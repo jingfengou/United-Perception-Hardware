@@ -164,8 +164,8 @@ def points_to_voxel(points,
 
 
 def bound_points_jit(points, upper_bound, lower_bound):
-    # to use nopython=True, np.bool is not supported. so you need
-    # convert result to np.bool after this function.
+    # to use nopython=True, bool is not supported. so you need
+    # convert result to bool after this function.
     N = points.shape[0]
     ndim = points.shape[1]
     keep_indices = np.zeros((N, ), dtype=np.int32)

@@ -295,7 +295,7 @@ class HighResolutionNet(nn.Module):
         self.stage4, pre_stage_channels = self._make_stage(
             self.stage4_cfg, num_channels, multi_scale_output=True, normalize=normalize)
 
-        # last_inp_channels = np.int(np.sum(pre_stage_channels))
+        # last_inp_channels = int(np.sum(pre_stage_channels))
         self.pre_stage_channels = pre_stage_channels
 
     def _make_transition_layer(

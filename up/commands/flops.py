@@ -1,4 +1,5 @@
 from __future__ import division
+from up.accelerator import get_accelerator
 
 # Standard Library
 import os
@@ -49,6 +50,8 @@ def main(args):
     # Load, merge and upgrade cfg
     assert (os.path.exists(args.config))
     cfg = load_yaml(args.config, args.cfg_type)
+    from up.accelerator import configure_accelerator
+    configure_accelerator(cfg)
 
     send_info(cfg, func='flops')
     # Just for compatiable with older setting
@@ -64,7 +67,7 @@ def main(args):
     model_helper_type = cfg['runtime']['model_helper']['type']
     model_helper_kwargs = cfg['runtime']['model_helper']['kwargs']
     model_helper_ins = MODEL_HELPER_REGISTRY[model_helper_type]
-    model = model_helper_ins(cfg['net'], **model_helper_kwargs).cuda()
+    model = model_helper_ins(cfg['net'], **model_helper_kwargs).to(get_accelerator().device)
     logger.info('build model done')
 
     input_shape = [int(x) for x in args.input_size.split(',')]

@@ -1,9 +1,10 @@
+from up.accelerator import get_accelerator
 import copy
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.distributed as dist
+from up.accelerator import distributed as dist
 
 from up.utils.env.dist_helper import allreduce, env
 from up.utils.general.registry_factory import MODULE_PROCESS_REGISTRY
@@ -169,7 +170,7 @@ class OnenetPostProcess(nn.Module):
             else:
                 l1_loss = pos_loc_preds.sum()
         else:
-            l1_loss = torch.tensor(0.0).cuda()
+            l1_loss = torch.tensor(0.0).to(get_accelerator().device)
 
         acc = self.get_acc(pos_cls_preds, pos_cls_targets)
 

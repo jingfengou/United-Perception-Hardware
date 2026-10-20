@@ -1,4 +1,5 @@
 import torch.nn as nn
+from up.accelerator import sparse
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
 
 
@@ -18,7 +19,7 @@ class HeightCompression(nn.Module):
 
         """
         encoded_spconv_tensor = feature_dict['encoded_spconv_tensor']
-        spatial_features = encoded_spconv_tensor.dense()
+        spatial_features = sparse.to_dense(encoded_spconv_tensor)
         N, C, D, H, W = spatial_features.shape
         spatial_features = spatial_features.view(N, C * D, H, W)
         feature_dict.update({'spatial_features': spatial_features})

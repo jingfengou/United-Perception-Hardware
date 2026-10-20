@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 from torch.nn.modules.loss import _Loss
 from up.utils.env.dist_helper import env
@@ -19,7 +20,7 @@ class MoCoLoss(_Loss):
         if 'gt' in input:
             label = input['gt']
         else:
-            label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()
+            label = torch.zeros(logits.shape[0], dtype=torch.long).to(get_accelerator().device)
         loss = self.ce_loss(logits, label)
         return loss * self.loss_weight
 
@@ -36,8 +37,8 @@ class ContrastiveLoss(_Loss):
         rank = env.rank
         logits = input['logits']
         N = logits.shape[1]
-        label_1 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()
-        label_2 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()
+        label_1 = (torch.arange(N, dtype=torch.long) + N * rank).to(get_accelerator().device)
+        label_2 = (torch.arange(N, dtype=torch.long) + N * rank).to(get_accelerator().device)
 
         logit_1, logit_2 = logits[0, :], logits[1, :]
 
@@ -57,7 +58,7 @@ class SimCLRLoss(_Loss):
 
     def forward(self, input):
         logits = input['logits']
-        label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()
+        label = torch.zeros(logits.shape[0], dtype=torch.long).to(get_accelerator().device)
         loss = self.ce_loss(logits, label)
         return loss * self.loss_weight
 

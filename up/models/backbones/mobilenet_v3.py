@@ -5,10 +5,7 @@ import math
 import torch.nn as nn
 import torch.nn.functional as F
 
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 # Import from pod
 from up.utils.model.initializer import initialize_from_cfg

@@ -1,3 +1,4 @@
+from up.accelerator import ops
 # Standard Library
 import math
 
@@ -9,13 +10,16 @@ from torch.nn.modules.module import Module
 from torch.nn.modules.utils import _pair
 
 # Import from up
-from up.utils.general.log_helper import default_logger as logger
+import logging
+logger = logging.getLogger("global")
 
 # Import from local
-from ..ext import deform_conv_v1
 
 
-class DeformableConvFunction(Function):
+class DeformableConvFunction:
+    @staticmethod
+    def apply(*args, **kwargs):
+        return ops.deformable_conv(*args, **kwargs)
 
     @staticmethod
     def symbolic(g, input, offset, weight, out_channels,
@@ -26,75 +30,6 @@ class DeformableConvFunction(Function):
         return g.op("DeformConv", input, offset, weight, out_channels_i=out_channels,
                     kernel_size_i=kernel_size, stride_i=stride, pad_i=pad, dilations_i=dilations,
                     groups_i=groups, deformable_groups_i=deformable_groups)
-
-    @staticmethod
-    def forward(self, input, offset, weight, out_channels,
-                kernel_size, stride, pad, dilations, groups, deformable_groups):
-        if input is not None and input.dim() != 4:
-            raise ValueError("Expected 4D tensor as input, got {}D tensor instead.".format(input.dim()))
-
-        self.save_for_backward(input, offset, weight)
-
-        self.stride = stride
-        self.padding = pad
-        self.dilation = dilations
-        self.groups = groups
-        self.deformable_groups = deformable_groups
-
-        output = input.new(*DeformableConvFunction._output_size(
-            input, weight, self.stride, self.padding, self.dilation))
-
-        self.bufs_ = [
-            input.new(input.size(1) * weight.size(3) * weight.size(2), output.size(2), output.size(3)).zero_(),
-            input.new(output.size(2), output.size(3)).fill_(1)
-        ]  # columns, ones
-
-        forward_fn = deform_conv_v1.forward_cuda
-        if not input.is_cuda:
-            logger.warning(
-                '---CPU version of DEFORMABLE CONV V1 is a dummpy function, which is used to support tocaffe')
-            forward_fn = deform_conv_v1.forward_cpu
-
-        forward_fn(
-            input, weight, offset, output,
-            self.bufs_[0], self.bufs_[1],
-            weight.size(2), weight.size(3),
-            self.stride[0], self.stride[1],
-            self.padding[0], self.padding[1],
-            self.dilation[0], self.dilation[1],
-            self.groups, self.deformable_groups)
-        return output
-
-    @staticmethod
-    def backward(self, grad_output):
-        input, offset, weight = self.saved_tensors
-
-        grad_input = None
-        grad_offset = None
-        grad_weight = None
-
-        if not grad_output.is_cuda:
-            raise NotImplementedError
-        else:
-            grad_output = grad_output.contiguous()
-            if self.needs_input_grad[0] or self.needs_input_grad[1]:
-                grad_input = input.new(*input.size()).zero_()
-                grad_offset = offset.new(*offset.size()).zero_()
-
-                deform_conv_v1.backward_input_cuda(
-                    input, offset, grad_output, grad_input, grad_offset, weight, self.bufs_[0],
-                    weight.size(2), weight.size(3), self.stride[0], self.stride[1],
-                    self.padding[0], self.padding[1], self.dilation[0],
-                    self.dilation[1], self.groups, self.deformable_groups)
-
-            if self.needs_input_grad[2]:
-                grad_weight = weight.new(*weight.size()).zero_()
-                deform_conv_v1.backward_parameters_cuda(
-                    input, offset, grad_output, grad_weight, self.bufs_[0], self.bufs_[1],
-                    weight.size(2), weight.size(3), self.stride[0], self.stride[1],
-                    self.padding[0], self.padding[1], self.dilation[0],
-                    self.dilation[1], self.groups, self.deformable_groups, 1)
-        return grad_input, grad_offset, grad_weight, None, None, None, None, None, None, None
 
     @staticmethod
     def _output_size(input, weight, stride, padding, dilation):
@@ -112,6 +47,7 @@ class DeformableConvFunction(Function):
             raise ValueError("convolution input is too small (output would be {})".format(
                 'x'.join(map(str, output_size))))
         return output_size
+
 
 
 class DeformableConv(Module):

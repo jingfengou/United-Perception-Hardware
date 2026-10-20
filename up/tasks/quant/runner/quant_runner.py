@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 from up.runner.base_runner import BaseRunner
 from up.utils.general.registry_factory import MODEL_HELPER_REGISTRY, RUNNER_REGISTRY
 from up.utils.env.gene_env import get_env_info
@@ -5,7 +6,9 @@ from up.utils.env.dist_helper import env
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.general.cfg_helper import format_cfg
 from up.utils.env.dist_helper import get_world_size, allreduce
-from mqbench.utils.state import enable_quantization, enable_calibration_woquantization
+from up.accelerator.layers import optional_symbol
+enable_quantization = optional_symbol('quantization', 'utils.state', 'enable_quantization')
+enable_calibration_woquantization = optional_symbol('quantization', 'utils.state', 'enable_calibration_woquantization')
 
 __all__ = ['QuantRunner']
 
@@ -51,8 +54,8 @@ class QuantRunner(BaseRunner):
             print(self.model)
             print(self.model_list)
             print(self.model_map)
-        if self.device == 'cuda':
-            self.model = self.model.cuda()
+        if self.device != 'cpu':
+            self.model = self.model.to(get_accelerator().device)
         if self.config['runtime']['special_bn_init']:
             self.special_bn_init()
 
@@ -81,12 +84,8 @@ class QuantRunner(BaseRunner):
 
     @property
     def backend_type(self):
-        from mqbench.prepare_by_platform import BackendType
-        return {'tensorrt': BackendType.Tensorrt,
-                'snpe': BackendType.SNPE,
-                'vitis': BackendType.Vitis,
-                'academic': BackendType.Academic,
-                'tengine': BackendType.Tengine_u8}
+        from up.accelerator import ops
+        return ops.call("quantization_backend_types")
 
     @property
     def quant_type(self):
@@ -95,7 +94,8 @@ class QuantRunner(BaseRunner):
         return self._quant_type
 
     def get_leaf_module(self, leaf_module):
-        from mqbench.nn.modules import FrozenBatchNorm2d
+        from up.accelerator.layers import OptionalModule
+        FrozenBatchNorm2d = getattr(OptionalModule('quantization', 'nn.modules'), 'FrozenBatchNorm2d')
         from up.tasks.det.plugins.yolov5.models.components import Space2Depth
         leaf_module_map = {'FrozenBatchNorm2d': FrozenBatchNorm2d,
                            'Space2Depth': Space2Depth}
@@ -103,7 +103,9 @@ class QuantRunner(BaseRunner):
         return tuple(leaf_module_ret)
 
     def get_extra_quantizer_dict(self, extra_quantizer_dict):
-        from mqbench.nn.intrinsic.qat.modules import ConvFreezebn2d, ConvFreezebnReLU2d
+        from up.accelerator.layers import OptionalModule
+        ConvFreezebn2d = getattr(OptionalModule('quantization', 'nn.intrinsic.qat.modules'), 'ConvFreezebn2d')
+        ConvFreezebnReLU2d = getattr(OptionalModule('quantization', 'nn.intrinsic.qat.modules'), 'ConvFreezebnReLU2d')
         additional_module_type = extra_quantizer_dict.get('additional_module_type')
         additional_module_type_map = {'ConvFreezebn2d': ConvFreezebn2d,
                                       'ConvFreezebnReLU2d': ConvFreezebnReLU2d}
@@ -114,8 +116,10 @@ class QuantRunner(BaseRunner):
         return extra_quantizer_dict_ret
 
     def quantize_model(self):
-        from mqbench.prepare_by_platform import prepare_by_platform
-        from mqbench.fake_quantize.quantize_base import FakeQuantizeBase
+        from up.accelerator.layers import OptionalModule
+        prepare_by_platform = getattr(OptionalModule('quantization', 'prepare_by_platform'), 'prepare_by_platform')
+        from up.accelerator.layers import OptionalModule
+        FakeQuantizeBase = getattr(OptionalModule('quantization', 'fake_quantize.quantize_base'), 'FakeQuantizeBase')
         logger.info("prepare quantize model")
         deploy_backend = self.config['quant']['deploy_backend']
         prepare_args = self.config['quant'].get('prepare_args', {})
@@ -129,7 +133,7 @@ class QuantRunner(BaseRunner):
         if extra_quantizer_dict is not None:
             prepare_custom_config_dict['extra_quantizer_dict'] = self.get_extra_quantizer_dict(extra_quantizer_dict)
 
-        self.model.train().cuda()
+        self.model.train().to(get_accelerator().device)
         for mname in self.model_list:
             mod = getattr(self.model, mname)
             mod = prepare_by_platform(mod, self.backend_type[deploy_backend], prepare_custom_config_dict)
@@ -149,7 +153,7 @@ class QuantRunner(BaseRunner):
                         if isinstance(_mod, FakeQuantizeBase):
                             self.set_bitwidth(_mod, specila_bit)
                             logger.info(f'set {name}.{_name} to {specila_bit} bit.')
-        self.model.train().cuda()
+        self.model.train().to(get_accelerator().device)
         if env.is_master():
             print(self.model)
 
@@ -169,7 +173,7 @@ class QuantRunner(BaseRunner):
     def calibrate(self):
         import torch
         logger.info("calibrate model")
-        self.model.eval().cuda()
+        self.model.eval().to(get_accelerator().device)
         with torch.no_grad():
             enable_calibration_woquantization(self.model, quantizer_type='act_fake_quant')
             for _ in range(self.config['quant']['cali_batch_size']):
@@ -274,7 +278,8 @@ class QuantRunner(BaseRunner):
         for _ in range(self.config['quant']['cali_batch_size']):
             batch = self.get_batch('train')
             cali_data.append(batch)
-        from mqbench.advanced_ptq import ptq_reconstruction
+        from up.accelerator.layers import OptionalModule
+        ptq_reconstruction = getattr(OptionalModule('quantization', 'advanced_ptq'), 'ptq_reconstruction')
         from easydict import EasyDict
         self.model.train()
         self.model = ptq_reconstruction(self.model, cali_data, EasyDict(self.config['quant']['ptq']), self.model_list)

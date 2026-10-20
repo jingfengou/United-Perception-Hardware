@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 # Standard Library
 import copy
 import importlib
@@ -27,6 +28,8 @@ class ModelHelper(nn.Module):
     """Build model from cfg"""
 
     def __init__(self, cfg):
+        from up import initialize
+        initialize()
         super(ModelHelper, self).__init__()
 
         if 'net' in cfg:
@@ -115,9 +118,18 @@ class ModelHelper(nn.Module):
         self.dtype = torch.float64
         return super(ModelHelper, self).double()
 
-    def cuda(self):
-        self.device = torch.device('cuda')
-        return super(ModelHelper, self).cuda()
+    def to(self, *args, **kwargs):
+        result = super(ModelHelper, self).to(*args, **kwargs)
+        tensor = next(self.parameters(), None)
+        if tensor is None:
+            tensor = next(self.buffers(), None)
+        if tensor is not None:
+            self.device, self.dtype = tensor.device, tensor.dtype
+        return result
+
+    def cuda(self, device=None):
+        # Legacy entry point follows the selected backend, including non-CUDA ones.
+        return self.to(get_accelerator().resolve_device(device))
 
     def cpu(self):
         self.device = torch.device('cpu')

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "world_size": 2,
+  "all_reduce": true,
+  "ddp_parameter_equality": true,
+  "sync_batch_norm_training": true,
+  "object_broadcast": true,
+  "object_all_gather": true,
+  "communication_backend": "nccl",
+  "torch": "2.8.0a0+5228986c39.nv25.06",
+  "cuda": "12.9"
+}

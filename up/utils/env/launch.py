@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 #!/usr/bin/env python3
 # Code are based on
 # https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/launch.py
@@ -7,7 +8,7 @@ from datetime import timedelta
 from ..general.log_helper import default_logger as logger
 
 import torch
-import torch.distributed as dist
+from up.accelerator import distributed as dist
 import torch.multiprocessing as mp
 from up.utils.env import dist_helper as dist_helper
 
@@ -21,7 +22,7 @@ def launch(
     num_gpus_per_machine,
     num_machines=1,
     machine_rank=0,
-    backend="nccl",
+    backend=None,
     dist_url='auto',
     args=(),
     timeout=DEFAULT_TIMEOUT,
@@ -79,10 +80,15 @@ def _distributed_worker(
     args,
     timeout=DEFAULT_TIMEOUT,
 ):
+    from up.accelerator import activate_args
+    activate_args(args)
     assert (
-        torch.cuda.is_available()
+        get_accelerator().is_available()
     ), "cuda is not available. Please check your installation."
     global_rank = machine_rank * num_gpus_per_machine + local_rank
+    import os
+    os.environ["LOCAL_RANK"] = str(local_rank)
+    get_accelerator().set_device(local_rank)
     logger.info("Rank {} initialization finished.".format(global_rank))
     try:
         dist.init_process_group(
@@ -112,6 +118,6 @@ def _distributed_worker(
 
     dist_helper.barrier()
 
-    assert num_gpus_per_machine <= torch.cuda.device_count()
-    torch.cuda.set_device(local_rank)
+    assert num_gpus_per_machine <= get_accelerator().device_count()
+    get_accelerator().set_device(local_rank)
     main_func(args)

@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import os
 import json
 import random
@@ -43,12 +44,11 @@ class BignasRunner(BaseRunner):
         if self.config['runtime'].get('fp16', False) \
                 and self.config['runtime']['fp16'].get('keep_batchnorm_fp32', True) \
                 and self.backend == 'linklink':
-            import spring.linklink as linklink
             from up.tasks.nas.bignas.models.ops.dynamic_ops import DynamicBatchNorm2d, \
                 DynamicSyncBatchNorm2d, DynamicGroupSyncBatchNorm2d
-            linklink.fp16.register_float_module(DynamicBatchNorm2d, cast_args=True)
-            linklink.fp16.register_float_module(DynamicSyncBatchNorm2d, cast_args=True)
-            linklink.fp16.register_float_module(DynamicGroupSyncBatchNorm2d, cast_args=True)
+            from up.accelerator import ops
+            ops.call("register_float_modules", [
+                DynamicBatchNorm2d, DynamicSyncBatchNorm2d, DynamicGroupSyncBatchNorm2d])
 
     def build_teacher(self):
         self.teacher_models = {}
@@ -68,10 +68,10 @@ class BignasRunner(BaseRunner):
                     self.teacher_models.update({key: self.model})
         logger.info(f"The student model mimics from {str(self.teacher_nums)} teacher networks \
             which are {','.join(self.teacher_models.keys())}.")
-        if self.device == 'cuda':
+        if self.device != 'cpu':
             for tmk in self.teacher_models.keys():
                 if self.config['bignas']['distiller'][tmk]:
-                    self.teacher_models[tmk] = self.teacher_models[tmk].cuda()
+                    self.teacher_models[tmk] = self.teacher_models[tmk].to(get_accelerator().device)
         if self.fp16 and self.backend == 'linklink':
             for tmk in self.teacher_models.keys():
                 if self.config['bignas']['distiller'][tmk]:
@@ -126,7 +126,7 @@ class BignasRunner(BaseRunner):
             self.evaluate_specific_subnets()
         self.display = self.config['bignas'].get('display', 10)
 
-        self.model.cuda().train()
+        self.model.to(get_accelerator().device).train()
         self.start_iter = self.start_iter - self.start_iter % 4
         for iter_idx in range(self.start_iter, self.max_iter):
             batch = self.get_batch('train')

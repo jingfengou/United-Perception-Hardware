@@ -39,6 +39,8 @@ class QuantDeploy(Subcommand):
 
 def main(args):
     cfg = load_yaml(args.config, args.cfg_type)
+    from up.accelerator import activate_args
+    activate_args(args)
     cfg['args'] = {
         'opts': args.opts
     }

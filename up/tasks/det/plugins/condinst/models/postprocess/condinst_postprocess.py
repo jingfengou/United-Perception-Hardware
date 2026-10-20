@@ -15,7 +15,7 @@ from .condinst_predictor import build_mask_predictor
 def poly_to_mask(polygons, height, width):
     rles = mask_utils.frPyObjects(polygons, height, width)
     rle = mask_utils.merge(rles)
-    mask = mask_utils.decode(rle).astype(np.bool)
+    mask = mask_utils.decode(rle).astype(bool)
     mask = torch.from_numpy(mask)
     return mask
 

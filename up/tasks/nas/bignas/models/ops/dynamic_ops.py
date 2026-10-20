@@ -1,14 +1,13 @@
+from up.accelerator import get_accelerator
 import torch.nn.functional as F
 from torch.nn.parameter import Parameter
-from torch.nn.modules._functions import SyncBatchNorm as sync_batch_norm
+from up.accelerator import ops as _hardware_ops
 import torch.nn as nn
 import torch
+from up.accelerator import distributed
 import copy
 
-try:
-    import spring.linklink as link
-except:  # noqa
-    from up.utils.general.fake_linklink import link
+from up.accelerator.layers import link
 
 from up.utils.model.bn_helper import GroupSyncBatchNorm, PyTorchSyncBN
 from up.tasks.nas.bignas.models.ops.dynamic_utils import sub_filter_start_end, get_same_padding, int2list
@@ -472,7 +471,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
             return self.deploy_forward(input)
 
         # currently only GPU input is supported
-        if not input.is_cuda:
+        if not get_accelerator().is_accelerator_tensor(input):
             raise ValueError('DynamicSyncBatchNorm expected \
                  input tensor to be on GPU')
         self._check_input_dim(input)
@@ -504,10 +503,10 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
         """
         need_sync = self.training or not self.track_running_stats
         if need_sync:
-            process_group = torch.distributed.group.WORLD
+            process_group = distributed.group.WORLD
             if self.process_group:
                 process_group = self.process_group
-            world_size = torch.distributed.get_world_size(process_group)
+            world_size = distributed.get_world_size(process_group)
             need_sync = world_size > 1
 
         # fallback to vanilla BN when synchronization is not necessary
@@ -540,7 +539,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
                      torch.nn.parallel.DistributedDataParallel')
 
             if self.track_running_stats:
-                return sync_batch_norm.apply(
+                return _hardware_ops.sync_batch_norm(
                     input,
                     self.weight[:active_num_features],
                     self.bias[:active_num_features],
@@ -551,7 +550,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
                     process_group,
                     world_size)
             else:
-                return sync_batch_norm.apply(
+                return _hardware_ops.sync_batch_norm(
                     input,
                     self.weight[:active_num_features],
                     self.bias[:active_num_features],

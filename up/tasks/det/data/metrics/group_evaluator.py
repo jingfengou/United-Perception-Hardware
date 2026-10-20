@@ -95,8 +95,8 @@ class GroupEvaluator(CustomEvaluator):
         return dts
 
     def calIof_bbox_mask(self, bbox, mask):
-        mask = mask.astype(np.bool)
-        bbox = np.maximum(bbox.astype(np.int), 0)
+        mask = mask.astype(bool)
+        bbox = np.maximum(bbox.astype(int), 0)
         l, t, r, b = bbox
         # assert r >= l and b >= t, bbox
         if not (r >= l and b >= t):
@@ -119,14 +119,14 @@ class GroupEvaluator(CustomEvaluator):
                             dt_bboxes.append(dts_cls[detected_dt_index]['bbox'])
                             indices.append(dts_cls[detected_dt_index]['index_in_all'])
                     gt_group['detected_dt_indices_in_all_fppi'][self.fppi[fppi_index]] = indices
-                    gt_bboxes = np.array(gt_group['bboxes']).round().astype(np.int)
+                    gt_bboxes = np.array(gt_group['bboxes']).round().astype(int)
                     tps_fns_fppi = [False] * len(gt_bboxes)
                     if len(dt_bboxes) > 0:
-                        dt_bboxes = np.array(dt_bboxes).round().astype(np.int)
+                        dt_bboxes = np.array(dt_bboxes).round().astype(int)
                         dt_bboxes = np.maximum(dt_bboxes, 0)
                         w = np.amax(dt_bboxes[:, 2])
                         h = np.amax(dt_bboxes[:, 3])
-                        mask = np.zeros((h, w), dtype=np.bool)
+                        mask = np.zeros((h, w), dtype=bool)
                         for dt_bbox in dt_bboxes:
                             l, t, r, b = dt_bbox
                             mask[t: b, l: r] = 1
@@ -148,7 +148,7 @@ class GroupEvaluator(CustomEvaluator):
         fps, tps = np.zeros((len(dts_cls))), np.zeros((len(dts_cls)))
         for i, dt in enumerate(dts_cls):
             img_id = dt['image_id']
-            dt_bbox = np.array(dt['bbox']).round().astype(np.int).reshape(4)
+            dt_bbox = np.array(dt['bbox']).round().astype(int).reshape(4)
             m_gt_iof, m_gt, m_ign_iof, m_ign = -1, -1, -1, -1
             if img_id in gts_cls:
                 gts = gts_cls[img_id]
@@ -389,7 +389,7 @@ class GroupRecallEvaluator(GroupEvaluator):
                 for typename in self.gts[class_i][filename]:
                     instances = self.gts[class_i][filename][typename]
                     if len(instances) > 0:
-                        bboxes = np.array([_['bbox'] for _ in instances]).round().astype(np.int)
+                        bboxes = np.array([_['bbox'] for _ in instances]).round().astype(int)
                         bboxes = np.maximum(bboxes, 0)
                         new_instances = []
                         w = np.amax(bboxes[:, 2])
@@ -398,7 +398,7 @@ class GroupRecallEvaluator(GroupEvaluator):
                         ious = self.calIoU(bboxes_expand, bboxes_expand)
                         groups = self._connect(ious)
                         for group_index, group in enumerate(groups):
-                            mask = np.zeros((h, w), dtype=np.bool)
+                            mask = np.zeros((h, w), dtype=bool)
                             for instance_index in group:
                                 l, t, r, b = bboxes[instance_index]
                                 mask[t: b, l: r] = 1

@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import torch
 import torch.nn as nn
 from up.utils.env.dist_helper import env, broadcast, allgather
@@ -91,7 +92,7 @@ class MoCo(nn.Module):
         num_gpus = batch_size_all // batch_size_this
 
         # random shuffle index
-        idx_shuffle = torch.randperm(batch_size_all).cuda()
+        idx_shuffle = torch.randperm(batch_size_all).to(get_accelerator().device)
 
         # broadcast to all gpus
         broadcast(idx_shuffle, 0, group_idx=self.group_idx)

@@ -1,4 +1,5 @@
 from __future__ import division
+from up.accelerator import prepare_args, activate_args
 
 # Standard Library
 import argparse
@@ -87,6 +88,7 @@ class ToOnnx(Subcommand):
 
 
 def main(args):
+    activate_args(args)
     cfg = load_yaml(args.config, args.cfg_type)
     cfg['args'] = {
         'ddp': args.backend == 'dist',
@@ -108,6 +110,7 @@ def main(args):
 
 
 def _main(args):
+    prepare_args(args)
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)
@@ -116,5 +119,6 @@ def _main(args):
         fork_method = mp.get_start_method(allow_none=True)
         assert fork_method == args.fork_method
         sys.stdout.flush()
+        activate_args(args)
         setup_distributed(args.port, args.launch, args.backend)
         main(args)

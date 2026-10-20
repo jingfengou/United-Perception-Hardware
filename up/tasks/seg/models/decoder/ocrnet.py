@@ -186,7 +186,7 @@ class OCR(nn.Module):
     def __init__(self, inplanes, num_classes=19, loss=None, normalize={'type': 'solo_bn'}):
         super(OCR, self).__init__()
         self.prefix = self.__class__.__name__
-        last_inp_channels = np.int(np.sum(inplanes))
+        last_inp_channels = int(np.sum(inplanes))
         ocr_mid_channels = 512
         ocr_key_channels = 256
 
@@ -249,7 +249,7 @@ class Seghead(nn.Module):
     def __init__(self, inplanes , num_classes=19, loss=None, normalize={'type': 'solo_bn'}):
         super(Seghead, self).__init__()
         self.prefix = self.__class__.__name__
-        last_inp_channels = np.int(np.sum(inplanes))
+        last_inp_channels = int(np.sum(inplanes))
         self.last_layer = nn.Sequential(
             nn.Conv2d(
                 in_channels=last_inp_channels,

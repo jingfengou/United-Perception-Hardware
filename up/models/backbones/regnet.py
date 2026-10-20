@@ -1,7 +1,4 @@
-try:
-    from spring import linklink
-except:  # noqa
-    from up.utils.general.fake_linklink import linklink
+from up.accelerator.layers import link
 
 import numpy as np
 import torch.nn as nn
@@ -210,7 +207,7 @@ class AnyNet(nn.Module):
                 # Note that there is no bias due to BN
                 fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(mean=0.0, std=math.sqrt(2.0 / fan_out))
-            elif (isinstance(m, linklink.nn.SyncBatchNorm2d) or isinstance(m, nn.BatchNorm2d)):
+            elif (isinstance(m, link.nn.SyncBatchNorm2d) or isinstance(m, nn.BatchNorm2d)):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
             elif isinstance(m, nn.Linear):

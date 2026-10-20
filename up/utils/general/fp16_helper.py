@@ -49,14 +49,9 @@ def to_float32(func):
 
 
 def register_float_module(keep_fp32):
-    import spring.linklink as linklink
     if keep_fp32:
-        linklink.fp16.register_float_module(torch.nn.BatchNorm2d, cast_args=True)
-        linklink.fp16.register_float_module(GroupSyncBatchNorm, cast_args=True)
-        linklink.fp16.register_float_module(FrozenBatchNorm2d, cast_args=True)
-        linklink.fp16.register_float_module(PyTorchSyncBN, cast_args=True)
-        linklink.fp16.register_float_module(CaffeFrozenBatchNorm2d, cast_args=True)
-        linklink.fp16.register_float_module(GroupNorm, cast_args=True)
-        linklink.fp16.register_float_module(TaskBatchNorm2d, cast_args=True)
-        linklink.fp16.register_float_module(SyncTaskBatchNorm2d, cast_args=True)
-        linklink.fp16.init()
+        from up.accelerator import ops
+        ops.call("register_float_modules", [
+            torch.nn.BatchNorm2d, GroupSyncBatchNorm, FrozenBatchNorm2d, PyTorchSyncBN,
+            CaffeFrozenBatchNorm2d, GroupNorm, TaskBatchNorm2d, SyncTaskBatchNorm2d,
+        ], initialize=True)

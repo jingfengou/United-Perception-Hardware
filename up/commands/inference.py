@@ -1,4 +1,5 @@
 from __future__ import division
+from up.accelerator import prepare_args, activate_args
 
 # Standard Library
 import os
@@ -90,6 +91,7 @@ class Inference(Subcommand):
 
 
 def main(args):
+    activate_args(args)
     cfg = load_yaml(args.config, args.cfg_type)
     cfg['args'] = {
         'image_path': args.image_path,
@@ -115,6 +117,7 @@ def main(args):
 
 
 def _main(args):
+    prepare_args(args)
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)
@@ -124,6 +127,7 @@ def _main(args):
         assert fork_method == args.fork_method
         sys.stdout.flush()
         try:
+            activate_args(args)
             setup_distributed(args.port, args.launch, args.backend)
         except KeyError:
             logger.info("Setup distributed env failed.")

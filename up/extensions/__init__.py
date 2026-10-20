@@ -1,18 +1,12 @@
 # flake8: noqa
-try:
-    from .python.roi_align import RoIAlignPool
-    from .python.psroi_align import PSRoIAlign 
-    from .python.psroi_pool import PSRoIPool
-    from .python.nms import naive_nms,softer_nms
-    from .python.deformable_conv import DeformableConv
-    from .python.focal_loss import (
-        SigmoidFocalLossFunction,
-        SoftmaxFocalLossFunction
-    )
-    from .python.cross_focal_loss import CrossSigmoidFocalLossFunction
-    from .python.iou_overlap import gpu_iou_overlap
-except:
-    pass # noqa
+from .python.roi_align import RoIAlignPool
+from .python.psroi_align import PSRoIAlign
+from .python.psroi_pool import PSRoIPool
+from .python.nms import naive_nms, softer_nms
+from .python.deformable_conv import DeformableConv
+from .python.focal_loss import SigmoidFocalLossFunction, SoftmaxFocalLossFunction
+from .python.cross_focal_loss import CrossSigmoidFocalLossFunction
+from .python.iou_overlap import gpu_iou_overlap
 import torch
 import numpy as np
 
@@ -46,7 +40,7 @@ def nms(bboxes, cfg, descending=True):
         assert bboxes.shape[1] == 9, "Expected nms input bboxes with 9 channels, but got {}".format(bboxes.shape[1])
     else:
         assert bboxes.shape[1] == 5, "Expected nms input bboxes with 5 channels, but got {}".format(bboxes.shape[1])
-  
+
     if not descending:
         sorted_scores, order = torch.sort(bboxes[:, 4], descending=True)
         bboxes = bboxes[order]

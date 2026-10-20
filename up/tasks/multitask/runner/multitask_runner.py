@@ -1,3 +1,4 @@
+from up.accelerator import get_accelerator
 import os
 import torch
 import json
@@ -192,7 +193,7 @@ class MultiTaskRunner(BaseRunner):
         return metrics
 
     def train(self):
-        self.model.cuda().train()
+        self.model.to(get_accelerator().device).train()
 
         for iter_idx in range(self.start_iter, self.max_iter):
             batches = self._get_train_batches()
