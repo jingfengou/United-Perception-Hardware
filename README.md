@@ -382,6 +382,7 @@ python -m pytest -q tests/test_accelerator.py
 | 262 条上游硬件依赖记录 | [`upstream_inventory.json`](docs/hardware/upstream_inventory.json) |
 | 详细接口与接入说明 | [接口说明](docs/hardware/README.md)、[新增厂商说明](docs/hardware/ADDING_BACKENDS.md) |
 | 能力和实际测试范围 | [能力矩阵](docs/hardware/CAPABILITIES.md)、[验证报告](docs/hardware/VALIDATION.md) |
+| 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
 本轮 NVIDIA 检查是有界的数值与合成输入验证，不代表完整数据集精度、收敛或性能验收。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。

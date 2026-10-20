@@ -30,6 +30,8 @@ CPU 测试在 A800-1 的 PyTorch 环境中隐藏 CUDA 设备执行。公共构�
 
 原生 C++/CUDA 源码保持上游内容；跨 Windows/Linux 比对源码哈希时只归一化 CRLF/LF。源代码逐文件清单采用实际文件字节；本地与服务器哈希一致性独立检查，不以文件名或 Git 提交号替代。
 
+发布时另以 Git blob 对照受测快照，结果见 `validation/git_source_match.json`：449 个文件中 165 个字节完全一致，284 个仅有 Windows CRLF 与 Git LF 行尾差异，没有其他内容差异。原始快照哈希和行尾核对记录分别保留，不能把不同平台的原始文件字节哈希直接混为一项检查。该记录指向功能提交；后续仅修改说明或补充验证记录的提交不改变相应代码内容。
+
 ## 检查范围与限制
 
 32 个数值样例覆盖 Torchvision NMS 旧门面、2D NMS 两种 offset、Softer NMS、IoU/IoF/IoS 的 FP16/FP32、空 overlap、RoIAlign 对齐开关和 FP16/FP32、PSRoIAlign、PSRoIPool、DeformConv 输入/偏移/权重梯度、三种 Focal Loss、3D/BEV IoU 和 NMS、点在框内查询、RoIAware max/avg、RoIPoint 池化及 Numba 旋转 IoU 评估。可微操作比较适用的输入梯度；非可微操作不声明梯度支持。
