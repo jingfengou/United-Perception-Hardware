@@ -117,7 +117,7 @@ git clone https://github.com/jingfengou/United-Perception-Hardware.git
 cd United-Perception-Hardware
 ```
 
-这是私有仓库，克隆前需有对应 GitHub 访问权限。在代码根目录补齐普通依赖：复验本轮 A800 环境时，可在保留其配套 PyTorch/TorchVision/pycocotools 的前提下使用：
+这是公共仓库，可直接克隆。在代码根目录补齐普通依赖：复验本轮 A800 环境时，可在保留其配套 PyTorch/TorchVision/pycocotools 的前提下使用：
 
 ```bash
 python -m pip install -r requirements/validated-a800.txt
