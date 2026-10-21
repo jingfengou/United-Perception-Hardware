@@ -68,6 +68,8 @@
 | 健康检查 | `health_check` | 在目标设备创建张量、计算并同步，返回 True 或明确报错 |
 | 路由 | `call`、`dependency`、`capabilities` | 调用完整操作、延迟加载指定可选库、查询注册情况；缺失能力报后端和原因；能力查询不是硬件测试 |
 
+随机状态接口不承诺不同厂商在同一个 seed/state 下生成逐位相同的随机张量或 Dropout 掩码。跨厂商比较必须检查实际数据/掩码，不能只比较状态哈希；确定性请求也必须以重复前向、反向实测确认。C500 上已定位的 Dropout 映射和卷积反向重复性问题见[差异定位](CROSS_VENDOR_DIAGNOSIS.md)。CUDA-shaped 设备的卷积库开关由 NVIDIA/MetaX 共享实现管理，UP CLI 使用 `--nocudnn`，直接构造 Runner 则设 `config['args']['nocudnn']=True`；不新增框架 CPU 回退。默认不关闭，不能把它宣称为所有模型的精度保证。
+
 ## 4. 专用算子的输入输出和梯度
 
 统一入口为 `ops.<操作名>()` 或 `ops.call("操作名", ...)`。以下 20 项的参数顺序及默认值直接从原函数/Function.forward 提取，见[签名索引](API_INDEX.md#routed-operations)。旧 `.apply()` 门面继续有效，不能只替换前向而把反向留在原厂商扩展。

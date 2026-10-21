@@ -1,0 +1,42 @@
+{
+  "all_training_batches_sha256": "27a79dc4c2fe013afbb4642ed0b806830a25680dcaf45c3131af36d8cec03276",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "038a977279da76b4dbb9a52aa139c8dea2cff9a415d1bc77c0056d6510bbebe4",
+  "environment": {
+    "cuda": "12.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.3",
+    "tf32": false,
+    "torch": "2.10.0+cu126",
+    "visible_devices": "1"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 19.55000114440918,
+    "top5": 72.6500015258789
+  },
+  "final_state_sha256": "866362d861f5c280312cb9deffddc0d36cce95d186a02a2f66b9ac10a502543f",
+  "initial_state_sha256": "34278e3291784b374e2d82401db03d67db8868d015cd370d0e6a3144d71be567",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "48b93bc8ba4429ec59899e257e1a90a42811c636a793648b18732643c732be60",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "nvidia-evidence.tar.gz",
+    "member": "nvidia/results/vit_b16-seed131/report.json",
+    "sha256": "f84f38f1e3e7843be413a9e7834d14622cb5aefd3409abd1b20037fb2b11c5d8"
+  },
+  "restored_metrics": {
+    "top1": 19.55000114440918,
+    "top5": 72.6500015258789
+  },
+  "seed": 131,
+  "status": "completed",
+  "training_steps": 3140
+}

@@ -259,6 +259,8 @@ def run(args):
     torch.cuda.set_device(0)
     config, original_config = effective_config(root, data, args.model, args.seed, args.epochs, args.protocol)
     config["runtime"]["accelerator"]["backend"] = backend
+    if getattr(args, "disable_convolution_library", False):
+        config["args"]["nocudnn"] = True
     config_digest = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
     algorithm_config = copy.deepcopy(config)
     algorithm_config["runtime"]["accelerator"].pop("backend")
@@ -281,12 +283,17 @@ def run(args):
             self.learning_rates = []
             self.first_batch_sha256 = None
             self.first_forward_rng_sha256 = None
+            self.batch_audit = []
 
         def before_forward(self, cur_iter, batch):
             self.learning_rates.append([float(group["lr"]) for group in self.runner_ref().optimizer.param_groups])
             if self.first_batch_sha256 is None:
                 self.first_batch_sha256 = batch_hash(batch)
                 self.first_forward_rng_sha256 = rng_hash()
+            if getattr(args, "audit_batches", False):
+                self.batch_audit.append({"step": len(self.learning_rates) - 1,
+                                         "batch_sha256": batch_hash(batch),
+                                         "rng_sha256": rng_hash()})
 
         def after_backward(self, cur_iter, loss):
             value = float(loss.detach())
@@ -358,6 +365,7 @@ def run(args):
                         "matmul_precision": torch.get_float32_matmul_precision(),
                         "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
                         "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
+                        "convolution_library_enabled": torch.backends.cudnn.enabled,
                         "default_tasks": os.environ["DEFAULT_TASKS"]},
         "nvidia_extension_loaded": "up.extensions._C" in sys.modules,
         "compatibility_shims": compatibility_shims,
@@ -368,6 +376,12 @@ def run(args):
     if probe_steps is not None:
         report.update(status="probe_completed", declared_training_steps=declared_steps,
                       scope="Real-data Runner setup probe only; excluded from complete-training cohorts")
+    if getattr(args, "audit_batches", False):
+        report["batch_audit"] = recorder.batch_audit
+        report["batch_audit_sha256"] = hashlib.sha256(
+            json.dumps(recorder.batch_audit, sort_keys=True).encode()).hexdigest()
+        report["all_training_batches_sha256"] = hashlib.sha256(json.dumps([
+            row["batch_sha256"] for row in recorder.batch_audit]).encode()).hexdigest()
     (output / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
     print(json.dumps({k: report[k] for k in ("status", "model", "seed", "training_steps", "final_metrics")}, indent=2))
 
@@ -452,6 +466,10 @@ def main():
                         help="Explicit vendor identity; both validated runtimes expose CUDA-shaped devices")
     parser.add_argument("--probe-steps", type=int,
                         help="Separate setup diagnostic, never eligible as a completed accuracy run")
+    parser.add_argument("--audit-batches", action="store_true",
+                        help="Hash every training input and pre-forward RNG without changing training")
+    parser.add_argument("--disable-convolution-library", action="store_true",
+                        help="Explicit same-device convolution-provider ablation via Runner's existing nocudnn option")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)

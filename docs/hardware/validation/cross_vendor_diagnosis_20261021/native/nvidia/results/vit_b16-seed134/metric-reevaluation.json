@@ -1,0 +1,22 @@
+{
+  "details": {
+    "correct": {
+      "1": 381,
+      "5": 1437
+    },
+    "validation_images": 2000
+  },
+  "ground_truth_sha256": "4f330becf565813b86d87c9f848ac354303da175d1ae2eb101ec44bdbd4c6a4d",
+  "predictions_sha256": "cacfe95c460e345c5a0fe1679bac170cd73374599553f8a3def63dcfb1b92796",
+  "reevaluated_metrics": {
+    "top1": 19.05000114440918,
+    "top5": 71.8499984741211
+  },
+  "reevaluator_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+  "report_sha256": "2c3e2f68878a3dca67ad1d159b1c3b9d3cc1ade63037cbbcf45f0d174c895ad2",
+  "reported_metrics": {
+    "top1": 19.05000114440918,
+    "top5": 71.8499984741211
+  },
+  "status": "passed"
+}

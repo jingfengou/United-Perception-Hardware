@@ -2,6 +2,7 @@
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -49,6 +50,18 @@ def verify_run(report, plan, model, seed, backend, data_hash, driver_hash):
         raise ValueError("Changed precision/determinism policy")
     if backend == "metax" and report["nvidia_extension_loaded"]:
         raise ValueError("NVIDIA binary was loaded on the MetaX path")
+    if plan.get("disable_convolution_library", False) and report["environment"].get("convolution_library_enabled") is not False:
+        raise ValueError("The declared convolution-library disable policy was not applied")
+    if plan.get("audit_all_training_batches", False):
+        audit = report.get("batch_audit", [])
+        if len(audit) != spec["expected_steps_per_run"] or any(
+                row["step"] != index for index, row in enumerate(audit)):
+            raise ValueError("Incomplete or unordered training batch audit")
+        if audit[0]["batch_sha256"] != report["first_batch_sha256"]:
+            raise ValueError("First training batch disagrees with complete batch audit")
+        digest = hashlib.sha256(json.dumps([row["batch_sha256"] for row in audit]).encode()).hexdigest()
+        if report.get("all_training_batches_sha256") != digest:
+            raise ValueError("Training batch audit hash mismatch")
 
 
 def compare_pair(nvidia, metax, plan):
@@ -119,6 +132,10 @@ def run_suite(args):
                        "--data", str(args.data.resolve()), "--backend", args.backend,
                        "--model", model, "--seed", str(seed), "--epochs", str(spec["epochs"]),
                        "--protocol", spec["protocol"], "--output", str(output.resolve())]
+            if plan.get("audit_all_training_batches", False):
+                command.append("--audit-batches")
+            if plan.get("disable_convolution_library", False):
+                command.append("--disable-convolution-library")
             SUITE.emit({"starting": model, "seed": seed, "backend": args.backend, "device": device})
             with (args.output / (output.name + ".log")).open("w") as log:
                 result = subprocess.run(command, env=environment, stdout=log, stderr=subprocess.STDOUT)

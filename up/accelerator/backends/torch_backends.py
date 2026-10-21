@@ -12,7 +12,19 @@ def torchvision_nms(*args, **kwargs):
     return nms(*args, **kwargs)
 
 
-class NvidiaAccelerator(TorchAccelerator):
+class _CudaConvolutionControls:
+    """Controls shared by runtimes exposing PyTorch's cuDNN-shaped interface."""
+
+    def configure_convolution(self, enabled=True):
+        torch.backends.cudnn.enabled = enabled
+
+    @contextlib.contextmanager
+    def convolution_flags(self, enabled=True):
+        with torch.backends.cudnn.flags(enabled=enabled):
+            yield
+
+
+class NvidiaAccelerator(_CudaConvolutionControls, TorchAccelerator):
     name = "nvidia"
     device_type = "cuda"
     communication_backend = "nccl"
@@ -36,15 +48,6 @@ class NvidiaAccelerator(TorchAccelerator):
                 return importlib.import_module("spconv")
         return super().dependency(name)
 
-    def configure_convolution(self, enabled=True):
-        torch.backends.cudnn.enabled = enabled
-
-    @contextlib.contextmanager
-    def convolution_flags(self, enabled=True):
-        with torch.backends.cudnn.flags(enabled=enabled):
-            yield
-
-
 class AscendAccelerator(TorchAccelerator):
     name = "ascend"
     device_type = "npu"
@@ -65,7 +68,7 @@ class CambriconAccelerator(TorchAccelerator):
         super().__init__(device)
 
 
-class MetaXAccelerator(TorchAccelerator):
+class MetaXAccelerator(_CudaConvolutionControls, TorchAccelerator):
     name = "metax"
     device_type = "cuda"
     communication_backend = "nccl"

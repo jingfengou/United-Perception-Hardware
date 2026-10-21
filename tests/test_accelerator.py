@@ -18,6 +18,25 @@ from up.accelerator.registry import BACKENDS, BACKEND_PROBES, OPERATIONS, operat
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.parametrize("backend", ("nvidia", "metax"))
+def test_cuda_shaped_convolution_controls_are_shared_and_restore(backend):
+    from up.accelerator.backends.torch_backends import MetaXAccelerator, NvidiaAccelerator
+    provider = (NvidiaAccelerator if backend == "nvidia" else MetaXAccelerator)(device="cuda")
+    original = torch.backends.cudnn.enabled
+    try:
+        provider.configure_convolution(False)
+        assert torch.backends.cudnn.enabled is False
+        with pytest.raises(RuntimeError, match="restore probe"):
+            with provider.convolution_flags(True):
+                assert torch.backends.cudnn.enabled is True
+                raise RuntimeError("restore probe")
+        assert torch.backends.cudnn.enabled is False
+        provider.configure_convolution(True)
+        assert torch.backends.cudnn.enabled is True
+    finally:
+        torch.backends.cudnn.enabled = original
+
+
 @pytest.fixture(autouse=True)
 def restore_registry():
     backends, operations, probes = dict(BACKENDS), dict(OPERATIONS), dict(BACKEND_PROBES)

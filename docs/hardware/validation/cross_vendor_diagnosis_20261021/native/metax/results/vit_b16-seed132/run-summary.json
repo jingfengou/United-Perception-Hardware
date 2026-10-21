@@ -1,0 +1,42 @@
+{
+  "all_training_batches_sha256": "dd8dee2ed25aa9fbb59daeafb5357ef33348cff3e7fe4069da09b99e8b85bb5b",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "038a977279da76b4dbb9a52aa139c8dea2cff9a415d1bc77c0056d6510bbebe4",
+  "environment": {
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "7"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 20.600000381469727,
+    "top5": 72.80000305175781
+  },
+  "final_state_sha256": "52e0955f0c66e2068f0b39b1df5a3e8272d01215834c73110afc973b8480feb7",
+  "initial_state_sha256": "02b2f795d7de82414556ddd9909b2f73076d936831448e8995703611855e48c9",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "244198035a5425ae626fe39b1e5a725d8f171abad0e6fb98b1400837f929ce33",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/vit_b16-seed132/report.json",
+    "sha256": "3592d02dc7772e5340def52c85e129a5f192046078143988d801ad851c2f08b7"
+  },
+  "restored_metrics": {
+    "top1": 20.600000381469727,
+    "top5": 72.80000305175781
+  },
+  "seed": 132,
+  "status": "completed",
+  "training_steps": 3140
+}

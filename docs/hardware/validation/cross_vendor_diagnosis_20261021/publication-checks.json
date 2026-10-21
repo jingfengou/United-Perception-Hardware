@@ -1,0 +1,53 @@
+{
+  "broken_relative_links": [],
+  "checked_document_links": 109,
+  "final_cpu_tests": {
+    "metax": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 173
+    },
+    "nvidia": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 173
+    }
+  },
+  "native_executed_tools": {
+    "metax": {
+      "archive_sha256": "9f6095fc8531253823bf4ede87331f9ca79ab90623d05aa9bfaadb56cdd3e0a0",
+      "driver_matches_all_15_reports": true,
+      "files": {
+        "accuracy_detr_adapter.py": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+        "audit_cross_vendor_accuracy.py": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+        "collect_cross_vendor_evidence.py": "11901ab1a62684bc969c25cd7b6bbd7fcb55f683696e5576b69f68bbdfca6f9d",
+        "plan.json": "f5b3c806851e9898826223dac666d79f68890095ca26d7b5c60e603a04b7574a",
+        "prepare_cross_vendor_data.py": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+        "recompute_cross_vendor_metrics.py": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+        "run_cross_vendor_accuracy.py": "1a91d81fff9323ef5aaaa9d425cdf8ae7a6774998e3efcf289812e623e5bce48",
+        "run_multiseed_accuracy.py": "c44d8488d79bca4bc8cacf15ca812bd06b79fc4116618659f479872c6c6b70bf",
+        "validate_training_accuracy.py": "038a977279da76b4dbb9a52aa139c8dea2cff9a415d1bc77c0056d6510bbebe4"
+      }
+    },
+    "nvidia": {
+      "archive_sha256": "7d017637189b83dfd01d70e9a91f61941cd1a4a3cdb06d5faa1c666708ac99c0",
+      "driver_matches_all_15_reports": true,
+      "files": {
+        "accuracy_detr_adapter.py": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+        "audit_cross_vendor_accuracy.py": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+        "collect_cross_vendor_evidence.py": "11901ab1a62684bc969c25cd7b6bbd7fcb55f683696e5576b69f68bbdfca6f9d",
+        "plan.json": "f5b3c806851e9898826223dac666d79f68890095ca26d7b5c60e603a04b7574a",
+        "prepare_cross_vendor_data.py": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+        "recompute_cross_vendor_metrics.py": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+        "run_cross_vendor_accuracy.py": "1a91d81fff9323ef5aaaa9d425cdf8ae7a6774998e3efcf289812e623e5bce48",
+        "run_multiseed_accuracy.py": "c44d8488d79bca4bc8cacf15ca812bd06b79fc4116618659f479872c6c6b70bf",
+        "validate_training_accuracy.py": "038a977279da76b4dbb9a52aa139c8dea2cff9a415d1bc77c0056d6510bbebe4"
+      }
+    }
+  },
+  "note": "GPU task processes completed; MetaX container restored to 8 CPUs; historical cohorts preserved",
+  "scope": "Evidence integrity, not accuracy equivalence",
+  "status": "passed"
+}

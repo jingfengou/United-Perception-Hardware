@@ -1,0 +1,62 @@
+{
+  "all_training_batches_sha256": "068e236db4f98a77e196ceae0f030e499ed9d3a24e2915f08bb4560dc0fe0d61",
+  "batch_audit_entries": 600,
+  "driver_sha256": "038a977279da76b4dbb9a52aa139c8dea2cff9a415d1bc77c0056d6510bbebe4",
+  "environment": {
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "4"
+  },
+  "epochs": 300,
+  "final_metrics": {
+    "bbox.AP": 0.15516132674680083,
+    "bbox.AP.5": 0.359564390539726,
+    "bbox.AP.75": 0.10896714126886403,
+    "bbox.AP_L": 0.18178115299756392,
+    "bbox.AP_M": 0.05011354576478513,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.5759398496240601,
+    "bbox.AR_1": 0.11654135338345865,
+    "bbox.AR_10": 0.4451127819548871,
+    "bbox.AR_L": 0.6082644628099174,
+    "bbox.AR_M": 0.3333333333333333,
+    "bbox.AR_S": 0.0
+  },
+  "final_state_sha256": "091435d01f1b669191ee4a01d7d038055ead98ad16f6ac1839df19ec44cf515f",
+  "initial_state_sha256": "8d8f35d86c86cd3035e994a16517b3ed58f5fb666163da681343b64c0c87f668",
+  "learning_rates_sha256": "c1d5eb4d53c0725e442dc420854aa9cb0978074c685e895a1ba1afaba9e40f83",
+  "losses_sha256": "e97ca95eab36b9d7023491da9c5b27e8919fe7be4650f3b3e50dc4609e204759",
+  "model": "yolov5s",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/yolov5s-seed135/report.json",
+    "sha256": "38e5fe1c8ae30cde787e4d3c5ca4d197f16d10299f2a5314f73a2fd52c16f2ba"
+  },
+  "restored_metrics": {
+    "bbox.AP": 0.15516132674680083,
+    "bbox.AP.5": 0.359564390539726,
+    "bbox.AP.75": 0.10896714126886403,
+    "bbox.AP_L": 0.18178115299756392,
+    "bbox.AP_M": 0.05011354576478513,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.5759398496240601,
+    "bbox.AR_1": 0.11654135338345865,
+    "bbox.AR_10": 0.4451127819548871,
+    "bbox.AR_L": 0.6082644628099174,
+    "bbox.AR_M": 0.3333333333333333,
+    "bbox.AR_S": 0.0
+  },
+  "seed": 135,
+  "status": "completed",
+  "training_steps": 600
+}

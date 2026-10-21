@@ -1,0 +1,28 @@
+# NVIDIA-only alignment with the MetaX C500 validation application's versions.
+# Install torch/torchvision from https://download.pytorch.org/whl/cu126 first.
+# Do not install this profile on MetaX or replace the MetaX vendor packages.
+torch==2.10.0+cu126
+torchvision==0.25.0+cu126
+numpy==1.26.4
+scipy==1.16.0
+pillow==11.2.1
+easydict==1.13
+lvis==0.5.3
+matplotlib==3.10.3
+numba==0.59.1
+llvmlite==0.42.0
+onnx==1.17.0
+opencv-python==4.11.0.86
+pandas==2.2.3
+prettytable==3.16.0
+psutil==7.0.0
+scikit-image==0.25.2
+scikit-learn==1.6.1
+tensorboardX==2.6.4
+tqdm==4.67.1
+pycocotools==2.0.10
+PyYAML==6.0.3
+imageio==2.38.1
+tifffile==2026.3.3
+joblib==1.6.0
+threadpoolctl==3.7.0

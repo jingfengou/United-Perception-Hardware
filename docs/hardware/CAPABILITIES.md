@@ -6,6 +6,8 @@
 
 随后完成[四模型真实数据跨厂商对照](CROSS_VENDOR_ACCURACY.md)：CIFAR-10/PennFudan 固定预算、两平台各五种子，共 40 次训练/76,000 步，状态审计及最终预测独立复算全部通过；预设 +/-1 点平均精度等价仅 ResNet18 确认，YOLO、DETR、ViT 未确认。不将跑通训练改写为全模型精度等价或全量 ImageNet/COCO 收敛。
 
+最新[2.10 版本对齐与差异定位](CROSS_VENDOR_DIAGNOSIS.md)追加 41 次完整训练：三模型及关闭库 DETR 的五种子对照均未确认 +/-1 点等价；同一权重两平台的 12 次评估指标一致。MetaX 卷积库开关已接入共享实现，但 C500 当前栈的卷积权重梯度样例在请求确定性后仍不重复，关闭库也不保证完整训练逐位可重复。RNG 状态相同不保证跨厂商同形状 Dropout 掩码相同。
+
 2026-10-21 完成了 A800 的[五模型多种子训练对照](MULTISEED_ACCURACY.md)：Faster R-CNN 10 对平均 AP 通过预设等价检验但逐步检查不一致；ResNet18、YOLOv5-S、ViT-B/16 和外部官方单类 DETR 各 5 对的 loss、最终模型状态与指标相同。[早期短程对照](TRAINING_ACCURACY.md)及同版本漂移记录保留。以上不代表全量 ImageNet/COCO 收敛、全部模型配置或其他硬件已经验收。
 
 | 能力 | NVIDIA / A800 | 昇腾 / 910B | 寒武纪 / MLU590 | 沐曦 / C500 |

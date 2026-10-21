@@ -84,8 +84,87 @@ def test_metax_rejects_nvidia_binary_loading():
         TOOL.verify_run(item, TOOL.load_plan(PLAN_PATH), "resnet18", 131, "metax", "same", "same")
 
 
+def test_explicit_convolution_disable_requires_actual_readback():
+    plan = TOOL.load_plan(PLAN_PATH)
+    plan["disable_convolution_library"] = True
+    item = report()
+    with pytest.raises(ValueError, match="disable policy"):
+        TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+    item["environment"]["convolution_library_enabled"] = False
+    TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+
+
 def test_verified_complete_run_is_eligible():
     TOOL.verify_run(report("metax"), TOOL.load_plan(PLAN_PATH), "resnet18", 131, "metax", "same", "same")
+
+
+def test_all_batch_audit_is_required_only_when_declared():
+    import hashlib
+    plan = TOOL.load_plan(PLAN_PATH)
+    plan["audit_all_training_batches"] = True
+    item = report()
+    with pytest.raises(ValueError, match="batch audit"):
+        TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+    item["batch_audit"] = [{"step": i, "batch_sha256": "same"} for i in range(3140)]
+    item["all_training_batches_sha256"] = hashlib.sha256(json.dumps(["same"] * 3140).encode()).hexdigest()
+    TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+    item["batch_audit"][1]["batch_sha256"] = "changed"
+    with pytest.raises(ValueError, match="hash mismatch"):
+        TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+    item["batch_audit"][0]["batch_sha256"] = "other"
+    with pytest.raises(ValueError, match="First training batch"):
+        TOOL.verify_run(item, plan, "resnet18", 131, "nvidia", "same", "same")
+
+
+def test_new_protocol_preserves_old_budgets_seeds_and_margin():
+    plan = TOOL.load_plan(ROOT / "docs/hardware/validation/cross_vendor_diagnosis_20261021/plan.json")
+    old = TOOL.load_plan(PLAN_PATH)
+    assert set(plan["models"]) == {"yolov5s", "detr", "vit_b16"}
+    assert plan["audit_all_training_batches"]
+    assert "all_training_batches_sha256" in plan["pairing"]
+    assert plan["equivalence"]["margin_percentage_points"] == 1
+    for name, spec in plan["models"].items():
+        assert spec == old["models"][name] | {"provenance": spec["provenance"]}
+
+
+def test_numerical_probe_comparison_preserves_schema_gaps_and_actual_masks(tmp_path):
+    import argparse
+    import torch
+    probe = load("probe_cross_vendor_numerics")
+    paths = [tmp_path / name for name in ("a", "b")]
+    for path in paths:
+        path.mkdir()
+        (path / "report.json").write_text('{"status": "completed", "kind": "rng"}')
+    torch.save({"mask": torch.tensor([True, False])}, paths[0] / "tensors.pt")
+    torch.save({"mask": torch.tensor([False, False])}, paths[1] / "tensors.pt")
+    args = argparse.Namespace(compare=paths, output=tmp_path / "comparison.json", allow_schema_difference=False)
+    probe.compare(args)
+    result = json.loads(args.output.read_text())
+    assert result["tensors"]["mask"]["unequal_elements"] == 1
+    assert not result["tensors"]["mask"]["equal"]
+    torch.save({"mask": torch.tensor([False, False]), "new": torch.zeros(1)}, paths[1] / "tensors.pt")
+    with pytest.raises(ValueError, match="Different captured"):
+        probe.compare(args)
+    args.allow_schema_difference = True
+    probe.compare(args)
+    assert json.loads(args.output.read_text())["captured_key_gaps"]["right_only"] == ["new"]
+
+
+@pytest.mark.parametrize("name", ["nvidia/../environment.json", "nvidia/..\\escape/environment.json", "nvidia/key.pem"])
+def test_diagnosis_archive_reader_rejects_unsafe_members(tmp_path, name):
+    import hashlib
+    import io
+    import tarfile
+    tool = load("summarize_diagnosis_evidence")
+    archive = tmp_path / "nvidia-evidence.tar.gz"
+    with tarfile.open(archive, "w:gz") as stream:
+        member = tarfile.TarInfo(name)
+        member.size = 2
+        stream.addfile(member, io.BytesIO(b"{}"))
+    archive.with_name(archive.name + ".index.json").write_text(json.dumps({
+        "archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(), "files": {}, "completed_runs": 0}))
+    with pytest.raises(ValueError, match="Unexpected evidence"):
+        tool.read_cohort(tmp_path, "nvidia")
 
 
 def test_copy_verifies_both_source_and_existing_destination(tmp_path):

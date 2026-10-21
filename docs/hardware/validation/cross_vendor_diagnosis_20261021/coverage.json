@@ -1,0 +1,46 @@
+{
+  "complete_training_runs": 40,
+  "optimizer_steps": 51800,
+  "phases": {
+    "native": {
+      "all_training_inputs_equal": true,
+      "application_source_manifest": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+      "archives": {
+        "metax": {
+          "archive_sha256": "a322232b82345a3074303bea14c36721567b6bf6786642ca291314420d3f71fe",
+          "members": 100,
+          "tests": 166
+        },
+        "nvidia": {
+          "archive_sha256": "59c6e027b2cc7408aa7305ee27418d943d8ff6d971f871182372b3d47d961f55",
+          "members": 100,
+          "tests": 166
+        }
+      },
+      "fair_pairs": 15,
+      "runs": 30,
+      "steps": 44600
+    },
+    "no-dnn": {
+      "all_training_inputs_equal": true,
+      "application_source_manifest": "69a779ab27ca2485a0f73bbe54e974ac1fabb7a4ee93dd4ac3594053c99874b3",
+      "archives": {
+        "metax": {
+          "archive_sha256": "0f4def205bc0cae82da686dce647fb61930ce9f99184ef8a6a3899156474f060",
+          "members": 39,
+          "tests": 170
+        },
+        "nvidia": {
+          "archive_sha256": "0c5f72bf96f1285507b01d5864344a7bbef811bc4f85e6d14a0bb51ffc95f2ff",
+          "members": 39,
+          "tests": 170
+        }
+      },
+      "fair_pairs": 5,
+      "runs": 10,
+      "steps": 7200
+    }
+  },
+  "scope": "Two separately declared policies, never pooled for equivalence",
+  "status": "passed"
+}

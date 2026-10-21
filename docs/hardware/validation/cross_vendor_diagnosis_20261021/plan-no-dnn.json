@@ -1,0 +1,15 @@
+{
+  "id": "cross-vendor-detr-dnn-workaround-20261021-v3",
+  "scope": "Separate targeted same-device convolution-provider workaround; NOT pooled with the unchanged native-policy rerun",
+  "backends": ["nvidia", "metax"],
+  "selection": "All five predeclared seeds, final epoch; unchanged original data, budget, model and loss",
+  "precision": "Strict FP32, deterministic request, TF32 false; explicitly disable cuDNN-shaped convolution library on BOTH vendors through the existing Runner nocudnn config",
+  "software_scope": "Same aligned torch2.10/torchvision0.25 application environments; vendor binaries and Python patch versions differ. MetaX convolution control is fixed to honor the existing interface.",
+  "audit_all_training_batches": true,
+  "disable_convolution_library": true,
+  "equivalence": {"method": "paired Student t TOST", "alpha": 0.05, "margin_percentage_points": 1.0},
+  "pairing": ["data_manifest_sha256", "algorithm_config_sha256", "normalized_source_manifest_sha256", "initial_state_sha256", "first_batch_sha256", "all_training_batches_sha256", "learning_rates", "driver_sha256", "adapter_sha256", "external_model"],
+  "models": {
+    "detr": {"epochs": 12, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 720, "provenance": "Same external official DETR R50 adapter, same frozen PennFudan120/50, weights, LR groups and data; explicit same-GPU ATen convolution path rather than vendor DNN convolution"}
+  }
+}

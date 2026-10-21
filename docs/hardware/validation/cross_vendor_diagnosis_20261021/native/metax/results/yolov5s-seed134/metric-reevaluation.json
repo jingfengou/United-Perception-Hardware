@@ -1,0 +1,56 @@
+{
+  "details": {
+    "detections": 1745,
+    "iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.8999999999999999,
+      0.95
+    ],
+    "max_detections": [
+      1,
+      10,
+      100
+    ],
+    "validation_images": 50
+  },
+  "ground_truth_sha256": "221b282c8d851335ccee7099afd150c5d73b8c39249f39a2d2bdb6ad64c1cede",
+  "predictions_sha256": "df2c4e65922f35d25e9c75ce2de7b31d2ed904ba69acd7ecf851917248ac825b",
+  "reevaluated_metrics": {
+    "bbox.AP": 0.37057104909643684,
+    "bbox.AP.5": 0.7437245662341285,
+    "bbox.AP.75": 0.2872477883579744,
+    "bbox.AP_L": 0.4481780534926292,
+    "bbox.AP_M": 0.20835236831900397,
+    "bbox.AP_S": 0.03787128712871287,
+    "bbox.AR": 0.5774436090225563,
+    "bbox.AR_1": 0.17744360902255638,
+    "bbox.AR_10": 0.5556390977443608,
+    "bbox.AR_L": 0.590909090909091,
+    "bbox.AR_M": 0.4888888888888888,
+    "bbox.AR_S": 0.3
+  },
+  "reevaluator_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+  "report_sha256": "ca22f23ad83547c7d25c2effaf3b970db0e4ab8a5f727377581909e3c6790add",
+  "reported_metrics": {
+    "bbox.AP": 0.37057104909643684,
+    "bbox.AP.5": 0.7437245662341285,
+    "bbox.AP.75": 0.2872477883579744,
+    "bbox.AP_L": 0.4481780534926292,
+    "bbox.AP_M": 0.20835236831900397,
+    "bbox.AP_S": 0.03787128712871287,
+    "bbox.AR": 0.5774436090225563,
+    "bbox.AR_1": 0.17744360902255638,
+    "bbox.AR_10": 0.5556390977443608,
+    "bbox.AR_L": 0.590909090909091,
+    "bbox.AR_M": 0.4888888888888888,
+    "bbox.AR_S": 0.3
+  },
+  "status": "passed"
+}

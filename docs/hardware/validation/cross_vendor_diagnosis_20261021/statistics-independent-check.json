@@ -1,0 +1,46 @@
+{
+  "cases": {
+    "native/detr": {
+      "ci90": [
+        -0.9889173905412624,
+        2.0428444776264296
+      ],
+      "equivalent": false,
+      "mean_delta_pp": 0.526963543542584,
+      "source_sha256": "1e2cb03c04b7f72f79106c5e95a4d4408782aca89e6f933519db39176e620564",
+      "tost_p": 0.2711430392698495
+    },
+    "native/vit_b16": {
+      "ci90": [
+        -5.955089951379948,
+        1.0550884255010402
+      ],
+      "equivalent": false,
+      "mean_delta_pp": -2.450000762939453,
+      "source_sha256": "1e2cb03c04b7f72f79106c5e95a4d4408782aca89e6f933519db39176e620564",
+      "tost_p": 0.7861832657191894
+    },
+    "native/yolov5s": {
+      "ci90": [
+        -23.179048842520995,
+        11.868705559975513
+      ],
+      "equivalent": false,
+      "mean_delta_pp": -5.655171641272736,
+      "source_sha256": "1e2cb03c04b7f72f79106c5e95a4d4408782aca89e6f933519db39176e620564",
+      "tost_p": 0.6992801512515936
+    },
+    "no-dnn/detr": {
+      "ci90": [
+        -1.7060988254186595,
+        0.07970661595295869
+      ],
+      "equivalent": false,
+      "mean_delta_pp": -0.8131961047328502,
+      "source_sha256": "b9d6cfbc90e64f501a79ff4c277b572e7a46aaf62e1d83cb14244c229b282df7",
+      "tost_p": 0.3393363904879506
+    }
+  },
+  "method": "scipy.stats.t.interval/cdf on frozen paired deltas",
+  "status": "passed"
+}

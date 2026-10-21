@@ -1,0 +1,16 @@
+{
+  "id": "cross-vendor-aligned-210-20261021-v2",
+  "scope": "Independent aligned-stack rerun of the same fixed real-data budgets; previous results are immutable",
+  "backends": ["nvidia", "metax"],
+  "selection": "Final epoch, every predeclared seed; no tuning using the holdout",
+  "precision": "Strict FP32 and deterministic-algorithm request, both TF32 flags false, unchanged application source",
+  "software_scope": "NVIDIA torch2.10.0+cu126/torchvision0.25.0+cu126 versus MetaX torch2.10.0+metax3.8.1.0/torchvision0.25.0+metax3.8.1.0; SciPy1.16.0, numpy1.26.4, Pillow11.2.1 and application pins aligned. Vendor kernels, SDK and Python patch versions still differ.",
+  "audit_all_training_batches": true,
+  "equivalence": {"method": "paired Student t TOST", "alpha": 0.05, "margin_percentage_points": 1.0},
+  "pairing": ["data_manifest_sha256", "algorithm_config_sha256", "normalized_source_manifest_sha256", "initial_state_sha256", "first_batch_sha256", "all_training_batches_sha256", "learning_rates", "driver_sha256", "adapter_sha256", "external_model"],
+  "models": {
+    "yolov5s": {"epochs": 300, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 600, "provenance": "Unchanged native UP YOLOv5-S SiLU, 320px PennFudan120/50, batch64, random init, EMA off"},
+    "detr": {"epochs": 12, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 720, "provenance": "Same pinned external official DETR R50 adapter, not an upstream UP model, same PennFudan/weights/LR groups"},
+    "vit_b16": {"epochs": 20, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "top1", "metric_to_percentage_points": 1.0, "expected_steps_per_run": 3140, "provenance": "Unchanged native UP ViT-B/16, CIFAR10 10000/2000, 64px/17tokens, 12blocks, batch64, same strong augmentation and optimizer"}
+  }
+}
