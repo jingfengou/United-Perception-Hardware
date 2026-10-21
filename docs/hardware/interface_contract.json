@@ -1,0 +1,1457 @@
+{
+  "contract_snapshot_version": 1,
+  "dtype_policy": "null metadata means unspecified, not all dtypes supported",
+  "entry_points": [
+    {
+      "name": "up.accelerator.configure_accelerator",
+      "signature": "configure_accelerator(config=None, backend=None, device=None, reset=False)"
+    },
+    {
+      "name": "up.accelerator.get_accelerator",
+      "signature": "get_accelerator()"
+    },
+    {
+      "name": "up.accelerator.capabilities",
+      "signature": "capabilities()"
+    },
+    {
+      "name": "up.accelerator.prepare_args",
+      "signature": "prepare_args(args)"
+    },
+    {
+      "name": "up.accelerator.activate_args",
+      "signature": "activate_args(args)"
+    },
+    {
+      "name": "up.accelerator.register_backend",
+      "signature": "register_backend(name, factory=None, replace=False, probe=None)"
+    },
+    {
+      "name": "up.accelerator.register_op",
+      "signature": "register_op(backend, name, implementation=None, backward=None, replace=False, dtypes=None, variants=None)"
+    },
+    {
+      "name": "up.accelerator.ops.call",
+      "signature": "call(name, *args, **kwargs)"
+    }
+  ],
+  "operations": [
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "boxes_bev_iou_cpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "CPU Tensor[N,M] or ndarray matching the original input type",
+      "signature": "boxes_bev_iou_cpu(boxes_a, boxes_b)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "boxes_iou3d_gpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device Tensor[N,M]; no complete native BEV backward contract",
+      "signature": "boxes_iou3d_gpu(boxes_a, boxes_b)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "boxes_iou_bev",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device Tensor[N,M]",
+      "signature": "boxes_iou_bev(boxes_a, boxes_b)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_optimizer",
+      "gradients": "not applicable",
+      "name": "build_fused_optimizer",
+      "reference_source": "up/accelerator/ops.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier optimizer with unchanged parameter groups",
+      "signature": "build_fused_optimizer(config)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "preds",
+      "name": "cross_focal_loss",
+      "reference_source": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,C] for reduction=none, otherwise Tensor[1]",
+      "signature": "cross_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, gt_class_to_avoid, reduction)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "input, offset, weight",
+      "name": "deformable_conv",
+      "reference_source": "up/accelerator/backends/nvidia_ops/deformable_conv.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "NCHW Tensor",
+      "signature": "deformable_conv(input, offset, weight, out_channels, kernel_size, stride, pad, dilations, groups, deformable_groups)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.all_gather",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.all_gather(tensor_list, tensor, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.all_gather_into_tensor",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.all_gather_into_tensor(output_tensor, input_tensor, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.all_gather_object",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.all_gather_object(object_list, obj, group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.all_reduce",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.all_reduce(tensor, op=SUM, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.barrier",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.barrier(group=None, async_op=False, device_ids=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.broadcast",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.broadcast(tensor, src, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.broadcast_object_list",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.broadcast_object_list(object_list, src=0, group=None, device=None, **kwargs)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.collective_device",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "torch.device; CPU for Gloo, active device otherwise",
+      "signature": "distributed.collective_device(group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.cpu_group",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Gloo process group",
+      "signature": "distributed.cpu_group(provider='dist')"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.destroy_process_group",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.destroy_process_group(group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.gather",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.gather(tensor, gather_list=None, dst=0, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.get_backend",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.get_backend(group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.get_rank",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.get_rank(group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.get_world_size",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.get_world_size(group=None)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.init_process_group",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.init_process_group(backend=None, *args, **kwargs)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.is_available",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.is_available()"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.is_initialized",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.is_initialized()"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.new_group",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.new_group(ranks=None, timeout=None, backend=None, **kwargs)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.reduce",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.reduce(tensor, dst, op=SUM, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.reduce_scatter",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "signature": "distributed.reduce_scatter(output, input_list, op=SUM, group=None, async_op=False)"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "name": "distributed.wrap_model",
+      "reference_source": "up/accelerator/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "DistributedDataParallel-compatible model with original parameters",
+      "signature": "distributed.wrap_model(model, device_ids=None, **kwargs)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "gpu_iou_overlap",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou_overlap.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        },
+        "portable": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,M]; legacy empty input returns Tensor[0]",
+      "signature": "gpu_iou_overlap(b1, b2, mode='IoU')"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.allgather",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.allgather(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.allreduce",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.allreduce(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.allreduce_async",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.allreduce_async(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.barrier",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.barrier(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.broadcast",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.broadcast(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.finalize",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.finalize(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.gather",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.gather(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.get_backend",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.get_backend(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.get_local_rank",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.get_local_rank(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.get_rank",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.get_rank(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.get_world_size",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.get_world_size(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.initialize",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.initialize(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.is_initialized",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.is_initialized(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.new_group",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.new_group(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "gradients": "supplier-defined; no invented backward",
+      "name": "legacy_link.synchronize",
+      "reference_source": "up/accelerator/backends/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "signature": "legacy_link.synchronize(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_linklink",
+      "gradients": "supplier-owned complete autograd",
+      "name": "link_sync_batch_norm",
+      "reference_source": "up/accelerator/layers.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "link.nn.SyncBNFunc.apply result",
+      "signature": "link_sync_batch_norm(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "naive_nms",
+      "reference_source": "up/accelerator/backends/nvidia_ops/nms.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        },
+        "portable": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int64 Tensor[K] of kept indices; input already score-sorted",
+      "signature": "naive_nms(dets, thresh)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "nms_gpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(same-device int64 Tensor[K], None)",
+      "signature": "nms_gpu(boxes, scores, thresh, pre_maxsize=None, **kwargs)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "nms_normal_gpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(same-device int64 Tensor[K], None)",
+      "signature": "nms_normal_gpu(boxes, scores, thresh, **kwargs)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "points_in_boxes_cpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "CPU int32 Tensor[M,N] membership mask",
+      "signature": "points_in_boxes_cpu(points, boxes)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "points_in_boxes_gpu",
+      "reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int32 Tensor[B,N]; box index or -1",
+      "signature": "points_in_boxes_gpu(points, boxes)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "features",
+      "name": "psroi_align",
+      "reference_source": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,output_dim,group_size,group_size]",
+      "signature": "psroi_align(features, rois, group_size, spatial_scale, output_dim, sampling_ratio)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "features",
+      "name": "psroi_pool",
+      "reference_source": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,output_dim,group_size,group_size]",
+      "signature": "psroi_pool(features, rois, group_size, spatial_scale, output_dim)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_quantization",
+      "gradients": "not applicable",
+      "name": "quantization_backend_types",
+      "reference_source": "up/accelerator/ops.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "dict of platform names to supplier BackendType values",
+      "signature": "quantization_backend_types()"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_quantization",
+      "gradients": "not applicable",
+      "name": "register_float_modules",
+      "reference_source": "up/accelerator/ops.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "None; supplier FP16 registration side effects",
+      "signature": "register_float_modules(modules, initialize=False)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_optimizer",
+      "gradients": "not applicable",
+      "name": "reload_fused_optimizer",
+      "reference_source": "up/accelerator/ops.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "None; rebinds/promotes optimizer master parameters in place",
+      "signature": "reload_fused_optimizer(optimizer)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "features",
+      "name": "roi_align",
+      "reference_source": "up/accelerator/backends/nvidia_ops/roi_align.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,C,pooled_h,pooled_w]",
+      "signature": "roi_align(features, rois, pooled_h, pooled_w, spatial_scale, sampling_ratio, pooled_mode)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "pts_feature",
+      "name": "roiaware_pool3d",
+      "reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,out_x,out_y,out_z,C]",
+      "signature": "roiaware_pool3d(rois, pts, pts_feature, out_size, max_pts_each_voxel, pool_method)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "none; upstream backward raises",
+      "name": "roipoint_pool3d",
+      "reference_source": "up/accelerator/backends/nvidia_ops/roipoint_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(Tensor[B,M,S,3+C], int32 Tensor[B,M] empty flags)",
+      "signature": "roipoint_pool3d(points, point_features, boxes3d, pool_extra_width, num_sampled_points=512)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "rotate_iou_eval",
+      "reference_source": "up/accelerator/backends/nvidia_ops/rotate_iou.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "numpy float32 ndarray[N,K]; complete evaluation boundary",
+      "signature": "rotate_iou_eval(boxes, query_boxes, criterion=-1, device_id=0)"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "preds",
+      "name": "sigmoid_focal_loss",
+      "reference_source": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,C] for reduction=none, otherwise Tensor[1]",
+      "signature": "sigmoid_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, reduction)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "gradients": "none",
+      "name": "softer_nms",
+      "reference_source": "up/accelerator/backends/nvidia_ops/nms.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(modified_dets[K,9], keep_indices); preserves the legacy variance/score columns",
+      "signature": "softer_nms(dets, thresh=0.0001, sigma=0.5, iou_thresh=0.3, iou_method='linear', iou_sigma=0.02, method='var_voting')"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "gradients": "preds",
+      "name": "softmax_focal_loss",
+      "reference_source": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[1]",
+      "signature": "softmax_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.SparseConv3d",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "signature": "sparse.SparseConv3d(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.SparseConvTensor",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier sparse tensor; original constructor semantics",
+      "signature": "sparse.SparseConvTensor(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.SparseInverseConv3d",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "signature": "sparse.SparseInverseConv3d(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.SubMConv3d",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "signature": "sparse.SubMConv3d(*args, **kwargs)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.features",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[active_sites,channels]",
+      "signature": "sparse.features(value)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.is_sparse_convolution",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "bool",
+      "signature": "sparse.is_sparse_convolution(module)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.replace_feature",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "sparse tensor with unchanged geometry and replaced features",
+      "signature": "sparse.replace_feature(value, new_features)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.sequential_forward",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "sparse or dense result after ordered module execution",
+      "signature": "sparse.sequential_forward(sequence, value)"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "name": "sparse.to_dense",
+      "reference_source": "up/accelerator/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "backward": null,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "dense Tensor in the original supplier layout",
+      "signature": "sparse.to_dense(value)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "normalization",
+      "gradients": "input, weight, bias",
+      "name": "sync_batch_norm",
+      "reference_source": "up/accelerator/layers.py",
+      "registered_providers": {
+        "portable": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor with the input shape",
+      "signature": "sync_batch_norm(input, weight, bias, running_mean, running_var, eps, momentum, process_group, world_size)"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "normalization",
+      "gradients": "input and module affine parameters",
+      "name": "sync_batch_norm_forward",
+      "reference_source": "up/accelerator/layers.py",
+      "registered_providers": {
+        "portable": {
+          "backward": true,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor with the input shape",
+      "signature": "sync_batch_norm_forward(module, value)"
+    },
+    {
+      "calling_convention": "three positional arguments; provider keyword names are not a portable contract",
+      "category": "vision",
+      "gradients": "none",
+      "name": "torchvision_nms",
+      "reference_source": "up/accelerator/ops.py",
+      "registered_providers": {
+        "nvidia": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        },
+        "portable": {
+          "backward": false,
+          "dtypes": null,
+          "variants": null
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int64 Tensor[K]",
+      "signature": "torchvision_nms(boxes, scores, iou_threshold)"
+    }
+  ],
+  "runtime": [
+    {
+      "kind": "method",
+      "name": "__init__",
+      "signature": "__init__(self, device=None)"
+    },
+    {
+      "kind": "property",
+      "name": "api",
+      "signature": "api"
+    },
+    {
+      "kind": "property",
+      "name": "device",
+      "signature": "device"
+    },
+    {
+      "kind": "method",
+      "name": "is_available",
+      "signature": "is_available(self)"
+    },
+    {
+      "kind": "method",
+      "name": "device_count",
+      "signature": "device_count(self)"
+    },
+    {
+      "kind": "method",
+      "name": "current_device",
+      "signature": "current_device(self)"
+    },
+    {
+      "kind": "method",
+      "name": "resolve_device",
+      "signature": "resolve_device(self, device=None)"
+    },
+    {
+      "kind": "method",
+      "name": "set_device",
+      "signature": "set_device(self, device)"
+    },
+    {
+      "kind": "method",
+      "name": "is_accelerator_tensor",
+      "signature": "is_accelerator_tensor(self, tensor)"
+    },
+    {
+      "kind": "method",
+      "name": "validate_environment",
+      "signature": "validate_environment(self, requirements)"
+    },
+    {
+      "kind": "method",
+      "name": "to_device",
+      "signature": "to_device(self, value, device=None, non_blocking=False)"
+    },
+    {
+      "kind": "method",
+      "name": "float_tensor",
+      "signature": "float_tensor(self, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "int_tensor",
+      "signature": "int_tensor(self, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "manual_seed",
+      "signature": "manual_seed(self, seed)"
+    },
+    {
+      "kind": "method",
+      "name": "get_rng_state",
+      "signature": "get_rng_state(self, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "set_rng_state",
+      "signature": "set_rng_state(self, state, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "synchronize",
+      "signature": "synchronize(self, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "empty_cache",
+      "signature": "empty_cache(self)"
+    },
+    {
+      "kind": "method",
+      "name": "reset_peak_memory_stats",
+      "signature": "reset_peak_memory_stats(self)"
+    },
+    {
+      "kind": "method",
+      "name": "memory_allocated",
+      "signature": "memory_allocated(self, device=None)"
+    },
+    {
+      "kind": "method",
+      "name": "max_memory_allocated",
+      "signature": "max_memory_allocated(self, device=None)"
+    },
+    {
+      "kind": "method",
+      "name": "get_device_properties",
+      "signature": "get_device_properties(self, device=None)"
+    },
+    {
+      "kind": "method",
+      "name": "autocast",
+      "signature": "autocast(self, enabled=True, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "grad_scaler",
+      "signature": "grad_scaler(self, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "configure_convolution",
+      "signature": "configure_convolution(self, enabled=True)"
+    },
+    {
+      "kind": "method",
+      "name": "health_check",
+      "signature": "health_check(self)"
+    },
+    {
+      "kind": "method",
+      "name": "convolution_flags",
+      "signature": "convolution_flags(self, enabled=True)"
+    },
+    {
+      "kind": "method",
+      "name": "call",
+      "signature": "call(self, name, *args, **kwargs)"
+    },
+    {
+      "kind": "method",
+      "name": "dependency",
+      "signature": "dependency(self, name)"
+    },
+    {
+      "kind": "method",
+      "name": "capabilities",
+      "signature": "capabilities(self)"
+    }
+  ],
+  "runtime_attributes": [
+    "name",
+    "device_type",
+    "communication_backend",
+    "op_fallbacks",
+    "extension_modules"
+  ],
+  "runtime_class": "up.accelerator.TorchAccelerator",
+  "status": "interface and registration snapshot, not hardware validation"
+}

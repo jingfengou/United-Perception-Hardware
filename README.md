@@ -6,7 +6,7 @@
 
 这是保留原项目 Git 历史的独立派生仓库。上游基线为 `52aaeb9ed27a490820696d7754d19f98cd6ecd11`，原项目的 [Apache-2.0 LICENSE](LICENSE) 和代码归属保留。主要新增代码位于 [`up/accelerator/`](up/accelerator/)。
 
-只想运行模型，阅读第 2、3、4 节；准备增加厂商适配，继续阅读第 5 节。
+只想运行模型，阅读第 2、3、4 节；准备增加厂商适配，继续阅读第 5 节。需要逐项核对适配函数，直接看[完整接口定义](docs/hardware/INTERFACE.md)和[函数签名索引](docs/hardware/API_INDEX.md)。
 
 ## 1. 增加了什么功能
 
@@ -37,7 +37,7 @@
 
 | 硬件 | 配置中的 `backend` | 设备名 | 当前状态 |
 | --- | --- | --- | --- |
-| NVIDIA A800 | `nvidia` | `cuda` | 已做算子对比、代表模型短程检查和双卡验证 |
+| NVIDIA A800 | `nvidia` | `cuda` | 算子/合成模型/双卡已测；分类短程训练一致，检测严格精度对比尚未通过 |
 | 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
 | 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
 | 沐曦 C500 | `metax` | `cuda` | 同上；不会因为设备名为 `cuda` 就自动使用 NVIDIA 二进制 |
@@ -66,7 +66,7 @@
 | NVIDIA 算子和代表模型 | Linux、Python `3.12.3`、PyTorch `2.8.0a0+5228986c39.nv25.06`、CUDA `12.9` | 32 个算子对比样例、4 个代表模型、AMP 和双卡通信 |
 | 与上述 PyTorch 配套的 TorchVision | `0.22.0a0+95f10a4e` | 使用服务器原有配套分发，不是建议与任意官方 PyTorch wheel 混装 |
 | 部分普通依赖 | NumPy `1.26.4`、ONNX `1.17.0` 等 | 清单见下方，完整版本快照见验证产物 |
-| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 52 项契约测试通过 |
+| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；新增完整接口清单和真实训练协议检查后 68 项通过 |
 | 无 CUDA 公共包构建 | Windows、Python `3.13.11`、未安装 PyTorch | wheel 和 sdist 构建通过；没有在此环境验证模型运行 |
 | 昇腾、寒武纪、沐曦 | 尚未建立经真机确认的完整环境组合 | 不能据 NVIDIA 的结果推断这三家的版本支持 |
 
@@ -75,8 +75,10 @@ CPU CI 还配置了 Python 3.10/3.12、CPU PyTorch 2.6 的接口检查；云端�
 本仓库有三类环境资料：
 
 - [`requirements.txt`](requirements.txt)：原项目的历史依赖，含 SciPy 1.1.0、ONNX <= 1.6.0 等旧约束，保留用于追溯。
-- [`requirements/validated-a800.txt`](requirements/validated-a800.txt)：从本轮 A800 环境提取的应用和测试依赖子集，供该环境复验；保留配套的 PyTorch、TorchVision 和 pycocotools。
+- [`requirements/validated-a800.txt`](requirements/validated-a800.txt)：从首轮 A800 环境提取的应用和测试依赖子集，供该环境复验；保留配套的 PyTorch/TorchVision，COCO 数据链路另按任务报告处理。
 - [`docs/hardware/validation/packages.json`](docs/hardware/validation/packages.json)：实际验证环境中可见的包名和版本快照，包含继承的系统包，不是跨机器通用的安装锁。
+
+首轮环境清单并不保证真实数据链路也兼容：本次检测训练发现 NVIDIA 增强版 COCO 库需要任务内的标准 `pycocotools==2.0.10` 覆盖，旧官方预训练权重需要保值转换序列化格式。具体操作见[真实数据训练报告](docs/hardware/TRAINING_ACCURACY.md)，不替换系统 PyTorch/TorchVision，也不全局关闭权重安全加载。
 
 `setup.py` 中的 `python_requires >= 3.6` 是继承的包元数据，**不能据此理解为 Python 3.6 以上任意版本都能运行全部功能**。实际运行支持以对应环境的测试记录为准。
 
@@ -117,7 +119,7 @@ git clone https://github.com/jingfengou/United-Perception-Hardware.git
 cd United-Perception-Hardware
 ```
 
-这是公共仓库，可直接克隆。在代码根目录补齐普通依赖：复验本轮 A800 环境时，可在保留其配套 PyTorch/TorchVision/pycocotools 的前提下使用：
+这是公共仓库，可直接克隆。在代码根目录补齐普通依赖：复验首轮 A800 环境时，可在保留其配套 PyTorch/TorchVision 的前提下使用下列子集；真实数据检测还需按训练报告准备兼容的 COCO 库和权重格式：
 
 ```bash
 python -m pip install -r requirements/validated-a800.txt
@@ -364,9 +366,10 @@ runtime:
 在已经安装 PyTorch 的测试环境中：
 
 ```bash
-python -m pip install pytest packaging setuptools wheel
+python -m pip install pytest packaging setuptools wheel PyYAML numpy
 python tools/check_hardware_boundaries.py
-python -m pytest -q tests/test_accelerator.py
+python tools/export_accelerator_contract.py --check
+python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py
 ```
 
 `up.accelerator.capabilities()` 可查询已注册的操作、供应者和声明信息。查询结果是注册清单，不会证明对应 SDK 已安装或真机已经通过。
@@ -381,8 +384,10 @@ python -m pytest -q tests/test_accelerator.py
 | 原有算子兼容入口 | [`up/extensions/python/`](up/extensions/python/) |
 | 262 条上游硬件依赖记录 | [`upstream_inventory.json`](docs/hardware/upstream_inventory.json) |
 | 详细接口与接入说明 | [接口说明](docs/hardware/README.md)、[新增厂商说明](docs/hardware/ADDING_BACKENDS.md) |
+| 完整适配函数定义 | [中文接口契约](docs/hardware/INTERFACE.md)、[全部函数签名](docs/hardware/API_INDEX.md)、[机器可读清单](docs/hardware/interface_contract.json) |
+| 真实数据训练与精度变化 | [原版/改造版训练报告](docs/hardware/TRAINING_ACCURACY.md)，保留检测严格不一致和同版本重复漂移，未写成全部通过 |
 | 能力和实际测试范围 | [能力矩阵](docs/hardware/CAPABILITIES.md)、[验证报告](docs/hardware/VALIDATION.md) |
 | 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
-本轮 NVIDIA 检查是有界的数值与合成输入验证，不代表完整数据集精度、收敛或性能验收。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
+首轮 NVIDIA 检查为有界数值与合成输入验证；新增了真实数据的完整 Runner 短程对照：ResNet18 两种子 Top-1、loss、权重相同；Faster R-CNN 两种子的严格一致性检查未通过，同版本重复也存在漂移，不能据此宣称精度等价。两轮检查均不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，未将外部模型冒充 UP 原有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。

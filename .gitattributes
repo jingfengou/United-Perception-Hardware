@@ -1,0 +1,2 @@
+# Keep recorded validation hashes stable on Windows and Linux checkouts.
+docs/hardware/validation/accuracy_20261021/** text eol=lf

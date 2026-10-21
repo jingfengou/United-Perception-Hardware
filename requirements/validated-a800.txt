@@ -1,7 +1,9 @@
 # Observed application/test dependencies from the A800 validation environment.
 # Use only inside the matching validated NVIDIA environment.
-# Keep its existing torch, torchvision and NVIDIA pycocotools distribution.
+# Keep its existing torch and torchvision distribution.
 # This is a dependency subset, not a complete container lock.
+# Real-data detection needs the task-local COCO override documented in
+# docs/hardware/TRAINING_ACCURACY.md; the original NVIDIA COCO subclass is incompatible.
 # It is not an Ascend, Cambricon or MetaX installation profile.
 easydict==1.13
 lvis==0.5.3
