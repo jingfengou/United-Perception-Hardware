@@ -154,3 +154,77 @@ def test_audit_rejects_changed_empty_or_non_finite_state(tmp_path, mutation):
     torch.save(state, tmp_path / "comparison_state.pt")
     with pytest.raises(ValueError):
         load("audit_cross_vendor_accuracy").audit(tmp_path)
+
+
+def test_evidence_members_must_stay_inside_task_root(tmp_path):
+    collector = load("collect_cross_vendor_evidence")
+    root = tmp_path / "task"
+    root.mkdir()
+    outside = tmp_path / "outside"
+    outside.write_text("not task evidence")
+    inside = root / "report.json"
+    inside.write_text("{}")
+    assert collector.safe_relative(root, inside) == "report.json"
+    with pytest.raises(ValueError):
+        collector.safe_relative(root, outside)
+
+
+def test_evidence_cannot_replace_existing_archive(tmp_path):
+    archive = tmp_path / "existing.tar.gz"
+    archive.write_bytes(b"preserved")
+    with pytest.raises(ValueError, match="do not replace"):
+        load("collect_cross_vendor_evidence").collect(tmp_path, PLAN_PATH, "nvidia", archive)
+    assert archive.read_bytes() == b"preserved"
+
+
+def test_evidence_requires_every_declared_run_before_packaging(tmp_path):
+    root = tmp_path / "task"
+    data = root / "data"
+    data.mkdir(parents=True)
+    (data / "data.json").write_text("{}")
+    with pytest.raises(FileNotFoundError):
+        load("collect_cross_vendor_evidence").collect(root, PLAN_PATH, "nvidia", tmp_path / "evidence.tar.gz")
+    assert not (tmp_path / "evidence.tar.gz").exists()
+
+
+def classification_predictions():
+    return [{"filename": "a.png", "label": 1, "prediction": 1, "topk_idx": [1, 2, 3, 4, 5]},
+            {"filename": "b.png", "label": 2, "prediction": 1, "topk_idx": [1, 2, 3, 4, 5]}]
+
+
+def test_independent_classification_counts_match_original_metric_arithmetic(tmp_path):
+    meta = tmp_path / "test.txt"
+    meta.write_text("a.png 1\nb.png 2\n")
+    metrics, counts = load("recompute_cross_vendor_metrics").classification_metrics(classification_predictions(), meta)
+    assert metrics == {"top1": 50., "top5": 100.}
+    assert counts["correct"] == {1: 1, 5: 2}
+
+
+@pytest.mark.parametrize("kind", ["missing", "duplicate", "wrong_label", "wrong_top1"])
+def test_independent_metrics_reject_invalid_or_incomplete_predictions(tmp_path, kind):
+    meta = tmp_path / "test.txt"
+    meta.write_text("a.png 1\nb.png 2\n")
+    predictions = classification_predictions()
+    if kind == "missing":
+        predictions.pop()
+    elif kind == "duplicate":
+        predictions[1]["filename"] = "a.png"
+    elif kind == "wrong_label":
+        predictions[0]["label"] = 9
+    else:
+        predictions[0]["prediction"] = 9
+    with pytest.raises(ValueError):
+        load("recompute_cross_vendor_metrics").classification_metrics(predictions, meta)
+
+
+def test_independent_detection_uses_official_coco_evaluation(tmp_path):
+    pytest.importorskip("pycocotools")
+    meta = tmp_path / "test.json"
+    meta.write_text(json.dumps({"info": {}, "images": [{"id": 1, "width": 20, "height": 20}],
+        "categories": [{"id": 1, "name": "person"}],
+        "annotations": [{"id": 1, "image_id": 1, "category_id": 1, "iscrowd": 0,
+                         "bbox": [0, 0, 10, 10], "area": 100, "segmentation": []}]}))
+    metrics, details = load("recompute_cross_vendor_metrics").detection_metrics(
+        [{"image_id": 1, "category_id": 1, "bbox": [0, 0, 10, 10], "score": 1.}], meta)
+    assert metrics["bbox.AP"] == pytest.approx(1.)
+    assert details["validation_images"] == 1

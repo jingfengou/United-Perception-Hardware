@@ -64,12 +64,21 @@ python tools/run_cross_vendor_accuracy.py \
 
 沐曦将 `--backend nvidia` 换为 `--backend metax`，不是改变原通信参数 `--backend dist` 的含义。两边输出目录可以同名，但收集时分别放入 `nvidia/`、`metax/`。可用 `--models` 分组排队；不能改变计划中的种子或预算。重复执行只复用哈希、协议和预算均验证通过的完整报告；遇到非空失败目录会停止并保留，不自动覆盖或把其当作完成。
 
-4. 完成后分别审计所有 checkpoint，再把报告和审计文件收集到同一台机器做配对汇总。
+4. 完成后分别审计所有 checkpoint，并从保存的最终预测独立复算指标。分类按原 UP 的 CPU float32 计数公式计算 Top-1/Top-5，同时核对每个文件名和标签；检测直接使用标准 pycocotools 的 COCOeval。复算结果必须与 Runner 报告完全一致，不放宽指标容差，不需要重新进行 GPU 推理。
 
 ```bash
 python tools/audit_cross_vendor_accuracy.py \
   --runs /workspace/up-cross-vendor-20261021/results/*-seed* \
   --output /workspace/up-cross-vendor-20261021/checkpoint-audits.json
+
+python tools/recompute_cross_vendor_metrics.py \
+  --runs /workspace/up-cross-vendor-20261021/results/*-seed* \
+  --output /workspace/up-cross-vendor-20261021/metric-reevaluations.json
+
+python tools/collect_cross_vendor_evidence.py \
+  --root /workspace/up-cross-vendor-20261021 \
+  --plan docs/hardware/validation/cross_vendor_20261021/plan.json \
+  --backend nvidia --output /workspace/nvidia-evidence.tar.gz
 
 python tools/run_cross_vendor_accuracy.py \
   --plan docs/hardware/validation/cross_vendor_20261021/plan.json \
@@ -78,3 +87,7 @@ python tools/run_cross_vendor_accuracy.py \
 ```
 
 汇总缺少任一规定种子、完整步数或公平配对条件不一致时会拒绝生成完成结论。短程 `--probe-steps 2` 输出明确标记为 `probe_completed`，不准计入完整训练。统计推断只覆盖固定数据划分上的训练随机性，不包含完整数据集抽样误差、原分辨率收敛、多卡或性能验收。
+
+证据包按 `nvidia/`、`metax/` 分开保存，包含报告、有效配置、最终预测、复算结果、审计、日志、标签与环境，不包含数据图片、checkpoint 大文件、厂商二进制或私钥。解包后复算可增加 `--data-root <包内的 backend/data>` 指定标签位置。完整 checkpoint 保留在各服务器的任务目录。
+
+本轮调度使用 NVIDIA 四个独立单卡 worker；沐曦五个 YOLO worker 与三个其他模型 worker 分组执行。自建沐曦容器的 CPU 配额由 8 临时增加到 24，结束后恢复；不改 batch、增强、采样器、精度、种子或学习率。两机日志时钟约有 260 秒偏差，记录见[调度清单](validation/cross_vendor_20261021/scheduling.json)。本轮不据墙钟日志比较性能。
