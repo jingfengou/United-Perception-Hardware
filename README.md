@@ -10,6 +10,8 @@
 
 原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
 
+沐曦 C500 四模型测试的最新状态见[服务器预检与待验收记录](docs/hardware/METAX_VALIDATION.md)。当前已上传源码，但账号缺少显卡访问权限及可用厂商 PyTorch 环境，四模型尚未运行，不计为通过。
+
 ## 1. 增加了什么功能
 
 ```text

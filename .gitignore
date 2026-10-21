@@ -23,6 +23,7 @@ build
 .vscode/
 *_build
 .env
+*.pem
 *.egg-info/
 dist/
 *.whl

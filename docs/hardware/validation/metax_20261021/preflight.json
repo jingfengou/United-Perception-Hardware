@@ -1,0 +1,69 @@
+{
+  "scope": "remote environment preflight only; no accelerator tensor or model execution",
+  "execution_host_alias": "metax-c500",
+  "hardware_observed_at_utc": "2026-10-21T08:36:06+00:00",
+  "permissions_observed_at_utc": "2026-10-21T08:38:58.882405+00:00",
+  "status": "blocked_before_model_execution",
+  "environment": {
+    "os": "Ubuntu 22.04.5 LTS",
+    "python": "3.10.12",
+    "python_executable": "/usr/bin/python3",
+    "torch": null,
+    "torch_import_error": "ModuleNotFoundError: No module named 'torch'",
+    "torchvision": null,
+    "numpy": null,
+    "pip": null,
+    "gpu_model": "MetaX C500",
+    "gpu_count": 8,
+    "memory_mib_per_gpu": 65536,
+    "mx_smi": "2.2.12",
+    "kernel_driver": "3.6.11",
+    "maca": "3.5.3.18",
+    "gpu_utilization_percent": [0, 0, 0, 0, 0, 0, 0, 0],
+    "compute_processes_reported": 0,
+    "user_groups": ["sudo", "oujingfeng"],
+    "device_owner_group": "video",
+    "device_owner_gid": 44,
+    "device_mode": "0660"
+  },
+  "access_checks": {
+    "/dev/mxcd": {"read": false, "write": false},
+    "/dev/dri/renderD128": {"read": false, "write": false},
+    "all_eight_render_nodes": {"read": false, "write": false},
+    "docker_info": "permission denied while trying to connect to the docker API at unix:///var/run/docker.sock",
+    "sudo_noninteractive": "sudo: a password is required"
+  },
+  "storage": {
+    "root_free_bytes_at_initial_probe": 1301086208,
+    "root_usage_percent_rounded_by_df": 100,
+    "workspace_mount": "/mnt/afs",
+    "workspace_mount_writable": true
+  },
+  "source_staging": {
+    "verified_at_utc": "2026-10-21T08:40:00.730260+00:00",
+    "source_commit": "06d88b48cd9e181c162b5e3c97115123fde86efb",
+    "workspace": "/mnt/afs/oujingfeng/up-hardware-metax-20261021",
+    "source_subdirectory": "source",
+    "archive": "source-06d88b4.tar.gz",
+    "archive_bytes": 604283,
+    "archive_sha256": "aab49782e1c806df05aaf8f5623cf8768b3154f880c29b40eced8b8ccf9abd83",
+    "remote_archive_hash_matches_local": true,
+    "archive_paths_and_link_types_checked": true,
+    "python_files_ast_parsed": 459
+  },
+  "models": {
+    "yolov5s": "not_run_environment_and_device_access_blocked",
+    "resnet18": "not_run_environment_and_device_access_blocked",
+    "detr_external_official_adapter": "not_run_environment_and_device_access_blocked",
+    "vit_b16": "not_run_environment_and_device_access_blocked"
+  },
+  "model_tests_executed": false,
+  "accelerator_numerics_validated": false,
+  "limitations": [
+    "mx-smi hardware visibility does not prove device-node access or tensor execution",
+    "No vendor PyTorch or TorchVision environment was provided or installed",
+    "No GPU node permissions, drivers, global packages or Docker services were changed",
+    "No model inference, training, gradients, accuracy, AMP or communication was tested",
+    "Server IP, SSH private key and private-key contents are deliberately excluded"
+  ]
+}

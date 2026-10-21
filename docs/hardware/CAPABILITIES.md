@@ -2,6 +2,8 @@
 
 本表描述仓库实现及本轮验证状态，不是厂商产品的完整支持矩阵。运行时可查询 `up.accelerator.capabilities()`，注册状态不等于 SDK 可执行状态或真机验证状态。
 
+沐曦 C500 已完成[服务器环境预检](METAX_VALIDATION.md)，但账号缺少显卡节点权限和可用的厂商 PyTorch 环境，四模型尚未执行；以下数值能力和真机模型验证状态不因此升级。
+
 2026-10-21 完成了 A800 的[五模型多种子训练对照](MULTISEED_ACCURACY.md)：Faster R-CNN 10 对平均 AP 通过预设等价检验但逐步检查不一致；ResNet18、YOLOv5-S、ViT-B/16 和外部官方单类 DETR 各 5 对的 loss、最终模型状态与指标相同。[早期短程对照](TRAINING_ACCURACY.md)及同版本漂移记录保留。以上不代表全量 ImageNet/COCO 收敛、全部模型配置或其他硬件已经验收。
 
 | 能力 | NVIDIA / A800 | 昇腾 / 910B | 寒武纪 / MLU590 | 沐曦 / C500 |
