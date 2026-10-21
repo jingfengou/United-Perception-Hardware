@@ -2,13 +2,13 @@
 
 本表描述仓库实现及本轮验证状态，不是厂商产品的完整支持矩阵。运行时可查询 `up.accelerator.capabilities()`，注册状态不等于 SDK 可执行状态或真机验证状态。
 
-NVIDIA/MetaX 另声明可选的实验数值配置 `portable_v1`，见[配置契约](PORTABLE_NUMERICS.md)和[修复复测](CROSS_VENDOR_FIX.md)。它不替代原生路径，不代表全 FP32、所有模型/随机分布或高性能支持。固定顺序版的短程对照已通过，完整五种子精度复测仍在进行。
+NVIDIA/MetaX 另声明可选的实验数值配置 `portable_v1`，见[配置契约](PORTABLE_NUMERICS.md)和[修复复测](CROSS_VENDOR_FIX.md)。它不替代原生路径，不代表全 FP32、所有模型/随机分布或高性能支持。固定顺序版的短程对照已通过，沐曦三模型各五种子的 15 次完整训练及审计已完成；NVIDIA 完整重测待分配 GPU，尚无修复版跨厂商精度等价结论。
 
 沐曦 C500 已完成[严格 FP32 四模型两步单卡功能检查](METAX_VALIDATION.md)、运行时和固定小样本 NMS/IoU 检查。默认 TF32 的 ResNet/DETR 恢复一致性失败保留；尚未验证 ImageNet/COCO 全量收敛、多卡或全部专用算子。
 
 随后完成[四模型真实数据跨厂商对照](CROSS_VENDOR_ACCURACY.md)：CIFAR-10/PennFudan 固定预算、两平台各五种子，共 40 次训练/76,000 步，状态审计及最终预测独立复算全部通过；预设 +/-1 点平均精度等价仅 ResNet18 确认，YOLO、DETR、ViT 未确认。不将跑通训练改写为全模型精度等价或全量 ImageNet/COCO 收敛。
 
-最新[2.10 版本对齐与差异定位](CROSS_VENDOR_DIAGNOSIS.md)追加 41 次完整训练：三模型及关闭库 DETR 的五种子对照均未确认 +/-1 点等价；同一权重两平台的 12 次评估指标一致。MetaX 卷积库开关已接入共享实现，但 C500 当前栈的卷积权重梯度样例在请求确定性后仍不重复，关闭库也不保证完整训练逐位可重复。RNG 状态相同不保证跨厂商同形状 Dropout 掩码相同。
+此前的[2.10 版本对齐与差异定位](CROSS_VENDOR_DIAGNOSIS.md)追加 41 次完整训练：三模型及关闭库 DETR 的五种子对照均未确认 +/-1 点等价；同一权重两平台的 12 次评估指标一致。MetaX 卷积库开关已接入共享实现，但 C500 当前栈的卷积权重梯度样例在请求确定性后仍不重复，关闭库也不保证完整训练逐位可重复。RNG 状态相同不保证跨厂商同形状 Dropout 掩码相同。
 
 2026-10-21 完成了 A800 的[五模型多种子训练对照](MULTISEED_ACCURACY.md)：Faster R-CNN 10 对平均 AP 通过预设等价检验但逐步检查不一致；ResNet18、YOLOv5-S、ViT-B/16 和外部官方单类 DETR 各 5 对的 loss、最终模型状态与指标相同。[早期短程对照](TRAINING_ACCURACY.md)及同版本漂移记录保留。以上不代表全量 ImageNet/COCO 收敛、全部模型配置或其他硬件已经验收。
 

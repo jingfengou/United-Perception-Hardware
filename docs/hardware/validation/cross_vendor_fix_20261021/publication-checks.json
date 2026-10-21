@@ -2,19 +2,13 @@
   "audit_tool_sha256": "650c34c26328886c0317ee29e555d6e4fee55b2eeb8c7ec0037bfbbb59b71c2f",
   "changed_markdown_documents": [
     "README.md",
-    "docs/hardware/ADDING_BACKENDS.md",
-    "docs/hardware/API_INDEX.md",
     "docs/hardware/CAPABILITIES.md",
-    "docs/hardware/CROSS_VENDOR_DIAGNOSIS.md",
     "docs/hardware/CROSS_VENDOR_FIX.md",
-    "docs/hardware/INTERFACE.md",
-    "docs/hardware/PORTABLE_NUMERICS.md",
     "docs/hardware/README.md",
     "docs/hardware/VALIDATION.md",
-    "docs/hardware/validation/cross_vendor_fix_20261021/README.md",
-    "docs/hardware/validation/cross_vendor_fix_20261021/diagnostics/README.md"
+    "docs/hardware/validation/cross_vendor_fix_20261021/README.md"
   ],
-  "checked_relative_file_links": 122,
+  "checked_relative_file_links": 87,
   "offline_evidence_tools": {
     "errors": 0,
     "failures": 0,

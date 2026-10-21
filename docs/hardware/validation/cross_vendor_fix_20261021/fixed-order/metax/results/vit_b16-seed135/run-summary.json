@@ -1,0 +1,70 @@
+{
+  "all_training_batches_sha256": "2e142dde8c1c5dc7a153491a4d01d2dafcdd12229766b5a6d1a438f834127ad2",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "60536a79944ce8ae0867c4907d3c330f8938fd6cc14b59788fddba0bb0073be7",
+  "environment": {
+    "convolution_library_enabled": false,
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "numerical_profile": "portable_v1",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "0"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 21.30000114440918,
+    "top5": 76.80000305175781
+  },
+  "final_state_sha256": "28e443307db650d812c21cfbed4b5c068834b01dfd30a39e74e54f17b6fd5861",
+  "initial_state_sha256": "2296e83efa63140fe5cda2c35a9bda2b80cba9e66a97011a70f680c29b6467af",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "981bfc00b5a29fb65a830bc8ab627114a76bdd87d853ad86a55fb2b701d26e46",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "7678e99eb967c6e04c3f7e1cd57ad09bb23810fd8e9e7ed2615bffaf45be845a",
+  "numerics": {
+    "accumulation": "selected GPU FP64 operations with FP32 boundaries",
+    "convolution_library_enabled": false,
+    "offset": 198945600000,
+    "operations": {
+      "conv2d": 3876,
+      "gpu_fixed_convolution": 7016,
+      "gpu_fixed_fp32_sum": 6280,
+      "gpu_fixed_matrix": 741388,
+      "gpu_fixed_normalization": 260328,
+      "gpu_uniform_values": 198945600000,
+      "layer_norm": 96900,
+      "linear": 189924,
+      "log_softmax": 3140,
+      "matmul": 93024,
+      "ops.distributed.is_available": 658,
+      "ops.distributed.is_initialized": 658,
+      "pow": 46512,
+      "softmax": 47248,
+      "sum": 6280,
+      "tanh": 46512
+    },
+    "profile": "portable_v1",
+    "rng": "triton-philox4x32-10-v1",
+    "seed": 332150625
+  },
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/vit_b16-seed135/report.json",
+    "sha256": "bca77c407e402660a2e045ad4145ad06f7025a3d01475c8aee384a43d98a20d8"
+  },
+  "restored_metrics": {
+    "top1": 21.30000114440918,
+    "top5": 76.80000305175781
+  },
+  "seed": 135,
+  "status": "completed",
+  "training_steps": 3140
+}

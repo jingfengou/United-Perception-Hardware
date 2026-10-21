@@ -6,7 +6,12 @@
 
 - 第一版共同数值配置已完成三模型、两平台、各五种子的 **30 次训练 / 44,600 步**，但三模型均未确认预设的 +/-1 点平均精度等价。这轮失败结果、完整输入、checkpoint 审计和指标复算全部保留。
 - 后续完整操作和固定顺序修复已冻结。两平台各 **202 项 CPU 契约测试**通过；15 个 GPU 数学用例的完整输出/梯度哈希一致。短程 YOLO 4 步、DETR 64 步、ViT 32 步的 loss 与完整参数状态一致，属于诊断证据，**不是完整训练验收**。
-- 新的[完整复测计划](validation/cross_vendor_fix_20261021/fixed-order/plan.json)仍使用种子 131--135、原数据和预算、原 +/-1 点标准；没有挑选 seed/epoch 或合并两轮结果。沐曦完整复测执行中；NVIDIA 完整复测等待可用的 A800 资源，不能宣称修复后完整精度已经等价。
+- 新的[完整复测计划](validation/cross_vendor_fix_20261021/fixed-order/plan.json)仍使用种子 131--135、原数据和预算、原 +/-1 点标准；没有挑选 seed/epoch 或合并两轮结果。**沐曦 15 次 / 22,300 步已全部完成，状态审计和指标独立复算全部通过；NVIDIA 完整复测尚未启动，等待可分配 GPU。不能宣称修复后完整精度已经等价。**
+
+| 阶段 | NVIDIA 完整训练 | C500 完整训练 | 跨厂商精度结论 |
+| --- | --- | --- | --- |
+| 第一版共同数值配置 | 15 次 | 15 次 | 三模型均未确认等价，失败结果保留 |
+| 固定顺序冻结版 | 0/15 次 | 15/15 次 | 尚未评估，不拿上一阶段 NVIDIA 结果代替 |
 
 ## 为什么只统一版本和 seed 不够
 
@@ -51,6 +56,24 @@
 
 应用环境沿用前轮已对齐的 PyTorch 2.10 / TorchVision 0.25 主版本及 23 项共享依赖。厂商二进制、驱动、SDK、Triton 构建、Python 补丁版本仍不同，版本细节沿用[对齐报告](CROSS_VENDOR_DIAGNOSIS.md#环境对齐)。不会擅自升级共享服务器驱动。
 
+### 已完成的 C500 结果
+
+以下是固定顺序版的**单平台**五种子最终结果，均值及样本标准差单位为百分数。没有使用最好 epoch；不能将本表与上一阶段 NVIDIA 均值相减，冒充相同数值实现下的比较。
+
+| 模型 | C500 均值 +/- 标准差 | 种子数 | 每次完整步数 |
+| --- | --- | --- | --- |
+| UP YOLOv5-S / AP | 21.8671 +/- 9.0188 | 5 | 600 |
+| 外部官方 DETR R50 / AP | 76.7118 +/- 0.5214 | 5 | 720 |
+| UP ViT-B/16 / Top-1 | 22.9500 +/- 3.2604 | 5 | 3140 |
+
+[单平台完整性与逐种子记录](validation/cross_vendor_fix_20261021/fixed-order/metax-completion.json)、[可浏览运行摘要](validation/cross_vendor_fix_20261021/fixed-order/metax/results/)及[原始证据包](validation/cross_vendor_fix_20261021/fixed-order/metax-evidence.tar.gz)保留全部 loss/LR、每一步输入/RNG 哈希、最终预测、15 份 checkpoint 审计和 15 份独立指标复算。归档 SHA-256 为 `f74add81faf96b7ccf4171d9f03bb977e2b0040b3c2510fa20d5bd391d92e02a`，[成员索引](validation/cross_vendor_fix_20261021/fixed-order/metax-evidence.tar.gz.index.json)包含 99 个文件。源文件与冻结计划及当前发布 UP 代码对应，不加载 NVIDIA 扩展。
+
+[短程与完整训练前缀核对](validation/cross_vendor_fix_20261021/fixed-order/short-vs-full-prefixes.json)确认种子 131 的初始化、输入及前 4/64/32 步 loss 一致，但这不能替代缺失的 NVIDIA 完整训练。新阶段没有双向交换最终权重的 12 次交叉推理，不能把历史原生策略的成功结果重复算作新阶段验收。
+
+NVIDIA 资源核对发现 A800/A100 仍有其他任务及排队进程，即使瞬时显存接近空闲，也不擅自占用或暂停它们。NVIDIA 完整重测、全部输入配对、最终权重跨平台评估和 +/-1 点 TOST 仍待补齐；目前不生成一份貌似完成的跨厂商统计。沐曦任务已退出，容器 CPU 配额恢复到原来的 8 核。YOLO 的种子方差和 ViT 的低绝对精度继续保留，不把小数据回归解释为充分收敛。
+
+[GitHub CI 记录](validation/cross_vendor_fix_20261021/ci-af6c019.json)确认代码提交 `af6c019` 的 Python 3.10/3.12、CPU PyTorch 2.6 检查通过，不是 GPU PyTorch 2.6 或完整跨厂商精度的支持声明。数值用例和 202 项目标环境测试来自上文实际 2.10 环境；12 项离线证据工具测试为单独的本地环境。
+
 ## 复现
 
 1. 复用[首次真实数据对照](CROSS_VENDOR_ACCURACY.md#复现步骤)冻结的数据与划分、DETR 权重和兼容前置，不重新抽样。不发布原始图片、权重、SDK 或私钥。
@@ -70,6 +93,20 @@ python tools/run_cross_vendor_accuracy.py \
 
 沐曦使用 `--backend metax`，仅分配允许使用的物理卡；多个设备参数只是独立单卡作业排队，不是分布式训练。计划自动开启全部 batch 审计及实际数值配置读回。两边必须使用同一个计划，不能只给一边启用宽精度模式。
 
-4. 完整训练后使用 `tools/package_diagnosis_cohort.py` 核对 checkpoint 和最终预测，并打包原始报告；再用 `tools/summarize_portable_cohort.py --root PHASE_DIRECTORY --write-statistics` 生成成对统计。统计目录需要两份证据包及索引、两份 source 包及索引和同一 `plan.json`。该工具拒绝覆盖既有统计，验证全部预算、输入/RNG 配对、执行源码及上层算法与参考提交的对应关系；首次生成后不带 `--write-statistics` 可复核。
+4. 完整训练后使用 `tools/package_diagnosis_cohort.py` 核对 checkpoint 和最终预测，并打包原始报告。单平台用 `tools/summarize_vendor_cohort.py --root PHASE_DIRECTORY --backend metax` 生成完整性摘要；该摘要明确不评估跨厂商等价。
+
+```bash
+# PHASE 是任务专属目录，results 位于其内；不要覆盖已有证据归档。
+python tools/audit_cross_vendor_accuracy.py --environment --output "$PHASE/environment.json"
+# 将对应环境实际执行测试得到的 XML 放到 $PHASE/contracts-final.xml。
+python tools/package_diagnosis_cohort.py \
+  --root "$PHASE" --results "$PHASE/results" \
+  --data-root /workspace/up-cross-vendor-20261021/data \
+  --executed-tools "$PWD/tools" \
+  --plan docs/hardware/validation/cross_vendor_fix_20261021/fixed-order/plan.json \
+  --backend metax
+```
+
+两平台均完成后，再用 `tools/summarize_portable_cohort.py --root PHASE_DIRECTORY --write-statistics` 生成成对统计。统计目录需要两份证据包及索引、两份 source 包及索引和同一 `plan.json`。该工具拒绝覆盖既有统计，验证全部预算、输入/RNG 配对、执行源码及上层算法与参考提交的对应关系；首次生成后不带 `--write-statistics` 可复核。精确的执行工具版本在各平台 source 包中，不在训练期间替换它们。
 
 暂不将本轮写成三模型已通过完整精度验收。AMP、多卡、编译模式、其他模型、未覆盖的随机分布及全量基准仍需分别验证；选择同一个数值配置也不是任意输入逐位一致的普遍保证。
