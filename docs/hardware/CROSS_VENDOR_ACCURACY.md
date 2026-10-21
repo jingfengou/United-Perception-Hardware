@@ -1,8 +1,30 @@
 # 沐曦与 NVIDIA 的真实数据多种子对照
 
+## 结论
+
+2026-10-21 完成四模型、两平台、每个平台各五个固定种子的 **40 次训练、76,000 个优化器步骤**。40 次均跑完预先声明的预算，保存的模型/优化器/调度器状态审计通过；新建模型和优化器加载后的指标保持一致，保存的最终预测独立复算也全部一致。
+
+**四模型均跑通，不等于四模型精度等价。按预先固定的 +/-1 个百分点标准，本轮只有 ResNet18 确认平均精度等价；YOLO、DETR、ViT 均未能确认。** 下表精度为百分数，差值与区间为百分点，方向为“沐曦减 NVIDIA”。
+
+| 模型 / 主要指标 | NVIDIA 均值 +/- 标准差 | C500 均值 +/- 标准差 | 均值差 | 差值的 90% CI | +/-1 点等价 |
+| --- | --- | --- | --- | --- | --- |
+| UP YOLOv5-S / AP | 26.0174 +/- 10.2191 | 27.6099 +/- 8.8550 | +1.5925 | [-12.1917, +15.3766] | 未确认 |
+| UP ResNet18 / Top-1 | 66.2200 +/- 0.5404 | 66.2900 +/- 1.0133 | +0.0700 | [-0.8113, +0.9513] | 通过，p=0.04384 |
+| 外部官方 DETR 适配器 / AP | 77.6032 +/- 0.6539 | 77.0841 +/- 0.6269 | -0.5191 | [-1.0330, -0.0052] | 未确认，p=0.05839 |
+| UP ViT-B/16 / Top-1 | 22.3400 +/- 4.1699 | 20.2500 +/- 1.4870 | -2.0900 | [-6.4571, +2.2771] | 未确认 |
+
+- DETR 的下界为 -1.032966，略超出 -1，但仍严格按原标准记为未确认，不把界限改成 1.05 或通过四舍五入将其写成通过。
+- YOLO 和 ViT 的区间较宽；YOLO 均值较高不证明更好，ViT 均值较低也不足以定位硬件退化。五个种子的全部结果保留，不选择有利种子、重复或 epoch。
+- ViT 的两边绝对精度都低。这套 64px、强增强、从零开始的 20 epoch 配方是有界回归，不代表正常 ImageNet 精度、充分收敛或可用产品精度。
+- 本轮 NVIDIA 的 20 次重跑均逐位复现上一轮对应 NVIDIA 路由版的 loss、最终模型状态和指标，见[重跑核对](validation/cross_vendor_20261021/nvidia-reproduction.json)。新增验证工具没有改变这些已测 NVIDIA 结果；不能将这一点扩展为跨厂商逐位相同。
+
+跨平台每对的数据、算法配置、初始参数、首批真实输入、完整学习率轨迹和步数都匹配；训练轨迹与最终权重并不逐位相同。当前没有将差异定位到某个内核或唯一原因。两边使用不同厂商支持的软件栈，因此不能仅凭这张表将差异归因于 GPU、硬件路由或某一个 PyTorch 版本。
+
+原始数据：[全 20 对种子 CSV](validation/cross_vendor_20261021/pairs.csv)、[统计 JSON](validation/cross_vendor_20261021/summary.json)、[完整性核对](validation/cross_vendor_20261021/coverage.json)、[独立 SciPy 统计复核](validation/cross_vendor_20261021/statistics-recheck.json)。单次运行摘要和配置可直接浏览 [NVIDIA](validation/cross_vendor_20261021/nvidia/results/) / [沐曦](validation/cross_vendor_20261021/metax/results/)。完整原始报告、逐步 loss/LR、日志、最终预测和标签分别保存在 [NVIDIA 证据包](validation/cross_vendor_20261021/nvidia-evidence.tar.gz) / [沐曦证据包](validation/cross_vendor_20261021/metax-evidence.tar.gz)，每个包附逐文件哈希索引；网页摘要注明对应原始报告的成员路径及哈希，不替代原始记录。
+
 ## 本轮范围
 
-按用户确认，**沿用此前 CIFAR-10/PennFudan 的完整固定训练预算**，不是 ImageNet/COCO 全量训练。2026-10-21 已冻结[计划](validation/cross_vendor_20261021/plan.json)并开始执行。完整结果尚未产生，不能据短程预检宣称精度等价。
+按用户确认，**沿用此前 CIFAR-10/PennFudan 的完整固定训练预算**，不是 ImageNet/COCO 全量训练。[计划](validation/cross_vendor_20261021/plan.json)及其哈希在本轮完整训练启动前固定；短程预检另行保存，不作为精度等价结果。
 
 两边都运行本仓库同一份 UP 模型、BaseRunner、数据增强、损失、优化器和评估流程，仅选择 `nvidia` 或 `metax` 后端。不拿 Transformers/Ultralytics 的其他模型替代 UP 模型，不将旧 NVIDIA 原版/路由版的训练结果算作本次跨厂商结果。
 
@@ -50,6 +72,8 @@ python tools/prepare_cross_vendor_data.py \
 
 3. 在每个平台执行完整预算。`--devices` 是允许使用的物理 GPU 编号，每个训练任务只使用一张卡；下面的 Python 必须来自该平台验证过的虚拟环境。
 
+本次 NVIDIA 镜像使用任务内的标准 pycocotools 2.0.10，实际启动时额外设置 `PYTHONPATH=/workspace/up-hardware-routing-20261021-accuracy/compat`，不使用镜像自带的定制 COCO 评估扩展。新环境可在任务虚拟环境安装该标准包，或按上一轮说明安装到独立 `--target` 目录并把它加入 PYTHONPATH；沐曦虚拟环境已安装标准 2.0.10。训练与独立复算须使用同一评估实现，不覆盖厂商 PyTorch。
+
 ```bash
 export USER=oujingfeng LOGNAME=oujingfeng
 export PYTHONHASHSEED=0 DEFAULT_TASKS=cls:det
@@ -68,11 +92,11 @@ python tools/run_cross_vendor_accuracy.py \
 
 ```bash
 python tools/audit_cross_vendor_accuracy.py \
-  --runs /workspace/up-cross-vendor-20261021/results/*-seed* \
+  --runs /workspace/up-cross-vendor-20261021/results/*-seed*/ \
   --output /workspace/up-cross-vendor-20261021/checkpoint-audits.json
 
 python tools/recompute_cross_vendor_metrics.py \
-  --runs /workspace/up-cross-vendor-20261021/results/*-seed* \
+  --runs /workspace/up-cross-vendor-20261021/results/*-seed*/ \
   --output /workspace/up-cross-vendor-20261021/metric-reevaluations.json
 
 python tools/collect_cross_vendor_evidence.py \
@@ -88,6 +112,14 @@ python tools/run_cross_vendor_accuracy.py \
 
 汇总缺少任一规定种子、完整步数或公平配对条件不一致时会拒绝生成完成结论。短程 `--probe-steps 2` 输出明确标记为 `probe_completed`，不准计入完整训练。统计推断只覆盖固定数据划分上的训练随机性，不包含完整数据集抽样误差、原分辨率收敛、多卡或性能验收。
 
+汇总程序成功退出只说明记录完整、统计计算完成，不表示所有模型等价；须查看 `all_models_equivalent` 和各模型的 `equivalence_test.equivalent_within_margin`。本轮前者为 `false`。配对 Student t 推断依赖种子差值的独立性/近似正态假设，n=5 的区间和检验能力有限。
+
+恢复检查为新建模型/优化器加载后重新评估；保存了调度器状态，但本轮没有验收任意中途断点续训与不中断训练的逐位连续性。
+
 证据包按 `nvidia/`、`metax/` 分开保存，包含报告、有效配置、最终预测、复算结果、审计、日志、标签与环境，不包含数据图片、checkpoint 大文件、厂商二进制或私钥。解包后复算可增加 `--data-root <包内的 backend/data>` 指定标签位置。完整 checkpoint 保留在各服务器的任务目录。
 
 本轮调度使用 NVIDIA 四个独立单卡 worker；沐曦五个 YOLO worker 与三个其他模型 worker 分组执行。自建沐曦容器的 CPU 配额由 8 临时增加到 24，结束后恢复；不改 batch、增强、采样器、精度、种子或学习率。两机日志时钟约有 260 秒偏差，记录见[调度清单](validation/cross_vendor_20261021/scheduling.json)。本轮不据墙钟日志比较性能。
+
+本轮只增加验证工具、协议、测试和记录，没有修改 `up/` 或模型配置模板。436 个应用 Python 文件的规范化哈希在 40 份报告中均与 Git 源码一致；工具对应 `cd48819` / `7f881b6`，应用内容与 `516aa21` 相同。两平台隐藏设备后的 CPU 契约/协议/证据测试各 164 项通过。另有 8 次真实数据两步预检，共 16 步，排除在主实验 40 次/76,000 步之外。
+
+测试后两台机器均无本任务 GPU 计算进程，沐曦容器保留供使用、CPU 配额已恢复为 8。NVIDIA 的 Windows SSH 客户端曾在远端全部完成后挂起，确认远端无训练进程、全部报告及子任务退出检查正常后，仅关闭了该客户端；不将此客户端退出误报为训练失败，详情见完整性记录。

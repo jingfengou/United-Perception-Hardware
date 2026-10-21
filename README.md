@@ -12,7 +12,7 @@
 
 沐曦 C500 在已有厂商 Docker 镜像中完成了[四模型单卡功能检查](docs/hardware/METAX_VALIDATION.md)：严格 FP32 下前后向、推理和恢复通过；默认 TF32 有 ResNet/DETR 一致性失败并保留记录。这不是完整数据集精度验收，进入容器和复现方法见该文档。
 
-按用户确认，正在进行[沐曦/NVIDIA 真实数据多种子对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)：沿用 CIFAR-10/PennFudan 的完整预算，四模型、每个平台五个种子，预先固定配置和精度判据。运行完成前不宣称跨厂商精度等价。
+已完成[沐曦/NVIDIA 真实数据多种子对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)：沿用用户确认的 CIFAR-10/PennFudan 完整预算，四模型、每个平台五个种子，共 40 次训练、76,000 步，推理、恢复与指标独立复算均完成。**预设 +/-1 点平均精度等价仅 ResNet18 通过；YOLO、DETR、ViT 未能确认，不宣称四模型精度完全一致。**
 
 ## 1. 增加了什么功能
 
@@ -39,14 +39,14 @@
 
 普通、设备无关的 PyTorch 计算继续直接使用，不包装整个 PyTorch。
 
-**当前完成了硬件隔离和路由、NVIDIA 验证，以及沐曦 C500 的有限单卡功能检查。昇腾和寒武纪尚未真机验证，国产后端的专用算子也未全部补齐。选择后端不等于该厂商已经能运行所有模型。**
+**当前完成了硬件隔离和路由、NVIDIA 验证，以及沐曦 C500 的有限单卡功能和固定预算真实数据训练验证。跨厂商精度结论按模型分别记录。昇腾和寒武纪尚未真机验证，国产后端的专用算子也未全部补齐。选择后端不等于该厂商已经能运行所有模型。**
 
 | 硬件 | 配置中的 `backend` | 设备名 | 当前状态 |
 | --- | --- | --- | --- |
 | NVIDIA A800 | `nvidia` | `cuda` | 五模型真实数据训练/推理/恢复已完成；4 个模型各 5 对一致，Faster R-CNN 10 对平均 AP 等价但非逐步一致 |
 | 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
 | 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
-| 沐曦 C500 | `metax` | `cuda` | 严格 FP32 下四模型两步合成功能检查通过；不是完整数据集精度或多卡验收，不使用 NVIDIA 二进制 |
+| 沐曦 C500 | `metax` | `cuda` | 四模型各 5 种子真实数据训练/推理/恢复完成；与 NVIDIA 的 +/-1 点平均精度等价仅 ResNet18 通过，其余未确认；非全量基准或多卡验收，不使用 NVIDIA 二进制 |
 | CPU | `cpu` | `cpu` | 用于公共接口和共享实现测试，不代表所有模型都有 CPU 实现 |
 
 逐项情况见[能力矩阵](docs/hardware/CAPABILITIES.md)。
@@ -72,9 +72,9 @@
 | NVIDIA 算子和代表模型 | Linux、Python `3.12.3`、PyTorch `2.8.0a0+5228986c39.nv25.06`、CUDA `12.9` | 32 个算子对比样例、4 个代表模型、AMP 和双卡通信 |
 | 与上述 PyTorch 配套的 TorchVision | `0.22.0a0+95f10a4e` | 使用服务器原有配套分发，不是建议与任意官方 PyTorch wheel 混装 |
 | 部分普通依赖 | NumPy `1.26.4`、ONNX `1.17.0` 等 | 清单见下方，完整版本快照见验证产物 |
-| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；含完整接口、成对训练/统计协议与新增模型配置检查后 117 项通过 |
+| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；此前扩展为 117 项，本次含跨厂商协议/证据检查共 164 项通过 |
 | 无 CUDA 公共包构建 | Windows、Python `3.13.11`、未安装 PyTorch | wheel 和 sdist 构建通过；没有在此环境验证模型运行 |
-| 沐曦 C500 | 厂商 Docker：Python 3.12.11、Torch `2.10.0+metax3.8.1.0`、TorchVision `0.25.0+metax3.8.1.0` | 严格 FP32 四模型两步检查、运行时及小样本 NMS/IoU；126 项 CPU 契约测试通过 |
+| 沐曦 C500 | 厂商 Docker：Python 3.12.11、Torch `2.10.0+metax3.8.1.0`、TorchVision `0.25.0+metax3.8.1.0` | 严格 FP32 四模型两步检查、运行时及小样本 NMS/IoU，以及固定预算真实数据训练；本次 CPU 契约/协议/证据检查 164 项通过，精度结论见跨厂商报告 |
 | 昇腾、寒武纪 | 尚未建立经真机确认的完整环境组合 | 不能据其他厂商的结果推断其版本支持 |
 
 CPU CI 还配置了 Python 3.10/3.12、CPU PyTorch 2.6 的接口检查；云端执行状态见仓库的 Actions 页面。接口检查通过不等于完整模型和全部依赖都通过。
@@ -414,6 +414,6 @@ python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py te
 | 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
-首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照已完成并另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。沐曦仅完成[严格 FP32 四模型功能检查](docs/hardware/METAX_VALIDATION.md)；linklink、spconv、MQBench、MSBench 的真实执行、国产全量精度及多卡、昇腾和寒武纪真机验证仍未完成。
+首轮 NVIDIA 检查是有界数值与合成输入验证，真实数据完整 Runner 对照另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。沐曦另完成[严格 FP32 功能检查](docs/hardware/METAX_VALIDATION.md)及[四模型多种子真实数据对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)，后者仅 ResNet18 确认预设精度等价。linklink、spconv、MQBench、MSBench 的真实执行、国产全量基准收敛及多卡、昇腾和寒武纪真机验证仍未完成。
 
 检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。

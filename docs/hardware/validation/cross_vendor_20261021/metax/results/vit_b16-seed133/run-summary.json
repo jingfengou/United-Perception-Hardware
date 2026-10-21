@@ -1,0 +1,82 @@
+{
+  "adapter_sha256": null,
+  "algorithm_config_sha256": "a33fa898076629acb3cfa8a64442a094e12639dd87fde9d41e6cffe08a6ae90c",
+  "backend": "metax",
+  "checkpoint_restore": "new model and optimizer loaded; validation metrics identical",
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "data_manifest_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+  "data_scope": {
+    "dataset": "CIFAR-10",
+    "split_policy": "Separate original train/test partitions; fixed seeded subset, no overlap.",
+    "test": 2000,
+    "train": 10000
+  },
+  "driver_sha256": "8996962b99a2cc87d9df227e4ba7ad6273c8f5d18205431ab3d8af8b8d35b48a",
+  "effective_config_sha256": "0dc98a13e08706f13f181f60b45dbc0b19fbf773ea1eb23646b41cb3584c1bf1",
+  "elapsed_seconds": 536.443000799045,
+  "environment": {
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "6"
+  },
+  "epochs": 20,
+  "expected_training_steps": 3140,
+  "external_model": null,
+  "final_metrics": {
+    "top1": 21.75,
+    "top5": 74.80000305175781
+  },
+  "final_state_sha256": "d7d1849341093cd539b47cd486d0d8bea22339db30c8ad1a31f8b6133443a5bc",
+  "first_batch_sha256": "a499390d041a5e1c2a80213d12600bf5a86f20fb2ebdb89acc5c673a5bdb1c06",
+  "first_forward_rng_sha256": "406254df3b6b64d40c6df3264621b74b24c3fffd2f4c30cf1c56780b08815cf0",
+  "initial_metrics": {
+    "top1": 9.350000381469727,
+    "top5": 51.70000076293945
+  },
+  "initial_rng_sha256": "3436848f3c47155d64eca42c1d469f793989873811ac7142d90069db8d24eddc",
+  "initial_state_sha256": "7bb778cea26321cee4a3b5f35f7a8e315dc24db747fb533654462b9bf2648e51",
+  "learning_rate_trace": {
+    "length": 3140,
+    "sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6"
+  },
+  "loss_trace": {
+    "first": 2.452526330947876,
+    "last": 2.2652535438537598,
+    "length": 3140,
+    "maximum": 2.628998279571533,
+    "minimum": 2.0644116401672363,
+    "sha256": "4328d1ebce0c4936e42b1f62c0f9810cb18543ebe9b0e5fab683dda36740cca3"
+  },
+  "model": "vit_b16",
+  "model_provenance": "upstream UP model",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "nvidia_extension_loaded": false,
+  "original_config": "configs/cls/vision_transformer/vit_b16_224.yaml",
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/vit_b16-seed133/report.json",
+    "note": "Full loss/LR traces and source/data manifests are retained unchanged in the evidence archive",
+    "sha256": "2663b12912eba289a9441d0825fd481773eee96bd19c5d0479f5c65b1fb85d90"
+  },
+  "restored_metrics": {
+    "top1": 21.75,
+    "top5": 74.80000305175781
+  },
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 133,
+  "status": "completed",
+  "training_steps": 3140
+}

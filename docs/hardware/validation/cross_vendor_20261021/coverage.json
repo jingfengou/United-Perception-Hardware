@@ -1,0 +1,57 @@
+{
+  "all_models_equivalent": false,
+  "checkpoint_audits_passed": 40,
+  "code_ci": {
+    "conclusion": "success",
+    "source_ref": "7f881b664d8604f6153d851b337f29c975cac7e5",
+    "url": "https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39589107863"
+  },
+  "cpu_tests_per_platform": 164,
+  "equivalent_models": [
+    "resnet18"
+  ],
+  "excluded_real_data_setup_probes": {
+    "runs": 8,
+    "status": "probe_completed, not part of the primary40 runs",
+    "steps_each": 2,
+    "total_steps": 16
+  },
+  "fair_pairs": 20,
+  "hardware_end_logs": {
+    "metax": "metax-hardware-final.log",
+    "nvidia": "hardware-final.log"
+  },
+  "independent_metric_reevaluations_passed": 40,
+  "metax_container_cpu_quota_restored": 8,
+  "not_confirmed_equivalent_models": [
+    "detr",
+    "vit_b16",
+    "yolov5s"
+  ],
+  "nvidia_client_transport": {
+    "all20_reports_and_child_process_returncodes_validated": true,
+    "cleanup": "Terminated only our stale SSH client after remote completion; the client exit1 is not a training failure",
+    "no_remote_training_or_gpu_compute_process_remained": true,
+    "remote_cohort_completed_marker": true,
+    "stale_windows_ssh_pid": 40208
+  },
+  "nvidia_prior_reproduction_runs": 20,
+  "primary_optimizer_steps": 76000,
+  "primary_runs": 40,
+  "remaining_limitations": [
+    "No full ImageNet/COCO convergence",
+    "No production accuracy claim for the low-accuracy64px ViT recipe",
+    "No cross-vendor bitwise or isolated hardware-cause claim",
+    "No MetaX multi-card/AMP accuracy acceptance"
+  ],
+  "software_scope": "Vendor-supported PyTorch stacks differ (NVIDIA 2.8 vs MetaX 2.10); this compares platform stacks, not hardware alone",
+  "source": {
+    "all40_match_git_source": true,
+    "application_python_files": 436,
+    "evidence_tools_ref": "7f881b664d8604f6153d851b337f29c975cac7e5",
+    "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+    "runtime_ref": "516aa2111605eaa18eba5e4807993dc1616df191",
+    "training_tools_ref": "cd48819901f89f6b0bbdb003d860308d15f9ef7e"
+  },
+  "status": "completed_all_declared_training_and_audits"
+}

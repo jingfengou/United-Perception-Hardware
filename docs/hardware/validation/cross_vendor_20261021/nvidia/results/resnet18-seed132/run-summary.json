@@ -1,0 +1,82 @@
+{
+  "adapter_sha256": null,
+  "algorithm_config_sha256": "65338bc22205a1093df7bc7b7318cfeffccb8b729f1c4c175950b721d3fc3f9f",
+  "backend": "nvidia",
+  "checkpoint_restore": "new model and optimizer loaded; validation metrics identical",
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "data_manifest_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+  "data_scope": {
+    "dataset": "CIFAR-10",
+    "split_policy": "Separate original train/test partitions; fixed seeded subset, no overlap.",
+    "test": 2000,
+    "train": 10000
+  },
+  "driver_sha256": "8996962b99a2cc87d9df227e4ba7ad6273c8f5d18205431ab3d8af8b8d35b48a",
+  "effective_config_sha256": "47aa18d8591a55ae96cbe0271225b3190836b902e341529c22a4c13a503674f8",
+  "elapsed_seconds": 372.7372988909483,
+  "environment": {
+    "cuda": "12.9",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.3",
+    "tf32": false,
+    "torch": "2.8.0a0+5228986c39.nv25.06",
+    "visible_devices": "1"
+  },
+  "epochs": 20,
+  "expected_training_steps": 3140,
+  "external_model": null,
+  "final_metrics": {
+    "top1": 65.55000305175781,
+    "top5": 96.75
+  },
+  "final_state_sha256": "540ac1d9103f6ced75b85f8f9489c5ca392cc2a952af739df67a15d3fd5667f5",
+  "first_batch_sha256": "4d87fcdfd1e4eb08b92f1f99678a166275a65c32299556c95ece9111d0cd53fa",
+  "first_forward_rng_sha256": "796ae929730ca7c6e37b967a08549c75447ce96591535a53a63bb74297702999",
+  "initial_metrics": {
+    "top1": 10.600000381469727,
+    "top5": 49.20000076293945
+  },
+  "initial_rng_sha256": "86f48f86e07618b2a6912b185b8ce913e292a7dee7c230ed1d94e44ecdb377ca",
+  "initial_state_sha256": "7bce707fbdda1a771cef5f0b64982726adaf1324b29c779602f22fe3c1e07cf1",
+  "learning_rate_trace": {
+    "length": 3140,
+    "sha256": "848a645e3d61366c9710ce01b8d4546bef1998d89789feaf0310258e7b2b658f"
+  },
+  "loss_trace": {
+    "first": 2.36784291267395,
+    "last": 2.0884814262390137,
+    "length": 3140,
+    "maximum": 6.654656410217285,
+    "minimum": 1.172647476196289,
+    "sha256": "1dd15fc6ce5eee1e45071b1076504ecb2863df7f2fdec041fb481ca61bc94750"
+  },
+  "model": "resnet18",
+  "model_provenance": "upstream UP model",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "nvidia_extension_loaded": false,
+  "original_config": "configs/cls/resnet/res18.yaml",
+  "protocol": "multiseed_v1",
+  "raw_report": {
+    "archive": "nvidia-evidence.tar.gz",
+    "member": "nvidia/results/resnet18-seed132/report.json",
+    "note": "Full loss/LR traces and source/data manifests are retained unchanged in the evidence archive",
+    "sha256": "12b4c93a2ca2da0ce851c448bea64347aae6ef489b2ca264ce8b2683b3436d97"
+  },
+  "restored_metrics": {
+    "top1": 65.55000305175781,
+    "top5": 96.75
+  },
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 132,
+  "status": "completed",
+  "training_steps": 3140
+}

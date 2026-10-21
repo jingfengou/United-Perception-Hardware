@@ -1,0 +1,20 @@
+{
+  "auditor_sha256": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+  "checkpoint_sha256": "307e3b75d5f51ab4f69fdace7a6c8b5f3c66fd7d8e1a3d75d48e2b8c3576a909",
+  "report_sha256": "83284aeb999525fdda1f5f63c10ae1155aa77fed1d613f842d54660c1a234104",
+  "sections": {
+    "model": {
+      "non_finite": [],
+      "tensor_count": 152
+    },
+    "optimizer": {
+      "non_finite": [],
+      "tensor_count": 456
+    },
+    "scheduler": {
+      "non_finite": [],
+      "tensor_count": 0
+    }
+  },
+  "status": "passed"
+}

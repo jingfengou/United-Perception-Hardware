@@ -1,0 +1,112 @@
+{
+  "adapter_sha256": null,
+  "algorithm_config_sha256": "31cd27185e50e206239bb00167709190e67e9b454187bf387086ad1bf492521e",
+  "backend": "metax",
+  "checkpoint_restore": "new model and optimizer loaded; validation metrics identical",
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "data_manifest_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+  "data_scope": {
+    "dataset": "PennFudan",
+    "split_policy": "Fixed image-level 120/50 holdout; no training on validation images.",
+    "test": 50,
+    "train": 120
+  },
+  "driver_sha256": "8996962b99a2cc87d9df227e4ba7ad6273c8f5d18205431ab3d8af8b8d35b48a",
+  "effective_config_sha256": "85bf8e2f0863c68808fe2cec04ae7a2326a8e8c09feddc5739157501385d18b9",
+  "elapsed_seconds": 1732.2266764724627,
+  "environment": {
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "4"
+  },
+  "epochs": 300,
+  "expected_training_steps": 600,
+  "external_model": null,
+  "final_metrics": {
+    "bbox.AP": 0.2724182737945332,
+    "bbox.AP.5": 0.5703671073097397,
+    "bbox.AP.75": 0.20750178993105095,
+    "bbox.AP_L": 0.3164335279820615,
+    "bbox.AP_M": 0.072126548531376,
+    "bbox.AP_S": 0.009180918091809182,
+    "bbox.AR": 0.5751879699248119,
+    "bbox.AR_1": 0.16165413533834583,
+    "bbox.AR_10": 0.4977443609022556,
+    "bbox.AR_L": 0.6033057851239669,
+    "bbox.AR_M": 0.3555555555555555,
+    "bbox.AR_S": 0.1
+  },
+  "final_state_sha256": "ede2b9fd67544d400ea5093111fddd2a4895eb0805d4a01dd080edbe291b8904",
+  "first_batch_sha256": "689e03ab7c6d8faa605c7fc50e08a5fb2ed8885086977aee8810d37c024a084f",
+  "first_forward_rng_sha256": "e924852f1fa4765263c102909fda32901b8e91edb6cc7bcc52bbce693755b769",
+  "initial_metrics": {
+    "bbox.AP": 0.0,
+    "bbox.AP.5": 0.0,
+    "bbox.AP.75": 0.0,
+    "bbox.AP_L": 0.0,
+    "bbox.AP_M": 0.0,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.0,
+    "bbox.AR_1": 0.0,
+    "bbox.AR_10": 0.0,
+    "bbox.AR_L": 0.0,
+    "bbox.AR_M": 0.0,
+    "bbox.AR_S": 0.0
+  },
+  "initial_rng_sha256": "02aa4c13e8d7d4d2c1b09620c642e16b20117230e4ba1e6bceaf787f145f773f",
+  "initial_state_sha256": "8d8f35d86c86cd3035e994a16517b3ed58f5fb666163da681343b64c0c87f668",
+  "learning_rate_trace": {
+    "length": 600,
+    "sha256": "c1d5eb4d53c0725e442dc420854aa9cb0978074c685e895a1ba1afaba9e40f83"
+  },
+  "loss_trace": {
+    "first": 14.981935501098633,
+    "last": 5.822495460510254,
+    "length": 600,
+    "maximum": 16.44661521911621,
+    "minimum": 5.206637382507324,
+    "sha256": "fa2dc711853701b367c7f4fbadb8b6f0a572bdade1fb17d1d45d47c20c218ba0"
+  },
+  "model": "yolov5s",
+  "model_provenance": "upstream UP model",
+  "normalized_source_manifest_sha256": "d481ca11c2e1821be76c18509355b5677896e746469d2e1a464bbb5273d31b6a",
+  "nvidia_extension_loaded": false,
+  "original_config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/yolov5s-seed135/report.json",
+    "note": "Full loss/LR traces and source/data manifests are retained unchanged in the evidence archive",
+    "sha256": "0d45cc5787efec6e7a16f1c4b926a5917295e772f94c3d92cd3f4f9790886bdd"
+  },
+  "restored_metrics": {
+    "bbox.AP": 0.2724182737945332,
+    "bbox.AP.5": 0.5703671073097397,
+    "bbox.AP.75": 0.20750178993105095,
+    "bbox.AP_L": 0.3164335279820615,
+    "bbox.AP_M": 0.072126548531376,
+    "bbox.AP_S": 0.009180918091809182,
+    "bbox.AR": 0.5751879699248119,
+    "bbox.AR_1": 0.16165413533834583,
+    "bbox.AR_10": 0.4977443609022556,
+    "bbox.AR_L": 0.6033057851239669,
+    "bbox.AR_M": 0.3555555555555555,
+    "bbox.AR_S": 0.1
+  },
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 135,
+  "status": "completed",
+  "training_steps": 600
+}

@@ -4,6 +4,8 @@
 
 NVIDIA 原版/路由版训练对照见[五模型多随机种子报告](MULTISEED_ACCURACY.md)。它与能力注册、合成输入功能检查及国产设备真机验收是不同层面的证据。
 
+最新[沐曦/NVIDIA 四模型真实数据对照](CROSS_VENDOR_ACCURACY.md)已完成 40 次训练、76,000 步及状态/指标复核；预设 +/-1 点平均精度等价仅 ResNet18 通过，YOLO、DETR、ViT 未能确认。两边均完成训练不等于跨平台精度等价。
+
 上层模型、损失函数、Runner 和推理 API 通过 `up.accelerator` 访问硬件。普通 PyTorch 计算、`new_zeros()`、继承输入设备的张量构造继续使用 PyTorch。
 
 ```text

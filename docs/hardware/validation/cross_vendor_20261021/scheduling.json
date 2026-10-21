@@ -12,7 +12,10 @@
     "client_time_approx": "2026-10-21T18:40:00+08:00",
     "reason": "Eight independent training workers in our task container, 160 host CPUs and observed host load about5; reduce CPU augmentation contention without changing model, sampler, batch, precision, seed or schedule.",
     "only_own_container_changed": true,
-    "restore_after_training": 8
+    "restore_after_training": 8,
+    "restore_readback_nano_cpus": 8000000000,
+    "restore_client_time_approx": "2026-10-21T19:13:00+08:00",
+    "restored_after_both_metax_training_suites_completed": true
   },
   "clock_observation": {
     "nvidia_utc": "2026-10-21T10:40:21Z",

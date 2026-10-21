@@ -1,0 +1,267 @@
+{
+  "comparison": "New NVIDIA runs exactly reproduce prior routed NVIDIA reports; does not assert cross-vendor identity",
+  "pairs": [
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "resnet18",
+      "new_report_sha256": "436c1d50878908bf5c89bd79d21176947c4276abc45a72454749d3ea237bc6b7",
+      "prior_report_sha256": "8f45952ad9431820d19e495afd2bde34bf6214665c2afd4a9950854f2e76ca59",
+      "seed": 131
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "resnet18",
+      "new_report_sha256": "12b4c93a2ca2da0ce851c448bea64347aae6ef489b2ca264ce8b2683b3436d97",
+      "prior_report_sha256": "e264cde7ae4560fb65b650be56e4c6122a5c7940d4bdfffa18b66027c749eff4",
+      "seed": 132
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "resnet18",
+      "new_report_sha256": "2d6eb8f7133f0b2a0124e09c6596cc75aa0c48db03b4427f77c83064b6f4776d",
+      "prior_report_sha256": "39dab70ec33fcec8d6c428c8d5aec99435351446ea4b81fea5393359ce5bf7d2",
+      "seed": 133
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "resnet18",
+      "new_report_sha256": "11ca3970166f8e6dd7fb42e88bd1d846689e93ea5efdad85c898afdf360e3530",
+      "prior_report_sha256": "abc9a277b0b168255614fe7a61276bee94d4b413cec72751d65360fe69df4156",
+      "seed": 134
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "resnet18",
+      "new_report_sha256": "961f56960dce6f91443e360deef1b4f0e0f0b6a73ef5d448b69cf2d5b580d75f",
+      "prior_report_sha256": "b4b7e3103bae88c6ab8b7875f5ad38b0020348ab939ec068288db7b749a9b6ae",
+      "seed": 135
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "yolov5s",
+      "new_report_sha256": "95d627cc850402c15af0f80826f25826ae8551e8599a4b2cca10d7846435b7ee",
+      "prior_report_sha256": "9f7fec42f16b8383e2e9bf1f262b6ab4a4737038c08208088ecbc665e37ec6a5",
+      "seed": 131
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "yolov5s",
+      "new_report_sha256": "fbd6ce220901b88d051e221ecd0de21545585555337526e77e2e9584286c295c",
+      "prior_report_sha256": "79d533085cddc1e0c89ea8174c95b74e2257521a847ff7bac93a17a4f8c3d667",
+      "seed": 132
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "yolov5s",
+      "new_report_sha256": "92b9f8190ef0ec0d3e29ba711413b34a4077000bee065c224f8c2991687fdaa5",
+      "prior_report_sha256": "0e651616b35a7c37eb299838a2cd2fc07feafe259983d5337ac662c5606db17d",
+      "seed": 133
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "yolov5s",
+      "new_report_sha256": "6585d727267a6f37d638a2800a71ae02bd88d598f863aec58bbbf656e0c87df5",
+      "prior_report_sha256": "0f1bba63818ef2b6b7d46a95d3d14db022be58083cc9170782adfa8981529617",
+      "seed": 134
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "yolov5s",
+      "new_report_sha256": "fae60b9f186bae4ec41a9c55e2e24df664cf7dbfbabf1a51303f65e893eb981c",
+      "prior_report_sha256": "be0a5b12930c1efe08c7923c6666579a67b76bc0c6cba8fb9c9c25fb6872b87f",
+      "seed": 135
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "detr",
+      "new_report_sha256": "9cfc3bc70e8b9080995dab2a1599e94b59ea4de78777e919e294fd9057217813",
+      "prior_report_sha256": "f29d55b8d3f0691450f661327ea1464f73f41f914358604cfb1db92547d83815",
+      "seed": 131
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "detr",
+      "new_report_sha256": "03908ac0a550bf243ba5730603a355d083c9727ee218c30116158f43e7ffef07",
+      "prior_report_sha256": "d57b90434b521a12239e1c1400f6ac7e5e0d620f7fa64d4a7ea1773c28f93d8e",
+      "seed": 132
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "detr",
+      "new_report_sha256": "dd88d63167eae82bd6f84a838c0da9a350b3bc9af5323c9b44ba5fef27f9198c",
+      "prior_report_sha256": "f563f28f380a9d1a1a4277ec6fb557f6be4edee697322741ad3c0b150dee52df",
+      "seed": 133
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "detr",
+      "new_report_sha256": "9cfaf83d6bc38bd999a1c198f2b9a1a6e90a1e5572e8c1d0df28e508e3e02a53",
+      "prior_report_sha256": "98430e095d978ec705e4c1d7c3fc7a94953dac35561d313bc4c5b91020cfae50",
+      "seed": 134
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "detr",
+      "new_report_sha256": "01cf929763ce2002ae862435fa1fd937d60ab20870fbecc129eb4e2594e3e380",
+      "prior_report_sha256": "cc6d20e7f6eca74f90a0951fc49575df1136d0376b09ef554d247a388d717b23",
+      "seed": 135
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "vit_b16",
+      "new_report_sha256": "81b93705aa3ad214ee36aff21382fe26dbe4fd7ee9c014c0cb47815ca88b27c9",
+      "prior_report_sha256": "ff8326e0468df6c10edb2b9fcbb423ab81d2e83a5b71ac591b27d7cc5f0dea7f",
+      "seed": 131
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "vit_b16",
+      "new_report_sha256": "5e17fb89f67d3b08a101f516b267b0a173c405377b6a27b5eb8b8860d126d641",
+      "prior_report_sha256": "b3828c5e072d0815652934bb21bb5cf32f6f3026a2c974c4040b78df730d6139",
+      "seed": 132
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "vit_b16",
+      "new_report_sha256": "808838cfbe46fefcf5d15b11401e39b82c3237d596942098adecdf891a96c43c",
+      "prior_report_sha256": "b6002b0c7905c3e4d3abb0560367e04c8ad0a7b11096dd80b443b1c83bde5084",
+      "seed": 133
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "vit_b16",
+      "new_report_sha256": "2d41d01369d168bd8b56b705985e1bb639d775597f4ab37ecb70741aadc6b1d4",
+      "prior_report_sha256": "ad6381a30ebe9512e98e958184eb6db8eaf00d6aa8dbe9024b3c61066043d141",
+      "seed": 134
+    },
+    {
+      "equal_fields": {
+        "final_metrics": true,
+        "final_state_sha256": true,
+        "initial_state_sha256": true,
+        "learning_rates": true,
+        "losses": true
+      },
+      "model": "vit_b16",
+      "new_report_sha256": "2b9de34480ce8ac5831964dfeea652734e113e1e4daa6f2675768bba38653a96",
+      "prior_report_sha256": "77efcfce022fe4671c70d4311e5cb48486d4ef2dc6858024d383bbdeb7549b4e",
+      "seed": 135
+    }
+  ],
+  "runs": 20,
+  "status": "passed"
+}

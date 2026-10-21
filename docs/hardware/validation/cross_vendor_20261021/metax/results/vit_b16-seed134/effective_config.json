@@ -1,0 +1,292 @@
+{
+  "args": {
+    "backend": "dist",
+    "display": 50,
+    "no_running_config": true
+  },
+  "auto_augment": {
+    "kwargs": {
+      "scale": [
+        0.08,
+        1
+      ],
+      "size": 64
+    },
+    "type": "torch_auto_augmentation"
+  },
+  "center_crop": {
+    "kwargs": {
+      "size": 64
+    },
+    "type": "torch_center_crop"
+  },
+  "dataset": {
+    "test": {
+      "batch_sampler": {
+        "kwargs": {
+          "batch_size": 64,
+          "sampler": {
+            "kwargs": {},
+            "type": "dist"
+          }
+        },
+        "type": "base"
+      },
+      "dataloader": {
+        "kwargs": {
+          "num_workers": 0,
+          "pin_memory": true
+        },
+        "type": "cls_base"
+      },
+      "dataset": {
+        "kwargs": {
+          "evaluator": {
+            "kwargs": {
+              "topk": [
+                1,
+                5
+              ]
+            },
+            "type": "imagenet"
+          },
+          "image_reader": {
+            "kwargs": {
+              "color_mode": "RGB",
+              "image_dir": "/workspace/up-cross-vendor-20261021/data/cifar10/test",
+              "memcached": false
+            },
+            "type": "fs_pillow"
+          },
+          "meta_file": "/workspace/up-cross-vendor-20261021/data/cifar10/test.txt",
+          "transformer": [
+            {
+              "kwargs": {
+                "size": 72
+              },
+              "type": "torch_resize"
+            },
+            {
+              "kwargs": {
+                "size": 64
+              },
+              "type": "torch_center_crop"
+            },
+            {
+              "kwargs": {},
+              "type": "to_tensor"
+            },
+            {
+              "kwargs": {
+                "mean": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "std": [
+                  0.5,
+                  0.5,
+                  0.5
+                ]
+              },
+              "type": "normalize"
+            }
+          ]
+        },
+        "type": "cls"
+      }
+    },
+    "train": {
+      "batch_sampler": {
+        "kwargs": {
+          "batch_size": 64,
+          "sampler": {
+            "kwargs": {},
+            "type": "dist"
+          }
+        },
+        "type": "base"
+      },
+      "dataloader": {
+        "kwargs": {
+          "batch_fn": {
+            "kwargs": {
+              "cutmix_alpha": 1.0,
+              "mixup_alpha": 0.8,
+              "num_classes": 10,
+              "switch_prob": 0.5
+            },
+            "type": "batch_cutmixup"
+          },
+          "num_workers": 0,
+          "pin_memory": true
+        },
+        "type": "cls_base"
+      },
+      "dataset": {
+        "kwargs": {
+          "image_reader": {
+            "kwargs": {
+              "color_mode": "RGB",
+              "image_dir": "/workspace/up-cross-vendor-20261021/data/cifar10/train",
+              "memcached": false
+            },
+            "type": "fs_pillow"
+          },
+          "meta_file": "/workspace/up-cross-vendor-20261021/data/cifar10/train.txt",
+          "transformer": [
+            {
+              "kwargs": {
+                "scale": [
+                  0.08,
+                  1
+                ],
+                "size": 64
+              },
+              "type": "torch_random_resized_crop"
+            },
+            {
+              "kwargs": {
+                "scale": [
+                  0.08,
+                  1
+                ],
+                "size": 64
+              },
+              "type": "torch_auto_augmentation"
+            },
+            {
+              "kwargs": {},
+              "type": "to_tensor"
+            },
+            {
+              "kwargs": {
+                "mean": [
+                  0.5,
+                  0.5,
+                  0.5
+                ],
+                "std": [
+                  0.5,
+                  0.5,
+                  0.5
+                ]
+              },
+              "type": "normalize"
+            }
+          ]
+        },
+        "type": "cls"
+      }
+    }
+  },
+  "hooks": [],
+  "net": [
+    {
+      "kwargs": {
+        "attention_dropout": 0.1,
+        "drop_path": 0.1,
+        "dropout": 0.1,
+        "image_size": 64,
+        "qkv_bias": true
+      },
+      "name": "backbone",
+      "type": "vit_base_patch16_224"
+    },
+    {
+      "kwargs": {
+        "in_plane": 768,
+        "input_feature_idx": -1,
+        "num_classes": 10
+      },
+      "name": "head",
+      "type": "vit_head"
+    },
+    {
+      "kwargs": {
+        "cls_loss": {
+          "kwargs": {
+            "num_classes": 10,
+            "smooth_ratio": 0.1
+          },
+          "type": "label_smooth_ce"
+        }
+      },
+      "name": "post_process",
+      "type": "base_cls_postprocess"
+    }
+  ],
+  "normalize": {
+    "kwargs": {
+      "mean": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "std": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "type": "normalize"
+  },
+  "num_classes": 10,
+  "random_resized_crop": {
+    "kwargs": {
+      "scale": [
+        0.08,
+        1
+      ],
+      "size": 64
+    },
+    "type": "torch_random_resized_crop"
+  },
+  "runtime": {
+    "accelerator": {
+      "backend": "metax"
+    },
+    "device": "cuda",
+    "random_seed": 134,
+    "task_names": "cls"
+  },
+  "saver": {
+    "auto_resume": false,
+    "save_result": true
+  },
+  "to_tensor": {
+    "kwargs": {},
+    "type": "to_tensor"
+  },
+  "torch_size": {
+    "kwargs": {
+      "size": 72
+    },
+    "type": "torch_resize"
+  },
+  "trainer": {
+    "lr_scheduler": {
+      "kwargs": {
+        "T_max": 20,
+        "eta_min": 1e-06,
+        "warm_epoch": 1
+      },
+      "type": "CosineLREpochScheduler",
+      "warmup_iter": 157,
+      "warmup_ratio": 0.01,
+      "warmup_register_type": "no_scale_lr",
+      "warmup_type": "linear"
+    },
+    "max_epoch": 20,
+    "only_save_latest": false,
+    "optimizer": {
+      "kwargs": {
+        "lr": 0.00075,
+        "weight_decay": 0.05
+      },
+      "type": "AdamW"
+    },
+    "save_freq": 20,
+    "test_freq": 1
+  }
+}
