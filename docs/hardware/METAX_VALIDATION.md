@@ -25,16 +25,28 @@
 
 ## 继续测试所需条件
 
-1. 管理员允许该账号访问显卡，例如执行以下命令，然后重新建立 SSH 会话：
+1. 选择一种运行方式。直接在宿主机/虚拟环境运行时，管理员需要允许该账号访问显卡，例如执行以下命令，然后重新建立 SSH 会话：
 
    ```bash
    sudo usermod -aG video oujingfeng
    ```
 
+   如果使用 Docker，则由管理员提供可用的 Docker 访问方式，在容器启动时映射 `/dev/mxcd`、`/dev/dri`，并为容器进程设置必要设备权限；这条路径不要求宿主账号同时加入 video 组。不能将裸机设备权限和 Docker 权限误写成必须同时满足的两个前提。
+
 2. 提供可用的沐曦 PyTorch/TorchVision 环境路径、可访问的容器，或与部署版本匹配的厂商安装包。无需向聊天发送 sudo 密码。现有容器的使用方式由管理员决定，不自动修改 Docker 权限或全局驱动。
 3. 如自行安装，将虚拟环境、缓存和数据放在独立网络盘目录，不使用当前接近满载的系统盘。保留厂商 PyTorch/TorchVision，不替换为官方 NVIDIA wheel。
 
 厂商提供 [mcPyTorch 安装说明](https://developer.metax-tech.com/api/client/document/preview/AI%20%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%82%E8%80%83/mcPyTorch%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97/%E6%9B%A6%E4%BA%91C500%E7%B3%BB%E5%88%97/latest/split_files/%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html)，包含 wheel 和容器方式；具体安装包仍需核对当前服务器驱动、SDK 和 Python 的版本兼容性，不能把最新版文档当成本机组合已通过验证的证明。
+
+## Docker 与本框架的关系
+
+Docker 是厂商环境的部署方式，不是另一套硬件接口。容器内的调用关系仍是 `UP 模型 -> 统一硬件接口 -> metax 后端 -> 厂商 PyTorch/SDK -> C500`。可以将本次工作目录挂载进独立容器，保留厂商 PyTorch/TorchVision，再安装框架应用依赖；不需要为 Docker 重写模型。
+
+- 容器内配置仍选择 `runtime.accelerator.backend: metax`、`runtime.device: cuda`，不能因设备名为 cuda 而选择 nvidia。
+- 安装公共包时显式设置 `UP_BUILD_BACKEND=none`，跳过 NVIDIA 扩展构建；需要的厂商专用算子仍须单独提供和验证。
+- 先检查可用镜像、Docker 存储目录和空间，不在接近满载的系统盘盲目下载大镜像。
+- 用户提供的 [C500 容器示例](https://github.com/xumy1995/model-verify/blob/120d9af31fb022ccec71f1060eee892491341ca1/mx-c500/README.md) 使用 `maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64`；这是参考版本，不是本服务器已验证的版本组合。当前服务器报告 MACA 3.5.3.18，需要核对驱动与候选镜像的兼容要求，不能直接推断可用或必须升级。
+- 该示例的 ResNet/DETR/ViT 来自 Transformers，YOLO 来自 Ultralytics。它们的评测日志不能替代本仓库 UP 模型的前后向、训练、推理和权重恢复验收。没有执行示例中的容器删除命令，也没有进入或修改其他用户的容器。
 
 ## 四模型验收范围
 
