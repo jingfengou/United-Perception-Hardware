@@ -1,0 +1,31 @@
+{
+  "losses": [
+    15.249771118164062,
+    34.536983489990234
+  ],
+  "parameters_equal": true,
+  "matmul_precision": "high",
+  "matmul_tf32": true,
+  "cudnn_tf32": true,
+  "mha_fastpath": true,
+  "training_modules_original": [],
+  "training_modules_restored": [],
+  "default": {
+    "original_repeat_max_abs": 0.3940582275390625,
+    "restored_repeat_max_abs": 0.4655494689941406,
+    "restore_max_abs": 0.30987548828125,
+    "restore_close": false
+  },
+  "strict_fp32": {
+    "original_repeat_max_abs": 0.0,
+    "restored_repeat_max_abs": 0.0,
+    "restore_max_abs": 0.0,
+    "restore_close": true
+  },
+  "strict_fp32_no_mha_fastpath": {
+    "original_repeat_max_abs": 0.0,
+    "restored_repeat_max_abs": 0.0,
+    "restore_max_abs": 0.0,
+    "restore_close": true
+  }
+}

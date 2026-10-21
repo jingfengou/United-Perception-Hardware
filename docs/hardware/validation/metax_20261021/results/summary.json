@@ -1,0 +1,486 @@
+{
+  "generated_at_utc": "2026-10-21T09:24:16.209787+00:00",
+  "scope": "single-C500 two-step synthetic functional checks; not real-data accuracy, convergence, performance or multi-card qualification",
+  "backend": "metax",
+  "models": {
+    "resnet18": {
+      "training_losses": [
+        7.768791198730469,
+        7.765743255615234
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "BaseClsPostProcess.loss": 7.768791198730469
+        },
+        {
+          "BaseClsPostProcess.loss": 7.765743255615234
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": null,
+      "state_keys": 122,
+      "state_key_sha256": "f9e200c8cc125b98864ced9bd50c34c00df7578a91a58b65d89175c230789e5d",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          64,
+          64
+        ],
+        "/gt": [
+          2
+        ],
+        "/features/0": [
+          2,
+          512,
+          2,
+          2
+        ],
+        "/strides": [
+          1
+        ],
+        "/logits": [
+          2,
+          1000
+        ],
+        "/deploy_output_node": [
+          2,
+          1000
+        ],
+        "/preds": [
+          2
+        ],
+        "/scores": [
+          2,
+          1000
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        64,
+        64
+      ],
+      "class_count_config": 1000,
+      "aligned": false,
+      "model_provenance": "upstream UP model",
+      "seconds": 0.32,
+      "amp_and_scaler": true
+    },
+    "yolov5s": {
+      "training_losses": [
+        0.4852362871170044,
+        0.48707857728004456
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "YoloV5PostProcess.cls_loss": 0.20547950267791748,
+          "YoloV5PostProcess.obj_loss": 0.04619740694761276,
+          "YoloV5PostProcess.box_loss": 0.23355935513973236
+        },
+        {
+          "YoloV5PostProcess.cls_loss": 0.21103456616401672,
+          "YoloV5PostProcess.obj_loss": 0.047849059104919434,
+          "YoloV5PostProcess.box_loss": 0.2281949520111084
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": null,
+      "state_keys": 380,
+      "state_key_sha256": "1484e7fd9a0d7767684b595e692ed9178c3e70d3ee4d0e4e5fc8da1e627f8227",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          640,
+          640
+        ],
+        "/gt_bboxes/0": [
+          1,
+          5
+        ],
+        "/gt_bboxes/1": [
+          1,
+          5
+        ],
+        "/gt_ignores/0": [
+          0,
+          4
+        ],
+        "/gt_ignores/1": [
+          0,
+          4
+        ],
+        "/features/0": [
+          2,
+          128,
+          80,
+          80
+        ],
+        "/features/1": [
+          2,
+          256,
+          40,
+          40
+        ],
+        "/features/2": [
+          2,
+          512,
+          20,
+          20
+        ],
+        "/strides": [
+          3
+        ],
+        "/preds/0/0": [
+          2,
+          12,
+          80,
+          80
+        ],
+        "/preds/0/1": [
+          2,
+          240,
+          80,
+          80
+        ],
+        "/preds/0/2": [
+          2,
+          3,
+          80,
+          80
+        ],
+        "/preds/1/0": [
+          2,
+          12,
+          40,
+          40
+        ],
+        "/preds/1/1": [
+          2,
+          240,
+          40,
+          40
+        ],
+        "/preds/1/2": [
+          2,
+          3,
+          40,
+          40
+        ],
+        "/preds/2/0": [
+          2,
+          12,
+          20,
+          20
+        ],
+        "/preds/2/1": [
+          2,
+          240,
+          20,
+          20
+        ],
+        "/preds/2/2": [
+          2,
+          3,
+          20,
+          20
+        ],
+        "/dt_bboxes": [
+          1,
+          7
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        640,
+        640
+      ],
+      "class_count_config": 81,
+      "aligned": true,
+      "model_provenance": "upstream UP model",
+      "seconds": 0.352
+    },
+    "vit_b16": {
+      "training_losses": [
+        7.5143537521362305,
+        7.4202728271484375
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "BaseClsPostProcess.loss": 7.5143537521362305
+        },
+        {
+          "BaseClsPostProcess.loss": 7.4202728271484375
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": null,
+      "state_keys": 152,
+      "state_key_sha256": "d16d656646ffe66cc249606b9ffbee883adc20ee9beeb7218fe025967efbf395",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          224,
+          224
+        ],
+        "/gt": [
+          2
+        ],
+        "/features/0/0": [
+          2,
+          768,
+          14,
+          14
+        ],
+        "/features/0/1": [
+          2,
+          768
+        ],
+        "/logits": [
+          2,
+          1000
+        ],
+        "/preds": [
+          2
+        ],
+        "/scores": [
+          2,
+          1000
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        224,
+        224
+      ],
+      "class_count_config": 1000,
+      "aligned": false,
+      "model_provenance": "upstream UP model",
+      "seconds": 2.377
+    },
+    "detr": {
+      "training_losses": [
+        15.280448913574219,
+        31.65365982055664
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "DETR.loss_ce": 0.6025882959365845,
+          "DETR.loss_bbox": 1.5046684741973877,
+          "DETR.loss_giou": 0.9071897268295288,
+          "DETR.loss_ce_0": 0.532454788684845,
+          "DETR.loss_bbox_0": 1.0940098762512207,
+          "DETR.loss_giou_0": 0.6747004389762878,
+          "DETR.loss_ce_1": 0.6791589260101318,
+          "DETR.loss_bbox_1": 0.8112342357635498,
+          "DETR.loss_giou_1": 0.6771889925003052,
+          "DETR.loss_ce_2": 0.6963969469070435,
+          "DETR.loss_bbox_2": 1.0834715366363525,
+          "DETR.loss_giou_2": 0.8690975308418274,
+          "DETR.loss_ce_3": 0.6782077550888062,
+          "DETR.loss_bbox_3": 0.9828494787216187,
+          "DETR.loss_giou_3": 0.8649101853370667,
+          "DETR.loss_ce_4": 0.6795462965965271,
+          "DETR.loss_bbox_4": 1.0306657552719116,
+          "DETR.loss_giou_4": 0.9121112823486328
+        },
+        {
+          "DETR.loss_ce": 1.2189946174621582,
+          "DETR.loss_bbox": 2.920536994934082,
+          "DETR.loss_giou": 1.4055426120758057,
+          "DETR.loss_ce_0": 1.0960609912872314,
+          "DETR.loss_bbox_0": 2.1832873821258545,
+          "DETR.loss_giou_0": 1.1854474544525146,
+          "DETR.loss_ce_1": 1.1844849586486816,
+          "DETR.loss_bbox_1": 2.3699440956115723,
+          "DETR.loss_giou_1": 1.6243764162063599,
+          "DETR.loss_ce_2": 1.129696011543274,
+          "DETR.loss_bbox_2": 2.55118727684021,
+          "DETR.loss_giou_2": 1.9679079055786133,
+          "DETR.loss_ce_3": 1.2041946649551392,
+          "DETR.loss_bbox_3": 2.7540273666381836,
+          "DETR.loss_giou_3": 1.5574480295181274,
+          "DETR.loss_ce_4": 1.2492643594741821,
+          "DETR.loss_bbox_4": 2.6034936904907227,
+          "DETR.loss_giou_4": 1.44776451587677
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": null,
+      "state_keys": 459,
+      "state_key_sha256": "4cf8a59925a4f2c6e24811fbae748197a146c95cbfab6e7c23d045266fee33d4",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          128,
+          128
+        ],
+        "/gt_bboxes/0": [
+          1,
+          5
+        ],
+        "/gt_bboxes/1": [
+          1,
+          5
+        ],
+        "/gt_ignores/0": [
+          0,
+          4
+        ],
+        "/gt_ignores/1": [
+          0,
+          4
+        ],
+        "/dt_bboxes": [
+          200,
+          7
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        128,
+        128
+      ],
+      "class_count_config": 2,
+      "aligned": false,
+      "model_provenance": "pinned external official DETR validation adapter",
+      "seconds": 3.151
+    }
+  },
+  "default_precision": {
+    "resnet18": {
+      "passed": false
+    },
+    "yolov5s": {
+      "passed": true
+    },
+    "vit_b16": {
+      "passed": true
+    },
+    "detr": {
+      "passed": false
+    }
+  },
+  "artifact_sha256": {
+    "container-tensor-probe.json": "9774e454832713c9d53e1c22f39d8a08b1d40d82932d5b365cfed794f2b56e34",
+    "cpu-contracts.final.xml": "3dad2316c9c7b1a0ba6f62d0385cc5ba42a273909c3d197f01a215b388ce950f",
+    "cpu-contracts.missing-fixtures.xml": "437971f709f2aa2aad11dd11556c7901849093bb9d6b5ec47ef355fa87859f0e",
+    "cpu-contracts.xml": "cfa889ef94c65fa6dd27568a78d12735a1efb242e6e92cb9d175de1bad27e700",
+    "default-current-driver/detr.json": "faed60c8d2ad275051ee4150b1b8f10f021df87365890731c2f877ca3a702843",
+    "default-current-driver/resnet18.json": "8275488699669f26311eb5b133d29efbd909498914d2bc0ab4ff025ad6502584",
+    "default-current-driver/vit_b16.json": "d2cc5db1d0bff2fd57ea18183d1c8239ffaeceff2ae4e780ba9b8cabe0c55a73",
+    "default-current-driver/yolov5s.json": "72aa28ffc3c2890de1c2ad3ed92f6627e750421f3f647753f9750bddaf2d37f8",
+    "detr-manifest.json": "ec2c2b16faa3becaec0b28791f20f75bc1046b12cd490159830183020f2c667b",
+    "detr-restore-diagnostic.json": "8f77bd9b793ab0820b20425954dafa7bc328fc5e8e6e0625e23da5be6b72fecf",
+    "detr.json": "58a058a39f3d1947b8aa892c8e04ff1eb4992bcaeb87cd170ab18560cb79ba7e",
+    "detr.log": "d13678b69d36a3a5195374af1c849a73b3cefbd481300aee5b94d6c7ee29f0ca",
+    "environment.json": "85c97c11af78c474cf74117497c2773846e97f169d6e9383d280a1fda5da1a19",
+    "execution-cohorts.json": "f19328259f636b194c49eaacec6cc91f3200bc23f06792c50717460f1b50e768",
+    "execution-smoke.json": "a28aaab52465b935ac9d4060f3e120bd32cbd6cbcf96c60a072eec0c161c03a9",
+    "resnet18.json": "7bcba31d132cd67f1a500108d91b00ac0c90c07c7a186f349d03f6c57c7a89bc",
+    "runtime-ops.json": "bb3682b2021cf419496f1cc2efa8cd18849c5f87f7449ec9898729dad682adf9",
+    "strict-fp32/detr.json": "fdf2bd29737c360cc2497bf6b4bc5f57be4229fc7d9269ac3f3df546fec31cee",
+    "strict-fp32/resnet18.json": "f509e6d88b99433eb5226d76715b9d733bd9b2f0de4eda01de329a0665e404c2",
+    "strict-fp32/vit_b16.json": "e1deaee8f667253326c82eaaaf7f10a664f971c26d29efbdecfc44a2817b5d84",
+    "strict-fp32/yolov5s.json": "4f4c11cfb2f2d53ff98bb714cc087bfbbc35e50c2758bac522de4fb62c80d116",
+    "vit_b16.json": "ca48c2112bdccbed68022e5c4d6416f1864d662cfddb4f84a5c7fb610dbeb4cf",
+    "vit_b16.log": "ee9fa3a8ad04eeb2be997735dca314b21b27d6923b1fb8e2a22ac64272c3356d",
+    "yolov5s.json": "425d561bb25b3765b2c5845590abdad50fa15a1035fe0b06b8ba2f44d75d1a42",
+    "yolov5s.log": "9aa3a9bbfb1e5b9664b9c686e64124feb330fd3b8e1ea60561599ba6ba774986"
+  },
+  "driver_sha256": "32d47ca62ae32291f23bb39ff6f100d85466706011f037550575b33e14332f94",
+  "source_manifest_sha256": "4583f3e652448595c9b9c1926407d408ebe827d590e34733251debdd52a6daf4",
+  "cpu_contracts": {
+    "tests": 126,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime_ops": {
+    "passed": true,
+    "backend": "metax",
+    "device": "cuda:0",
+    "gpu": "MetaX C500",
+    "torch": "2.10.0+metax3.8.1.0",
+    "torchvision_nms_keep": [
+      1,
+      0
+    ],
+    "runtime": {
+      "health": true,
+      "migration": true,
+      "rng_restore": true,
+      "legacy_constructors": true,
+      "cache_preserves_live_tensors": true,
+      "memory_bytes": {
+        "allocated": 1024,
+        "peak_allocated": 1536
+      }
+    },
+    "portable_2d_cases": [
+      {
+        "offset": 0,
+        "dtype": "torch.float32",
+        "keep": [
+          0,
+          2
+        ],
+        "iou": 0.6694214940071106
+      },
+      {
+        "offset": 0,
+        "dtype": "torch.float16",
+        "keep": [
+          0,
+          2
+        ],
+        "iou": 0.66943359375
+      },
+      {
+        "offset": 1,
+        "dtype": "torch.float32",
+        "keep": [
+          0,
+          2
+        ],
+        "iou": 0.6694214940071106
+      },
+      {
+        "offset": 1,
+        "dtype": "torch.float16",
+        "keep": [
+          0,
+          2
+        ],
+        "iou": 0.66943359375
+      }
+    ],
+    "operation_owners": {
+      "naive_nms": "portable",
+      "gpu_iou_overlap": "portable",
+      "torchvision_nms": "portable"
+    },
+    "nvidia_extension_loaded": false,
+    "driver_sha256": "86cfe75d398386ab2d6f0cfa46d78945147b7729d5a3804b567d9f1349a1e219",
+    "scope": "small fixed cases only; not full operator, model accuracy or performance qualification"
+  },
+  "image_id": "sha256:1a10a6cc56741f5e84da5dd6f0aa9dc4cfd420d66188e43983c9a3efd9d85ab0",
+  "image": "cr.metax-tech.com/public-library/maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64",
+  "runtime_application_source_changed": false,
+  "public_package_install": "UP_BUILD_BACKEND=none pip install --no-build-isolation --no-deps -e . succeeded",
+  "pip_check": "No broken requirements found."
+}

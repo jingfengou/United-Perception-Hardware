@@ -1,0 +1,23 @@
+# Task-local application profile for the existing C500 image, not a universal SDK lock.
+# Image: maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64.
+# Reuse its vendor packages via a --system-site-packages virtual environment.
+# The vendor pins below must already be installed; do not substitute NVIDIA wheels.
+torch==2.10.0+metax3.8.1.0
+torchvision==0.25.0+metax3.8.1.0
+numpy==1.26.4
+scipy==1.16.0
+pillow==11.2.1
+easydict==1.13
+lvis==0.5.3
+matplotlib==3.10.3
+numba==0.59.1
+onnx==1.17.0
+opencv-python==4.11.0.86
+pandas==2.2.3
+prettytable==3.16.0
+psutil==7.0.0
+scikit-image==0.25.2
+scikit-learn==1.6.1
+tensorboardX==2.6.4
+tqdm==4.67.1
+pycocotools==2.0.10

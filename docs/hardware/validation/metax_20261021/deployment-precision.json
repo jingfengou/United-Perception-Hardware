@@ -1,0 +1,14 @@
+{
+  "scope": "startup environment readback only; model acceptance separately used --strict-fp32",
+  "image": "maca-pytorch:3.8.1.2-torch2.10-py312-ubuntu24.04-amd64",
+  "environment": {
+    "PYTORCH_DISABLE_CUDA_CUDNN_TF32": "1",
+    "TORCH_ALLOW_TF32_CUBLAS_OVERRIDE": "0"
+  },
+  "observed": {
+    "precision": "highest",
+    "matmul_tf32": false,
+    "cudnn_tf32": false
+  },
+  "limitations": "Not a guarantee for different vendor PyTorch versions or a full production CLI validation"
+}

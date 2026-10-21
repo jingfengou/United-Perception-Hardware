@@ -1,0 +1,96 @@
+{
+  "scope": "synthetic functional smoke; not dataset accuracy or convergence",
+  "backend": "metax",
+  "device": "cuda:0",
+  "driver_sha256": "14e3c733f6105ce94f5db491dd671b7b72b90a144171ff765a2fbd5aa7fcf01c",
+  "source_manifest_sha256": "4583f3e652448595c9b9c1926407d408ebe827d590e34733251debdd52a6daf4",
+  "models": {
+    "resnet18": {
+      "training_losses": [
+        7.7684855461120605,
+        7.7655439376831055
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "BaseClsPostProcess.loss": 7.7684855461120605
+        },
+        {
+          "BaseClsPostProcess.loss": 7.7655439376831055
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": null,
+      "state_keys": 122,
+      "state_key_sha256": "f9e200c8cc125b98864ced9bd50c34c00df7578a91a58b65d89175c230789e5d",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          64,
+          64
+        ],
+        "/gt": [
+          2
+        ],
+        "/features/0": [
+          2,
+          512,
+          2,
+          2
+        ],
+        "/strides": [
+          1
+        ],
+        "/logits": [
+          2,
+          1000
+        ],
+        "/deploy_output_node": [
+          2,
+          1000
+        ],
+        "/preds": [
+          2
+        ],
+        "/scores": [
+          2,
+          1000
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        64,
+        64
+      ],
+      "class_count_config": 1000,
+      "aligned": false,
+      "model_provenance": "upstream UP model",
+      "seconds": 4.043,
+      "amp_and_scaler": true
+    }
+  },
+  "errors": {},
+  "environment": {
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda": "11.6",
+    "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]"
+  },
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "synthetic_overrides": [
+    "small input sizes",
+    "SyncBN group_size=None",
+    "segmentation min_kept=128",
+    "point cloud grid=32x32x1",
+    "absolute anchor file",
+    "3D score threshold=0"
+  ],
+  "passed": true,
+  "nvidia_extension_loaded": false
+}

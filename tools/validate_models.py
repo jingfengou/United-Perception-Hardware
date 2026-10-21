@@ -46,6 +46,33 @@ def prepare_config(path):
     return config
 
 
+def prepare_detr_config(manifest):
+    data = json.loads(Path(manifest).read_text())
+    entry = data.get("detr", data)
+    required = ("source", "checkpoint", "source_sha256", "checkpoint_sha256")
+    if not all(isinstance(entry.get(key), str) and entry[key] for key in required):
+        raise ValueError("DETR manifest requires pinned source and checkpoint paths and hashes")
+    return {"num_classes": 2, "net": [
+        {"name": "detr", "type": "accuracy_detr_adapter.DetrForUP",
+         "kwargs": {key: entry[key] for key in required}}]}
+
+
+def configure_validation_precision(strict, device_type):
+    if strict and device_type not in ("cpu", "cuda"):
+        raise ValueError("Strict FP32 validation controls are only verified for CPU and CUDA-shaped runtimes")
+    if strict:
+        torch.set_float32_matmul_precision("highest")
+        if device_type == "cuda":
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
+    result = {"strict_fp32_requested": strict,
+              "float32_matmul_precision": torch.get_float32_matmul_precision()}
+    if device_type == "cuda":
+        result.update(matmul_tf32=torch.backends.cuda.matmul.allow_tf32,
+                      cudnn_tf32=torch.backends.cudnn.allow_tf32)
+    return result
+
+
 def image_input(kind, device):
     batch, height, width = (1, 128, 128) if kind == "faster_rcnn" else (2, 64, 128)
     if kind == "resnet18":
@@ -54,14 +81,19 @@ def image_input(kind, device):
         height = width = 224
     elif kind == "yolov5s":
         height = width = 640
+    elif kind == "detr":
+        height = width = 128
     value = {"image": torch.randn(batch, 3, height, width, device=device)}
     if kind in ("resnet18", "vit_b16"):
         value["gt"] = torch.tensor([1, 2], device=device)
-    elif kind in ("faster_rcnn", "yolov5s"):
+    elif kind in ("faster_rcnn", "yolov5s", "detr"):
         value.update(
             image_info=[[height, width, 1., height, width, False] for _ in range(batch)],
             gt_bboxes=[torch.tensor([[15., 15., 65., 70., 1.]], device=device) for _ in range(batch)],
             gt_ignores=[torch.empty(0, 4, device=device) for _ in range(batch)])
+        if kind == "detr":
+            for information in value["image_info"]:
+                information.extend([0, 0])
     elif kind == "hrnet18":
         value["gt_semantic_seg"] = torch.randint(0, 19, (batch, height, width), device=device)
     return value
@@ -113,8 +145,10 @@ def run(args):
     from validate_training_accuracy import prepare_legacy_environment
     compatibility_shims = prepare_legacy_environment()
     from up.accelerator import configure_accelerator, get_accelerator
-    configure_accelerator(backend="nvidia", reset=True)
+    configure_accelerator(backend=getattr(args, "backend", "nvidia"), reset=True)
     get_accelerator().set_device(args.device)
+    precision = configure_validation_precision(getattr(args, "strict_fp32", False),
+                                               get_accelerator().device_type)
     import up
     up.initialize()
     from up.models.model_helper import ModelHelper
@@ -124,6 +158,14 @@ def run(args):
     legacy = legacy_helper(args.baseline) if args.baseline else None
     report = {
         "scope": "synthetic functional smoke; not dataset accuracy or convergence",
+        "backend": get_accelerator().name,
+        "device": str(get_accelerator().device),
+        "precision_policy": precision,
+        "driver_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "source_manifest_sha256": hashlib.sha256(json.dumps({
+            str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted((ROOT / "up").rglob("*.py"))
+        }, sort_keys=True).encode()).hexdigest(),
         "models": {}, "errors": {},
         "environment": {"torch": torch.__version__, "cuda": torch.version.cuda, "python": sys.version},
         "compatibility_shims": compatibility_shims,
@@ -139,13 +181,16 @@ def run(args):
         "yolov5s": "configs/det/yolov5/yolov5_small_silu.yaml",
         "vit_b16": "configs/cls/vision_transformer/vit_b16_224.yaml",
     }
+    if args.model == "detr":
+        configs["detr"] = None
     for name, path in configs.items():
         if args.model and name != args.model:
             continue
         started = time.monotonic()
         try:
             torch.manual_seed(20261020)
-            config = prepare_config(path)
+            config = (prepare_detr_config(args.detr_manifest) if name == "detr"
+                      else prepare_config(path))
             ALIGNED_FLAG.aligned = bool(config.get("runtime", {}).get("aligned", False))
             ALIGNED_FLAG.offset = 0 if ALIGNED_FLAG.aligned else 1
             model = ModelHelper(copy.deepcopy(config["net"])).to(get_accelerator().device).float()
@@ -209,6 +254,8 @@ def run(args):
                 "input_shape": list(sample["image"].shape) if "image" in sample else None,
                 "class_count_config": config.get("num_classes"),
                 "aligned": ALIGNED_FLAG.aligned,
+                "model_provenance": ("pinned external official DETR validation adapter"
+                                     if name == "detr" else "upstream UP model"),
                 "seconds": round(time.monotonic() - started, 3),
             }
             if name == "resnet18":
@@ -232,6 +279,7 @@ def run(args):
             report["errors"][name] = traceback.format_exc()
             print(name, report["errors"][name], flush=True)
     report["passed"] = not report["errors"]
+    report["nvidia_extension_loaded"] = "up.extensions._C" in sys.modules
     Path(args.output).write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))
     raise SystemExit(bool(report["errors"]))
@@ -240,7 +288,14 @@ def run(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--baseline")
+    parser.add_argument("--backend", default="nvidia")
+    parser.add_argument("--strict-fp32", action="store_true",
+                        help="Disable reduced-precision FP32 math for CPU/CUDA-shaped validation runtimes")
     parser.add_argument("--device", type=int, default=0)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--model", choices=["resnet18", "faster_rcnn", "pointpillars", "hrnet18", "yolov5s", "vit_b16"])
-    run(parser.parse_args())
+    parser.add_argument("--model", choices=["resnet18", "faster_rcnn", "pointpillars", "hrnet18", "yolov5s", "vit_b16", "detr"])
+    parser.add_argument("--detr-manifest")
+    args = parser.parse_args()
+    if args.model == "detr" and not args.detr_manifest:
+        parser.error("--detr-manifest is required for the pinned external DETR adapter")
+    run(args)

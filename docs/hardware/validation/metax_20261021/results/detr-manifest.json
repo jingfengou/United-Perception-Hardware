@@ -1,0 +1,17 @@
+{
+  "detr": {
+    "source": "/workspace/up-run/external/detr",
+    "source_sha256": "954c6297faa72af4b59719a42c850d769d8276fcd99a7c704cb5e34f5e5eb5fb",
+    "checkpoint": "/workspace/up-run/detr-r50-tensors.pt",
+    "checkpoint_sha256": "0bec6e1e5aeb57e452879341c3f68fff7e60272bdfdba250eaf9423704963ecd",
+    "revision": "29901c51d7fe8712168b8d0d64351170bc0f83e0",
+    "source_url": "https://github.com/facebookresearch/detr",
+    "checkpoint_url": "https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth",
+    "conversion": "same previously verified tensor-only checkpoint from A800 validation"
+  },
+  "initial_git_archive_newline_difference": {
+    "python_files": 28,
+    "non_newline_content_differences": 0,
+    "resolution": "copied byte-identical source snapshot from A800"
+  }
+}

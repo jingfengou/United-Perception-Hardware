@@ -1,0 +1,31 @@
+{
+  "scope": "synthetic functional smoke; not dataset accuracy or convergence",
+  "backend": "metax",
+  "device": "cuda:0",
+  "driver_sha256": "14e3c733f6105ce94f5db491dd671b7b72b90a144171ff765a2fbd5aa7fcf01c",
+  "source_manifest_sha256": "4583f3e652448595c9b9c1926407d408ebe827d590e34733251debdd52a6daf4",
+  "models": {},
+  "errors": {
+    "detr": "Traceback (most recent call last):\n  File \"/workspace/up-run/source/tools/validate_models.py\", line 216, in run\n    torch.testing.assert_close(expected[key], actual[key], atol=1e-5, rtol=1e-4)\n  File \"/opt/conda/lib/python3.12/site-packages/torch/testing/_comparison.py\", line 1600, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 633 / 1400 (45.2%)\nGreatest absolute difference: 0.367706298828125 at index (129, 4) (up to 1e-05 allowed)\nGreatest relative difference: 0.0867505744099617 at index (115, 1) (up to 0.0001 allowed)\n"
+  },
+  "environment": {
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda": "11.6",
+    "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]"
+  },
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "synthetic_overrides": [
+    "small input sizes",
+    "SyncBN group_size=None",
+    "segmentation min_kept=128",
+    "point cloud grid=32x32x1",
+    "absolute anchor file",
+    "3D score threshold=0"
+  ],
+  "passed": false,
+  "nvidia_extension_loaded": false
+}

@@ -30,3 +30,4 @@ dist/
 .pytest_cache/
 !docs/hardware/validation/*.log
 !docs/hardware/validation/multiseed_20261021/**/*.log
+!docs/hardware/validation/metax_20261021/**/*.log

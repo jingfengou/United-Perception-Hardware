@@ -10,7 +10,7 @@
 
 原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
 
-沐曦 C500 四模型测试的最新状态见[服务器预检与待验收记录](docs/hardware/METAX_VALIDATION.md)。当前已上传源码，但账号缺少显卡访问权限及可用厂商 PyTorch 环境，四模型尚未运行，不计为通过。
+沐曦 C500 在已有厂商 Docker 镜像中完成了[四模型单卡功能检查](docs/hardware/METAX_VALIDATION.md)：严格 FP32 下前后向、推理和恢复通过；默认 TF32 有 ResNet/DETR 一致性失败并保留记录。这不是完整数据集精度验收，进入容器和复现方法见该文档。
 
 ## 1. 增加了什么功能
 
@@ -37,14 +37,14 @@
 
 普通、设备无关的 PyTorch 计算继续直接使用，不包装整个 PyTorch。
 
-**当前完成的是硬件隔离和路由，以及 NVIDIA 的首轮验证。三个国产后端已有运行时入口和部分共享实现，但专用算子尚未全部补齐，也没有完成对应真机验收。选择后端不等于该厂商已经能运行所有模型。**
+**当前完成了硬件隔离和路由、NVIDIA 验证，以及沐曦 C500 的有限单卡功能检查。昇腾和寒武纪尚未真机验证，国产后端的专用算子也未全部补齐。选择后端不等于该厂商已经能运行所有模型。**
 
 | 硬件 | 配置中的 `backend` | 设备名 | 当前状态 |
 | --- | --- | --- | --- |
 | NVIDIA A800 | `nvidia` | `cuda` | 五模型真实数据训练/推理/恢复已完成；4 个模型各 5 对一致，Faster R-CNN 10 对平均 AP 等价但非逐步一致 |
 | 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
 | 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
-| 沐曦 C500 | `metax` | `cuda` | 同上；不会因为设备名为 `cuda` 就自动使用 NVIDIA 二进制 |
+| 沐曦 C500 | `metax` | `cuda` | 严格 FP32 下四模型两步合成功能检查通过；不是完整数据集精度或多卡验收，不使用 NVIDIA 二进制 |
 | CPU | `cpu` | `cpu` | 用于公共接口和共享实现测试，不代表所有模型都有 CPU 实现 |
 
 逐项情况见[能力矩阵](docs/hardware/CAPABILITIES.md)。
@@ -63,7 +63,7 @@
 
 ### 2.1 当前有哪些已验证的环境
 
-以下是 **2026-10-20 本轮实际执行过的环境**，不是对其他版本的支持保证：
+以下是 **2026-10-20/21 实际执行过的环境**，不是对其他版本的支持保证：
 
 | 范围 | 环境 | 实际验证 |
 | --- | --- | --- |
@@ -72,14 +72,16 @@
 | 部分普通依赖 | NumPy `1.26.4`、ONNX `1.17.0` 等 | 清单见下方，完整版本快照见验证产物 |
 | 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；含完整接口、成对训练/统计协议与新增模型配置检查后 117 项通过 |
 | 无 CUDA 公共包构建 | Windows、Python `3.13.11`、未安装 PyTorch | wheel 和 sdist 构建通过；没有在此环境验证模型运行 |
-| 昇腾、寒武纪、沐曦 | 尚未建立经真机确认的完整环境组合 | 不能据 NVIDIA 的结果推断这三家的版本支持 |
+| 沐曦 C500 | 厂商 Docker：Python 3.12.11、Torch `2.10.0+metax3.8.1.0`、TorchVision `0.25.0+metax3.8.1.0` | 严格 FP32 四模型两步检查、运行时及小样本 NMS/IoU；126 项 CPU 契约测试通过 |
+| 昇腾、寒武纪 | 尚未建立经真机确认的完整环境组合 | 不能据其他厂商的结果推断其版本支持 |
 
 CPU CI 还配置了 Python 3.10/3.12、CPU PyTorch 2.6 的接口检查；云端执行状态见仓库的 Actions 页面。接口检查通过不等于完整模型和全部依赖都通过。
 
-本仓库有三类环境资料：
+本仓库的环境资料如下：
 
 - [`requirements.txt`](requirements.txt)：原项目的历史依赖，含 SciPy 1.1.0、ONNX <= 1.6.0 等旧约束，保留用于追溯。
 - [`requirements/validated-a800.txt`](requirements/validated-a800.txt)：从首轮 A800 环境提取的应用和测试依赖子集，供该环境复验；保留配套的 PyTorch/TorchVision，COCO 数据链路另按任务报告处理。
+- [`requirements/metax-c500-validation.txt`](requirements/metax-c500-validation.txt)：本次 C500 指定厂商镜像的应用检查环境，保留厂商 PyTorch/TorchVision；严格 FP32 设置和范围见[沐曦报告](docs/hardware/METAX_VALIDATION.md)。
 - [`docs/hardware/validation/packages.json`](docs/hardware/validation/packages.json)：实际验证环境中可见的包名和版本快照，包含继承的系统包，不是跨机器通用的安装锁。
 
 首轮环境清单并不保证真实数据链路也兼容：本次检测训练发现 NVIDIA 增强版 COCO 库需要任务内的标准 `pycocotools==2.0.10` 覆盖，旧官方预训练权重需要保值转换序列化格式。具体操作见[真实数据训练报告](docs/hardware/TRAINING_ACCURACY.md)，不替换系统 PyTorch/TorchVision，也不全局关闭权重安全加载。
@@ -229,6 +231,8 @@ python -m up inference --config your_detection_model.yaml \
 这里的 `--backend dist` 表示使用 PyTorch 通信框架；它与 YAML 中选择厂商的 `runtime.accelerator.backend` 是两个不同参数。
 
 首次接入先使用单卡、FP32。跑通后再验证 AMP 和多卡；多卡可将 `--ng` 改为卡数并使用 `--fork-method spawn`。三个国产后端的多卡通信仍需真机核验。
+
+沐曦本次镜像的一致性检查使用了[显式关闭 TF32 的设置](docs/hardware/METAX_VALIDATION.md)。仅把张量转换成 float32 不等于关闭底层 TF32；原 CLI 的默认精度不会被验证工具自动更改。
 
 ### 4.4 遇到“缺少算子”，应该怎么做
 
@@ -408,6 +412,6 @@ python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py te
 | 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
-首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照已完成并另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
+首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照已完成并另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。沐曦仅完成[严格 FP32 四模型功能检查](docs/hardware/METAX_VALIDATION.md)；linklink、spconv、MQBench、MSBench 的真实执行、国产全量精度及多卡、昇腾和寒武纪真机验证仍未完成。
 
 检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。

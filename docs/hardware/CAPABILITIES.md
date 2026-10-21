@@ -2,7 +2,7 @@
 
 本表描述仓库实现及本轮验证状态，不是厂商产品的完整支持矩阵。运行时可查询 `up.accelerator.capabilities()`，注册状态不等于 SDK 可执行状态或真机验证状态。
 
-沐曦 C500 已完成[服务器环境预检](METAX_VALIDATION.md)，但账号缺少显卡节点权限和可用的厂商 PyTorch 环境，四模型尚未执行；以下数值能力和真机模型验证状态不因此升级。
+沐曦 C500 已完成[严格 FP32 四模型两步单卡功能检查](METAX_VALIDATION.md)、运行时和固定小样本 NMS/IoU 检查。默认 TF32 的 ResNet/DETR 恢复一致性失败保留；尚未验证完整数据集精度、多卡或全部专用算子。
 
 2026-10-21 完成了 A800 的[五模型多种子训练对照](MULTISEED_ACCURACY.md)：Faster R-CNN 10 对平均 AP 通过预设等价检验但逐步检查不一致；ResNet18、YOLOv5-S、ViT-B/16 和外部官方单类 DETR 各 5 对的 loss、最终模型状态与指标相同。[早期短程对照](TRAINING_ACCURACY.md)及同版本漂移记录保留。以上不代表全量 ImageNet/COCO 收敛、全部模型配置或其他硬件已经验收。
 
@@ -12,10 +12,10 @@
 | 设备名 | `cuda` | `npu` | `mlu` | `cuda` |
 | 运行时供应者 | PyTorch CUDA | 延迟导入 `torch_npu` | 延迟导入 `torch_mlu` | 厂商 PyTorch 分发 |
 | 默认通信传输配置 | `nccl`，双卡通过 | `hccl`，待真机核验 | `cncl`，待真机核验 | `nccl` 兼容接口，待真机核验 |
-| 设备迁移、RNG、资源管理 | 共享 PyTorch 运行时，已测相关路径 | 已有运行时入口，未测 | 已有运行时入口，未测 | 已有共享运行时入口，未测 |
-| AMP / GradScaler | ResNet 短程 AMP 通过 | SDK AMP 入口，未测 | SDK AMP 入口，未测 | 共享 AMP 入口，未测 |
-| 2D NMS / IoU、IoF、IoS | 原 NVIDIA 扩展，通过对比 | 同设备 PyTorch 共享实现已注册，未测 | 同左 | 同左 |
-| Torchvision NMS | 延迟调用原 Torchvision 算子，通过对比 | 同设备共享实现，保留分数排序和 exclusive 坐标语义，未测 | 同左 | 同左 |
+| 设备迁移、RNG、资源管理 | 共享 PyTorch 运行时，已测相关路径 | 已有运行时入口，未测 | 已有运行时入口，未测 | C500 固定用例通过，见运行时报告 |
+| AMP / GradScaler | ResNet 短程 AMP 通过 | SDK AMP 入口，未测 | SDK AMP 入口，未测 | C500 ResNet AMP 路径可执行，未单独断言 scaler 是否跳步或验证全部精度/模型 |
+| 2D NMS / IoU、IoF、IoS | 原 NVIDIA 扩展，通过对比 | 同设备 PyTorch 共享实现已注册，未测 | 同左 | 共享 NMS/IoU 的固定 FP16/FP32 用例通过；IoF/IoS 未单测 |
+| Torchvision NMS | 延迟调用原 Torchvision 算子，通过对比 | 同设备共享实现，保留分数排序和 exclusive 坐标语义，未测 | 同左 | 共享实现的固定 FP32 用例通过 |
 | RoIAlign / PSRoIAlign / PSRoIPool / DeformConv | 原扩展及 autograd，通过对比 | 需注册完整实现，当前缺失即报错 | 同左 | 同左，不自动继承 NVIDIA 二进制 |
 | Sigmoid / Softmax / Cross Focal Loss | 原扩展及 autograd，通过对比 | 需注册实现 | 需注册实现 | 需注册实现 |
 | BEV / 3D IoU 与 NMS | 原扩展，通过对比 | 需注册实现 | 需注册实现 | 需注册实现 |
@@ -25,7 +25,7 @@
 | 稀疏卷积及张量操作 | 工厂与张量路由；spconv 未安装，未做真实稀疏执行 | 需提供依赖或覆盖操作 | 同左 | 同左 |
 | linklink / 融合优化器 | 延迟供应者与路由存在；真实 SDK 未测 | 未注册供应者，使用即明确报错 | 同左 | 同左 |
 | MQBench / MSBench | 延迟供应者存在，真实工具链未测 | 需显式提供并验证 | 同左 | 同左 |
-| 真机状态 | 本轮通过有界验收，范围见报告 | 未验证 | 未验证 | 未验证 |
+| 真机状态 | 本轮通过有界验收，范围见报告 | 未验证 | 未验证 | C500 单卡严格 FP32 有限功能检查通过；非全量精度或多卡验收 |
 
 通用 NMS 保留调用方已按分数排序的契约和 `ALIGNED_FLAG.offset`；通用 overlap 保留原扩展的 inclusive corner、空输出和分母截断语义，不调用 CPU 代算。共享实现以正确性和可扩展性为目标，国产设备性能仍需实际分析。
 

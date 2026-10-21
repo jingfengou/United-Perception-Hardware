@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "backend": "metax",
+  "device": "cuda:0",
+  "gpu": "MetaX C500",
+  "torch": "2.10.0+metax3.8.1.0",
+  "torchvision_nms_keep": [
+    1,
+    0
+  ],
+  "runtime": {
+    "health": true,
+    "migration": true,
+    "rng_restore": true,
+    "legacy_constructors": true,
+    "cache_preserves_live_tensors": true,
+    "memory_bytes": {
+      "allocated": 1024,
+      "peak_allocated": 1536
+    }
+  },
+  "portable_2d_cases": [
+    {
+      "offset": 0,
+      "dtype": "torch.float32",
+      "keep": [
+        0,
+        2
+      ],
+      "iou": 0.6694214940071106
+    },
+    {
+      "offset": 0,
+      "dtype": "torch.float16",
+      "keep": [
+        0,
+        2
+      ],
+      "iou": 0.66943359375
+    },
+    {
+      "offset": 1,
+      "dtype": "torch.float32",
+      "keep": [
+        0,
+        2
+      ],
+      "iou": 0.6694214940071106
+    },
+    {
+      "offset": 1,
+      "dtype": "torch.float16",
+      "keep": [
+        0,
+        2
+      ],
+      "iou": 0.66943359375
+    }
+  ],
+  "operation_owners": {
+    "naive_nms": "portable",
+    "gpu_iou_overlap": "portable",
+    "torchvision_nms": "portable"
+  },
+  "nvidia_extension_loaded": false,
+  "driver_sha256": "86cfe75d398386ab2d6f0cfa46d78945147b7729d5a3804b567d9f1349a1e219",
+  "scope": "small fixed cases only; not full operator, model accuracy or performance qualification"
+}
