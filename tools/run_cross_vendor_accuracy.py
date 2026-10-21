@@ -41,6 +41,9 @@ def load_plan(path):
 def verify_run(report, plan, model, seed, backend, data_hash, driver_hash):
     spec = plan["models"][model]
     SUITE.verify_report(report, spec, seed, data_hash, driver_hash, spec["protocol"], model)
+    expected_source = plan.get("expected_normalized_up_manifest_sha256")
+    if expected_source and report["normalized_source_manifest_sha256"] != expected_source:
+        raise ValueError("Run did not use the predeclared application implementation")
     if report["backend"] != backend:
         raise ValueError("Wrong vendor identity")
     environment = report["environment"]
@@ -50,8 +53,17 @@ def verify_run(report, plan, model, seed, backend, data_hash, driver_hash):
         raise ValueError("Changed precision/determinism policy")
     if backend == "metax" and report["nvidia_extension_loaded"]:
         raise ValueError("NVIDIA binary was loaded on the MetaX path")
+    profile = plan.get("numerical_profile", "native")
+    if profile != "native" and report["environment"].get("numerical_profile") != profile:
+        raise ValueError("Declared numerical profile was not activated")
     if plan.get("disable_convolution_library", False) and report["environment"].get("convolution_library_enabled") is not False:
         raise ValueError("The declared convolution-library disable policy was not applied")
+    if plan.get("require_convolution_library_disabled", False) and environment.get("convolution_library_enabled") is not False:
+        raise ValueError("The complete-operation convolution policy was not active")
+    required = plan.get("required_numerics_operations", {})
+    for name in (*required.get("all", []), *required.get(model, [])):
+        if report.get("numerics", {}).get("operations", {}).get(name, 0) <= 0:
+            raise ValueError("Declared shared numerical operation was not observed: " + name)
     if plan.get("audit_all_training_batches", False):
         audit = report.get("batch_audit", [])
         if len(audit) != spec["expected_steps_per_run"] or any(
@@ -97,6 +109,13 @@ def run_suite(args):
                                  for folder in ("up", "configs") for path in sorted((args.source / folder).rglob("*"))
                                  if path.is_file() and path.suffix in (".py", ".yaml", ".json", ".so")}
     execution["adapter_sha256"] = sha256(driver.with_name("accuracy_detr_adapter.py"))
+    expected_source = plan.get("expected_normalized_up_manifest_sha256")
+    if expected_source:
+        normalized = {p.relative_to(args.source).as_posix(): hashlib.sha256(
+            p.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+                      for p in sorted((args.source / "up").rglob("*.py"))}
+        if hashlib.sha256(json.dumps(normalized, sort_keys=True).encode()).hexdigest() != expected_source:
+            raise ValueError("Source differs from the frozen plan; no training started")
     manifest = args.output / ("execution-" + "-".join(selected) + ".json")
     if manifest.exists() and json.loads(manifest.read_text()) != execution:
         raise ValueError("Changed experiment; use a new output directory")
@@ -136,6 +155,8 @@ def run_suite(args):
                 command.append("--audit-batches")
             if plan.get("disable_convolution_library", False):
                 command.append("--disable-convolution-library")
+            if plan.get("numerical_profile", "native") != "native":
+                command.extend(("--numerical-profile", plan["numerical_profile"]))
             SUITE.emit({"starting": model, "seed": seed, "backend": args.backend, "device": device})
             with (args.output / (output.name + ".log")).open("w") as log:
                 result = subprocess.run(command, env=environment, stdout=log, stderr=subprocess.STDOUT)

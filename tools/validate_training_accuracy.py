@@ -191,8 +191,14 @@ def rng_hash():
     import numpy as np
     import torch
 
+    import up
+    if (Path(up.__file__).resolve().parent / "accelerator").is_dir():
+        from up.accelerator import get_accelerator
+        device_state = get_accelerator().get_rng_state()
+    else:
+        device_state = torch.cuda.get_rng_state()
     state = [random.getstate(), np.random.get_state(), torch.get_rng_state().numpy(),
-             torch.cuda.get_rng_state().cpu().numpy()]
+             device_state.cpu().numpy()]
     return hashlib.sha256(pickle.dumps(state)).hexdigest()
 
 
@@ -235,8 +241,9 @@ def run(args):
     sys.path.insert(0, str(root))
     import up
     backend = getattr(args, "backend", "nvidia")
+    get_accelerator = None
     if (root / "up/accelerator").is_dir():
-        from up.accelerator import configure_accelerator
+        from up.accelerator import configure_accelerator, get_accelerator
         configure_accelerator(backend=backend)
     elif backend != "nvidia":
         raise ValueError("The original upstream tree only supports the NVIDIA validation path")
@@ -259,6 +266,11 @@ def run(args):
     torch.cuda.set_device(0)
     config, original_config = effective_config(root, data, args.model, args.seed, args.epochs, args.protocol)
     config["runtime"]["accelerator"]["backend"] = backend
+    numerical_profile = getattr(args, "numerical_profile", "native")
+    if numerical_profile != "native":
+        if get_accelerator is None:
+            raise ValueError("Non-native numerical profiles require the hardware abstraction layer")
+        config["runtime"]["accelerator"]["numerics"] = numerical_profile
     if getattr(args, "disable_convolution_library", False):
         config["args"]["nocudnn"] = True
     config_digest = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
@@ -366,12 +378,14 @@ def run(args):
                         "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
                         "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
                         "convolution_library_enabled": torch.backends.cudnn.enabled,
+                        "numerical_profile": get_accelerator().numerics_state()["profile"] if get_accelerator else "native",
                         "default_tasks": os.environ["DEFAULT_TASKS"]},
         "nvidia_extension_loaded": "up.extensions._C" in sys.modules,
         "compatibility_shims": compatibility_shims,
         "driver_sha256": file_hash(__file__),
         "adapter_sha256": file_hash(Path(__file__).with_name("accuracy_detr_adapter.py")) if args.model == "detr" else None,
         "external_model": data.get("detr") if args.model == "detr" else None,
+        "numerics": get_accelerator().numerics_state() if get_accelerator else {"profile": "native"},
     }
     if probe_steps is not None:
         report.update(status="probe_completed", declared_training_steps=declared_steps,
@@ -470,6 +484,7 @@ def main():
                         help="Hash every training input and pre-forward RNG without changing training")
     parser.add_argument("--disable-convolution-library", action="store_true",
                         help="Explicit same-device convolution-provider ablation via Runner's existing nocudnn option")
+    parser.add_argument("--numerical-profile", choices=("native", "portable_v1"), default="native")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)

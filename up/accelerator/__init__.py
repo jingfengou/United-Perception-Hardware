@@ -53,6 +53,8 @@ def configure_accelerator(config=None, backend=None, device=None, reset=False):
         if target is not None and str(target).split(":")[0] != _active.device_type:
             raise BackendConfigurationError("Configured backend/device mismatch: " + str(target))
         _active.validate_environment(options.get("requirements", {}))
+        if "numerics" in options:
+            _active._configure_numerics(options["numerics"])
         return _active
     try:
         instance = resolve(BACKENDS[name])(device=target)
@@ -60,6 +62,10 @@ def configure_accelerator(config=None, backend=None, device=None, reset=False):
         raise BackendConfigurationError("Cannot initialize {}: {}".format(name, exc)) from exc
     instance.name = name
     instance.validate_environment(options.get("requirements", {}))
+    if _active is not None:
+        _active._close_numerics()
+        _active, _selected_name = None, None
+    instance._configure_numerics(options.get("numerics", "native"))
     _active, _selected_name = instance, name
     return instance
 

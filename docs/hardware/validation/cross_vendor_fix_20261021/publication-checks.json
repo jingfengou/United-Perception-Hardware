@@ -1,0 +1,54 @@
+{
+  "audit_tool_sha256": "650c34c26328886c0317ee29e555d6e4fee55b2eeb8c7ec0037bfbbb59b71c2f",
+  "changed_markdown_documents": [
+    "README.md",
+    "docs/hardware/ADDING_BACKENDS.md",
+    "docs/hardware/API_INDEX.md",
+    "docs/hardware/CAPABILITIES.md",
+    "docs/hardware/CROSS_VENDOR_DIAGNOSIS.md",
+    "docs/hardware/CROSS_VENDOR_FIX.md",
+    "docs/hardware/INTERFACE.md",
+    "docs/hardware/PORTABLE_NUMERICS.md",
+    "docs/hardware/README.md",
+    "docs/hardware/VALIDATION.md",
+    "docs/hardware/validation/cross_vendor_fix_20261021/README.md",
+    "docs/hardware/validation/cross_vendor_fix_20261021/diagnostics/README.md"
+  ],
+  "checked_relative_file_links": 122,
+  "offline_evidence_tools": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 12
+  },
+  "production_change_paths": [
+    "up/accelerator/__init__.py",
+    "up/accelerator/backends/portable_convolution.py",
+    "up/accelerator/backends/portable_distance.py",
+    "up/accelerator/backends/portable_math.py",
+    "up/accelerator/backends/portable_normalization.py",
+    "up/accelerator/backends/portable_numerics_ops.py",
+    "up/accelerator/backends/portable_rng.py",
+    "up/accelerator/backends/torch_backends.py",
+    "up/accelerator/numerics.py",
+    "up/accelerator/ops.py",
+    "up/accelerator/runtime.py"
+  ],
+  "public_build_artifacts": {
+    "up-0.3.0-py3-none-any.whl": {
+      "bytes": 646241,
+      "sha256": "0cfac0c068e64aabd0e3e2c90a2705d6afd6ceb775d9ef74751d8a0fe05f0777"
+    },
+    "up-0.3.0.tar.gz": {
+      "bytes": 623185,
+      "sha256": "3a6674e3178cfdf589cd04bc71e2396149155ccb9c26480f0aebfdccfba60547"
+    }
+  },
+  "public_build_python": "3.13.11",
+  "public_build_torch_installed": false,
+  "reference_commit": "95a8e145b5d1fb96d7ec3da96158f289cad5680c",
+  "staged_normalized_up_manifest": "7678e99eb967c6e04c3f7e1cd57ad09bb23810fd8e9e7ed2615bffaf45be845a",
+  "status": "passed_publication_checks_not_accuracy_acceptance",
+  "up_python_files": 443,
+  "upper_application_configs_and_detr_adapter_unchanged": true
+}

@@ -1,0 +1,65 @@
+{
+  "all_training_batches_sha256": "319479944e24257ff5bab67dfb4257e1c4c70131ae41d96057e78fd4df3f9828",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "60536a79944ce8ae0867c4907d3c330f8938fd6cc14b59788fddba0bb0073be7",
+  "environment": {
+    "convolution_library_enabled": true,
+    "cuda": "11.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "MetaX C500",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "numerical_profile": "portable_v1",
+    "python": "3.12.11",
+    "tf32": false,
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "7"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 21.200000762939453,
+    "top5": 74.70000457763672
+  },
+  "final_state_sha256": "c0a0238948387bbbade7d93354e675cb7c57f4c27e1017894c848b2d04342ab3",
+  "initial_state_sha256": "7bb778cea26321cee4a3b5f35f7a8e315dc24db747fb533654462b9bf2648e51",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "c78621c55ae099173e1959d0c29e78913ccf4fe199539c7f5665d333975b077b",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "5fe0f71fc24f86941663e1e2c02e5ce5c8840d015db3a24ff33b83c28f671f14",
+  "numerics": {
+    "accumulation": "selected GPU FP64 operations with FP32 boundaries",
+    "offset": 198945600000,
+    "operations": {
+      "conv2d": 3876,
+      "gpu_uniform_values": 198945600000,
+      "layer_norm": 96900,
+      "linear": 189924,
+      "log_softmax": 3140,
+      "matmul": 93024,
+      "ops.distributed.is_available": 658,
+      "ops.distributed.is_initialized": 658,
+      "pow": 46512,
+      "softmax": 47248,
+      "sum": 6280,
+      "tanh": 46512
+    },
+    "profile": "portable_v1",
+    "rng": "triton-philox4x32-10-v1",
+    "seed": 312900721
+  },
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "metax-evidence.tar.gz",
+    "member": "metax/results/vit_b16-seed133/report.json",
+    "sha256": "1d3fa69ea7cf65b9dabdcb273539ff8a905c026659b8037a5d4c2e3d24920529"
+  },
+  "restored_metrics": {
+    "top1": 21.200000762939453,
+    "top5": 74.70000457763672
+  },
+  "seed": 133,
+  "status": "completed",
+  "training_steps": 3140
+}

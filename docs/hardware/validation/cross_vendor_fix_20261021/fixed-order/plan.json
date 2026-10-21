@@ -1,0 +1,24 @@
+{
+  "id": "cross-vendor-portable-v1-fixed-order-20261022",
+  "scope": "Separate five-seed complete-budget phase after fixing complete-operation and backward reduction routing; the initial failed cohort remains immutable and is never pooled",
+  "backends": ["nvidia", "metax"],
+  "selection": "Final epoch, every predeclared seed; no holdout tuning or seed selection",
+  "precision": "FP32 parameters, checkpoints and operation boundaries; selected shared GPU FP64 arithmetic with explicit FMA/reduction order and GPU Philox uniform/dropout; NOT an all-FP32 performance claim",
+  "numerical_profile": "portable_v1",
+  "expected_normalized_up_manifest_sha256": "7678e99eb967c6e04c3f7e1cd57ad09bb23810fd8e9e7ed2615bffaf45be845a",
+  "require_convolution_library_disabled": true,
+  "required_numerics_operations": {
+    "all": ["gpu_fixed_convolution", "gpu_fixed_normalization"],
+    "detr": ["gpu_fixed_matrix", "gpu_fixed_grad_norm", "gpu_fixed_l1_distance"],
+    "vit_b16": ["gpu_fixed_matrix", "gpu_fixed_fp32_sum"]
+  },
+  "software_scope": "Same aligned torch2.10 torchvision0.25 application pins as the prior diagnosis; vendor binaries, SDK/driver, Python patch versions and Triton builds still differ",
+  "audit_all_training_batches": true,
+  "equivalence": {"method": "paired Student t TOST", "alpha": 0.05, "margin_percentage_points": 1.0},
+  "pairing": ["data_manifest_sha256", "algorithm_config_sha256", "normalized_source_manifest_sha256", "initial_state_sha256", "first_batch_sha256", "all_training_batches_sha256", "learning_rates", "driver_sha256", "adapter_sha256", "external_model"],
+  "models": {
+    "yolov5s": {"epochs": 300, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 600, "provenance": "Unchanged native UP YOLOv5-S SiLU, 320px PennFudan120/50, batch64, random init, EMA off"},
+    "detr": {"epochs": 12, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 720, "provenance": "Same pinned external official DETR R50 adapter, not an upstream UP model, same PennFudan/weights/LR groups"},
+    "vit_b16": {"epochs": 20, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "top1", "metric_to_percentage_points": 1.0, "expected_steps_per_run": 3140, "provenance": "Unchanged native UP ViT-B/16, CIFAR10 10000/2000, 64px/17tokens, 12blocks, batch64, same strong augmentation and optimizer"}
+  }
+}

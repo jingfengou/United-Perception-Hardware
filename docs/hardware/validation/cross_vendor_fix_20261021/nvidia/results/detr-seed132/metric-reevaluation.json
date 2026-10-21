@@ -1,0 +1,56 @@
+{
+  "details": {
+    "detections": 5000,
+    "iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.8999999999999999,
+      0.95
+    ],
+    "max_detections": [
+      1,
+      10,
+      100
+    ],
+    "validation_images": 50
+  },
+  "ground_truth_sha256": "221b282c8d851335ccee7099afd150c5d73b8c39249f39a2d2bdb6ad64c1cede",
+  "predictions_sha256": "7364588ae841a008d60f722af7b7bd2897361ba1ad7b429fd7ec7c58dd2b19e9",
+  "reevaluated_metrics": {
+    "bbox.AP": 0.7606605243338935,
+    "bbox.AP.5": 0.964001741246296,
+    "bbox.AP.75": 0.8776940585589811,
+    "bbox.AP_L": 0.7972587410576897,
+    "bbox.AP_M": 0.48249492378896564,
+    "bbox.AP_S": 0.1683168316831683,
+    "bbox.AR": 0.8218045112781953,
+    "bbox.AR_1": 0.3368421052631579,
+    "bbox.AR_10": 0.812781954887218,
+    "bbox.AR_L": 0.8528925619834711,
+    "bbox.AR_M": 0.6222222222222222,
+    "bbox.AR_S": 0.16666666666666666
+  },
+  "reevaluator_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+  "report_sha256": "43f8b011aa101b55d5eb64532c65baeb8ced43e330de047c22d3708e7fac6f96",
+  "reported_metrics": {
+    "bbox.AP": 0.7606605243338935,
+    "bbox.AP.5": 0.964001741246296,
+    "bbox.AP.75": 0.8776940585589811,
+    "bbox.AP_L": 0.7972587410576897,
+    "bbox.AP_M": 0.48249492378896564,
+    "bbox.AP_S": 0.1683168316831683,
+    "bbox.AR": 0.8218045112781953,
+    "bbox.AR_1": 0.3368421052631579,
+    "bbox.AR_10": 0.812781954887218,
+    "bbox.AR_L": 0.8528925619834711,
+    "bbox.AR_M": 0.6222222222222222,
+    "bbox.AR_S": 0.16666666666666666
+  },
+  "status": "passed"
+}

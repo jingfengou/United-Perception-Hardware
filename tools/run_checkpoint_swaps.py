@@ -26,6 +26,7 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--data", type=Path)
     parser.add_argument("--device", type=int, default=0)
+    parser.add_argument("--numerical-profile", choices=("native", "portable_v1"), default="native")
     parser.add_argument("--origins", nargs="+", choices=("nvidia", "metax"), default=["nvidia", "metax"])
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
@@ -74,6 +75,7 @@ def main():
             command = [sys.executable, str(Path(__file__).with_name("probe_cross_vendor_numerics.py")),
                        "--kind", "inference", "--source", str(args.source.resolve()), "--data", str(args.data.resolve()),
                        "--model", model, "--backend", args.backend, "--checkpoint", str(checkpoint.resolve()),
+                       "--numerical-profile", args.numerical_profile,
                        "--output", str((args.output / name).resolve())]
             with (args.output / (name + ".log")).open("w") as log:
                 status = subprocess.run(command, env=environment, stdout=log, stderr=subprocess.STDOUT)

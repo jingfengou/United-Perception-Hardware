@@ -1,5 +1,7 @@
 # YOLO / DETR / ViT 的跨厂商差异定位
 
+本文保留原生路径的历史结果。后续[适配层数值修复与完整复测](CROSS_VENDOR_FIX.md)单独记录显式 `portable_v1` 配置的失败阶段、固定前后向/归约顺序和新复测，不覆盖本文表格，也不改变默认 `native` 的历史结论。
+
 ## 验证口径
 
 这是对[第一轮四模型结果](CROSS_VENDOR_ACCURACY.md)的后续定位，不覆盖原始 40 次训练。新的[预先声明计划](validation/cross_vendor_diagnosis_20261021/plan.json)保留 YOLO、DETR、ViT 原来的全部种子 131--135、数据、模型、增强、训练预算和 +/-1 个百分点的等价标准。仅对齐环境、增加观测，不用测试集调参，不改变模型算法，不关闭 Dropout 来制造通过。

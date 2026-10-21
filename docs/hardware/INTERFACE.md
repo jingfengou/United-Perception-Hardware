@@ -4,7 +4,7 @@
 
 | 文档 | 用途 |
 | --- | --- |
-| [完整函数索引](API_INDEX.md) | 30 个运行时成员、73 个路由操作、统一入口的完整清单及签名 |
+| [完整函数索引](API_INDEX.md) | 31 个运行时成员、73 个路由操作、统一入口的完整清单及签名 |
 | [机器可读清单](interface_contract.json) | 逐项记录签名、返回、梯度范围、类别、源码和已注册供应者 |
 | [新增厂商步骤](ADDING_BACKENDS.md) | 编写插件、注册和配置的操作指南 |
 | [能力矩阵](CAPABILITIES.md) | 实现状态和真机验证状态，二者分别记录 |
@@ -16,7 +16,7 @@
 
 | 范围 | 接入方的责任 |
 | --- | --- |
-| 普通 PyTorch | 卷积、矩阵乘法、激活、普通优化器等由厂商 PyTorch 适配，不重复包装 |
+| 普通 PyTorch | 默认直接使用厂商 PyTorch；可选数值配置只在适配层选择有限的共享实现，不要求包装整个 PyTorch |
 | 运行时 | 必须可用；兼容标准 PyTorch 设备 API 的方法直接继承 |
 | 专用操作 | 目标模型需要的操作必须可用；复用同设备共享实现或逐项注册 |
 | 多卡通信 | 需要多卡时验证通信、DDP 和使用到的 SyncBN；单卡验收不算多卡验收 |
@@ -38,12 +38,13 @@
 | `communication_backend` | 未显式指定传输时使用的默认通信名 |
 | `op_fallbacks` | 显式允许复用的实现集合；portable 是同设备共享实现，不是 CPU |
 | `extension_modules` | 可选供应者映射，例如 sparse、link、quantization、pruning 到模块导入路径 |
+| `numerical_profiles` | 显式支持的数值配置，默认仅 native；可选配置的依赖、dtype 和执行限制需另行声明 |
 
 `register_backend(name, factory=None, replace=False, probe=None)` 支持装饰器、工厂和 `module:attribute` 延迟路径。`probe` 不应分配设备；多个探测结果命中时应报歧义，生产环境推荐显式配置。
 
 `register_op(backend, name, implementation=None, backward=None, replace=False, dtypes=None, variants=None)` 注册**整个语义操作**。可微操作由实现持有前向、反向及 context；`backward=True` 不会自动生成梯度。重名默认报错，仅显式 `replace=True` 才替换。
 
-查找顺序是 `(当前后端名,) + op_fallbacks`。设备名相同不表示 SDK、二进制或语义兼容。`dtypes=None` 和 `variants=None` 只表示未声明，不代表所有精度、形状和变体都支持。
+原生配置的查找顺序是 `(当前后端名,) + op_fallbacks`；显式启用数值配置时，其已注册实现优先，未覆盖的操作仍按原顺序查找。设备名相同不表示 SDK、二进制或语义兼容。`dtypes=None` 和 `variants=None` 只表示未声明，不代表所有精度、形状和变体都支持。
 
 `configure_accelerator(config=None, backend=None, device=None, reset=False)` 选择后端、加载指定插件并校验环境。`get_accelerator()` 返回当前实例。训练中不要切换后端；reset 主要用于隔离测试。`prepare_args()` 和 `activate_args()` 服务于配置读取和启动器。
 
@@ -66,9 +67,12 @@
 | AMP | `autocast`、`grad_scaler` | 前者为上下文管理器；后者兼容 scale/step/update/state_dict/load_state_dict；不支持的精度和不可用设备明确报错 |
 | 卷积设置 | `configure_convolution`、`convolution_flags` | 管理厂商卷积开关；临时上下文退出后恢复原状态，不在模型中出现 cuDNN/厂商分支 |
 | 健康检查 | `health_check` | 在目标设备创建张量、计算并同步，返回 True 或明确报错 |
+| 数值配置查询 | `numerics_state` | 返回实际数值配置、随机协议/计数器和已执行的适配操作计数；不是精度通过声明 |
 | 路由 | `call`、`dependency`、`capabilities` | 调用完整操作、延迟加载指定可选库、查询注册情况；缺失能力报后端和原因；能力查询不是硬件测试 |
 
 随机状态接口不承诺不同厂商在同一个 seed/state 下生成逐位相同的随机张量或 Dropout 掩码。跨厂商比较必须检查实际数据/掩码，不能只比较状态哈希；确定性请求也必须以重复前向、反向实测确认。C500 上已定位的 Dropout 映射和卷积反向重复性问题见[差异定位](CROSS_VENDOR_DIAGNOSIS.md)。CUDA-shaped 设备的卷积库开关由 NVIDIA/MetaX 共享实现管理，UP CLI 使用 `--nocudnn`，直接构造 Runner 则设 `config['args']['nocudnn']=True`；不新增框架 CPU 回退。默认不关闭，不能把它宣称为所有模型的精度保证。
+
+可选的 [portable_v1 数值配置](PORTABLE_NUMERICS.md)提供共同 GPU 随机流及选定算子的宽精度内部实现；参数、输出边界仍为 FP32，不修改模型模块。它不是原生 FP32 路径或全模型逐位一致保证；新厂商不必为基本接入实现这个可选配置。
 
 ## 4. 专用算子的输入输出和梯度
 

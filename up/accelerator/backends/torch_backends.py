@@ -16,11 +16,11 @@ class _CudaConvolutionControls:
     """Controls shared by runtimes exposing PyTorch's cuDNN-shaped interface."""
 
     def configure_convolution(self, enabled=True):
-        torch.backends.cudnn.enabled = enabled
+        torch.backends.cudnn.enabled = enabled if self._numerics is None else False
 
     @contextlib.contextmanager
     def convolution_flags(self, enabled=True):
-        with torch.backends.cudnn.flags(enabled=enabled):
+        with torch.backends.cudnn.flags(enabled=enabled if self._numerics is None else False):
             yield
 
 
@@ -28,6 +28,7 @@ class NvidiaAccelerator(_CudaConvolutionControls, TorchAccelerator):
     name = "nvidia"
     device_type = "cuda"
     communication_backend = "nccl"
+    numerical_profiles = ("native", "portable_v1")
     extension_modules = {
         "sparse": "spconv.pytorch", "link": "spring.linklink",
         "quantization": "mqbench", "pruning": "msbench",
@@ -72,5 +73,6 @@ class MetaXAccelerator(_CudaConvolutionControls, TorchAccelerator):
     name = "metax"
     device_type = "cuda"
     communication_backend = "nccl"
+    numerical_profiles = ("native", "portable_v1")
     # Reusing the CUDA-shaped runtime does not opt into NVIDIA binary kernels.
     extension_modules = {}

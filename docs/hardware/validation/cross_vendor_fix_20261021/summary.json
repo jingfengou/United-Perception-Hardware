@@ -1,0 +1,470 @@
+{
+  "all_models_equivalent": false,
+  "delta_direction": "MetaX minus NVIDIA, percentage points",
+  "models": {
+    "detr": {
+      "environments": {
+        "metax": {
+          "convolution_library_enabled": true,
+          "cuda": "11.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "MetaX C500",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.11",
+          "tf32": false,
+          "torch": "2.10.0+metax3.8.1.0"
+        },
+        "nvidia": {
+          "convolution_library_enabled": true,
+          "cuda": "12.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "NVIDIA A800-SXM4-80GB",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.3",
+          "tf32": false,
+          "torch": "2.10.0+cu126"
+        }
+      },
+      "epochs": 12,
+      "equivalence_test": {
+        "alpha": 0.05,
+        "confidence_interval_90": [
+          -0.35051803347006494,
+          1.815458883506603
+        ],
+        "descriptive_confidence_interval_95": [
+          -0.677977091117122,
+          2.14291794115366
+        ],
+        "equivalent_within_margin": false,
+        "interpretation": "Fixed-holdout mean over seeds only; not exact identity or full-benchmark equivalence",
+        "margin_percentage_points": 1.0,
+        "mean_delta_percentage_points": 0.7324704250182691,
+        "n": 5,
+        "paired_deltas_percentage_points": [
+          0.16645076480573096,
+          2.524453897089302,
+          0.7766012275953784,
+          -0.5433878443606943,
+          0.7382340799616287
+        ],
+        "std_delta_percentage_points": 1.1359333267097986,
+        "tost_p_lower": 0.013509442473401053,
+        "tost_p_upper": 0.31315167853578507,
+        "tost_p_value": 0.31315167853578507
+      },
+      "metax_mean": 78.17790712568508,
+      "metax_std": 0.3832083014203755,
+      "metric": "bbox.AP",
+      "nvidia_mean": 77.44543670066682,
+      "nvidia_std": 0.8781613473640836,
+      "pairs": [
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 0.16645076480573096,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 2.082394599914551,
+          "metax": 77.82926039378972,
+          "nvidia": 77.662809628984,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "bbd7af0fa4fbe70bda20b7df8764596330457ed0ed28edc3e5b0e3f031cfa5ab",
+            "70d8ae55da99401d19b5332ebfe9bb7a5b4599e87feaf2638b11b16c6d89d0cd"
+          ],
+          "seed": 131,
+          "steps_per_run": 720
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 2.524453897089302,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 3.0634835958480835,
+          "metax": 78.59050633047866,
+          "nvidia": 76.06605243338936,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "43f8b011aa101b55d5eb64532c65baeb8ced43e330de047c22d3708e7fac6f96",
+            "7dfd7f86d8429bb68a532307a97a438467492e6535f175460712338635cd1972"
+          ],
+          "seed": 132,
+          "steps_per_run": 720
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 0.7766012275953784,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 2.4422473907470703,
+          "metax": 78.59476394461376,
+          "nvidia": 77.81816271701838,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "f131e3dc03628ef94cf502383746e0ec9b79a1fb1fbd2e5df26ecdc71ea7440a",
+            "cb961553aa806294f92feb0980f8a7dff153983d7422869875e7043af3f4ebb3"
+          ],
+          "seed": 133,
+          "steps_per_run": 720
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -0.5433878443606943,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 2.5419468879699707,
+          "metax": 77.88163045362491,
+          "nvidia": 78.4250182979856,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "027145cf36f2f1ffce55706bc73b07b6dfcfe4d942b771f9528e58e2e84f9cf0",
+            "950711e7063584516b83ec0cae735a4739e4b554ec948efdea662cbe48ba6482"
+          ],
+          "seed": 134,
+          "steps_per_run": 720
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 0.7382340799616287,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 2.4182538986206055,
+          "metax": 77.99337450591838,
+          "nvidia": 77.25514042595675,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "b84161ff35b7280ca43ba0810819fa437d006bff05c6ed852f981fefaf82b55c",
+            "a9bc2c9313222bd1c1c1a8132f9a1c89f2aac72ba89513e05ed5e4c1afb200c6"
+          ],
+          "seed": 135,
+          "steps_per_run": 720
+        }
+      ],
+      "provenance": "Same pinned external official DETR R50 adapter, not an upstream UP model, same PennFudan/weights/LR groups"
+    },
+    "vit_b16": {
+      "environments": {
+        "metax": {
+          "convolution_library_enabled": true,
+          "cuda": "11.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "MetaX C500",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.11",
+          "tf32": false,
+          "torch": "2.10.0+metax3.8.1.0"
+        },
+        "nvidia": {
+          "convolution_library_enabled": true,
+          "cuda": "12.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "NVIDIA A800-SXM4-80GB",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.3",
+          "tf32": false,
+          "torch": "2.10.0+cu126"
+        }
+      },
+      "epochs": 20,
+      "equivalence_test": {
+        "alpha": 0.05,
+        "confidence_interval_90": [
+          -4.46946323029828,
+          3.26946323029828
+        ],
+        "descriptive_confidence_interval_95": [
+          -5.639457954676094,
+          4.439457954676095
+        ],
+        "equivalent_within_margin": false,
+        "interpretation": "Fixed-holdout mean over seeds only; not exact identity or full-benchmark equivalence",
+        "margin_percentage_points": 1.0,
+        "mean_delta_percentage_points": -0.6,
+        "n": 5,
+        "paired_deltas_percentage_points": [
+          -2.6000003814697266,
+          -2.549999237060547,
+          -2.049999237060547,
+          -2.450000762939453,
+          6.649999618530273
+        ],
+        "std_delta_percentage_points": 4.05863257851267,
+        "tost_p_lower": 0.4181844475193319,
+        "tost_p_upper": 0.21391435708290257,
+        "tost_p_value": 0.4181844475193319
+      },
+      "metax_mean": 20.660000610351563,
+      "metax_std": 2.9251922449693586,
+      "metric": "top1",
+      "nvidia_mean": 21.26000061035156,
+      "nvidia_std": 2.633533764667842,
+      "pairs": [
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -2.6000003814697266,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 0.16063857078552246,
+          "metax": 21.950000762939453,
+          "nvidia": 24.55000114440918,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "41fa0ab4512c736c7bdce4141bcb2d81dc47eeb91bea4cd2cc7f57172f14fbb6",
+            "2e897cd709e45c04f32eb6eccae59935d4a9248e3be675fd58d27ff7f305d01f"
+          ],
+          "seed": 131,
+          "steps_per_run": 3140
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -2.549999237060547,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 0.13302278518676758,
+          "metax": 17.55000114440918,
+          "nvidia": 20.100000381469727,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "a941224962fd8f747e0335137744a041db9de01ec78b9ea24f2b4cee4dafdcba",
+            "86e2a0594b12a0b10e8e1f8ab69f0f6b39816099247b9b0920831e02f473e469"
+          ],
+          "seed": 132,
+          "steps_per_run": 3140
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -2.049999237060547,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 0.12501907348632812,
+          "metax": 21.200000762939453,
+          "nvidia": 23.25,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "4c81091558c9a1d50c2546d10c9e2ba72c80246bb1901b4292b7307acf53982c",
+            "1d3fa69ea7cf65b9dabdcb273539ff8a905c026659b8037a5d4c2e3d24920529"
+          ],
+          "seed": 133,
+          "steps_per_run": 3140
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -2.450000762939453,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 0.1874067783355713,
+          "metax": 18.0,
+          "nvidia": 20.450000762939453,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "ac1eb4ddd6ccb8e32a2f83524d7d4c08b54eac996e6e8a93638f3301389ac316",
+            "9e472d4a5e458ef1b44d049a4b32fd07f13ea5cfd8e5b217b15efd24447dc740"
+          ],
+          "seed": 134,
+          "steps_per_run": 3140
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 6.649999618530273,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 0.15264296531677246,
+          "metax": 24.600000381469727,
+          "nvidia": 17.950000762939453,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "d29e4bc3afacf7180b120969d4e0dd87c19923aada0e92dd311b4f76e12c989b",
+            "172ff80681546ca8c1063a17862eab5337bcadef3c02e10a2124dda12093c025"
+          ],
+          "seed": 135,
+          "steps_per_run": 3140
+        }
+      ],
+      "provenance": "Unchanged native UP ViT-B/16, CIFAR10 10000/2000, 64px/17tokens, 12blocks, batch64, same strong augmentation and optimizer"
+    },
+    "yolov5s": {
+      "environments": {
+        "metax": {
+          "convolution_library_enabled": true,
+          "cuda": "11.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "MetaX C500",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.11",
+          "tf32": false,
+          "torch": "2.10.0+metax3.8.1.0"
+        },
+        "nvidia": {
+          "convolution_library_enabled": true,
+          "cuda": "12.6",
+          "cudnn_allow_tf32": false,
+          "default_tasks": "cls:det",
+          "deterministic_algorithms": true,
+          "gpu": "NVIDIA A800-SXM4-80GB",
+          "matmul_allow_tf32": false,
+          "matmul_precision": "highest",
+          "numerical_profile": "portable_v1",
+          "python": "3.12.3",
+          "tf32": false,
+          "torch": "2.10.0+cu126"
+        }
+      },
+      "epochs": 300,
+      "equivalence_test": {
+        "alpha": 0.05,
+        "confidence_interval_90": [
+          -13.811074938163127,
+          10.883420754622346
+        ],
+        "descriptive_confidence_interval_95": [
+          -17.544464811918623,
+          14.616810628377841
+        ],
+        "equivalent_within_margin": false,
+        "interpretation": "Fixed-holdout mean over seeds only; not exact identity or full-benchmark equivalence",
+        "margin_percentage_points": 1.0,
+        "mean_delta_percentage_points": -1.4638270917703913,
+        "n": 5,
+        "paired_deltas_percentage_points": [
+          -11.251812339593037,
+          -11.774331739861644,
+          17.589610812345505,
+          6.311634051657823,
+          -8.194236243400603
+        ],
+        "std_delta_percentage_points": 12.95087700328838,
+        "tost_p_lower": 0.5299911780863451,
+        "tost_p_upper": 0.3462172477783842,
+        "tost_p_value": 0.5299911780863451
+      },
+      "metax_mean": 22.07081131661241,
+      "metax_std": 7.4748004482419965,
+      "metric": "bbox.AP",
+      "nvidia_mean": 23.5346384083828,
+      "nvidia_std": 6.772682365973657,
+      "pairs": [
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -11.251812339593037,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 1.1710929870605469,
+          "metax": 16.575043695838858,
+          "nvidia": 27.826856035431895,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "14599338f3b92f283e085a08415b3f1f621899a179cd06f0c5adaad8f5044ba8",
+            "dde127f929684e34180c52019407195823bea7b434b3f7f63eb1dbfd48e6f07e"
+          ],
+          "seed": 131,
+          "steps_per_run": 600
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -11.774331739861644,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 1.3354310989379883,
+          "metax": 17.06620312236029,
+          "nvidia": 28.840534862221933,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "0f6d76b1acb518190cd0ad90fd39117c6d066a01981317993c2100f99f2abb95",
+            "6af4b585ada0cab3e8f23f77423d72ec71886f59469358ed7a8eb344093d2199"
+          ],
+          "seed": 132,
+          "steps_per_run": 600
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 17.589610812345505,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 1.599308967590332,
+          "metax": 29.5116959960534,
+          "nvidia": 11.922085183707896,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "58d6875eae1b16911b0e2db6a13a1aaa2872a0b1882e822a3cacea1fc20c07c7",
+            "9ca725be03d7cebed487eee341a5051321a9b3b74dea45f695ac31af94a64ffa"
+          ],
+          "seed": 133,
+          "steps_per_run": 600
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": 6.311634051657823,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 1.0115852355957031,
+          "metax": 30.95562296934023,
+          "nvidia": 24.643988917682407,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "923b2ab5904482b4de773fd1c846cea3a16970496524bbe982b4f0ad23e5af40",
+            "ef2c9ced25b20702e6734d05003545fdfbd6751183ad56ec766d3222ea692099"
+          ],
+          "seed": 134,
+          "steps_per_run": 600
+        },
+        {
+          "bitwise_final_state_equal": false,
+          "delta_percentage_points": -8.194236243400603,
+          "environment_equal": false,
+          "gpu_rng_equal_diagnostic_only": true,
+          "losses_equal": false,
+          "max_loss_absolute_difference": 1.0613288879394531,
+          "metax": 16.24549079946927,
+          "nvidia": 24.439727042869873,
+          "preconditions_equal": true,
+          "report_sha256": [
+            "db785375b2e3b6aac114fb4315bb233c0433c287a1216efd642b881567c29077",
+            "4d2eea77229c105132b0d35c76f516b46ec60f0a000af1b1c598dd736fe0f838"
+          ],
+          "seed": 135,
+          "steps_per_run": 600
+        }
+      ],
+      "provenance": "Unchanged native UP YOLOv5-S SiLU, 320px PennFudan120/50, batch64, random init, EMA off"
+    }
+  },
+  "plan_sha256": "e54d8c6ccb1cd99c5896469fc10a261e8a6444526c5cd151fd94c2d033f4cf98",
+  "scope": "Fixed-budget five-seed rerun with an explicit shared hardware numerical profile; previous native cohorts remain immutable",
+  "software_scope": "Same aligned NVIDIA/MetaX torch2.10 torchvision0.25 application pins as the prior diagnosis; vendor binaries and Triton builds still differ",
+  "statistics_driver_sha256": "548af306a526d1ef9cc96e912ed88aa7b00e5173d14279b6f45e98ea1232aa0b",
+  "status": "completed_for_declared_models"
+}

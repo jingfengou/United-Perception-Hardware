@@ -1,0 +1,65 @@
+{
+  "all_training_batches_sha256": "27a79dc4c2fe013afbb4642ed0b806830a25680dcaf45c3131af36d8cec03276",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "60536a79944ce8ae0867c4907d3c330f8938fd6cc14b59788fddba0bb0073be7",
+  "environment": {
+    "convolution_library_enabled": true,
+    "cuda": "12.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "numerical_profile": "portable_v1",
+    "python": "3.12.3",
+    "tf32": false,
+    "torch": "2.10.0+cu126",
+    "visible_devices": "3"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 24.55000114440918,
+    "top5": 78.45000457763672
+  },
+  "final_state_sha256": "73ff9c3bf4e1974ca4377b4212629b3e57d6aa14269a5c9cfb88da650febf6d5",
+  "initial_state_sha256": "34278e3291784b374e2d82401db03d67db8868d015cd370d0e6a3144d71be567",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "8fcbbc4780210c8fec28fff3e70008e52b2b85cb9270233d592e82c635500a57",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "5fe0f71fc24f86941663e1e2c02e5ce5c8840d015db3a24ff33b83c28f671f14",
+  "numerics": {
+    "accumulation": "selected GPU FP64 operations with FP32 boundaries",
+    "offset": 198945600000,
+    "operations": {
+      "conv2d": 3876,
+      "gpu_uniform_values": 198945600000,
+      "layer_norm": 96900,
+      "linear": 189924,
+      "log_softmax": 3140,
+      "matmul": 93024,
+      "ops.distributed.is_available": 658,
+      "ops.distributed.is_initialized": 658,
+      "pow": 46512,
+      "softmax": 47248,
+      "sum": 6280,
+      "tanh": 46512
+    },
+    "profile": "portable_v1",
+    "rng": "triton-philox4x32-10-v1",
+    "seed": 294499921
+  },
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "nvidia-evidence.tar.gz",
+    "member": "nvidia/results/vit_b16-seed131/report.json",
+    "sha256": "41fa0ab4512c736c7bdce4141bcb2d81dc47eeb91bea4cd2cc7f57172f14fbb6"
+  },
+  "restored_metrics": {
+    "top1": 24.55000114440918,
+    "top5": 78.45000457763672
+  },
+  "seed": 131,
+  "status": "completed",
+  "training_steps": 3140
+}

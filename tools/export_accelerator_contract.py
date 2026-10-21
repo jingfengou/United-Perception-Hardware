@@ -167,7 +167,7 @@ def build_contract(root=ROOT):
             entry_points.append({"name": module.__name__ + "." + name,
                                  "signature": name + str(inspect.signature(value))})
     return {"contract_snapshot_version": 1, "runtime_class": "up.accelerator.TorchAccelerator",
-            "runtime_attributes": ["name", "device_type", "communication_backend", "op_fallbacks", "extension_modules"],
+            "runtime_attributes": ["name", "device_type", "communication_backend", "op_fallbacks", "extension_modules", "numerical_profiles"],
             "entry_points": entry_points, "runtime": runtime, "operations": operations,
             "status": "interface and registration snapshot, not hardware validation",
             "dtype_policy": "null metadata means unspecified, not all dtypes supported"}

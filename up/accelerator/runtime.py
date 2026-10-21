@@ -1,6 +1,7 @@
 import contextlib
 import importlib
 from collections.abc import Mapping
+from types import SimpleNamespace
 
 import torch
 
@@ -16,9 +17,11 @@ class TorchAccelerator:
     communication_backend = "gloo"
     op_fallbacks = ("portable",)
     extension_modules = {}
+    numerical_profiles = ("native",)
 
     def __init__(self, device=None):
         self._index = None
+        self._numerics = None
         if device is not None:
             parsed = torch.device(device)
             if parsed.type != self.device_type:
@@ -122,15 +125,68 @@ class TorchAccelerator:
             torch.manual_seed(seed)
         else:
             self.api.manual_seed(seed)
+        if self._numerics is not None:
+            self._numerics.reseed(seed)
 
     def get_rng_state(self, *args, **kwargs):
-        return torch.get_rng_state() if self.api is None else self.api.get_rng_state(*args, **kwargs)
+        value = torch.get_rng_state() if self.api is None else self.api.get_rng_state(*args, **kwargs)
+        return self._numerics.state(value) if self._numerics is not None else value
 
     def set_rng_state(self, state, *args, **kwargs):
+        restored = self._numerics.restore(state) if self._numerics is not None else None
+        if restored is not None:
+            seed, offset, state = restored
         if self.api is None:
             torch.set_rng_state(state)
         else:
             self.api.set_rng_state(state, *args, **kwargs)
+        if restored is not None:
+            self._numerics.seed, self._numerics.offset = seed, offset
+
+    def _configure_numerics(self, policy):
+        if policy not in ("native", "portable_v1"):
+            raise BackendConfigurationError("Unknown numerical profile: " + str(policy))
+        if self._numerics is not None:
+            if policy != "portable_v1":
+                raise BackendConfigurationError("Reset the accelerator to change numerical profiles")
+            return
+        if policy == "portable_v1":
+            if policy not in self.numerical_profiles or self.device_type != "cuda":
+                raise CapabilityError("{} has not enabled portable_v1 for its CUDA-shaped runtime".format(self.name))
+            from .numerics import PortableNumerics
+            self._numerics = PortableNumerics(self.device_type, backend_name=self.name)
+            self._numerics._original_mha_fastpath = torch.backends.mha.get_fastpath_enabled()
+            self._numerics._original_convolution_enabled = torch.backends.cudnn.enabled
+            # Convolution backward reselects its backend from the current flag.
+            torch.backends.cudnn.enabled = False
+            torch.backends.mha.set_fastpath_enabled(False)
+            self._numerics.random_mode.__enter__()
+            self._numerics.__enter__()
+
+    def _close_numerics(self):
+        if self._numerics is not None:
+            from torch.overrides import _get_current_function_mode
+            from torch.utils._python_dispatch import _get_current_dispatch_mode
+            self._numerics._check_thread()
+            if _get_current_function_mode() is not self._numerics:
+                raise BackendConfigurationError("Exit nested PyTorch modes before resetting the accelerator")
+            if _get_current_dispatch_mode() is not self._numerics.random_mode:
+                raise BackendConfigurationError("Exit nested PyTorch dispatch modes before resetting the accelerator")
+            self._numerics.__exit__(None, None, None)
+            self._numerics.random_mode.__exit__(None, None, None)
+            torch.backends.mha.set_fastpath_enabled(self._numerics._original_mha_fastpath)
+            torch.backends.cudnn.enabled = self._numerics._original_convolution_enabled
+            self._numerics = None
+
+    def numerics_state(self):
+        mode = self._numerics
+        return {"profile": "portable_v1" if mode is not None else "native",
+                "rng": "triton-philox4x32-10-v1" if mode is not None else "vendor-native",
+                "accumulation": "selected GPU FP64 operations with FP32 boundaries" if mode is not None else "vendor-native",
+                "seed": mode.seed if mode is not None else None,
+                "offset": mode.offset if mode is not None else None,
+                "convolution_library_enabled": torch.backends.cudnn.enabled if self.device_type == "cuda" else None,
+                "operations": dict(mode.counts) if mode is not None else {}}
 
     def synchronize(self, *args, **kwargs):
         if self.api is not None:
@@ -156,6 +212,8 @@ class TorchAccelerator:
         return self.api.get_device_properties(self.device if device is None else device)
 
     def autocast(self, enabled=True, **kwargs):
+        if enabled and self._numerics is not None:
+            raise CapabilityError("portable_v1 does not support autocast; use FP32 model boundaries")
         if enabled and kwargs.get("dtype") not in (None, torch.float16, torch.bfloat16):
             raise CapabilityError("{} autocast does not support {}".format(self.name, kwargs["dtype"]))
         if not enabled and self.device_type == "cpu":
@@ -202,14 +260,24 @@ class TorchAccelerator:
         yield
 
     def call(self, name, *args, **kwargs):
-        entry = operation_entry(self, name)
+        provider = self._operation_backend()
+        try:
+            entry = operation_entry(provider, name)
+        except CapabilityError as exc:
+            if self._numerics is not None:
+                raise CapabilityError("backend={!r}, numerics='portable_v1', operation={!r}: {}".format(
+                    self.name, name, exc)) from exc
+            raise
         if entry["dtypes"] is not None:
             value = next((arg for arg in args if isinstance(arg, torch.Tensor) and arg.is_floating_point()), None)
             if value is not None and str(value.dtype) not in entry["dtypes"]:
                 raise CapabilityError("{} operation {} does not support {}".format(
                     self.name, name, value.dtype))
         try:
-            return operation(self, name)(*args, **kwargs)
+            if self._numerics is not None:
+                key = "ops." + name
+                self._numerics.counts[key] = self._numerics.counts.get(key, 0) + 1
+            return operation(provider, name)(*args, **kwargs)
         except (ImportError, OSError) as exc:
             raise CapabilityError(
                 "{} operation {!r} could not load its implementation: {}".format(
@@ -224,8 +292,15 @@ class TorchAccelerator:
         except (ImportError, OSError) as exc:
             raise CapabilityError("{} requires {}: {}".format(self.name, path, exc)) from exc
 
+    def _operation_backend(self):
+        if self._numerics is None:
+            return self
+        return SimpleNamespace(name="portable_v1", device_type=self.device_type,
+                               op_fallbacks=(self.name,) + tuple(self.op_fallbacks))
+
     def capabilities(self):
-        owners = (self.name,) + tuple(self.op_fallbacks)
+        provider = self._operation_backend()
+        owners = (provider.name,) + tuple(provider.op_fallbacks)
         names = sorted({name for owner, name in OPERATIONS if owner in owners})
         return {
             "backend": self.name, "device_type": self.device_type,
@@ -235,9 +310,10 @@ class TorchAccelerator:
                     owner=next(owner for owner in owners if (owner, name) in OPERATIONS),
                     backward=next(OPERATIONS[(owner, name)]["backward"]
                                   for owner in owners if (owner, name) in OPERATIONS),
-                    dtypes=operation_entry(self, name)["dtypes"],
-                    variants=operation_entry(self, name)["variants"],
+                    dtypes=operation_entry(provider, name)["dtypes"],
+                    variants=operation_entry(provider, name)["variants"],
                     status="registered_not_hardware_validated")
                 for name in names},
             "dependencies": dict(self.extension_modules),
+            "numerics": self.numerics_state(),
         }

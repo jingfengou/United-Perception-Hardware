@@ -1,0 +1,65 @@
+{
+  "all_training_batches_sha256": "319479944e24257ff5bab67dfb4257e1c4c70131ae41d96057e78fd4df3f9828",
+  "batch_audit_entries": 3140,
+  "driver_sha256": "60536a79944ce8ae0867c4907d3c330f8938fd6cc14b59788fddba0bb0073be7",
+  "environment": {
+    "convolution_library_enabled": true,
+    "cuda": "12.6",
+    "cudnn_allow_tf32": false,
+    "default_tasks": "cls:det",
+    "deterministic_algorithms": true,
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "matmul_allow_tf32": false,
+    "matmul_precision": "highest",
+    "numerical_profile": "portable_v1",
+    "python": "3.12.3",
+    "tf32": false,
+    "torch": "2.10.0+cu126",
+    "visible_devices": "1"
+  },
+  "epochs": 20,
+  "final_metrics": {
+    "top1": 23.25,
+    "top5": 76.20000457763672
+  },
+  "final_state_sha256": "5aecb6cd0524b19d60cf41d0f0292b6d2e52a6f2df921eca4ee5455a6c8b2226",
+  "initial_state_sha256": "7bb778cea26321cee4a3b5f35f7a8e315dc24db747fb533654462b9bf2648e51",
+  "learning_rates_sha256": "e9611411d3a05892a9896941659094169385db25fd39eecd535324f0c07967e6",
+  "losses_sha256": "f99126a7f6edf93f92be73d6dbcab9ee956065390bb1f36013363a55135617e9",
+  "model": "vit_b16",
+  "normalized_source_manifest_sha256": "5fe0f71fc24f86941663e1e2c02e5ce5c8840d015db3a24ff33b83c28f671f14",
+  "numerics": {
+    "accumulation": "selected GPU FP64 operations with FP32 boundaries",
+    "offset": 198945600000,
+    "operations": {
+      "conv2d": 3876,
+      "gpu_uniform_values": 198945600000,
+      "layer_norm": 96900,
+      "linear": 189924,
+      "log_softmax": 3140,
+      "matmul": 93024,
+      "ops.distributed.is_available": 658,
+      "ops.distributed.is_initialized": 658,
+      "pow": 46512,
+      "softmax": 47248,
+      "sum": 6280,
+      "tanh": 46512
+    },
+    "profile": "portable_v1",
+    "rng": "triton-philox4x32-10-v1",
+    "seed": 312900721
+  },
+  "protocol": "multiseed_v2",
+  "raw_report": {
+    "archive": "nvidia-evidence.tar.gz",
+    "member": "nvidia/results/vit_b16-seed133/report.json",
+    "sha256": "4c81091558c9a1d50c2546d10c9e2ba72c80246bb1901b4292b7307acf53982c"
+  },
+  "restored_metrics": {
+    "top1": 23.25,
+    "top5": 76.20000457763672
+  },
+  "seed": 133,
+  "status": "completed",
+  "training_steps": 3140
+}

@@ -6,6 +6,8 @@ NVIDIA 原版/路由版训练对照见[五模型多随机种子报告](MULTISEED
 
 第一轮[沐曦/NVIDIA 四模型真实数据对照](CROSS_VENDOR_ACCURACY.md)已完成 40 次训练、76,000 步及状态/指标复核；预设 +/-1 点平均精度等价仅 ResNet18 通过，YOLO、DETR、ViT 未能确认。最新[版本对齐与差异定位](CROSS_VENDOR_DIAGNOSIS.md)另完成 40 次对照及一次完整重复，定位随机掩码/厂商栈确定性缺口并修复 MetaX 卷积开关；三模型及关闭库 DETR 仍未确认等价。相同权重的 12 次交叉评估指标一致，不推广为训练精度等价。
 
+继续的[数值修复与复测](CROSS_VENDOR_FIX.md)仅修改适配层，提供显式实验配置 [`portable_v1`](PORTABLE_NUMERICS.md)，不改变默认原生路径。首版 30 次完整训练未确认等价；固定完整操作及归约顺序后的短程对照已对齐，新的五种子完整复测尚未完成。宽精度和顺序内核有额外成本，不作为全 FP32 或性能支持声明。
+
 上层模型、损失函数、Runner 和推理 API 通过 `up.accelerator` 访问硬件。普通 PyTorch 计算、`new_zeros()`、继承输入设备的张量构造继续使用 PyTorch。
 
 ```text

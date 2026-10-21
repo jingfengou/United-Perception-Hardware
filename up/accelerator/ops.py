@@ -60,6 +60,9 @@ for _name in ("naive_nms", "gpu_iou_overlap"):
 torchvision_nms = _entry("torchvision_nms")
 register_op("portable", "torchvision_nms", "up.accelerator.backends.portable:torchvision_nms", backward=False)
 register_op("nvidia", "torchvision_nms", "up.accelerator.backends.torch_backends:torchvision_nms", backward=False)
+for _name in ("naive_nms", "gpu_iou_overlap", "torchvision_nms"):
+    register_op("portable_v1", _name, "up.accelerator.backends.portable_numerics_ops:" + _name,
+                backward=False, dtypes=("torch.float32",))
 for _name in ("sync_batch_norm", "sync_batch_norm_forward"):
     globals()[_name] = _entry(_name)
     register_op("portable", _name, "up.accelerator.layers:" + _name, backward=True)

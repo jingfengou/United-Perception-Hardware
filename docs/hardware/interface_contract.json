@@ -511,6 +511,13 @@
           "backward": false,
           "dtypes": null,
           "variants": null
+        },
+        "portable_v1": {
+          "backward": false,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "variants": null
         }
       },
       "requirement": "model_or_feature_dependent",
@@ -804,6 +811,13 @@
         "portable": {
           "backward": false,
           "dtypes": null,
+          "variants": null
+        },
+        "portable_v1": {
+          "backward": false,
+          "dtypes": [
+            "torch.float32"
+          ],
           "variants": null
         }
       },
@@ -1286,6 +1300,13 @@
           "backward": false,
           "dtypes": null,
           "variants": null
+        },
+        "portable_v1": {
+          "backward": false,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "variants": null
         }
       },
       "requirement": "model_or_feature_dependent",
@@ -1376,6 +1397,11 @@
     },
     {
       "kind": "method",
+      "name": "numerics_state",
+      "signature": "numerics_state(self)"
+    },
+    {
+      "kind": "method",
       "name": "synchronize",
       "signature": "synchronize(self, *args, **kwargs)"
     },
@@ -1450,7 +1476,8 @@
     "device_type",
     "communication_backend",
     "op_fallbacks",
-    "extension_modules"
+    "extension_modules",
+    "numerical_profiles"
   ],
   "runtime_class": "up.accelerator.TorchAccelerator",
   "status": "interface and registration snapshot, not hardware validation"

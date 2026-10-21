@@ -16,6 +16,8 @@
 
 最新[差异定位与版本对齐复测](docs/hardware/CROSS_VENDOR_DIAGNOSIS.md)已追加 41 次完整训练：两边对齐 PyTorch 2.10 / TorchVision 0.25 主版本及 23 项依赖，全部训练输入配对一致。已定位 ViT Dropout 掩码差异和 C500 软件栈的卷积反向不重复，并修复 MetaX 卷积库开关；**三模型仍未确认 +/-1 点精度等价，不能宣称已全部修好**。同一权重双向交叉推理的 6 份权重 / 12 次评估指标完全一致，完整结果、失败对照及复现命令在报告中。
 
+后续[适配层数值修复](docs/hardware/CROSS_VENDOR_FIX.md)未改上层算法，增加显式、实验性的 [`portable_v1`](docs/hardware/PORTABLE_NUMERICS.md) 配置。第一版 30 次完整训练仍未通过；固定前后向和归约顺序后，短程及 GPU 数学对照已对齐，五种子完整复测进行中，尚不能宣称完整精度等价。默认 `native` NVIDIA 路径不变；该配置含 GPU FP64 内部计算及明显额外开销，不冒充原生 FP32 或性能优化。
+
 ## 1. 增加了什么功能
 
 ```text

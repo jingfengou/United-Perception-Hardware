@@ -32,8 +32,10 @@ def configure():
 def rng_state():
     import numpy as np
     import torch
+    device_state = (sys.modules["up.accelerator"].get_accelerator().get_rng_state()
+                    if "up.accelerator" in sys.modules else torch.cuda.get_rng_state())
     values = {"python": random.getstate(), "numpy": np.random.get_state(),
-              "cpu": torch.get_rng_state().numpy(), "gpu": torch.cuda.get_rng_state().cpu().numpy()}
+              "cpu": torch.get_rng_state().numpy(), "gpu": device_state.cpu().numpy()}
     return {key: hashlib.sha256(pickle.dumps(value)).hexdigest() for key, value in values.items()}
 
 
@@ -46,6 +48,8 @@ def rng_probe(args):
             for shape in ((64, 1, 1), (64, 17, 768), (64, 12, 17, 17), (100, 2, 256)):
                 for kind in ("rand", "dropout"):
                     torch.manual_seed(seed)
+                    if args.numerical_profile != "native":
+                        sys.modules["up.accelerator"].get_accelerator().manual_seed(seed)
                     name = "{}-{}-{}-{}".format(device, seed, shape, kind)
                     before = rng_state()
                     x = (torch.rand(shape, device=device) if kind == "rand" else
@@ -55,6 +59,8 @@ def rng_probe(args):
     if args.rng_wide:
         for seed in (131, 132):
             torch.manual_seed(seed)
+            if args.numerical_profile != "native":
+                sys.modules["up.accelerator"].get_accelerator().manual_seed(seed)
             shape = (64, 17, 3072)
             before = rng_state()
             x = F.dropout(torch.ones(shape, device="cuda"), p=.1, training=True)
@@ -111,6 +117,8 @@ def training_probe(args):
     config, _ = helpers.effective_config(args.source, json.loads(args.data.read_text()),
                                           args.model, args.seed, epochs, "multiseed_v2")
     config["runtime"]["accelerator"]["backend"] = args.backend
+    if args.numerical_profile != "native":
+        config["runtime"]["accelerator"]["numerics"] = args.numerical_profile
     if args.disable_convolution_library:
         config["args"]["nocudnn"] = True
     config["saver"].update(save_dir=str(args.output / "checkpoints"),
@@ -151,7 +159,7 @@ def training_probe(args):
 
     def hook(name):
         def capture(module, inputs, output):
-            if step == 0:
+            if step == args.capture_step:
                 stages[name] = snapshot("forward/" + name, output)
                 if name.endswith("body.conv1") or name == "backbone.embedding":
                     stage_inputs[name] = snapshot("input/" + name, inputs)
@@ -160,6 +168,9 @@ def training_probe(args):
     leaves = [(n, m) for n, m in runner.model.named_modules() if not list(m.children())]
     selected = dict(leaves[:40])
     selected.update((n, m) for n, m in leaves if n.endswith(("body.conv1", "body.bn1")))
+    if args.capture_all:
+        selected = {n: m for n, m in runner.model.named_modules()
+                    if not list(m.children()) or isinstance(m, torch.nn.MultiheadAttention)}
     handles = [m.register_forward_hook(hook(n)) for n, m in selected.items()]
     import torch.nn.functional as F
     original_dropout, original_rand = F.dropout, torch.rand
@@ -172,7 +183,7 @@ def training_probe(args):
                 raise ValueError("Diagnostic mask control does not support inplace dropout")
             mask = original_rand(input.shape, generator=paired_generator, device="cpu") >= p
             output = input * mask.to(device=input.device, dtype=input.dtype) / (1 - p)
-        if step == 0 and training and p > 0:
+        if step == args.capture_step and training and p > 0:
             name = "random/dropout/" + str(len(random_calls))
             random_calls.append({"kind": "dropout", "p": p,
                                  "input_zeros": int((input == 0).sum()),
@@ -181,7 +192,7 @@ def training_probe(args):
 
     def rand(*values, **kwargs):
         output = original_rand(*values, **kwargs)
-        if step == 0:
+        if step == args.capture_step:
             name = "random/rand/" + str(len(random_calls))
             random_calls.append({"kind": "rand", "values": snapshot(name, output)})
         return output
@@ -189,32 +200,48 @@ def training_probe(args):
     F.dropout, torch.rand = dropout, rand
     runner._hooks("before_train")
     runner.model.train()
+    dispatch_trace = None
     try:
         for step in range(args.steps):
             row = {"step": step, "rng_before_data": rng_state()}
             batch = runner.get_batch("train")
             row["batch_sha256"] = helpers.batch_hash(batch)
             row["rng_before_forward"] = rng_state()
+            if args.trace_dispatch and step == args.capture_step:
+                from trace_gpu_dispatch import DispatchTrace
+                dispatch_trace = DispatchTrace()
+                dispatch_trace.__enter__()
             loss = runner.forward_train(batch)
             row["loss"] = float(loss.detach())
             row["rng_after_forward"] = rng_state()
-            if step == 0:
+            if step == args.capture_step:
                 row["stages"] = dict(stages)
                 row["stage_inputs"] = dict(stage_inputs)
                 row["loss_components"] = snapshot("loss", {
                     k: v for k, v in runner._temporaries["last_output"].items() if "loss" in k})
                 row["random_calls"] = list(random_calls)
+            if dispatch_trace is not None:
+                dispatch_trace.phase = "backward"
             runner.backward(loss)
-            if step == 0:
+            if step == args.capture_step:
                 row["gradients"] = {n: snapshot("grad/" + n, p.grad)
                                     for n, p in runner.model.named_parameters() if p.grad is not None}
             row["rng_after_backward"] = rng_state()
+            if dispatch_trace is not None:
+                dispatch_trace.phase = "update"
             runner.update()
             row["state_after_update"] = helpers.state_hash(runner.model.state_dict())
             runner.lr_scheduler.step()
             row["rng_after_update"] = rng_state()
             result["steps"].append(row)
+            if dispatch_trace is not None:
+                dispatch_trace.__exit__(None, None, None)
+                (args.output / "dispatch-trace.json").write_text(
+                    json.dumps(dispatch_trace.rows, indent=2, sort_keys=True))
+                dispatch_trace = None
     finally:
+        if dispatch_trace is not None:
+            dispatch_trace.__exit__(None, None, None)
         F.dropout, torch.rand = original_dropout, original_rand
         for handle in handles:
             handle.remove()
@@ -267,11 +294,16 @@ def main():
     parser.add_argument("--model", choices=("yolov5s", "detr", "vit_b16"))
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--steps", type=int, default=4)
+    parser.add_argument("--capture-step", type=int, default=0)
+    parser.add_argument("--capture-all", action="store_true")
+    parser.add_argument("--trace-dispatch", action="store_true",
+                        help="Read-only full-tensor hashes for the captured diagnostic step; slow")
     parser.add_argument("--portable-ops", action="store_true", help="Diagnostic provider ablation only")
     parser.add_argument("--paired-masks", action="store_true",
                         help="Diagnostic only: private CPU-generated masks, GPU forward/backward; NOT production fallback")
     parser.add_argument("--rng-wide", action="store_true", help="Also test the ViT MLP dropout shape on all-one input")
     parser.add_argument("--disable-convolution-library", action="store_true")
+    parser.add_argument("--numerical-profile", choices=("native", "portable_v1"), default="native")
     parser.add_argument("--compare", type=Path, nargs=2)
     parser.add_argument("--allow-schema-difference", action="store_true",
                         help="Explicitly compare only common observations and report every missing key")
@@ -293,6 +325,8 @@ def main():
         return
     if args.kind in ("training", "inference") and (not all((args.source, args.data, args.model)) or args.steps <= 0):
         parser.error("Training requires source, data, model and positive steps")
+    if args.kind == "training" and not 0 <= args.capture_step < args.steps:
+        parser.error("Capture step must be inside the diagnostic trajectory")
     if args.kind == "inference" and not args.checkpoint:
         parser.error("Inference requires a model-only --checkpoint")
     if args.kind == "ops" and not args.source:
@@ -301,11 +335,21 @@ def main():
         raise ValueError("Use a fresh diagnostic directory")
     args.output.mkdir(parents=True, exist_ok=True)
     configure()
+    if args.kind == "rng" and args.numerical_profile != "native":
+        if not args.source:
+            parser.error("Portable GPU RNG requires --source")
+        sys.path.insert(0, str(args.source.resolve()))
+        from up.accelerator import configure_accelerator
+        configure_accelerator({"runtime": {"accelerator": {
+            "backend": args.backend, "numerics": args.numerical_profile}}})
     result = (rng_probe(args) if args.kind == "rng" else
               operator_probe(args) if args.kind == "ops" else training_probe(args))
     import torch
     result.update(status="completed", kind=args.kind, backend=args.backend, model=args.model,
                   seed=args.seed, portable_ops=args.portable_ops, paired_masks=args.paired_masks, torch=torch.__version__,
+                  numerical_profile=args.numerical_profile,
+                  numerics=(sys.modules["up.accelerator"].get_accelerator().numerics_state()
+                            if "up.accelerator" in sys.modules else {"profile": "not_configured"}),
                   tool_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   scope="diagnostic_only; not a completed training or accuracy acceptance")
     (args.output / "report.json").write_text(json.dumps(result, indent=2, sort_keys=True))

@@ -2,6 +2,8 @@
 
 开始实现前先查阅[完整接口定义](INTERFACE.md)、[全部函数签名](API_INDEX.md)和[机器可读清单](interface_contract.json)。共享运行时不兼容的方法需要覆盖，专用操作按目标模型需求补齐，不要求重新实现普通 PyTorch 或未启用的可选 SDK。
 
+基本接入默认使用 `native` 数值配置。需要共同 GPU 随机流和选定宽精度实现时，另见[可选数值配置](PORTABLE_NUMERICS.md)；仅声明设备可用或接口兼容，不能替代该配置的 dtype、SDK 和精度验收。
+
 ## 复用共享实现，只覆盖差异
 
 仓库内的 `up/accelerator/example_plugin.py` 是可运行的 CPU 示例：继承 `TorchAccelerator`，复用通用 overlap、运行时和其他已注册共享操作，仅覆盖 `naive_nms`。它用于测试插件协议，不模拟国产显卡。
