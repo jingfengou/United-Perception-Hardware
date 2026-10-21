@@ -391,3 +391,5 @@ python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py te
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
 首轮 NVIDIA 检查为有界数值与合成输入验证；新增了真实数据的完整 Runner 短程对照：ResNet18 两种子 Top-1、loss、权重相同；Faster R-CNN 两种子的严格一致性检查未通过，同版本重复也存在漂移，不能据此宣称精度等价。两轮检查均不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，未将外部模型冒充 UP 原有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
+
+检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。
