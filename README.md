@@ -39,7 +39,7 @@
 
 | 硬件 | 配置中的 `backend` | 设备名 | 当前状态 |
 | --- | --- | --- | --- |
-| NVIDIA A800 | `nvidia` | `cuda` | Faster R-CNN 10 对平均 AP 等价但非逐步一致；ResNet18/ViT 各 5 对一致；YOLO/DETR 多种子对照进行中 |
+| NVIDIA A800 | `nvidia` | `cuda` | 五模型真实数据训练/推理/恢复已完成；4 个模型各 5 对一致，Faster R-CNN 10 对平均 AP 等价但非逐步一致 |
 | 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
 | 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
 | 沐曦 C500 | `metax` | `cuda` | 同上；不会因为设备名为 `cuda` 就自动使用 NVIDIA 二进制 |
@@ -81,6 +81,8 @@ CPU CI 还配置了 Python 3.10/3.12、CPU PyTorch 2.6 的接口检查；云端�
 - [`docs/hardware/validation/packages.json`](docs/hardware/validation/packages.json)：实际验证环境中可见的包名和版本快照，包含继承的系统包，不是跨机器通用的安装锁。
 
 首轮环境清单并不保证真实数据链路也兼容：本次检测训练发现 NVIDIA 增强版 COCO 库需要任务内的标准 `pycocotools==2.0.10` 覆盖，旧官方预训练权重需要保值转换序列化格式。具体操作见[真实数据训练报告](docs/hardware/TRAINING_ACCURACY.md)，不替换系统 PyTorch/TorchVision，也不全局关闭权重安全加载。
+
+Python 3.12/NumPy 1.26 下的回归启动器还给两边相同地恢复了旧代码依赖的 `collections.Iterable`、`np.float`、`np.int` 别名，保持原 dtype。这是已记录的共同兼容前置，不代表原始 CLI 对任意现代依赖组合自动兼容；直接使用旧入口时也需处理这些旧 API，或选择经验证的兼容环境。测试启动器与具体命令见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)。
 
 `setup.py` 中的 `python_requires >= 3.6` 是继承的包元数据，**不能据此理解为 Python 3.6 以上任意版本都能运行全部功能**。实际运行支持以对应环境的测试记录为准。
 
@@ -371,10 +373,22 @@ runtime:
 python -m pip install pytest packaging setuptools wheel PyYAML numpy
 python tools/check_hardware_boundaries.py
 python tools/export_accelerator_contract.py --check
-python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py
+python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py tests/test_multiseed_accuracy.py
 ```
 
 `up.accelerator.capabilities()` 可查询已注册的操作、供应者和声明信息。查询结果是注册清单，不会证明对应 SDK 已安装或真机已经通过。
+
+完整测试包含多种子统计测试，需要与当前 Python 匹配的 SciPy（本轮为 `1.15.3`）。2026-10-21 的 A800 成对回归结果如下；完整预设预算不等于完整 ImageNet/COCO 训练，DETR 为外部官方单类适配器：
+
+| 模型 | 配对种子 | 原版 / NVIDIA 路由版平均指标 | 结论 |
+| --- | --- | --- | --- |
+| Faster R-CNN R50-FPN | 10 | AP 60.4172 / 60.4419 | 平均 AP 通过预设 +/-1 点等价检验，非逐步一致 |
+| YOLOv5-S SiLU | 5 | AP 26.0174 / 26.0174 | 逐步 loss、最终模型状态、指标相同 |
+| ResNet18 | 5 | Top-1 66.2200 / 66.2200 | 同上 |
+| 外部 DETR R50 | 5 | AP 77.6032 / 77.6032 | 同上 |
+| ViT-B/16，64px | 5 | Top-1 22.3400 / 22.3400 | 同上；仅小数据回归，不是收敛验收 |
+
+数据为 CIFAR-10 10,000/2,000 与 PennFudan 120/50，均值、标准差、每个种子和复现步骤见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)。不把不同预训练/预算下的绝对指标作为跨模型排行榜。
 
 | 内容 | 位置 |
 | --- | --- |
@@ -392,6 +406,6 @@ python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py te
 | 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
-首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性、平均 AP 等价、完整预算和仍在进行的项。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
+首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照已完成并另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
 
 检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。

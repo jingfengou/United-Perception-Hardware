@@ -1,4 +1,5 @@
 {
+  "complete_main_and_diagnostic_reports": 76,
   "no_up_changes_in_index": true,
   "passed": true,
   "raw_run_source_mismatches": [],
@@ -16,5 +17,6 @@
       "python_files": 436
     }
   },
-  "scope": "All copied main/preflight Python manifests match the frozen Git trees after CRLF normalization; native binary hashes retained per run"
+  "scope": "All copied main/preflight Python manifests match the frozen Git trees after CRLF normalization; native binary hashes retained per run",
+  "total_reports_including_preflight": 79
 }

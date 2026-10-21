@@ -4,17 +4,17 @@
 
 选择 `runtime.accelerator.backend: nvidia` 后，硬件路由改造是否影响训练指标？本轮将先前的 3/5 epoch 检查扩展为**完整执行预先声明的训练预算、多种子配对及同版本重复对照**。不使用梯度回放、梯度舍入、替换 RoIAlign 或静默 CPU 回退。
 
-覆盖 Faster R-CNN、YOLOv5-S（SiLU）、ResNet18、官方 DETR R50 适配器、ViT-B/16。AP/Top-1 均以下表的百分数形式表示，差值和区间单位是**百分点**。当前新增模型仍在训练，不能把预检查通过写成完整训练已通过。
+五模型的预设预算已全部执行完成，训练 loss、保存的模型/优化器状态有限，推理和权重恢复检查通过。四个模型的配对 loss、最终模型状态及指标逐位相同；Faster R-CNN 通过平均 AP 的预设统计等价检验，但不逐步一致。AP/Top-1 均以下表的百分数形式表示，差值和区间单位是**百分点**。
 
 | 模型 | 配对种子数 | 原版均值 +/- 标准差 | NVIDIA 路由版均值 +/- 标准差 | 均值差 | 均值差的 90% CI | 预设 +/-1 点等价检验 | 逐步数值检查 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Faster R-CNN / AP | 10 | 60.4172 +/- 1.0198 | 60.4419 +/- 1.1244 | +0.0247 | [-0.7103, +0.7596] | 通过，TOST p=0.01891 | 0/10 通过 |
 | ResNet18 / Top-1 | 5 | 66.2200 +/- 0.5404 | 66.2200 +/- 0.5404 | 0 | [0, 0] | 通过 | 5/5 通过且 loss/最终模型状态逐位相同 |
-| YOLOv5-S / AP | 5 | 计算中 | 计算中 | 待汇总 | 待汇总 | 待汇总 | 待汇总 |
-| 官方 DETR 适配器 / AP（修正优化器配方） | 5 | 计算中 | 计算中 | 待汇总 | 待汇总 | 待汇总 | 待汇总 |
+| YOLOv5-S / AP | 5 | 26.0174 +/- 10.2191 | 26.0174 +/- 10.2191 | 0 | [0, 0] | 通过 | 5/5 通过且 loss/最终模型状态逐位相同 |
+| 官方 DETR 适配器 / AP（修正优化器配方） | 5 | 77.6032 +/- 0.6539 | 77.6032 +/- 0.6539 | 0 | [0, 0] | 通过 | 5/5 通过且 loss/最终模型状态逐位相同 |
 | ViT-B/16 / Top-1 | 5 | 22.3400 +/- 4.1699 | 22.3400 +/- 4.1699 | 0 | [0, 0] | 通过 | 5/5 通过且 loss/最终模型状态逐位相同 |
 
-**检测结论的含义**：在本次固定 PennFudan 划分、12 epoch、FP32 配方下，证据支持两个版本的**平均 AP 在 +/-1 个百分点内统计等价**，不是权重逐位一致，也不是每一个种子的分差都小于 1 点。10 对中的分差范围为 -1.3197 到 +2.6651 点，不能选其中某一次来宣称提升或退化。描述性 95% CI 为 [-0.8823, +0.9317]，不替代预先指定的 90% CI 判定标准。
+**Faster R-CNN 结论的含义**：在本次固定 PennFudan 划分、12 epoch、FP32 配方下，证据支持两个版本的**平均 AP 在 +/-1 个百分点内统计等价**，不是权重逐位一致，也不是每一个种子的分差都小于 1 点。10 对中的分差范围为 -1.3197 到 +2.6651 点，不能选其中某一次来宣称提升或退化。描述性 95% CI 为 [-0.8823, +0.9317]，不替代预先指定的 90% CI 判定标准。
 
 ### 同版本重复对照
 
@@ -50,6 +50,7 @@
 - ViT 保留 12 层、768 维、12 头和 16px patch 的完整 Base 网络，但 CIFAR 训练输入为 64px、位置编码对应 17 个 token，不是原 224px/197-token ImageNet 配方；YOLO 使用 320px mosaic 而非原 640px COCO 输入。缩小输入不能用于推断原分辨率的性能或精度。
 - 指标的统计等价不等于训练 loss、权重逐位一致。此前检测逐位不一致和 RoIAlign 反向非确定性的记录保留，不通过放宽原检查阈值改写历史结论。
 - ViT 这套 64px、10,000 张、20 epoch、从零初始化且保留强增强的配方绝对 Top-1 较低，只用于改造前后回归；不能因两边一致而宣称已经达到可用精度或充分收敛。
+- 各模型的预训练来源、输入和预算不同，表格只比较同一模型的原版/路由版，不能用作跨模型优劣排行榜。
 
 ## 预先固定的计划
 
@@ -61,7 +62,7 @@
 | UP ResNet18 | CIFAR-10 10,000/2,000 | 20 | 3,140 | 131-135，共 5 对 | 无 |
 | 官方 DETR R50 经同一外部适配器 | PennFudan 120/50 | 12 | 720 | 131-135，共 5 对 | 无 |
 
-原计划 46 次单卡训练、57,320 个优化器步骤。用户随后增加 YOLO/ViT，并发现初版 DETR 的统一学习率配方在两边都严重遗忘，另固定[追加计划](validation/multiseed_20261021/extension-plan.json)，不覆盖原计划或删除不利结果：
+原计划 46 次单卡训练、57,320 个优化器步骤已完成。用户随后增加 YOLO/ViT，并发现初版 DETR 的统一学习率配方在两边都严重遗忘，另固定[追加计划](validation/multiseed_20261021/extension-plan.json)，不覆盖原计划或删除不利结果：
 
 | 追加模型 | 数据 | Epoch | 每次优化器步数 | 配对种子 |
 | --- | --- | --- | --- | --- |
@@ -69,7 +70,7 @@
 | UP ViT-B/16，64px CIFAR token grid | CIFAR-10 10,000/2,000 | 20 | 3,140 | 131-135，共 5 对 |
 | 官方 DETR R50，分组学习率 | PennFudan 120/50 | 12 | 720 | 131-135，共 5 对 |
 
-追加 30 次、44,600 步。五模型主要对照含同版本重复共 66 次、94,720 步；保留的初版 DETR 另有 10 次、7,200 步诊断，不把两个 DETR 配方混合成更多种子。GPU 预检查及失败启动不计入这些数量。
+追加 30 次、44,600 步也已完成。五模型主要对照含同版本重复共 66 次、94,720 步；保留的初版 DETR 另有 10 次、7,200 步诊断，不把两个 DETR 配方混合成更多种子。GPU 预检查及失败启动不计入这些数量。
 
 不同实验可以在独立 GPU 上同时执行，但同一种子的一对原版/改造版必须在同一物理 GPU 顺序运行；这不是多卡 DDP 训练验收。
 
@@ -109,6 +110,8 @@ YOLO 的耗时主要在 CPU 数据增强。独立的[OpenCV 线程探针](valida
 1. **逐步数值检查**沿用 `rtol=1e-4, atol=1e-5, metric_atol=1e-6`，比较所有 loss、最终权重和指标；不因统计检验通过就改写该检查。
 2. **主要指标统计等价**对每个种子计算“改造版减原版”，Top-1 与 AP 都转换为百分点。预设等价范围为 `(-1, +1)` 个百分点，做配对 Student t 的 TOST，alpha=0.05。均值差的 90% CI 必须完全处于该范围内，两项单侧检验均 p<0.05，才判为本数据/预算上的等价；另报描述性 95% CI。
 
+“逐位相同”仅指记录到的逐步 loss、最终 `model.state_dict()` 和评估值，不代表已保存并比较每一步全部激活、梯度和优化器张量。权重恢复检查为新建模型/优化器加载与重新评估，不包括恢复后继续完整训练一个 epoch 的连续性验收。
+
 均值接近 0 或普通差异检验 p>0.05 **不能单独证明等价**。若 CI 跨出边界，结论是“未能确认预设范围内等价”，不自动当成改造导致退化。该推断依赖训练种子配对差值的独立性/近似正态假设，且只反映固定 holdout 上的训练随机性，不包含数据抽样误差，不外推到完整 COCO/ImageNet 或其他硬件。
 
 方法参考：[TOST 配对检验](https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttost_paired.html)、[SciPy 单侧均值检验](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_1samp.html)。实现与独立 SciPy 单侧检验交叉核对，并测试零方差、边界、均值零但高方差、空/非有限记录等情形。
@@ -125,7 +128,7 @@ DETR 报告的 original_config 字段表示复用了 Faster R-CNN 的 COCO 数�
 
 权重先校验官方文件，再仅转换为 tensor-only 序列化格式，逐张量验证值不变。不在训练中下载文件，不全局关闭 weights_only 安全加载。官方 Backbone 的隐式 ImageNet 权重下载由显式 `weights=None` 构造加完整官方 DETR 权重加载替代，网络结构和参数键不变。
 
-这是单设备验证适配器，不是完整的 UP DETR 产品化接入。没有验证它的分布式/ONNX/国产硬件路径；官方 util 中未被单卡路径调用的 CUDA 分布式辅助函数也没有因此获得跨厂商支持。
+这是固定单前景类 person、单设备的验证适配器，只适用于本次 PennFudan 配方，不是通用多类 COCO 或完整 UP DETR 产品化接入。没有验证它的分布式/ONNX/国产硬件路径；官方 util 中未被单卡路径调用的 CUDA 分布式辅助函数也没有因此获得跨厂商支持。
 
 ### 本轮 DETR 的环境兼容修正
 
@@ -224,13 +227,38 @@ python tools/run_multiseed_accuracy.py --summarize \
 
 每个汇总文件只包含对应计划中的模型；原计划和追加计划不能把同名 DETR 合并。主表的 Faster R-CNN/ResNet 来自原计划汇总，YOLO/ViT/修正 DETR 来自追加计划汇总。
 
+原始分辨率的补充功能检查可以单独执行；它不替代上述真实数据训练：
+
+```bash
+DEFAULT_TASKS=cls:det CUDA_VISIBLE_DEVICES=0 python tools/validate_models.py \
+  --baseline /workspace/up-baseline --device 0 --model yolov5s --output /tmp/yolo-native-shape.json
+DEFAULT_TASKS=cls:det CUDA_VISIBLE_DEVICES=0 python tools/validate_models.py \
+  --baseline /workspace/up-baseline --device 0 --model vit_b16 --output /tmp/vit-native-shape.json
+```
+
+仅重新核算已发布的统计时不需要 GPU、图片或大 checkpoint；这只复核已记录证据，**不是重新训练或独立验证未公开的权重数值**。复制到新的临时目录再汇总，避免覆盖仓库的冻结记录。例如在已有 SciPy 1.15.3 的环境中：
+
+```bash
+scratch=$(mktemp -d)
+cp -a docs/hardware/validation/multiseed_20261021/results "$scratch/original"
+cp -a docs/hardware/validation/multiseed_20261021/five-models-v2/results "$scratch/extension"
+python tools/run_multiseed_accuracy.py --summarize \
+  --plan docs/hardware/validation/multiseed_20261021/plan.json --output "$scratch/original"
+python tools/run_multiseed_accuracy.py --summarize \
+  --plan docs/hardware/validation/multiseed_20261021/extension-plan.json --output "$scratch/extension"
+```
+
+两个计划的全部原始记录现均已齐备，可执行以上完整汇总。专用训练启动器固定了小数据类别数/输入/配方，不能直接代替正式 ImageNet/COCO 的生产训练配置。
+
 `--devices` 是明确分配的物理设备号，每卡一个工作进程。同一 seed 的配对和重复分配在同一卡。实际运行脚本先检查显存占用；生产工具后续进一步收紧为同时检查活跃计算进程，即使显存占用小也拒绝启动，不停止他人进程。
 
 调度器可以重新执行原命令核对已完成的 report 后继续，前提是驱动、数据、计划和设备安排未变化。已有不完整输出时会报错，不能自动删除、覆盖或伪装成成功续训；需保留失败日志、核实原因，再使用新的空输出目录。严格数值比较失败返回 1 是检测差异的记录，不是允许忽略训练错误；前置公平性失败仍会停止整组。
 
 ## 证据
 
-结果将保存在 [validation/multiseed_20261021](validation/multiseed_20261021/)：计划、环境和数据/源码清单、每次完整配置与报告、配对比较、统计汇总以及实际执行的驱动快照。图像、大权重和完整 GPU checkpoint 不提交 Git。
+结果已保存在 [validation/multiseed_20261021](validation/multiseed_20261021/)：计划、环境和数据/源码清单、每次完整配置与报告、配对比较、统计汇总以及实际执行的驱动快照。可先看[归档索引](validation/multiseed_20261021/README.md)、[五模型 JSON 汇总](validation/multiseed_20261021/five-model-summary.json)或[逐种子 CSV](validation/multiseed_20261021/five-model-pairs.csv)。图像、大权重和完整 GPU checkpoint 不提交 Git。
+
+117 项 CPU 契约/协议测试通过，硬件边界检查为 0 违规，接口快照核对为 30 个运行时成员、73 个路由操作；[代码提交的 GitHub CI](https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39557740541)也在 Python 3.10/3.12、CPU PyTorch 2.6 上通过。保存的全部 76 次完整训练状态（含 10 次初版 DETR 诊断）均做了模型和优化器有限值扫描；这些检查不改写 Faster R-CNN 的逐步不一致结论。
 
 [实际驱动快照](validation/multiseed_20261021/drivers/)的文件哈希与运行报告/执行清单一致。生产调度器后续只加强 GPU 占用、模型身份和跨种子源码/数据一致性检查；训练驱动、适配器、统计公式、预算和阈值不变。汇总使用强化检查后的工具，拒绝将混合数据或不同源码的种子合并。
 

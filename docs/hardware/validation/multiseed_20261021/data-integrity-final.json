@@ -1,0 +1,41 @@
+{
+  "anchors_matched": true,
+  "checks": [
+    {
+      "count": 10000,
+      "dataset": "cifar10",
+      "image_manifest_sha256": "b519c71152a778a5d201fdeec9b1f6b54ecf7b8a28b1fa836748a2180671ad6c",
+      "matched": true,
+      "meta_sha256": "59346ddb9cf76ef43401c31e599b99c1690d68dcf0c5c9e437493daab5bcb8d2",
+      "split": "train"
+    },
+    {
+      "count": 2000,
+      "dataset": "cifar10",
+      "image_manifest_sha256": "dd6e672d9adbbfb4e63ac002f8aa236993494beeaf448660c0b371bbc7c3e96e",
+      "matched": true,
+      "meta_sha256": "4f330becf565813b86d87c9f848ac354303da175d1ae2eb101ec44bdbd4c6a4d",
+      "split": "test"
+    },
+    {
+      "count": 120,
+      "dataset": "pennfudan",
+      "image_manifest_sha256": "fd3a94934e1d47aa53bd78dde623b6c96ef3434254fa4199f010e81ff77df693",
+      "matched": true,
+      "meta_sha256": "656a1c0274c52a4023510261e948f2936e8b6bdcbfe3132f9fe6040788be6ee4",
+      "split": "train"
+    },
+    {
+      "count": 50,
+      "dataset": "pennfudan",
+      "image_manifest_sha256": "e683b4351fe438ca743c83e876b4c26a3d95cd3d646754cc98f448c0129d12d3",
+      "matched": true,
+      "meta_sha256": "221b282c8d851335ccee7099afd150c5d73b8c39249f39a2d2bdb6ad64c1cede",
+      "split": "test"
+    }
+  ],
+  "detr_weights_matched": true,
+  "resnet50_weights_matched": true,
+  "scope": "After all76 complete declared runs",
+  "timestamp_utc": "2026-10-21T07:28:46.815061+00:00"
+}
