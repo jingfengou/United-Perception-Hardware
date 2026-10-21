@@ -1,0 +1,1341 @@
+{
+  "cuda": "12.9",
+  "cudnn": 91002,
+  "gpu_inventory": [
+    {
+      "driver_version": "535.86.10",
+      "index": "0",
+      "memory_mib": "81920",
+      "name": "NVIDIA A800-SXM4-80GB",
+      "uuid": "GPU-7f5bb270-1a0e-7ada-c39f-82469091dd73"
+    },
+    {
+      "driver_version": "535.86.10",
+      "index": "1",
+      "memory_mib": "81920",
+      "name": "NVIDIA A800-SXM4-80GB",
+      "uuid": "GPU-600cf593-9ebb-1f9f-578d-a61e01d01e54"
+    },
+    {
+      "driver_version": "535.86.10",
+      "index": "2",
+      "memory_mib": "81920",
+      "name": "NVIDIA A800-SXM4-80GB",
+      "uuid": "GPU-ad259c8f-9f43-48bc-8993-fa4e07110b7d"
+    },
+    {
+      "driver_version": "535.86.10",
+      "index": "3",
+      "memory_mib": "81920",
+      "name": "NVIDIA A800-SXM4-80GB",
+      "uuid": "GPU-d6ae0e04-4a32-c247-0ee1-af56bacf3941"
+    }
+  ],
+  "numpy": "1.26.4",
+  "packages": [
+    {
+      "name": "absl-py",
+      "version": "2.3.0"
+    },
+    {
+      "name": "aiohappyeyeballs",
+      "version": "2.6.1"
+    },
+    {
+      "name": "aiohttp",
+      "version": "3.12.7"
+    },
+    {
+      "name": "aiosignal",
+      "version": "1.3.2"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.7.0"
+    },
+    {
+      "name": "anyio",
+      "version": "4.9.0"
+    },
+    {
+      "name": "apex",
+      "version": "0.1"
+    },
+    {
+      "name": "argon2-cffi",
+      "version": "25.1.0"
+    },
+    {
+      "name": "argon2-cffi-bindings",
+      "version": "21.2.0"
+    },
+    {
+      "name": "arrow",
+      "version": "1.3.0"
+    },
+    {
+      "name": "asciitree",
+      "version": "0.3.3"
+    },
+    {
+      "name": "asttokens",
+      "version": "3.0.0"
+    },
+    {
+      "name": "astunparse",
+      "version": "1.6.3"
+    },
+    {
+      "name": "async-lru",
+      "version": "2.0.5"
+    },
+    {
+      "name": "attrs",
+      "version": "25.3.0"
+    },
+    {
+      "name": "audioread",
+      "version": "3.0.1"
+    },
+    {
+      "name": "babel",
+      "version": "2.17.0"
+    },
+    {
+      "name": "beautifulsoup4",
+      "version": "4.13.4"
+    },
+    {
+      "name": "black",
+      "version": "25.1.0"
+    },
+    {
+      "name": "bleach",
+      "version": "6.2.0"
+    },
+    {
+      "name": "blinker",
+      "version": "1.7.0"
+    },
+    {
+      "name": "blis",
+      "version": "0.7.11"
+    },
+    {
+      "name": "cachetools",
+      "version": "6.0.0"
+    },
+    {
+      "name": "catalogue",
+      "version": "2.0.10"
+    },
+    {
+      "name": "certifi",
+      "version": "2025.4.26"
+    },
+    {
+      "name": "cffi",
+      "version": "1.17.1"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.4.2"
+    },
+    {
+      "name": "click",
+      "version": "8.2.1"
+    },
+    {
+      "name": "cloudpathlib",
+      "version": "0.21.1"
+    },
+    {
+      "name": "cloudpickle",
+      "version": "3.1.1"
+    },
+    {
+      "name": "cmake",
+      "version": "3.31.6"
+    },
+    {
+      "name": "comm",
+      "version": "0.2.2"
+    },
+    {
+      "name": "confection",
+      "version": "0.1.5"
+    },
+    {
+      "name": "contourpy",
+      "version": "1.3.2"
+    },
+    {
+      "name": "cryptography",
+      "version": "41.0.7"
+    },
+    {
+      "name": "cuda-bindings",
+      "version": "12.9.0"
+    },
+    {
+      "name": "cuda-python",
+      "version": "12.9.0"
+    },
+    {
+      "name": "cudf",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cudf-polars",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cugraph",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cugraph-service-client",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cugraph-service-server",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cuml",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cupy-cuda12x",
+      "version": "13.3.0"
+    },
+    {
+      "name": "cuvs",
+      "version": "25.4.0"
+    },
+    {
+      "name": "cycler",
+      "version": "0.12.1"
+    },
+    {
+      "name": "cymem",
+      "version": "2.0.11"
+    },
+    {
+      "name": "Cython",
+      "version": "3.1.1"
+    },
+    {
+      "name": "dask",
+      "version": "2025.2.0"
+    },
+    {
+      "name": "dask-cuda",
+      "version": "25.4.0"
+    },
+    {
+      "name": "dask-cudf",
+      "version": "25.4.0"
+    },
+    {
+      "name": "dbus-python",
+      "version": "1.3.2"
+    },
+    {
+      "name": "debugpy",
+      "version": "1.8.14"
+    },
+    {
+      "name": "decorator",
+      "version": "5.2.1"
+    },
+    {
+      "name": "defusedxml",
+      "version": "0.7.1"
+    },
+    {
+      "name": "dill",
+      "version": "0.4.0"
+    },
+    {
+      "name": "distributed",
+      "version": "2025.2.0"
+    },
+    {
+      "name": "distributed-ucxx",
+      "version": "0.43.0"
+    },
+    {
+      "name": "distro",
+      "version": "1.9.0"
+    },
+    {
+      "name": "dm-tree",
+      "version": "0.1.9"
+    },
+    {
+      "name": "easydict",
+      "version": "1.13"
+    },
+    {
+      "name": "einops",
+      "version": "0.8.1"
+    },
+    {
+      "name": "execnet",
+      "version": "2.1.1"
+    },
+    {
+      "name": "executing",
+      "version": "2.2.0"
+    },
+    {
+      "name": "expecttest",
+      "version": "0.3.0"
+    },
+    {
+      "name": "fasteners",
+      "version": "0.19"
+    },
+    {
+      "name": "fastjsonschema",
+      "version": "2.21.1"
+    },
+    {
+      "name": "fastrlock",
+      "version": "0.8.3"
+    },
+    {
+      "name": "filelock",
+      "version": "3.18.0"
+    },
+    {
+      "name": "flash_attn",
+      "version": "2.7.4.post1"
+    },
+    {
+      "name": "fonttools",
+      "version": "4.58.1"
+    },
+    {
+      "name": "fqdn",
+      "version": "1.5.1"
+    },
+    {
+      "name": "frozenlist",
+      "version": "1.6.0"
+    },
+    {
+      "name": "fsspec",
+      "version": "2025.5.1"
+    },
+    {
+      "name": "gast",
+      "version": "0.6.0"
+    },
+    {
+      "name": "grpcio",
+      "version": "1.62.1"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9"
+    },
+    {
+      "name": "httplib2",
+      "version": "0.20.4"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1"
+    },
+    {
+      "name": "hypothesis",
+      "version": "6.130.8"
+    },
+    {
+      "name": "idna",
+      "version": "3.10"
+    },
+    {
+      "name": "imageio",
+      "version": "2.37.0"
+    },
+    {
+      "name": "importlib_metadata",
+      "version": "8.7.0"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.1.0"
+    },
+    {
+      "name": "intel-openmp",
+      "version": "2021.4.0"
+    },
+    {
+      "name": "ipykernel",
+      "version": "6.29.5"
+    },
+    {
+      "name": "ipython",
+      "version": "9.3.0"
+    },
+    {
+      "name": "ipython_pygments_lexers",
+      "version": "1.1.1"
+    },
+    {
+      "name": "isoduration",
+      "version": "20.11.0"
+    },
+    {
+      "name": "isort",
+      "version": "6.0.1"
+    },
+    {
+      "name": "jedi",
+      "version": "0.19.2"
+    },
+    {
+      "name": "Jinja2",
+      "version": "3.1.6"
+    },
+    {
+      "name": "joblib",
+      "version": "1.5.1"
+    },
+    {
+      "name": "json5",
+      "version": "0.12.0"
+    },
+    {
+      "name": "jsonpointer",
+      "version": "3.0.0"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.24.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.4.1"
+    },
+    {
+      "name": "jupyter_client",
+      "version": "8.6.3"
+    },
+    {
+      "name": "jupyter_core",
+      "version": "5.8.1"
+    },
+    {
+      "name": "jupyter-events",
+      "version": "0.12.0"
+    },
+    {
+      "name": "jupyter-lsp",
+      "version": "2.2.5"
+    },
+    {
+      "name": "jupyter_server",
+      "version": "2.16.0"
+    },
+    {
+      "name": "jupyter_server_terminals",
+      "version": "0.5.3"
+    },
+    {
+      "name": "jupyterlab",
+      "version": "4.4.3"
+    },
+    {
+      "name": "jupyterlab_code_formatter",
+      "version": "3.0.2"
+    },
+    {
+      "name": "jupyterlab_pygments",
+      "version": "0.3.0"
+    },
+    {
+      "name": "jupyterlab_server",
+      "version": "2.27.3"
+    },
+    {
+      "name": "jupyterlab_tensorboard_pro",
+      "version": "4.0.0"
+    },
+    {
+      "name": "jupytext",
+      "version": "1.17.2"
+    },
+    {
+      "name": "kiwisolver",
+      "version": "1.4.8"
+    },
+    {
+      "name": "kvikio",
+      "version": "25.4.0"
+    },
+    {
+      "name": "langcodes",
+      "version": "3.5.0"
+    },
+    {
+      "name": "language_data",
+      "version": "1.3.0"
+    },
+    {
+      "name": "launchpadlib",
+      "version": "1.11.0"
+    },
+    {
+      "name": "lazr.restfulclient",
+      "version": "0.14.6"
+    },
+    {
+      "name": "lazr.uri",
+      "version": "1.0.6"
+    },
+    {
+      "name": "lazy_loader",
+      "version": "0.4"
+    },
+    {
+      "name": "libcudf",
+      "version": "25.4.0"
+    },
+    {
+      "name": "libcugraph",
+      "version": "25.4.0"
+    },
+    {
+      "name": "libcuml",
+      "version": "25.4.0"
+    },
+    {
+      "name": "libcuvs",
+      "version": "25.4.0"
+    },
+    {
+      "name": "libkvikio",
+      "version": "25.4.0"
+    },
+    {
+      "name": "libraft",
+      "version": "25.4.0"
+    },
+    {
+      "name": "librmm",
+      "version": "25.4.0"
+    },
+    {
+      "name": "librmm-cu12",
+      "version": "25.4.0"
+    },
+    {
+      "name": "librosa",
+      "version": "0.11.0"
+    },
+    {
+      "name": "libucxx",
+      "version": "0.43.0"
+    },
+    {
+      "name": "lightning-thunder",
+      "version": "0.2.3.dev0"
+    },
+    {
+      "name": "lightning-utilities",
+      "version": "0.14.3"
+    },
+    {
+      "name": "lintrunner",
+      "version": "0.12.7"
+    },
+    {
+      "name": "llvmlite",
+      "version": "0.42.0"
+    },
+    {
+      "name": "locket",
+      "version": "1.0.0"
+    },
+    {
+      "name": "looseversion",
+      "version": "1.3.0"
+    },
+    {
+      "name": "lvis",
+      "version": "0.5.3"
+    },
+    {
+      "name": "marisa-trie",
+      "version": "1.2.1"
+    },
+    {
+      "name": "Markdown",
+      "version": "3.8"
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "3.0.0"
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.2"
+    },
+    {
+      "name": "matplotlib",
+      "version": "3.10.3"
+    },
+    {
+      "name": "matplotlib-inline",
+      "version": "0.1.7"
+    },
+    {
+      "name": "mdit-py-plugins",
+      "version": "0.4.2"
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2"
+    },
+    {
+      "name": "mistune",
+      "version": "3.1.3"
+    },
+    {
+      "name": "mkl",
+      "version": "2021.1.1"
+    },
+    {
+      "name": "mkl-devel",
+      "version": "2021.1.1"
+    },
+    {
+      "name": "mkl-include",
+      "version": "2021.1.1"
+    },
+    {
+      "name": "mock",
+      "version": "5.2.0"
+    },
+    {
+      "name": "mpmath",
+      "version": "1.3.0"
+    },
+    {
+      "name": "msgpack",
+      "version": "1.1.0"
+    },
+    {
+      "name": "multidict",
+      "version": "6.4.4"
+    },
+    {
+      "name": "murmurhash",
+      "version": "1.0.13"
+    },
+    {
+      "name": "mypy_extensions",
+      "version": "1.1.0"
+    },
+    {
+      "name": "nbclient",
+      "version": "0.10.2"
+    },
+    {
+      "name": "nbconvert",
+      "version": "7.16.6"
+    },
+    {
+      "name": "nbformat",
+      "version": "5.10.4"
+    },
+    {
+      "name": "nest-asyncio",
+      "version": "1.6.0"
+    },
+    {
+      "name": "networkx",
+      "version": "3.5"
+    },
+    {
+      "name": "ninja",
+      "version": "1.11.1.4"
+    },
+    {
+      "name": "notebook",
+      "version": "7.4.3"
+    },
+    {
+      "name": "notebook_shim",
+      "version": "0.2.4"
+    },
+    {
+      "name": "numba",
+      "version": "0.59.1"
+    },
+    {
+      "name": "numba-cuda",
+      "version": "0.4.0"
+    },
+    {
+      "name": "numcodecs",
+      "version": "0.13.1"
+    },
+    {
+      "name": "numpy",
+      "version": "1.26.4"
+    },
+    {
+      "name": "nvdlfw_inspect",
+      "version": "0.1.0"
+    },
+    {
+      "name": "nvfuser",
+      "version": "0.2.27a0+9bf5aca"
+    },
+    {
+      "name": "nvfuser",
+      "version": "0.2.27a0+9bf5aca"
+    },
+    {
+      "name": "nvidia-cudnn-frontend",
+      "version": "1.12.0"
+    },
+    {
+      "name": "nvidia-dali-cuda120",
+      "version": "1.50.0"
+    },
+    {
+      "name": "nvidia-ml-py",
+      "version": "12.575.51"
+    },
+    {
+      "name": "nvidia-modelopt",
+      "version": "0.29.0"
+    },
+    {
+      "name": "nvidia-modelopt-core",
+      "version": "0.29.0"
+    },
+    {
+      "name": "nvidia-nvcomp-cu12",
+      "version": "4.2.0.14"
+    },
+    {
+      "name": "nvidia-nvimgcodec-cu12",
+      "version": "0.5.0.13"
+    },
+    {
+      "name": "nvidia-nvjpeg-cu12",
+      "version": "12.4.0.16"
+    },
+    {
+      "name": "nvidia-nvjpeg2k-cu12",
+      "version": "0.8.1.40"
+    },
+    {
+      "name": "nvidia-nvtiff-cu12",
+      "version": "0.5.0.67"
+    },
+    {
+      "name": "nvidia-resiliency-ext",
+      "version": "0.4.0"
+    },
+    {
+      "name": "nvtx",
+      "version": "0.2.11"
+    },
+    {
+      "name": "nx-cugraph",
+      "version": "25.4.0"
+    },
+    {
+      "name": "oauthlib",
+      "version": "3.2.2"
+    },
+    {
+      "name": "onnx",
+      "version": "1.17.0"
+    },
+    {
+      "name": "opencv-python",
+      "version": "4.11.0.86"
+    },
+    {
+      "name": "opt_einsum",
+      "version": "3.4.0"
+    },
+    {
+      "name": "optree",
+      "version": "0.16.0"
+    },
+    {
+      "name": "overrides",
+      "version": "7.7.0"
+    },
+    {
+      "name": "packaging",
+      "version": "23.2"
+    },
+    {
+      "name": "pandas",
+      "version": "2.2.3"
+    },
+    {
+      "name": "pandocfilters",
+      "version": "1.5.1"
+    },
+    {
+      "name": "parso",
+      "version": "0.8.4"
+    },
+    {
+      "name": "partd",
+      "version": "1.4.2"
+    },
+    {
+      "name": "pathspec",
+      "version": "0.12.1"
+    },
+    {
+      "name": "pexpect",
+      "version": "4.9.0"
+    },
+    {
+      "name": "pillow",
+      "version": "11.2.1"
+    },
+    {
+      "name": "pip",
+      "version": "24.0"
+    },
+    {
+      "name": "platformdirs",
+      "version": "4.3.8"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0"
+    },
+    {
+      "name": "ply",
+      "version": "3.11"
+    },
+    {
+      "name": "polars",
+      "version": "1.25.2"
+    },
+    {
+      "name": "polygraphy",
+      "version": "0.49.20"
+    },
+    {
+      "name": "pooch",
+      "version": "1.8.2"
+    },
+    {
+      "name": "preshed",
+      "version": "3.0.10"
+    },
+    {
+      "name": "prettytable",
+      "version": "3.16.0"
+    },
+    {
+      "name": "prometheus_client",
+      "version": "0.22.1"
+    },
+    {
+      "name": "prompt_toolkit",
+      "version": "3.0.51"
+    },
+    {
+      "name": "propcache",
+      "version": "0.3.1"
+    },
+    {
+      "name": "protobuf",
+      "version": "4.24.4"
+    },
+    {
+      "name": "psutil",
+      "version": "7.0.0"
+    },
+    {
+      "name": "ptyprocess",
+      "version": "0.7.0"
+    },
+    {
+      "name": "PuLP",
+      "version": "3.2.1"
+    },
+    {
+      "name": "pure_eval",
+      "version": "0.2.3"
+    },
+    {
+      "name": "pyarrow",
+      "version": "19.0.1"
+    },
+    {
+      "name": "pybind11",
+      "version": "2.13.6"
+    },
+    {
+      "name": "pybind11_global",
+      "version": "2.13.6"
+    },
+    {
+      "name": "pycocotools",
+      "version": "2.0.10"
+    },
+    {
+      "name": "pycparser",
+      "version": "2.22"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.11.5"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.33.2"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.19.1"
+    },
+    {
+      "name": "PyGObject",
+      "version": "3.48.2"
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.7.0"
+    },
+    {
+      "name": "pylibcudf",
+      "version": "25.4.0"
+    },
+    {
+      "name": "pylibcugraph",
+      "version": "25.4.0"
+    },
+    {
+      "name": "pylibcugraphops",
+      "version": "25.4.0"
+    },
+    {
+      "name": "pylibraft",
+      "version": "25.4.0"
+    },
+    {
+      "name": "pylibwholegraph",
+      "version": "25.4.0"
+    },
+    {
+      "name": "pynvjitlink",
+      "version": "0.3.0"
+    },
+    {
+      "name": "pynvml",
+      "version": "12.0.0"
+    },
+    {
+      "name": "pyparsing",
+      "version": "3.2.3"
+    },
+    {
+      "name": "pytest",
+      "version": "8.1.1"
+    },
+    {
+      "name": "pytest-flakefinder",
+      "version": "1.1.0"
+    },
+    {
+      "name": "pytest-rerunfailures",
+      "version": "15.1"
+    },
+    {
+      "name": "pytest-shard",
+      "version": "0.1.2"
+    },
+    {
+      "name": "pytest-xdist",
+      "version": "3.7.0"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0"
+    },
+    {
+      "name": "python-hostlist",
+      "version": "2.2.1"
+    },
+    {
+      "name": "python-json-logger",
+      "version": "3.3.0"
+    },
+    {
+      "name": "pytorch-triton",
+      "version": "3.3.0+git96316ce52.nvinternal"
+    },
+    {
+      "name": "pytz",
+      "version": "2023.4"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.2"
+    },
+    {
+      "name": "pyzmq",
+      "version": "26.4.0"
+    },
+    {
+      "name": "raft-dask",
+      "version": "25.4.0"
+    },
+    {
+      "name": "rapids-dask-dependency",
+      "version": "25.4.0a0"
+    },
+    {
+      "name": "rapids-logger",
+      "version": "0.1.18"
+    },
+    {
+      "name": "referencing",
+      "version": "0.36.2"
+    },
+    {
+      "name": "regex",
+      "version": "2024.11.6"
+    },
+    {
+      "name": "requests",
+      "version": "2.32.3"
+    },
+    {
+      "name": "rfc3339-validator",
+      "version": "0.1.4"
+    },
+    {
+      "name": "rfc3986-validator",
+      "version": "0.1.1"
+    },
+    {
+      "name": "rich",
+      "version": "14.0.0"
+    },
+    {
+      "name": "rmm",
+      "version": "25.4.0"
+    },
+    {
+      "name": "rpds-py",
+      "version": "0.25.1"
+    },
+    {
+      "name": "safetensors",
+      "version": "0.5.3"
+    },
+    {
+      "name": "scikit-image",
+      "version": "0.25.2"
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.6.1"
+    },
+    {
+      "name": "scipy",
+      "version": "1.15.3"
+    },
+    {
+      "name": "Send2Trash",
+      "version": "1.8.3"
+    },
+    {
+      "name": "setuptools",
+      "version": "78.1.1"
+    },
+    {
+      "name": "shellingham",
+      "version": "1.5.4"
+    },
+    {
+      "name": "six",
+      "version": "1.16.0"
+    },
+    {
+      "name": "smart-open",
+      "version": "7.1.0"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1"
+    },
+    {
+      "name": "sortedcontainers",
+      "version": "2.4.0"
+    },
+    {
+      "name": "soundfile",
+      "version": "0.13.1"
+    },
+    {
+      "name": "soupsieve",
+      "version": "2.7"
+    },
+    {
+      "name": "soxr",
+      "version": "0.5.0.post1"
+    },
+    {
+      "name": "spacy",
+      "version": "3.7.5"
+    },
+    {
+      "name": "spacy-legacy",
+      "version": "3.0.12"
+    },
+    {
+      "name": "spacy-loggers",
+      "version": "1.0.5"
+    },
+    {
+      "name": "srsly",
+      "version": "2.5.1"
+    },
+    {
+      "name": "ssh-import-id",
+      "version": "5.11"
+    },
+    {
+      "name": "stack-data",
+      "version": "0.6.3"
+    },
+    {
+      "name": "sympy",
+      "version": "1.14.0"
+    },
+    {
+      "name": "tabulate",
+      "version": "0.9.0"
+    },
+    {
+      "name": "tbb",
+      "version": "2021.13.1"
+    },
+    {
+      "name": "tblib",
+      "version": "3.1.0"
+    },
+    {
+      "name": "tensorboard",
+      "version": "2.16.2"
+    },
+    {
+      "name": "tensorboard-data-server",
+      "version": "0.7.2"
+    },
+    {
+      "name": "tensorboardX",
+      "version": "2.6.4"
+    },
+    {
+      "name": "tensorrt",
+      "version": "10.11.0.33"
+    },
+    {
+      "name": "terminado",
+      "version": "0.18.1"
+    },
+    {
+      "name": "thinc",
+      "version": "8.2.5"
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.6.0"
+    },
+    {
+      "name": "thriftpy2",
+      "version": "0.5.2"
+    },
+    {
+      "name": "tifffile",
+      "version": "2025.5.10"
+    },
+    {
+      "name": "tinycss2",
+      "version": "1.4.0"
+    },
+    {
+      "name": "toolz",
+      "version": "1.0.0"
+    },
+    {
+      "name": "torch",
+      "version": "2.8.0a0+5228986c39.nv25.6"
+    },
+    {
+      "name": "torch_tensorrt",
+      "version": "2.8.0a0"
+    },
+    {
+      "name": "torchao",
+      "version": "0.11.0+git"
+    },
+    {
+      "name": "torchprofile",
+      "version": "0.0.4"
+    },
+    {
+      "name": "torchvision",
+      "version": "0.22.0a0+95f10a4e"
+    },
+    {
+      "name": "tornado",
+      "version": "6.5.1"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.67.1"
+    },
+    {
+      "name": "traitlets",
+      "version": "5.14.3"
+    },
+    {
+      "name": "transformer_engine",
+      "version": "2.4.0+3cd6870"
+    },
+    {
+      "name": "treelite",
+      "version": "4.4.1"
+    },
+    {
+      "name": "typer",
+      "version": "0.16.0"
+    },
+    {
+      "name": "types-dataclasses",
+      "version": "0.6.6"
+    },
+    {
+      "name": "types-python-dateutil",
+      "version": "2.9.0.20250516"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.14.0"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.1"
+    },
+    {
+      "name": "tzdata",
+      "version": "2025.2"
+    },
+    {
+      "name": "ucx-py",
+      "version": "0.43.0"
+    },
+    {
+      "name": "ucxx",
+      "version": "0.43.0"
+    },
+    {
+      "name": "uri-template",
+      "version": "1.3.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.0.7"
+    },
+    {
+      "name": "wadllib",
+      "version": "1.3.6"
+    },
+    {
+      "name": "wasabi",
+      "version": "1.1.3"
+    },
+    {
+      "name": "wcwidth",
+      "version": "0.2.13"
+    },
+    {
+      "name": "weasel",
+      "version": "0.4.1"
+    },
+    {
+      "name": "webcolors",
+      "version": "24.11.1"
+    },
+    {
+      "name": "webencodings",
+      "version": "0.5.1"
+    },
+    {
+      "name": "websocket-client",
+      "version": "1.8.0"
+    },
+    {
+      "name": "Werkzeug",
+      "version": "3.1.3"
+    },
+    {
+      "name": "wheel",
+      "version": "0.45.1"
+    },
+    {
+      "name": "wrapt",
+      "version": "1.17.2"
+    },
+    {
+      "name": "xdoctest",
+      "version": "1.0.2"
+    },
+    {
+      "name": "xgboost",
+      "version": "2.1.4"
+    },
+    {
+      "name": "yarl",
+      "version": "1.20.0"
+    },
+    {
+      "name": "zarr",
+      "version": "2.18.7"
+    },
+    {
+      "name": "zict",
+      "version": "3.0.0"
+    },
+    {
+      "name": "zipp",
+      "version": "3.22.0"
+    }
+  ],
+  "pycocotools": "2.0.10",
+  "pycocotools_module": "/workspace/up-hardware-routing-20261021-accuracy/compat/pycocotools/__init__.py",
+  "python": "3.12.3",
+  "python_executable": "/workspace/up-hardware-routing-20261020/venv/bin/python",
+  "scipy": "1.15.3",
+  "scope": "Observed environment, not a universal installation contract",
+  "torch": "2.8.0a0+5228986c39.nv25.06",
+  "torchvision": "0.22.0a0+95f10a4e"
+}

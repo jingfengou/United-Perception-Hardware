@@ -1,0 +1,90 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+vit_b16 PASS
+{
+  "scope": "synthetic functional smoke; not dataset accuracy or convergence",
+  "models": {
+    "vit_b16": {
+      "training_losses": [
+        7.5163798332214355,
+        7.4046454429626465
+      ],
+      "finite_gradients": true,
+      "inference": true,
+      "loss_components": [
+        {
+          "BaseClsPostProcess.loss": 7.5163798332214355
+        },
+        {
+          "BaseClsPostProcess.loss": 7.4046454429626465
+        }
+      ],
+      "checkpoint_restore": true,
+      "legacy_helper_state_and_forward": true,
+      "state_keys": 152,
+      "state_key_sha256": "d16d656646ffe66cc249606b9ffbee883adc20ee9beeb7218fe025967efbf395",
+      "output_shapes": {
+        "/image": [
+          2,
+          3,
+          224,
+          224
+        ],
+        "/gt": [
+          2
+        ],
+        "/features/0/0": [
+          2,
+          768,
+          14,
+          14
+        ],
+        "/features/0/1": [
+          2,
+          768
+        ],
+        "/logits": [
+          2,
+          1000
+        ],
+        "/preds": [
+          2
+        ],
+        "/scores": [
+          2,
+          1000
+        ]
+      },
+      "input_shape": [
+        2,
+        3,
+        224,
+        224
+      ],
+      "class_count_config": 1000,
+      "aligned": false,
+      "seconds": 5.526
+    }
+  },
+  "errors": {},
+  "environment": {
+    "torch": "2.8.0a0+5228986c39.nv25.06",
+    "cuda": "12.9",
+    "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]"
+  },
+  "compatibility_shims": [
+    "collections.Iterable = collections.abc.Iterable (both processes)",
+    "numpy.float = float (original legacy dtype alias, both processes)",
+    "numpy.int = int (original AutoAugment dtype alias, both processes)"
+  ],
+  "synthetic_overrides": [
+    "small input sizes",
+    "SyncBN group_size=None",
+    "segmentation min_kept=128",
+    "point cloud grid=32x32x1",
+    "absolute anchor file",
+    "3D score threshold=0"
+  ],
+  "passed": true
+}

@@ -12,8 +12,8 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pip install pytest setuptools wheel packaging PyYAML numpy==1.26.4
+      - run: python -m pip install pytest setuptools wheel packaging PyYAML numpy==1.26.4 scipy==1.15.3
       - run: python tools/check_hardware_boundaries.py
       - run: python tools/export_accelerator_contract.py --check
-      - run: python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py
+      - run: python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py tests/test_multiseed_accuracy.py
       - run: UP_BUILD_BACKEND=none python -m pip wheel --no-deps --no-build-isolation .

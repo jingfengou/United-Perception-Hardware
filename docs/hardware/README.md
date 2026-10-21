@@ -2,6 +2,8 @@
 
 需要逐项核对硬件适配接口时，先读[完整接口定义](INTERFACE.md)，再查[全部函数签名](API_INDEX.md)或[机器可读清单](interface_contract.json)。这些清单与实际注册项通过自动检查保持一致。
 
+NVIDIA 原版/路由版训练对照见[五模型多随机种子报告](MULTISEED_ACCURACY.md)。它与能力注册、合成输入功能检查及国产设备真机验收是不同层面的证据。
+
 上层模型、损失函数、Runner 和推理 API 通过 `up.accelerator` 访问硬件。普通 PyTorch 计算、`new_zeros()`、继承输入设备的张量构造继续使用 PyTorch。
 
 ```text

@@ -1,0 +1,125 @@
+{
+  "equivalence_rule": {
+    "alpha": 0.05,
+    "confidence_level": 0.9,
+    "interpretation": "Fixed-holdout mean over training seeds only, not exact identity or full-benchmark equivalence",
+    "margin_percentage_points": 1.0,
+    "method": "paired Student t two one-sided tests (TOST)"
+  },
+  "models": {
+    "vit_b16": {
+      "all_bitwise_training_state_equal": true,
+      "all_strict_numeric_passed": true,
+      "baseline_mean": 22.340000534057616,
+      "baseline_std": 4.169891900141152,
+      "epochs": 20,
+      "equivalence_test": {
+        "alpha": 0.05,
+        "confidence_interval_90": [
+          0.0,
+          0.0
+        ],
+        "descriptive_confidence_interval_95": [
+          0.0,
+          0.0
+        ],
+        "equivalent_within_margin": true,
+        "interpretation": "Fixed-holdout mean over seeds only; not exact identity or full-benchmark equivalence",
+        "margin_percentage_points": 1.0,
+        "mean_delta_percentage_points": 0.0,
+        "n": 5,
+        "paired_deltas_percentage_points": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "std_delta_percentage_points": 0.0,
+        "tost_p_lower": 0.0,
+        "tost_p_upper": 0.0,
+        "tost_p_value": 0.0
+      },
+      "metric": "top1",
+      "pairs": [
+        {
+          "baseline": 19.55000114440918,
+          "bitwise_training_state_equal": true,
+          "delta_percentage_points": 0.0,
+          "report_hashes": [
+            "c42743d5a90badd69d7cb678e7ab1ab7f0c1b4a898843b89ec4c285f4be54945",
+            "ff8326e0468df6c10edb2b9fcbb423ab81d2e83a5b71ac591b27d7cc5f0dea7f"
+          ],
+          "routed": 19.55000114440918,
+          "seed": 131,
+          "steps_per_run": 3140,
+          "strict_numeric_passed": true
+        },
+        {
+          "baseline": 25.950000762939453,
+          "bitwise_training_state_equal": true,
+          "delta_percentage_points": 0.0,
+          "report_hashes": [
+            "fecbfe340eac054d6442864e1dcf823bf5d2ae201eff10c991776a635145a22d",
+            "b3828c5e072d0815652934bb21bb5cf32f6f3026a2c974c4040b78df730d6139"
+          ],
+          "routed": 25.950000762939453,
+          "seed": 132,
+          "steps_per_run": 3140,
+          "strict_numeric_passed": true
+        },
+        {
+          "baseline": 27.75,
+          "bitwise_training_state_equal": true,
+          "delta_percentage_points": 0.0,
+          "report_hashes": [
+            "3a4448151b9afbbe9bfffb8f3917c19d2e08498b361fff81f90f81584b6779b6",
+            "b6002b0c7905c3e4d3abb0560367e04c8ad0a7b11096dd80b443b1c83bde5084"
+          ],
+          "routed": 27.75,
+          "seed": 133,
+          "steps_per_run": 3140,
+          "strict_numeric_passed": true
+        },
+        {
+          "baseline": 19.05000114440918,
+          "bitwise_training_state_equal": true,
+          "delta_percentage_points": 0.0,
+          "report_hashes": [
+            "54aec166d610e93db51ed5a1dc48f9edc5c3bc0b7e6a04757404a570ed1b2340",
+            "ad6381a30ebe9512e98e958184eb6db8eaf00d6aa8dbe9024b3c61066043d141"
+          ],
+          "routed": 19.05000114440918,
+          "seed": 134,
+          "steps_per_run": 3140,
+          "strict_numeric_passed": true
+        },
+        {
+          "baseline": 19.399999618530273,
+          "bitwise_training_state_equal": true,
+          "delta_percentage_points": 0.0,
+          "report_hashes": [
+            "08f1151ca14b6cc9a5d393a2befbb45a6cc6584b24cc5ff6ff3ff40961a65fff",
+            "77efcfce022fe4671c70d4311e5cb48486d4ef2dc6858024d383bbdeb7549b4e"
+          ],
+          "routed": 19.399999618530273,
+          "seed": 135,
+          "steps_per_run": 3140,
+          "strict_numeric_passed": true
+        }
+      ],
+      "provenance": "Native UP ViT-B/16, all12blocks/width768, CIFAR10/64px token grid, random initialization, batch64, native dropout/AutoAugment/Cutmixup/label smoothing, AdamW7.5e-4/cosine",
+      "routed_mean": 22.340000534057616,
+      "routed_std": 4.169891900141152,
+      "same_version_controls": []
+    }
+  },
+  "plan_sha256": "3e897a53ce5279c9c08173d7a9323723651cf759652faaed18548ba1be0690b1",
+  "scope": "Additional native YOLOv5-S/ViT-B16 and corrected external DETR optimizer; fixed PennFudan/CIFAR-10 subsets, not COCO/ImageNet convergence",
+  "statistics_driver_sha256": "c44d8488d79bca4bc8cacf15ca812bd06b79fc4116618659f479872c6c6b70bf",
+  "statistics_environment": {
+    "python": "3.12.3",
+    "scipy": "1.15.3"
+  },
+  "status": "completed_for_declared_models"
+}

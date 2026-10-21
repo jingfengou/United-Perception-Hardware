@@ -36,13 +36,25 @@ def prepare_legacy_environment():
 
     collections.Iterable = collections.abc.Iterable
     np.float = float
+    np.int = int
     return ["collections.Iterable = collections.abc.Iterable (both processes)",
-            "numpy.float = float (original legacy dtype alias, both processes)"]
+            "numpy.float = float (original legacy dtype alias, both processes)",
+            "numpy.int = int (original AutoAugment dtype alias, both processes)"]
 
 
-def effective_config(root, data, model, seed, epochs):
+def effective_config(root, data, model, seed, epochs, protocol="legacy"):
     import yaml
 
+    if model in ("yolov5s", "vit_b16"):
+        if protocol != "multiseed_v2":
+            raise ValueError("Additional models require the predeclared multiseed_v2 protocol")
+        return additional_model_config(root, data, model, seed, epochs)
+    if model == "detr" and protocol == "multiseed_v2":
+        config, path = effective_config(root, data, model, seed, epochs, "multiseed_v1")
+        config["trainer"]["optimizer"]["special_param_group"] = [
+            {"key": "detector.backbone", "lr": 1e-5}]
+        config["trainer"]["lr_scheduler"]["warmup_register_type"] = "no_scale_lr"
+        return config, path
     path = ("configs/cls/resnet/res18.yaml" if model == "resnet18" else
             "configs/det/faster_rcnn/faster_rcnn_r50_fpn_1x.yaml")
     config = yaml.safe_load((root / path).read_text())
@@ -63,7 +75,7 @@ def effective_config(root, data, model, seed, epochs):
         kwargs["image_reader"]["kwargs"]["image_dir"] = selected[split]["image_dir"]
         if split == "test":
             evaluator = kwargs["evaluator"]["kwargs"]
-            if model == "faster_rcnn":
+            if model != "resnet18":
                 evaluator["gt_file"] = selected[split]["meta"]
         for transform in kwargs["transformer"]:
             options = transform.get("kwargs", {})
@@ -87,7 +99,120 @@ def effective_config(root, data, model, seed, epochs):
                 module["kwargs"]["num_classes"] = 2
         config["saver"]["pretrain_model"] = data["resnet50_weights"]["path"]
         config["dataset"]["dataloader"]["kwargs"].update(num_workers=0, pin_memory=True)
+    if protocol == "multiseed_v1":
+        ratios = (.6, .9) if model == "resnet18" else (2 / 3, 11 / 12)
+        config["trainer"]["lr_scheduler"]["kwargs"]["milestones"] = sorted({
+            max(1, int(epochs * ratio)) for ratio in ratios})
+        if model == "faster_rcnn":
+            config["trainer"]["lr_scheduler"]["warmup_iter"] = 60
+    elif protocol != "legacy":
+        raise ValueError("Unknown accuracy protocol: " + protocol)
+    if model == "detr":
+        if protocol != "multiseed_v1":
+            raise ValueError("DETR requires the explicitly labelled multiseed_v1 adapter protocol")
+        config["saver"].pop("pretrain_model", None)
+        config["net"] = [{"name": "detr", "type": "accuracy_detr_adapter.DetrForUP",
+                          "kwargs": {"source": data["detr"]["source"],
+                                     "checkpoint": data["detr"]["checkpoint"],
+                                     "source_sha256": data["detr"]["source_sha256"],
+                                     "checkpoint_sha256": data["detr"]["checkpoint_sha256"]}}]
+        config["trainer"]["optimizer"] = {
+            "type": "AdamW", "kwargs": {"lr": 1e-4, "weight_decay": 1e-4}}
+        config["hooks"] = [{"type": "grad_clipper", "kwargs": {
+            "mode": "pre_defined", "max_norm": .1, "norm_type": 2}}]
     return config, path
+
+
+def additional_model_config(root, data, model, seed, epochs):
+    import yaml
+
+    classification = model == "vit_b16"
+    path = ("configs/cls/vision_transformer/vit_b16_224.yaml" if classification else
+            "configs/det/yolov5/yolov5_small_silu.yaml")
+    config = yaml.safe_load((root / path).read_text())
+    config.setdefault("runtime", {}).update(
+        device="cuda", random_seed=seed, accelerator={"backend": "nvidia"})
+    config["args"] = {"backend": "dist", "display": 50, "no_running_config": True}
+    config["hooks"] = []
+    config["trainer"].update(max_epoch=epochs, test_freq=1 if classification else 10,
+                             save_freq=epochs, only_save_latest=False)
+    config["saver"] = {"auto_resume": False, "save_result": True}
+    selected = data["cifar10" if classification else "pennfudan"]
+    config["num_classes"] = 10 if classification else 2
+    for module in config["net"]:
+        if "num_classes" in module.get("kwargs", {}):
+            module["kwargs"]["num_classes"] = config["num_classes"]
+    for split in ("train", "test"):
+        dataset = config["dataset"][split]
+        kwargs = dataset["dataset"]["kwargs"]
+        kwargs["meta_file"] = selected[split]["meta"]
+        kwargs["image_reader"]["kwargs"]["image_dir"] = selected[split]["image_dir"]
+        if not classification and split == "test":
+            kwargs["evaluator"]["kwargs"]["gt_file"] = selected[split]["meta"]
+        for transform in kwargs["transformer"]:
+            options = transform.setdefault("kwargs", {})
+            if classification and transform["type"] in (
+                    "torch_random_resized_crop", "torch_center_crop", "torch_auto_augmentation"):
+                options["size"] = 64
+            elif classification and transform["type"] == "torch_resize":
+                options["size"] = 72
+            elif transform["type"] == "mosaic":
+                options["tar_size"] = 320
+            elif transform["type"] == "random_perspective":
+                options["border"] = [-160, -160]
+            elif transform["type"] == "keep_ar_resize_max":
+                options["max_size"] = 320
+        if classification:
+            dataset["batch_sampler"]["kwargs"]["batch_size"] = 64
+            dataset["dataloader"]["kwargs"].update(num_workers=0, pin_memory=True)
+            if split == "train":
+                dataset["dataloader"]["kwargs"]["batch_fn"]["kwargs"]["num_classes"] = 10
+    if classification:
+        # Keep all 12 blocks and 768-wide features; only the CIFAR input/token grid changes.
+        config["net"][0]["kwargs"]["image_size"] = 64
+        config["net"][2]["kwargs"]["cls_loss"]["kwargs"]["num_classes"] = 10
+        config["trainer"]["lr_scheduler"].update(warmup_iter=157, warmup_ratio=.01)
+        config["trainer"]["lr_scheduler"]["kwargs"].update(T_max=epochs, warm_epoch=1)
+    else:
+        config["ema"]["enable"] = False
+        config["dataset"]["batch_sampler"]["kwargs"]["batch_size"] = 64
+        config["dataset"]["dataloader"]["kwargs"].update(num_workers=0, pin_memory=True)
+        anchor = data["yolov5_anchors"]["path"]
+        config["net"][-1]["kwargs"]["cfg"]["anchor_generator"]["kwargs"]["base_anchors_file"] = anchor
+        scheduler = config["trainer"]["lr_scheduler"]
+        scheduler.update(warmup_iter=0, warmup_epochs=3, warmup_total_epochs=epochs)
+        scheduler["kwargs"]["T_max"] = epochs
+    return config, path
+
+
+def rng_hash():
+    import pickle
+    import random
+    import numpy as np
+    import torch
+
+    state = [random.getstate(), np.random.get_state(), torch.get_rng_state().numpy(),
+             torch.cuda.get_rng_state().cpu().numpy()]
+    return hashlib.sha256(pickle.dumps(state)).hexdigest()
+
+
+def batch_hash(value):
+    import numpy as np
+    import torch
+
+    def describe(item):
+        if isinstance(item, torch.Tensor):
+            item = item.detach().cpu().contiguous().numpy()
+        if isinstance(item, np.ndarray):
+            return [str(item.dtype), list(item.shape), hashlib.sha256(item.tobytes()).hexdigest()]
+        if isinstance(item, dict):
+            return {str(key): describe(child) for key, child in item.items()}
+        if isinstance(item, (tuple, list)):
+            return [describe(child) for child in item]
+        if item is None or isinstance(item, (str, int, float, bool)):
+            return item
+        raise TypeError("Unrecorded batch value: " + str(type(item)))
+    return hashlib.sha256(json.dumps(describe(value), sort_keys=True).encode()).hexdigest()
 
 
 def run(args):
@@ -100,6 +225,8 @@ def run(args):
     output.mkdir(parents=True, exist_ok=True)
     data_path = args.data.resolve()
     data = json.loads(data_path.read_text())
+    if args.model == "yolov5s" and file_hash(data["yolov5_anchors"]["path"]) != data["yolov5_anchors"]["sha256"]:
+        raise ValueError("Pinned YOLO anchor file changed")
     # The unmodified 2022 upstream imports this removed standard-library alias.
     # Both processes get the same import-only compatibility shim, no kernel shims.
     compatibility_shims = prepare_legacy_environment()
@@ -124,7 +251,7 @@ def run(args):
     torch.backends.cudnn.allow_tf32 = False
     torch.use_deterministic_algorithms(True)
     torch.cuda.set_device(0)
-    config, original_config = effective_config(root, data, args.model, args.seed, args.epochs)
+    config, original_config = effective_config(root, data, args.model, args.seed, args.epochs, args.protocol)
     config_digest = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
     (output / "effective_config.json").write_text(json.dumps(config, indent=2, sort_keys=True))
     config["saver"].update(save_dir=str(output / "checkpoints"), results_dir=str(output / "predictions"))
@@ -135,6 +262,15 @@ def run(args):
             super().__init__(owner)
             self.losses = []
             self.metrics = []
+            self.learning_rates = []
+            self.first_batch_sha256 = None
+            self.first_forward_rng_sha256 = None
+
+        def before_forward(self, cur_iter, batch):
+            self.learning_rates.append([float(group["lr"]) for group in self.runner_ref().optimizer.param_groups])
+            if self.first_batch_sha256 is None:
+                self.first_batch_sha256 = batch_hash(batch)
+                self.first_forward_rng_sha256 = rng_hash()
 
         def after_backward(self, cur_iter, loss):
             value = float(loss.detach())
@@ -149,9 +285,12 @@ def run(args):
     recorder = Recorder(runner)
     runner._hooks.hooks.append(recorder)
     initial_hash = state_hash(runner.model.state_dict())
+    initial_rng = rng_hash()
     started = time.monotonic()
     initial_metrics = dict(runner.evaluate())
     runner.train()
+    if len(recorder.losses) != runner.max_iter:
+        raise AssertionError("The entire declared optimizer-step budget was not completed")
     final_metrics = dict(runner.evaluate())
     final_state = {k: v.detach().cpu().clone() for k, v in runner.model.state_dict().items()}
     torch.save({"model": final_state, "optimizer": runner.optimizer.state_dict(),
@@ -169,14 +308,21 @@ def run(args):
     sources = {str(path.relative_to(root)): file_hash(path) for path in sorted((root / "up").rglob("*.py"))}
     binaries = {str(path.relative_to(root)): file_hash(path) for path in sorted((root / "up").rglob("*.so"))}
     report = {
-        "status": "completed", "scope": "real-data short-training regression, not full benchmark convergence",
+        "status": "completed", "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
         "model": args.model, "seed": args.seed, "epochs": args.epochs,
+        "protocol": args.protocol,
+        "model_provenance": "external official DETR adapter in both UP trees" if args.model == "detr" else "upstream UP model",
         "source_root": str(root), "original_config": original_config,
         "source_manifest_sha256": hashlib.sha256(json.dumps(sources, sort_keys=True).encode()).hexdigest(),
         "source_files": sources, "native_binaries": binaries,
         "effective_config_sha256": config_digest, "data_manifest_sha256": file_hash(data_path),
-        "data": data["cifar10" if args.model == "resnet18" else "pennfudan"],
+        "data": data["cifar10" if args.model in ("resnet18", "vit_b16") else "pennfudan"],
         "initial_state_sha256": initial_hash, "final_state_sha256": state_hash(final_state),
+        "initial_rng_sha256": initial_rng,
+        "first_batch_sha256": recorder.first_batch_sha256,
+        "first_forward_rng_sha256": recorder.first_forward_rng_sha256,
+        "learning_rates": recorder.learning_rates,
+        "expected_training_steps": runner.max_iter,
         "training_steps": len(recorder.losses), "losses": recorder.losses,
         "initial_metrics": initial_metrics, "epoch_metrics": recorder.metrics,
         "final_metrics": final_metrics, "restored_metrics": restored_metrics,
@@ -189,6 +335,8 @@ def run(args):
                         "default_tasks": os.environ["DEFAULT_TASKS"]},
         "compatibility_shims": compatibility_shims,
         "driver_sha256": file_hash(__file__),
+        "adapter_sha256": file_hash(Path(__file__).with_name("accuracy_detr_adapter.py")) if args.model == "detr" else None,
+        "external_model": data.get("detr") if args.model == "detr" else None,
     }
     (output / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
     print(json.dumps({k: report[k] for k in ("status", "model", "seed", "training_steps", "final_metrics")}, indent=2))
@@ -210,6 +358,11 @@ def compare(args):
                 "data_manifest_sha256", "initial_state_sha256", "driver_sha256", "environment"):
         if baseline[key] != routed[key]:
             differences.append("Mismatched " + key)
+    for key in ("protocol", "initial_rng_sha256", "first_batch_sha256", "first_forward_rng_sha256",
+                "learning_rates", "expected_training_steps", "adapter_sha256", "external_model"):
+        if baseline.get(key) != routed.get(key):
+            differences.append("Mismatched " + key)
+    precondition_differences = list(differences)
     states = [torch.load(path / "comparison_state.pt", map_location="cpu", weights_only=False)
               for path in args.compare]
     weights = {"max_abs_difference": 0., "not_close": []}
@@ -242,6 +395,8 @@ def compare(args):
                 if not math.isfinite(delta) or abs(delta) > args.metric_atol:
                     differences.append("Metric outside tolerance: " + key)
     report = {"passed": not differences, "differences": differences,
+              "preconditions_equal": not precondition_differences,
+              "precondition_differences": precondition_differences,
               "scope": baseline["scope"], "model": baseline["model"], "seed": baseline["seed"],
               "epochs": baseline["epochs"], "training_steps_per_version": baseline["training_steps"],
               "baseline_metrics": baseline["final_metrics"], "routed_metrics": routed["final_metrics"],
@@ -261,7 +416,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path)
     parser.add_argument("--data", type=Path)
-    parser.add_argument("--model", choices=("resnet18", "faster_rcnn"))
+    parser.add_argument("--model", choices=("resnet18", "faster_rcnn", "detr", "yolov5s", "vit_b16"))
+    parser.add_argument("--protocol", choices=("legacy", "multiseed_v1", "multiseed_v2"), default="legacy")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)

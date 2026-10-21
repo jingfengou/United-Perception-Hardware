@@ -1,0 +1,20 @@
+{
+  "no_up_changes_in_index": true,
+  "passed": true,
+  "raw_run_source_mismatches": [],
+  "roles": {
+    "baseline": {
+      "git_ref": "52aaeb9ed27a490820696d7754d19f98cd6ecd11",
+      "normalization": "CRLF to LF on both Git and server source",
+      "normalized_mismatches": [],
+      "python_files": 407
+    },
+    "routed": {
+      "git_ref": "092f428",
+      "normalization": "CRLF to LF on both Git and server source",
+      "normalized_mismatches": [],
+      "python_files": 436
+    }
+  },
+  "scope": "All copied main/preflight Python manifests match the frozen Git trees after CRLF normalization; native binary hashes retained per run"
+}

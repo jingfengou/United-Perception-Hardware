@@ -30,7 +30,9 @@ def prepare_config(path):
                 elif key == "min_kept":
                     value[key] = 128
                 elif key == "base_anchors_file":
-                    value[key] = str(ROOT / "configs/det_3d/pointpillar/anchors.json")
+                    anchor = ("configs/det/yolov5/anchors.json" if "yolov5" in path else
+                              "configs/det_3d/pointpillar/anchors.json")
+                    value[key] = str(ROOT / anchor)
                 elif key == "anchor_range":
                     value[key] = [0., -4., -3., 8., 4., 1.]
                 elif key == "score_thresh":
@@ -48,10 +50,14 @@ def image_input(kind, device):
     batch, height, width = (1, 128, 128) if kind == "faster_rcnn" else (2, 64, 128)
     if kind == "resnet18":
         height = width = 64
+    elif kind == "vit_b16":
+        height = width = 224
+    elif kind == "yolov5s":
+        height = width = 640
     value = {"image": torch.randn(batch, 3, height, width, device=device)}
-    if kind == "resnet18":
+    if kind in ("resnet18", "vit_b16"):
         value["gt"] = torch.tensor([1, 2], device=device)
-    elif kind == "faster_rcnn":
+    elif kind in ("faster_rcnn", "yolov5s"):
         value.update(
             image_info=[[height, width, 1., height, width, False] for _ in range(batch)],
             gt_bboxes=[torch.tensor([[15., 15., 65., 70., 1.]], device=device) for _ in range(batch)],
@@ -104,13 +110,15 @@ def legacy_helper(baseline):
 
 
 def run(args):
+    from validate_training_accuracy import prepare_legacy_environment
+    compatibility_shims = prepare_legacy_environment()
     from up.accelerator import configure_accelerator, get_accelerator
     configure_accelerator(backend="nvidia", reset=True)
     get_accelerator().set_device(args.device)
     import up
     up.initialize()
     from up.models.model_helper import ModelHelper
-    from up.flags import DIST_BACKEND
+    from up.flags import ALIGNED_FLAG, DIST_BACKEND
     DIST_BACKEND.backend = "dist"
     torch.set_num_threads(2)
     legacy = legacy_helper(args.baseline) if args.baseline else None
@@ -118,6 +126,7 @@ def run(args):
         "scope": "synthetic functional smoke; not dataset accuracy or convergence",
         "models": {}, "errors": {},
         "environment": {"torch": torch.__version__, "cuda": torch.version.cuda, "python": sys.version},
+        "compatibility_shims": compatibility_shims,
         "synthetic_overrides": ["small input sizes", "SyncBN group_size=None",
                                 "segmentation min_kept=128", "point cloud grid=32x32x1",
                                 "absolute anchor file", "3D score threshold=0"],
@@ -127,6 +136,8 @@ def run(args):
         "faster_rcnn": "configs/det/faster_rcnn/faster_rcnn_r50_fpn_1x.yaml",
         "pointpillars": "configs/det_3d/pointpillar/pointpillar.yaml",
         "hrnet18": "configs/seg/hrnet/hrnet18_1024x1024.yaml",
+        "yolov5s": "configs/det/yolov5/yolov5_small_silu.yaml",
+        "vit_b16": "configs/cls/vision_transformer/vit_b16_224.yaml",
     }
     for name, path in configs.items():
         if args.model and name != args.model:
@@ -135,11 +146,14 @@ def run(args):
         try:
             torch.manual_seed(20261020)
             config = prepare_config(path)
+            ALIGNED_FLAG.aligned = bool(config.get("runtime", {}).get("aligned", False))
+            ALIGNED_FLAG.offset = 0 if ALIGNED_FLAG.aligned else 1
             model = ModelHelper(copy.deepcopy(config["net"])).to(get_accelerator().device).float()
             make_input = lambda: point_input(config, get_accelerator().device) if name == "pointpillars" else (
                 image_input(name, get_accelerator().device))
             optimizer = torch.optim.SGD(model.parameters(), lr=1e-4)
             losses = []
+            loss_components = []
             for _ in range(2):
                 model.train()
                 optimizer.zero_grad(set_to_none=True)
@@ -153,6 +167,8 @@ def run(args):
                 assert gradients and all(torch.isfinite(g).all() for g in gradients)
                 optimizer.step()
                 losses.append(float(loss.detach()))
+                loss_components.append({key: float(value.sum().detach()) for key, value in output.items()
+                                        if "loss" in key and isinstance(value, torch.Tensor)})
             model.eval()
             sample = make_input()
             with torch.no_grad():
@@ -185,10 +201,14 @@ def run(args):
                 del old
             entry = {
                 "training_losses": losses, "finite_gradients": True, "inference": True,
+                "loss_components": loss_components,
                 "checkpoint_restore": True, "legacy_helper_state_and_forward": legacy_ok,
                 "state_keys": len(state["model"]),
                 "state_key_sha256": hashlib.sha256("\n".join(state["model"]).encode()).hexdigest(),
                 "output_shapes": {key: list(value.shape) for key, value in expected.items()},
+                "input_shape": list(sample["image"].shape) if "image" in sample else None,
+                "class_count_config": config.get("num_classes"),
+                "aligned": ALIGNED_FLAG.aligned,
                 "seconds": round(time.monotonic() - started, 3),
             }
             if name == "resnet18":
@@ -222,5 +242,5 @@ if __name__ == "__main__":
     parser.add_argument("--baseline")
     parser.add_argument("--device", type=int, default=0)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--model", choices=["resnet18", "faster_rcnn", "pointpillars", "hrnet18"])
+    parser.add_argument("--model", choices=["resnet18", "faster_rcnn", "pointpillars", "hrnet18", "yolov5s", "vit_b16"])
     run(parser.parse_args())

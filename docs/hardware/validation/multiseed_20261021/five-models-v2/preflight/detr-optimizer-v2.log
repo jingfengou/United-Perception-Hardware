@@ -1,0 +1,1362 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+2026-10-21 05:52:30,717-rk0-normalize.py#37:[1;33mimport error No module named 'mqbench'; If you need Mqbench to quantize model,      you should add Mqbench to this project. Or just ignore this error.[0m
+2026-10-21 05:52:30,717-rk0-normalize.py#44:[1;33mimport error No module named 'msbench'; If you need Msbench to prune model,     you should add Msbench to this project. Or just ignore this error.[0m
+node memory info before build {'node_mem_total': 1007.278, 'node_mem_used': 29.859, 'node_mem_used_percent': 3.6, 'node_swap_mem_total': 0.0, 'node_swap_mem_used_percent': 0.0}
+2026-10-21 05:52:31,421-rk0-base_runner.py#229:world size:1
+fatal: not a git repository (or any of the parent directories): .git
+2026-10-21 05:52:31,423-rk0-base_runner.py#276:current git version 
+2026-10-21 05:52:31,426-rk0-base_runner.py#178:build train:train done
+2026-10-21 05:52:31,427-rk0-data_builder.py#49:[1;33mWe use dist_test instead of dist for test.                     If you use a rank based dataset,                     you need to use the local_test as the test sampler[0m
+2026-10-21 05:52:31,427-rk0-data_builder.py#63:[1;33m'aspect_ratio_group' is not a 'test-friendly' choice, cause it may miss some images under some conditions. We use 'base' instead[0m
+2026-10-21 05:52:31,427-rk0-base_runner.py#178:build test:test done
+2026-10-21 05:52:32,501-rk0-base_runner.py#645:.detr (DetrForUP())
+     .detector (DETR())
+              .transformer (Transformer())
+                          .encoder (TransformerEncoder())
+                                  .layers (ModuleList())
+                                         .0 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                         .1 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                         .2 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                         .3 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                         .4 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                         .5 (TransformerEncoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                          .decoder (TransformerDecoder())
+                                  .layers (ModuleList())
+                                         .0 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                         .1 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                         .2 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                         .3 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                         .4 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                         .5 (TransformerDecoderLayer())
+                                           .self_attn (MultiheadAttention())
+                                                     - in_proj_weight: torch.float32
+                                                     - in_proj_bias: torch.float32
+                                                     .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                              - weight: torch.float32
+                                                              - bias: torch.float32
+                                           .multihead_attn (MultiheadAttention())
+                                                          - in_proj_weight: torch.float32
+                                                          - in_proj_bias: torch.float32
+                                                          .out_proj (NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True))
+                                                                   - weight: torch.float32
+                                                                   - bias: torch.float32
+                                           .linear1 (Linear(in_features=256, out_features=2048, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .dropout (Dropout(p=0.1, inplace=False))
+                                           .linear2 (Linear(in_features=2048, out_features=256, bias=True))
+                                                   - weight: torch.float32
+                                                   - bias: torch.float32
+                                           .norm1 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm2 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .norm3 (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                                 - weight: torch.float32
+                                                 - bias: torch.float32
+                                           .dropout1 (Dropout(p=0.1, inplace=False))
+                                           .dropout2 (Dropout(p=0.1, inplace=False))
+                                           .dropout3 (Dropout(p=0.1, inplace=False))
+                                  .norm (LayerNorm((256,), eps=1e-05, elementwise_affine=True))
+                                       - weight: torch.float32
+                                       - bias: torch.float32
+              .class_embed (Linear(in_features=256, out_features=2, bias=True))
+                          - weight: torch.float32
+                          - bias: torch.float32
+              .bbox_embed (MLP())
+                         .layers (ModuleList())
+                                .0 (Linear(in_features=256, out_features=256, bias=True))
+                                  - weight: torch.float32
+                                  - bias: torch.float32
+                                .1 (Linear(in_features=256, out_features=256, bias=True))
+                                  - weight: torch.float32
+                                  - bias: torch.float32
+                                .2 (Linear(in_features=256, out_features=4, bias=True))
+                                  - weight: torch.float32
+                                  - bias: torch.float32
+              .query_embed (Embedding(100, 256))
+                          - weight: torch.float32
+              .input_proj (Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1)))
+                         - weight: torch.float32
+                         - bias: torch.float32
+              .backbone (Joiner())
+                       .0 (BackboneBase())
+                         .body (IntermediateLayerGetter())
+                              .conv1 (Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False))
+                                    - [33;1mweight[0m: torch.float32
+                              .bn1 (FrozenBatchNorm2d())
+                              .relu (ReLU(inplace=True))
+                              .maxpool (MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False))
+                              .layer1 (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv1 (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                       .downsample (Sequential())
+                                                  .0 (Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                    - [33;1mweight[0m: torch.float32
+                                                  .1 (FrozenBatchNorm2d())
+                                     .1 (Bottleneck())
+                                       .conv1 (Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .2 (Bottleneck())
+                                       .conv1 (Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - [33;1mweight[0m: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                              .layer2 (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv1 (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                       .downsample (Sequential())
+                                                  .0 (Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False))
+                                                    - weight: torch.float32
+                                                  .1 (FrozenBatchNorm2d())
+                                     .1 (Bottleneck())
+                                       .conv1 (Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .2 (Bottleneck())
+                                       .conv1 (Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .3 (Bottleneck())
+                                       .conv1 (Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                              .layer3 (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv1 (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                       .downsample (Sequential())
+                                                  .0 (Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False))
+                                                    - weight: torch.float32
+                                                  .1 (FrozenBatchNorm2d())
+                                     .1 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .2 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .3 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .4 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .5 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                              .layer4 (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv1 (Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                       .downsample (Sequential())
+                                                  .0 (Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False))
+                                                    - weight: torch.float32
+                                                  .1 (FrozenBatchNorm2d())
+                                     .1 (Bottleneck())
+                                       .conv1 (Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                                     .2 (Bottleneck())
+                                       .conv1 (Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn1 (FrozenBatchNorm2d())
+                                       .conv2 (Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn2 (FrozenBatchNorm2d())
+                                       .conv3 (Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                             - weight: torch.float32
+                                       .bn3 (FrozenBatchNorm2d())
+                                       .relu (ReLU(inplace=True))
+                       .1 (PositionEmbeddingSine())
+     .criterion (FlatLabelCriterion())
+               .matcher (HungarianMatcher())
+     .postprocess (PostProcess())
+2026-10-21 05:52:32,502-rk0-optimizer_helper.py#148:build optimizer done
+2026-10-21 05:52:32,512-rk0-base_runner.py#310:test_freq: 1
+2026-10-21 05:52:32,512-rk0-base_runner.py#312:test_start: 1
+2026-10-21 05:52:32,512-rk0-base_runner.py#314:save_freq: 1
+2026-10-21 05:52:32,512-rk0-base_runner.py#325:only save latest: False
+2026-10-21 05:52:32,512-rk0-base_runner.py#326:save latest freq: 60
+2026-10-21 05:52:32,512-rk0-base_runner.py#327:save_start: 1
+2026-10-21 05:52:32,512-rk0-base_runner.py#330:max_iter: 60
+2026-10-21 05:52:32,512-rk0-base_runner.py#332:is_eval: True
+2026-10-21 05:52:32,521-rk0-base_runner.py#297:build hooks done
+2026-10-21 05:52:32,521-rk0-saver_helper.py#86:[1;33mLoad nothing! No weights provided {}[0m
+2026-10-21 05:52:32,521-rk0-model_helper.py#146:Try to load the whole resume model or pretrained detection model...
+2026-10-21 05:52:32,526-rk0-model_helper.py#163:Failed to load the whole detection model directly, trying to load each part seperately...
+2026-10-21 05:52:32,531-rk0-model_helper.py#208:Loading detr:0 shared keys, 0 unexpected keys, 459 missing keys.
+missing keys are as follows:
+    detector.transformer.decoder.layers.3.self_attn.in_proj_bias
+    detector.transformer.decoder.layers.2.multihead_attn.out_proj.bias
+    detector.backbone.0.body.layer4.0.bn3.running_var
+    detector.transformer.decoder.layers.2.multihead_attn.out_proj.weight
+    detector.transformer.decoder.layers.3.norm3.bias
+    detector.backbone.0.body.layer3.2.bn3.weight
+    detector.backbone.0.body.layer4.0.conv3.weight
+    detector.backbone.0.body.layer3.0.bn3.bias
+    detector.backbone.0.body.layer3.0.bn2.running_var
+    detector.transformer.decoder.layers.5.norm2.weight
+    detector.backbone.0.body.layer2.2.bn1.running_mean
+    detector.transformer.encoder.layers.5.norm1.bias
+    detector.backbone.0.body.layer1.2.conv1.weight
+    detector.transformer.encoder.layers.2.norm2.bias
+    detector.backbone.0.body.layer2.3.bn3.bias
+    detector.transformer.encoder.layers.3.norm1.weight
+    detector.transformer.decoder.layers.0.norm3.bias
+    detector.backbone.0.body.bn1.bias
+    detector.transformer.decoder.layers.1.norm2.weight
+    detector.backbone.0.body.layer2.3.conv2.weight
+    detector.backbone.0.body.layer3.2.bn1.running_mean
+    detector.transformer.encoder.layers.5.linear1.bias
+    detector.transformer.decoder.layers.5.multihead_attn.out_proj.weight
+    detector.backbone.0.body.layer3.0.downsample.1.running_mean
+    detector.backbone.0.body.layer3.5.conv2.weight
+    detector.backbone.0.body.layer4.2.conv1.weight
+    detector.transformer.decoder.layers.5.linear1.bias
+    detector.backbone.0.body.layer4.2.bn3.running_var
+    detector.backbone.0.body.layer3.4.bn3.bias
+    detector.backbone.0.body.layer2.0.bn3.running_mean
+    detector.backbone.0.body.layer4.0.bn1.running_var
+    detector.backbone.0.body.layer1.1.bn1.weight
+    detector.transformer.encoder.layers.3.linear1.bias
+    detector.backbone.0.body.layer2.0.bn2.weight
+    detector.backbone.0.body.layer2.0.bn3.bias
+    detector.transformer.decoder.layers.5.multihead_attn.out_proj.bias
+    detector.transformer.decoder.layers.2.linear1.weight
+    detector.backbone.0.body.layer4.1.conv2.weight
+    detector.backbone.0.body.layer4.1.bn3.weight
+    detector.backbone.0.body.layer2.1.bn2.running_mean
+    detector.query_embed.weight
+    detector.transformer.decoder.layers.3.norm2.bias
+    detector.backbone.0.body.layer2.2.bn1.bias
+    detector.transformer.encoder.layers.0.norm2.bias
+    detector.bbox_embed.layers.1.bias
+    detector.backbone.0.body.layer2.0.conv3.weight
+    detector.backbone.0.body.layer3.3.bn1.weight
+    detector.class_embed.weight
+    detector.bbox_embed.layers.2.weight
+    detector.transformer.decoder.layers.2.self_attn.in_proj_weight
+    detector.backbone.0.body.layer1.2.bn1.running_mean
+    detector.transformer.encoder.layers.3.self_attn.out_proj.weight
+    detector.transformer.decoder.layers.1.multihead_attn.in_proj_weight
+    detector.backbone.0.body.layer2.2.bn2.running_var
+    detector.backbone.0.body.layer2.3.bn2.running_var
+    detector.transformer.encoder.layers.0.self_attn.in_proj_bias
+    detector.transformer.encoder.layers.1.self_attn.out_proj.weight
+    detector.backbone.0.body.layer4.0.bn1.running_mean
+    detector.transformer.encoder.layers.5.self_attn.out_proj.weight
+    detector.backbone.0.body.layer3.3.bn2.running_var
+    detector.backbone.0.body.layer3.5.bn2.running_var
+    detector.backbone.0.body.layer4.0.bn3.running_mean
+    detector.transformer.decoder.layers.1.norm3.bias
+    detector.backbone.0.body.layer3.2.bn1.running_var
+    detector.backbone.0.body.layer3.2.bn2.bias
+    detector.backbone.0.body.layer2.2.bn2.weight
+    detector.transformer.decoder.layers.4.linear2.bias
+    detector.backbone.0.body.layer3.0.bn1.running_mean
+    detector.transformer.encoder.layers.4.self_attn.in_proj_weight
+    detector.transformer.decoder.layers.0.norm2.weight
+    detector.backbone.0.body.layer2.1.conv2.weight
+    detector.backbone.0.body.layer2.2.conv3.weight
+    detector.transformer.decoder.layers.4.linear1.weight
+    detector.transformer.decoder.layers.2.linear2.weight
+    detector.backbone.0.body.layer4.0.downsample.1.bias
+    detector.backbone.0.body.layer3.5.bn2.running_mean
+    detector.backbone.0.body.layer4.2.bn2.running_mean
+    detector.transformer.encoder.layers.2.linear2.bias
+    detector.transformer.encoder.layers.5.self_attn.in_proj_weight
+    detector.transformer.encoder.layers.5.self_attn.out_proj.bias
+    detector.transformer.decoder.layers.1.linear1.bias
+    detector.backbone.0.body.layer3.1.bn3.running_mean
+    detector.backbone.0.body.layer3.2.bn3.running_var
+    detector.backbone.0.body.layer3.4.bn3.running_mean
+    detector.transformer.encoder.layers.2.norm1.bias
+    detector.transformer.decoder.layers.2.self_attn.out_proj.bias
+    detector.backbone.0.body.layer3.3.bn2.bias
+    detector.transformer.decoder.layers.0.norm2.bias
+    detector.backbone.0.body.layer2.0.bn1.running_var
+    detector.backbone.0.body.layer3.0.bn2.running_mean
+    detector.transformer.encoder.layers.2.linear1.weight
+    detector.transformer.encoder.layers.3.self_attn.in_proj_bias
+    detector.backbone.0.body.bn1.weight
+    detector.backbone.0.body.layer4.1.bn2.weight
+    detector.transformer.encoder.layers.5.norm2.weight
+    detector.backbone.0.body.layer2.0.downsample.0.weight
+    detector.transformer.encoder.layers.2.linear1.bias
+    detector.backbone.0.body.layer2.1.bn3.running_mean
+    detector.backbone.0.body.layer4.2.bn2.bias
+    detector.transformer.encoder.layers.0.linear1.bias
+    detector.transformer.decoder.layers.0.norm1.bias
+    detector.backbone.0.body.layer3.1.bn2.running_mean
+    detector.transformer.encoder.layers.1.self_attn.in_proj_weight
+    detector.backbone.0.body.layer2.3.bn1.running_var
+    detector.transformer.decoder.layers.0.multihead_attn.in_proj_weight
+    detector.backbone.0.body.layer2.1.bn1.weight
+    detector.backbone.0.body.layer3.4.bn2.bias
+    detector.transformer.encoder.layers.1.norm1.bias
+    detector.backbone.0.body.layer2.1.conv1.weight
+    detector.backbone.0.body.layer1.2.bn2.weight
+    detector.transformer.decoder.layers.5.norm2.bias
+    detector.backbone.0.body.layer1.0.conv3.weight
+    detector.transformer.encoder.layers.2.self_attn.out_proj.bias
+    detector.backbone.0.body.layer1.2.bn2.running_var
+    detector.backbone.0.body.layer1.0.conv2.weight
+    detector.transformer.encoder.layers.0.self_attn.out_proj.bias
+    detector.transformer.decoder.layers.1.linear1.weight
+    detector.backbone.0.body.layer3.0.bn3.running_var
+    detector.backbone.0.body.layer3.4.bn2.running_var
+    detector.backbone.0.body.layer1.2.bn1.running_var
+    detector.transformer.encoder.layers.4.norm2.bias
+    detector.backbone.0.body.layer3.1.bn2.running_var
+    detector.transformer.encoder.layers.5.linear2.bias
+    detector.transformer.decoder.layers.5.self_attn.out_proj.bias
+    detector.transformer.decoder.layers.2.multihead_attn.in_proj_bias
+    detector.transformer.encoder.layers.1.self_attn.out_proj.bias
+    detector.backbone.0.body.layer3.5.bn1.bias
+    detector.backbone.0.body.layer3.0.bn3.running_mean
+    detector.transformer.encoder.layers.3.self_attn.out_proj.bias
+    detector.transformer.decoder.layers.2.norm3.weight
+    detector.class_embed.bias
+    detector.transformer.encoder.layers.5.norm2.bias
+    detector.backbone.0.body.layer2.3.bn3.weight
+    detector.transformer.encoder.layers.4.linear1.bias
+    detector.transformer.encoder.layers.5.self_attn.in_proj_bias
+    detector.transformer.decoder.layers.0.norm1.weight
+    detector.backbone.0.body.layer3.2.conv2.weight
+    detector.backbone.0.body.layer4.1.bn2.running_var
+    detector.transformer.decoder.layers.2.multihead_attn.in_proj_weight
+    detector.backbone.0.body.layer4.1.bn3.running_mean
+    detector.transformer.decoder.layers.2.norm1.weight
+    detector.backbone.0.body.layer2.0.bn3.running_var
+    detector.transformer.encoder.layers.1.norm2.bias
+    detector.transformer.decoder.layers.5.norm3.bias
+    detector.backbone.0.body.layer1.1.bn1.bias
+    detector.transformer.decoder.layers.1.multihead_attn.out_proj.weight
+    detector.backbone.0.body.layer2.3.bn2.bias
+    detector.input_proj.bias
+    detector.transformer.decoder.layers.5.norm1.bias
+    detector.transformer.decoder.layers.4.multihead_attn.out_proj.bias
+    detector.transformer.encoder.layers.4.norm1.bias
+    detector.backbone.0.body.layer4.2.conv2.weight
+    detector.backbone.0.body.layer3.2.bn3.bias
+    detector.transformer.encoder.layers.4.norm2.weight
+    detector.backbone.0.body.layer1.0.bn3.bias
+    detector.transformer.decoder.layers.4.multihead_attn.out_proj.weight
+    detector.backbone.0.body.layer4.2.conv3.weight
+    detector.transformer.decoder.layers.4.multihead_attn.in_proj_bias
+    detector.backbone.0.body.layer3.3.bn1.bias
+    detector.backbone.0.body.layer3.5.bn3.weight
+    detector.transformer.decoder.layers.0.self_attn.out_proj.weight
+    detector.backbone.0.body.layer3.5.bn1.running_var
+    detector.backbone.0.body.layer1.1.bn1.running_mean
+    detector.backbone.0.body.layer1.2.bn3.weight
+    detector.backbone.0.body.layer4.0.conv2.weight
+    detector.transformer.decoder.layers.2.norm2.bias
+    detector.transformer.decoder.layers.1.norm3.weight
+    detector.transformer.encoder.layers.0.linear2.bias
+    detector.transformer.decoder.layers.1.self_attn.out_proj.bias
+    detector.backbone.0.body.layer2.3.bn2.weight
+    detector.transformer.decoder.layers.0.multihead_attn.out_proj.weight
+    detector.backbone.0.body.layer3.3.bn3.weight
+    detector.backbone.0.body.layer1.0.bn1.running_var
+    detector.backbone.0.body.layer1.0.bn2.bias
+    detector.backbone.0.body.layer4.1.bn2.bias
+    detector.transformer.decoder.layers.5.norm1.weight
+    detector.backbone.0.body.layer3.2.bn2.weight
+    detector.transformer.encoder.layers.4.linear2.bias
+    detector.backbone.0.body.layer2.2.bn2.running_mean
+    detector.backbone.0.body.layer2.0.bn2.bias
+    detector.transformer.encoder.layers.0.self_attn.out_proj.weight
+    detector.backbone.0.body.layer4.2.bn2.running_var
+    detector.backbone.0.body.layer4.1.bn1.running_mean
+    detector.backbone.0.body.layer1.0.downsample.1.bias
+    detector.transformer.encoder.layers.0.linear2.weight
+    detector.transformer.decoder.layers.1.multihead_attn.in_proj_bias
+    detector.transformer.decoder.layers.2.norm3.bias
+    detector.backbone.0.body.layer1.1.conv3.weight
+    detector.transformer.decoder.layers.1.linear2.bias
+    detector.backbone.0.body.layer1.1.conv1.weight
+    detector.transformer.encoder.layers.1.linear1.weight
+    detector.transformer.decoder.layers.4.norm3.bias
+    detector.transformer.encoder.layers.4.norm1.weight
+    detector.backbone.0.body.layer2.3.bn3.running_var
+    detector.transformer.decoder.layers.0.multihead_attn.in_proj_bias
+    detector.backbone.0.body.layer1.2.bn2.bias
+    detector.backbone.0.body.layer2.0.bn3.weight
+    detector.transformer.decoder.norm.weight
+    detector.transformer.encoder.layers.2.norm1.weight
+    detector.transformer.decoder.layers.4.self_attn.in_proj_bias
+    detector.transformer.encoder.layers.5.norm1.weight
+    detector.backbone.0.body.layer3.0.conv3.weight
+    detector.backbone.0.body.layer3.4.conv2.weight
+    detector.backbone.0.body.conv1.weight
+    detector.transformer.decoder.norm.bias
+    detector.backbone.0.body.layer3.0.bn1.weight
+    detector.backbone.0.body.layer3.5.bn1.running_mean
+    detector.transformer.decoder.layers.5.norm3.weight
+    detector.transformer.decoder.layers.3.multihead_attn.out_proj.bias
+    detector.backbone.0.body.layer2.0.bn1.running_mean
+    detector.backbone.0.body.layer3.3.bn3.bias
+    detector.transformer.encoder.layers.5.linear1.weight
+    detector.backbone.0.body.layer2.0.downsample.1.running_var
+    detector.backbone.0.body.layer1.2.bn1.bias
+    detector.transformer.encoder.layers.3.norm2.bias
+    detector.backbone.0.body.layer1.0.bn3.weight
+    detector.backbone.0.body.layer4.0.bn1.weight
+    detector.backbone.0.body.layer3.5.bn2.weight
+    detector.backbone.0.body.layer3.1.bn3.weight
+    detector.backbone.0.body.layer3.0.bn2.bias
+    detector.backbone.0.body.layer3.3.bn1.running_var
+    detector.backbone.0.body.layer1.0.bn1.running_mean
+    detector.backbone.0.body.layer3.0.conv1.weight
+    detector.transformer.decoder.layers.3.norm2.weight
+    detector.backbone.0.body.layer3.2.conv1.weight
+    detector.backbone.0.body.layer3.3.conv1.weight
+    detector.backbone.0.body.layer3.4.bn1.weight
+    detector.backbone.0.body.layer3.1.bn2.weight
+    detector.transformer.decoder.layers.3.linear2.bias
+    detector.backbone.0.body.layer3.3.conv3.weight
+    detector.backbone.0.body.layer4.0.downsample.0.weight
+    detector.bbox_embed.layers.1.weight
+    detector.backbone.0.body.layer1.1.bn3.weight
+    detector.transformer.decoder.layers.1.linear2.weight
+    detector.backbone.0.body.layer4.2.bn3.weight
+    detector.backbone.0.body.layer1.0.bn1.weight
+    detector.backbone.0.body.layer3.2.bn1.bias
+    detector.transformer.encoder.layers.1.norm1.weight
+    detector.backbone.0.body.layer1.2.conv3.weight
+    detector.backbone.0.body.layer3.1.conv1.weight
+    detector.backbone.0.body.layer4.0.bn2.bias
+    detector.backbone.0.body.layer4.1.bn3.bias
+    detector.transformer.decoder.layers.1.norm1.bias
+    detector.backbone.0.body.layer3.2.bn3.running_mean
+    detector.backbone.0.body.layer3.2.bn2.running_mean
+    detector.backbone.0.body.bn1.running_mean
+    detector.transformer.encoder.layers.3.linear2.weight
+    detector.backbone.0.body.layer2.3.bn1.running_mean
+    detector.transformer.decoder.layers.4.norm2.bias
+    detector.transformer.decoder.layers.1.self_attn.in_proj_bias
+    detector.transformer.decoder.layers.5.multihead_attn.in_proj_bias
+    detector.backbone.0.body.layer3.4.bn2.running_mean
+    detector.transformer.decoder.layers.3.norm3.weight
+    detector.backbone.0.body.layer4.2.bn1.running_mean
+    detector.backbone.0.body.layer3.2.bn1.weight
+    detector.backbone.0.body.layer2.1.bn1.running_var
+    detector.bbox_embed.layers.0.weight
+    detector.transformer.decoder.layers.4.self_attn.in_proj_weight
+    detector.backbone.0.body.layer2.1.bn2.weight
+    detector.transformer.decoder.layers.5.linear2.bias
+    detector.backbone.0.body.layer2.3.conv1.weight
+    detector.transformer.decoder.layers.2.self_attn.out_proj.weight
+    detector.backbone.0.body.layer3.5.bn2.bias
+    detector.backbone.0.body.layer3.4.bn1.bias
+    detector.transformer.decoder.layers.4.self_attn.out_proj.weight
+    detector.backbone.0.body.layer3.3.bn2.weight
+    detector.backbone.0.body.layer1.0.bn2.weight
+    detector.backbone.0.body.layer3.5.bn3.bias
+    detector.backbone.0.body.layer2.2.conv2.weight
+    detector.backbone.0.body.layer1.1.bn2.running_mean
+    detector.transformer.decoder.layers.1.norm2.bias
+    detector.backbone.0.body.layer3.0.downsample.1.bias
+    detector.transformer.decoder.layers.5.multihead_attn.in_proj_weight
+    detector.backbone.0.body.bn1.running_var
+    detector.transformer.decoder.layers.4.norm1.weight
+    detector.transformer.decoder.layers.3.linear1.bias
+    detector.backbone.0.body.layer2.3.conv3.weight
+    detector.transformer.encoder.layers.1.self_attn.in_proj_bias
+    detector.transformer.encoder.layers.2.self_attn.in_proj_weight
+    detector.backbone.0.body.layer3.0.bn1.running_var
+    detector.transformer.decoder.layers.5.linear2.weight
+    detector.backbone.0.body.layer3.1.bn1.bias
+    detector.transformer.encoder.layers.0.self_attn.in_proj_weight
+    detector.backbone.0.body.layer1.0.bn2.running_var
+    detector.backbone.0.body.layer4.0.bn2.weight
+    detector.backbone.0.body.layer3.3.bn3.running_var
+    detector.backbone.0.body.layer3.1.bn3.bias
+    detector.transformer.encoder.layers.2.self_attn.out_proj.weight
+    detector.transformer.decoder.layers.3.self_attn.in_proj_weight
+    detector.backbone.0.body.layer1.1.conv2.weight
+    detector.transformer.decoder.layers.3.linear1.weight
+    detector.backbone.0.body.layer3.1.bn3.running_var
+    detector.backbone.0.body.layer1.0.downsample.1.running_var
+    detector.backbone.0.body.layer1.2.bn3.bias
+    detector.transformer.decoder.layers.3.norm1.bias
+    detector.transformer.encoder.layers.4.linear1.weight
+    detector.backbone.0.body.layer4.1.bn1.running_var
+    detector.transformer.encoder.layers.0.linear1.weight
+    detector.backbone.0.body.layer3.0.downsample.1.running_var
+    detector.backbone.0.body.layer2.1.bn3.weight
+    detector.bbox_embed.layers.2.bias
+    detector.backbone.0.body.layer2.1.bn3.running_var
+    detector.transformer.decoder.layers.4.linear1.bias
+    detector.transformer.encoder.layers.1.norm2.weight
+    detector.backbone.0.body.layer2.3.bn3.running_mean
+    detector.transformer.decoder.layers.2.norm1.bias
+    detector.backbone.0.body.layer4.0.bn3.bias
+    detector.transformer.decoder.layers.4.norm2.weight
+    detector.backbone.0.body.layer2.1.bn3.bias
+    detector.backbone.0.body.layer3.1.conv2.weight
+    detector.backbone.0.body.layer3.0.downsample.1.weight
+    detector.backbone.0.body.layer4.0.bn1.bias
+    detector.backbone.0.body.layer2.2.bn2.bias
+    detector.backbone.0.body.layer3.2.bn2.running_var
+    detector.backbone.0.body.layer4.1.conv1.weight
+    detector.bbox_embed.layers.0.bias
+    detector.transformer.encoder.layers.3.norm1.bias
+    detector.transformer.encoder.layers.0.norm1.bias
+    detector.backbone.0.body.layer2.2.bn1.weight
+    detector.backbone.0.body.layer4.2.bn1.running_var
+    detector.backbone.0.body.layer2.2.bn3.running_mean
+    detector.backbone.0.body.layer1.1.bn2.weight
+    detector.backbone.0.body.layer1.1.bn3.bias
+    detector.backbone.0.body.layer1.0.downsample.0.weight
+    detector.transformer.decoder.layers.4.norm3.weight
+    detector.backbone.0.body.layer2.0.bn2.running_var
+    detector.backbone.0.body.layer2.0.downsample.1.running_mean
+    detector.transformer.decoder.layers.2.linear1.bias
+    detector.transformer.decoder.layers.4.multihead_attn.in_proj_weight
+    detector.backbone.0.body.layer3.0.conv2.weight
+    detector.backbone.0.body.layer3.4.bn1.running_mean
+    detector.backbone.0.body.layer2.2.bn3.running_var
+    detector.transformer.decoder.layers.3.multihead_attn.out_proj.weight
+    detector.backbone.0.body.layer4.0.downsample.1.running_var
+    detector.backbone.0.body.layer4.0.conv1.weight
+    detector.backbone.0.body.layer3.2.conv3.weight
+    detector.backbone.0.body.layer2.2.bn1.running_var
+    detector.backbone.0.body.layer3.3.conv2.weight
+    detector.transformer.decoder.layers.3.linear2.weight
+    detector.backbone.0.body.layer2.0.bn2.running_mean
+    detector.transformer.decoder.layers.1.self_attn.out_proj.weight
+    detector.transformer.encoder.layers.4.self_attn.out_proj.weight
+    detector.backbone.0.body.layer2.3.bn1.bias
+    detector.backbone.0.body.layer1.2.bn3.running_mean
+    detector.backbone.0.body.layer1.0.downsample.1.running_mean
+    detector.transformer.decoder.layers.3.self_attn.out_proj.bias
+    detector.backbone.0.body.layer3.4.conv3.weight
+    detector.transformer.decoder.layers.4.norm1.bias
+    detector.transformer.encoder.layers.3.self_attn.in_proj_weight
+    detector.backbone.0.body.layer4.2.bn3.running_mean
+    detector.backbone.0.body.layer2.1.conv3.weight
+    detector.backbone.0.body.layer4.0.bn2.running_mean
+    detector.backbone.0.body.layer1.2.bn2.running_mean
+    criterion.empty_weight
+    detector.backbone.0.body.layer2.1.bn1.running_mean
+    detector.backbone.0.body.layer4.2.bn3.bias
+    detector.backbone.0.body.layer2.2.bn3.weight
+    detector.transformer.encoder.layers.5.linear2.weight
+    detector.backbone.0.body.layer3.5.conv3.weight
+    detector.backbone.0.body.layer3.5.bn3.running_mean
+    detector.transformer.encoder.layers.1.linear1.bias
+    detector.transformer.decoder.layers.3.norm1.weight
+    detector.backbone.0.body.layer3.1.conv3.weight
+    detector.backbone.0.body.layer3.4.bn3.running_var
+    detector.backbone.0.body.layer3.5.conv1.weight
+    detector.backbone.0.body.layer3.1.bn2.bias
+    detector.transformer.decoder.layers.2.self_attn.in_proj_bias
+    detector.transformer.encoder.layers.2.norm2.weight
+    detector.transformer.decoder.layers.1.multihead_attn.out_proj.bias
+    detector.transformer.decoder.layers.3.multihead_attn.in_proj_weight
+    detector.transformer.decoder.layers.4.self_attn.out_proj.bias
+    detector.backbone.0.body.layer3.3.bn2.running_mean
+    detector.backbone.0.body.layer3.3.bn1.running_mean
+    detector.backbone.0.body.layer1.0.bn3.running_mean
+    detector.backbone.0.body.layer3.4.bn3.weight
+    detector.transformer.encoder.layers.2.self_attn.in_proj_bias
+    detector.backbone.0.body.layer3.0.bn1.bias
+    detector.backbone.0.body.layer3.1.bn1.running_mean
+    detector.backbone.0.body.layer3.1.bn1.running_var
+    detector.transformer.decoder.layers.0.norm3.weight
+    detector.transformer.encoder.layers.4.self_attn.in_proj_bias
+    detector.transformer.decoder.layers.5.linear1.weight
+    detector.transformer.decoder.layers.0.linear1.weight
+    detector.transformer.encoder.layers.4.self_attn.out_proj.bias
+    detector.transformer.encoder.layers.3.linear1.weight
+    detector.backbone.0.body.layer4.0.bn3.weight
+    detector.backbone.0.body.layer3.4.conv1.weight
+    detector.transformer.decoder.layers.0.linear2.bias
+    detector.backbone.0.body.layer4.2.bn1.bias
+    detector.backbone.0.body.layer4.1.bn1.bias
+    detector.backbone.0.body.layer3.5.bn3.running_var
+    detector.backbone.0.body.layer2.0.conv1.weight
+    detector.input_proj.weight
+    detector.backbone.0.body.layer1.1.bn3.running_mean
+    detector.backbone.0.body.layer4.2.bn2.weight
+    detector.backbone.0.body.layer2.1.bn2.running_var
+    detector.transformer.encoder.layers.4.linear2.weight
+    detector.transformer.encoder.layers.3.norm2.weight
+    detector.backbone.0.body.layer3.0.downsample.0.weight
+    detector.transformer.decoder.layers.5.self_attn.out_proj.weight
+    detector.backbone.0.body.layer4.1.bn3.running_var
+    detector.transformer.decoder.layers.0.linear2.weight
+    detector.backbone.0.body.layer1.0.bn2.running_mean
+    detector.backbone.0.body.layer1.2.bn1.weight
+    detector.backbone.0.body.layer2.0.conv2.weight
+    detector.backbone.0.body.layer2.0.downsample.1.weight
+    detector.backbone.0.body.layer3.0.bn2.weight
+    detector.transformer.decoder.layers.2.norm2.weight
+    detector.backbone.0.body.layer1.2.conv2.weight
+    detector.backbone.0.body.layer2.0.downsample.1.bias
+    detector.backbone.0.body.layer4.1.bn1.weight
+    detector.backbone.0.body.layer1.2.bn3.running_var
+    detector.backbone.0.body.layer2.1.bn2.bias
+    detector.backbone.0.body.layer2.2.conv1.weight
+    detector.transformer.decoder.layers.0.self_attn.in_proj_bias
+    detector.backbone.0.body.layer4.1.conv3.weight
+    detector.backbone.0.body.layer4.0.downsample.1.running_mean
+    detector.backbone.0.body.layer4.2.bn1.weight
+    detector.transformer.decoder.layers.0.multihead_attn.out_proj.bias
+    detector.transformer.decoder.layers.5.self_attn.in_proj_weight
+    detector.backbone.0.body.layer2.1.bn1.bias
+    detector.transformer.decoder.layers.3.multihead_attn.in_proj_bias
+    detector.backbone.0.body.layer2.0.bn1.bias
+    detector.transformer.decoder.layers.5.self_attn.in_proj_bias
+    detector.backbone.0.body.layer3.3.bn3.running_mean
+    detector.transformer.decoder.layers.3.self_attn.out_proj.weight
+    detector.transformer.decoder.layers.0.linear1.bias
+    detector.backbone.0.body.layer1.0.bn1.bias
+    detector.backbone.0.body.layer1.1.bn2.running_var
+    detector.backbone.0.body.layer4.0.bn2.running_var
+    detector.transformer.encoder.layers.1.linear2.bias
+    detector.backbone.0.body.layer1.1.bn1.running_var
+    detector.backbone.0.body.layer2.0.bn1.weight
+    detector.transformer.decoder.layers.0.self_attn.out_proj.bias
+    detector.backbone.0.body.layer2.2.bn3.bias
+    detector.backbone.0.body.layer3.5.bn1.weight
+    detector.backbone.0.body.layer4.1.bn2.running_mean
+    detector.transformer.decoder.layers.2.linear2.bias
+    detector.transformer.decoder.layers.0.self_attn.in_proj_weight
+    detector.backbone.0.body.layer4.0.downsample.1.weight
+    detector.backbone.0.body.layer1.0.bn3.running_var
+    detector.backbone.0.body.layer3.4.bn2.weight
+    detector.transformer.encoder.layers.0.norm2.weight
+    detector.backbone.0.body.layer1.0.conv1.weight
+    detector.backbone.0.body.layer2.3.bn2.running_mean
+    detector.backbone.0.body.layer3.0.bn3.weight
+    detector.transformer.encoder.layers.2.linear2.weight
+    detector.transformer.encoder.layers.1.linear2.weight
+    detector.transformer.decoder.layers.1.norm1.weight
+    detector.backbone.0.body.layer2.3.bn1.weight
+    detector.backbone.0.body.layer1.1.bn3.running_var
+    detector.transformer.decoder.layers.4.linear2.weight
+    detector.transformer.encoder.layers.3.linear2.bias
+    detector.backbone.0.body.layer1.0.downsample.1.weight
+    detector.transformer.decoder.layers.1.self_attn.in_proj_weight
+    detector.transformer.encoder.layers.0.norm1.weight
+    detector.backbone.0.body.layer3.4.bn1.running_var
+    detector.backbone.0.body.layer1.1.bn2.bias
+    detector.backbone.0.body.layer3.1.bn1.weight
+2026-10-21 05:52:32,531-rk0-gene_env.py#20:Collecting env info (might take some time)
+2026-10-21 05:52:34,456-rk0-gene_env.py#22:
+PyTorch version: 2.8.0a0+5228986c39.nv25.06
+Is debug build: False
+CUDA used to build PyTorch: 12.9
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 24.04.2 LTS (x86_64)
+GCC version: (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+Clang version: Could not collect
+CMake version: version 3.31.6
+Libc version: glibc-2.39
+
+Python version: 3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0] (64-bit runtime)
+Python platform: Linux-4.18.0-425.3.1.el8.x86_64-x86_64-with-glibc2.39
+Is CUDA available: True
+CUDA runtime version: Could not collect
+CUDA_MODULE_LOADING set to: LAZY
+GPU models and configuration: 
+GPU 0: NVIDIA A800-SXM4-80GB
+GPU 1: NVIDIA A800-SXM4-80GB
+GPU 2: NVIDIA A800-SXM4-80GB
+GPU 3: NVIDIA A800-SXM4-80GB
+
+Nvidia driver version: 535.86.10
+cuDNN version: Probably one of the following:
+/usr/lib/x86_64-linux-gnu/libcudnn.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_adv.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_cnn.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_engines_precompiled.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_engines_runtime_compiled.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_graph.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_heuristic.so.9.10.2
+/usr/lib/x86_64-linux-gnu/libcudnn_ops.so.9.10.2
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: True
+
+CPU:
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+Address sizes:                   46 bits physical, 57 bits virtual
+Byte Order:                      Little Endian
+CPU(s):                          112
+On-line CPU(s) list:             0-111
+Vendor ID:                       GenuineIntel
+Model name:                      Intel(R) Xeon(R) Gold 6348 CPU @ 2.60GHz
+CPU family:                      6
+Model:                           106
+Thread(s) per core:              2
+Core(s) per socket:              28
+Socket(s):                       2
+Stepping:                        6
+CPU(s) scaling MHz:              97%
+CPU max MHz:                     3500.0000
+CPU min MHz:                     800.0000
+BogoMIPS:                        5200.00
+Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 invpcid_single ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect wbnoinvd dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid fsrm md_clear pconfig flush_l1d arch_capabilities
+Virtualization:                  VT-x
+L1d cache:                       2.6 MiB (56 instances)
+L1i cache:                       1.8 MiB (56 instances)
+L2 cache:                        70 MiB (56 instances)
+L3 cache:                        84 MiB (2 instances)
+NUMA node(s):                    2
+NUMA node0 CPU(s):               0-27,56-83
+NUMA node1 CPU(s):               28-55,84-111
+Vulnerability Itlb multihit:     Not affected
+Vulnerability L1tf:              Not affected
+Vulnerability Mds:               Not affected
+Vulnerability Meltdown:          Not affected
+Vulnerability Mmio stale data:   Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Retbleed:          Not affected
+Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:        Mitigation; Enhanced IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS SW sequence
+Vulnerability Srbds:             Not affected
+Vulnerability Tsx async abort:   Not affected
+
+Versions of relevant libraries:
+[pip3] mypy_extensions==1.1.0
+[pip3] numpy==1.26.4
+[pip3] nvidia-cudnn-frontend==1.12.0
+[pip3] nvtx==0.2.11
+[pip3] onnx==1.17.0
+[pip3] optree==0.16.0
+[pip3] pynvjitlink==0.3.0
+[pip3] pytorch-triton==3.3.0+git96316ce52.nvinternal
+[pip3] torch==2.8.0a0+5228986c39.nv25.6
+[pip3] torch_tensorrt==2.8.0a0
+[pip3] torchao==0.11.0+git
+[pip3] torchprofile==0.0.4
+[pip3] torchvision==0.22.0a0+95f10a4e
+[conda] Could not collect
+node memory info after build {'node_mem_total': 1007.278, 'node_mem_used': 30.065, 'node_mem_used_percent': 3.6, 'node_swap_mem_total': 0.0, 'node_swap_mem_used_percent': 0.0}
+2026-10-21 05:52:34,684-rk0-log_helper.py#246:Load a image:  {read_time:0.0069(0.0069) transform_time:0.0015(0.0015)}
+2026-10-21 05:52:36,649-rk0-base_runner.py#480:saving inference results into /workspace/up-hardware-routing-20261021-multiseed/five-models-v2/preflight/detr-optimizer-v2/predictions/results.txt
+2026-10-21 05:52:36,696-rk0-base_runner.py#496:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.27s).
+Accumulating evaluation results...
+DONE (t=0.03s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.748
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.940
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.883
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.273
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.380
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.791
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.327
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.817
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.820
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.433
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.656
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.842
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.7476,0.9405,0.8833,0.2731,0.3801,0.7911
+2026-10-21 05:52:37,006-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-21 05:52:37,006-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-21 05:52:37,006-rk0-coco_evaluator.py#137:copypaste: 0.7476,0.9405,0.8833,0.2731,0.3801,0.7911
+2026-10-21 05:52:37,006-rk0-base_runner.py#499:{
+  "bbox.AP": 0.7476246570894742,
+  "bbox.AP.5": 0.9404987172034478,
+  "bbox.AP.75": 0.8832682951733054,
+  "bbox.AP_S": 0.27313254014477073,
+  "bbox.AP_M": 0.38010347761962043,
+  "bbox.AP_L": 0.7911459938513826,
+  "bbox.AR_1": 0.3270676691729323,
+  "bbox.AR_10": 0.8165413533834587,
+  "bbox.AR": 0.8203007518796992,
+  "bbox.AR_S": 0.4333333333333333,
+  "bbox.AR_M": 0.6555555555555556,
+  "bbox.AR_L": 0.8421487603305786
+}
+2026-10-21 05:52:37,021-rk0-log_helper.py#246:Load a image:  {read_time:0.0057(0.0057) transform_time:0.0016(0.0016)}
+2026-10-21 05:52:41,847-rk0-log_helper.py#246:Load a image:  {read_time:0.0064(0.0062) transform_time:0.0014(0.0014)}
+2026-10-21 05:52:46,257-rk0-hook_helper.py#260:Progress:[81.7%][50/60] Epoch:[1][50/60] LR:0.000100 Max mem:1020 ETA:0:00:01 batch_time:0.1661(0.1661) {data_time:0.0148(0.0148) forward_time:0.0519(0.0519) backward_time:0.0565(0.0565) allreduce_time:0.0000(0.0000)}
+2026-10-21 05:52:46,260-rk0-hook_helper.py#286:All(loss:3.8303) DETR(loss_ce:0.0366 loss_bbox:0.2470 loss_giou:0.2937 loss_ce_0:0.1054 loss_bbox_0:0.2833 loss_giou_0:0.3421 loss_ce_1:0.2851 loss_bbox_1:0.2205 loss_giou_1:0.2532 loss_ce_2:0.0430 loss_bbox_2:0.2347 loss_giou_2:0.3294 loss_ce_3:0.0463 loss_bbox_3:0.2469 loss_giou_3:0.2989 loss_ce_4:0.0405 loss_bbox_4:0.2314 loss_giou_4:0.2923)
+
+
+2026-10-21 05:52:46,267-rk0-log_helper.py#246:Load a image:  {read_time:0.0054(0.0060) transform_time:0.0014(0.0014)}
+2026-10-21 05:52:48,846-rk0-log_helper.py#246:Load a image:  {read_time:0.0082(0.0062) transform_time:0.0012(0.0013)}
+2026-10-21 05:52:49,279-rk0-base_runner.py#480:saving inference results into /workspace/up-hardware-routing-20261021-multiseed/five-models-v2/preflight/detr-optimizer-v2/predictions/results.txt
+2026-10-21 05:52:49,326-rk0-base_runner.py#496:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.27s).
+Accumulating evaluation results...
+DONE (t=0.03s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.719
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.964
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.863
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.316
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.761
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.317
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.759
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.772
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.808
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:49,642-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-21 05:52:49,642-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-21 05:52:49,642-rk0-coco_evaluator.py#137:copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:49,643-rk0-base_runner.py#499:{
+  "bbox.AP": 0.7186672861445864,
+  "bbox.AP.5": 0.9644306114094712,
+  "bbox.AP.75": 0.8629401309907307,
+  "bbox.AP_S": 0.009345934593459346,
+  "bbox.AP_M": 0.31628789178095734,
+  "bbox.AP_L": 0.7612909960752307,
+  "bbox.AR_1": 0.31654135338345857,
+  "bbox.AR_10": 0.7593984962406015,
+  "bbox.AR": 0.7721804511278194,
+  "bbox.AR_S": 0.16666666666666666,
+  "bbox.AR_M": 0.48888888888888893,
+  "bbox.AR_L": 0.8082644628099173
+}
+2026-10-21 05:52:50,874-rk0-log_helper.py#246:Load a image:  {read_time:0.0082(0.0062) transform_time:0.0012(0.0013)}
+2026-10-21 05:52:51,308-rk0-base_runner.py#480:saving inference results into /workspace/up-hardware-routing-20261021-multiseed/five-models-v2/preflight/detr-optimizer-v2/predictions/results.txt
+2026-10-21 05:52:51,355-rk0-base_runner.py#496:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.27s).
+Accumulating evaluation results...
+DONE (t=0.03s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.719
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.964
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.863
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.316
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.761
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.317
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.759
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.772
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.808
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:51,670-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-21 05:52:51,670-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-21 05:52:51,670-rk0-coco_evaluator.py#137:copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:51,671-rk0-base_runner.py#499:{
+  "bbox.AP": 0.7186672861445864,
+  "bbox.AP.5": 0.9644306114094712,
+  "bbox.AP.75": 0.8629401309907307,
+  "bbox.AP_S": 0.009345934593459346,
+  "bbox.AP_M": 0.31628789178095734,
+  "bbox.AP_L": 0.7612909960752307,
+  "bbox.AR_1": 0.31654135338345857,
+  "bbox.AR_10": 0.7593984962406015,
+  "bbox.AR": 0.7721804511278194,
+  "bbox.AR_S": 0.16666666666666666,
+  "bbox.AR_M": 0.48888888888888893,
+  "bbox.AR_L": 0.8082644628099173
+}
+2026-10-21 05:52:53,651-rk0-optimizer_helper.py#148:build optimizer done
+2026-10-21 05:52:54,478-rk0-log_helper.py#246:Load a image:  {read_time:0.0083(0.0062) transform_time:0.0013(0.0013)}
+2026-10-21 05:52:54,917-rk0-base_runner.py#480:saving inference results into /workspace/up-hardware-routing-20261021-multiseed/five-models-v2/preflight/detr-optimizer-v2/predictions/results.txt
+2026-10-21 05:52:54,965-rk0-base_runner.py#496:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.27s).
+Accumulating evaluation results...
+DONE (t=0.03s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.719
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.964
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.863
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.316
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.761
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.317
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.759
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.772
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.808
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:55,281-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-21 05:52:55,281-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-21 05:52:55,281-rk0-coco_evaluator.py#137:copypaste: 0.7187,0.9644,0.8629,0.0093,0.3163,0.7613
+2026-10-21 05:52:55,282-rk0-base_runner.py#499:{
+  "bbox.AP": 0.7186672861445864,
+  "bbox.AP.5": 0.9644306114094712,
+  "bbox.AP.75": 0.8629401309907307,
+  "bbox.AP_S": 0.009345934593459346,
+  "bbox.AP_M": 0.31628789178095734,
+  "bbox.AP_L": 0.7612909960752307,
+  "bbox.AR_1": 0.31654135338345857,
+  "bbox.AR_10": 0.7593984962406015,
+  "bbox.AR": 0.7721804511278194,
+  "bbox.AR_S": 0.16666666666666666,
+  "bbox.AR_M": 0.48888888888888893,
+  "bbox.AR_L": 0.8082644628099173
+}
+{
+  "status": "completed",
+  "model": "detr",
+  "seed": 131,
+  "training_steps": 60,
+  "final_metrics": {
+    "bbox.AP": 0.7186672861445864,
+    "bbox.AP.5": 0.9644306114094712,
+    "bbox.AP.75": 0.8629401309907307,
+    "bbox.AP_S": 0.009345934593459346,
+    "bbox.AP_M": 0.31628789178095734,
+    "bbox.AP_L": 0.7612909960752307,
+    "bbox.AR_1": 0.31654135338345857,
+    "bbox.AR_10": 0.7593984962406015,
+    "bbox.AR": 0.7721804511278194,
+    "bbox.AR_S": 0.16666666666666666,
+    "bbox.AR_M": 0.48888888888888893,
+    "bbox.AR_L": 0.8082644628099173
+  }
+}

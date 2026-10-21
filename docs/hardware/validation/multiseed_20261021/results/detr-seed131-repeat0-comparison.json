@@ -1,0 +1,66 @@
+{
+  "baseline_metrics": {
+    "bbox.AP": 0.07358211353538543,
+    "bbox.AP.5": 0.24349475919157978,
+    "bbox.AP.75": 0.023484175412424577,
+    "bbox.AP_L": 0.0806636997420683,
+    "bbox.AP_M": 0.00047983303559406284,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.4518796992481203,
+    "bbox.AR_1": 0.0699248120300752,
+    "bbox.AR_10": 0.2646616541353383,
+    "bbox.AR_L": 0.49008264462809914,
+    "bbox.AR_M": 0.08888888888888888,
+    "bbox.AR_S": 0.0
+  },
+  "baseline_report_sha256": "6e3e95cfe5ac07229da342c6a605f246c94b2a527de65170965066f2f7d11544",
+  "differences": [],
+  "epochs": 12,
+  "losses_close": true,
+  "max_loss_abs_difference": 0.0,
+  "metric_deltas": {
+    "bbox.AP": 0.0,
+    "bbox.AP.5": 0.0,
+    "bbox.AP.75": 0.0,
+    "bbox.AP_L": 0.0,
+    "bbox.AP_M": 0.0,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.0,
+    "bbox.AR_1": 0.0,
+    "bbox.AR_10": 0.0,
+    "bbox.AR_L": 0.0,
+    "bbox.AR_M": 0.0,
+    "bbox.AR_S": 0.0
+  },
+  "model": "detr",
+  "passed": true,
+  "precondition_differences": [],
+  "preconditions_equal": true,
+  "routed_metrics": {
+    "bbox.AP": 0.07358211353538543,
+    "bbox.AP.5": 0.24349475919157978,
+    "bbox.AP.75": 0.023484175412424577,
+    "bbox.AP_L": 0.0806636997420683,
+    "bbox.AP_M": 0.00047983303559406284,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.4518796992481203,
+    "bbox.AR_1": 0.0699248120300752,
+    "bbox.AR_10": 0.2646616541353383,
+    "bbox.AR_L": 0.49008264462809914,
+    "bbox.AR_M": 0.08888888888888888,
+    "bbox.AR_S": 0.0
+  },
+  "routed_report_sha256": "39004a77f023af6d634787e1b1bea5e7db17f3c631c2d081b63ce8c32dd5d1f6",
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 131,
+  "tolerances": {
+    "atol": 1e-05,
+    "metric_atol": 1e-06,
+    "rtol": 0.0001
+  },
+  "training_steps_per_version": 720,
+  "weights": {
+    "max_abs_difference": 0.0,
+    "not_close": []
+  }
+}

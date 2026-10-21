@@ -8,6 +8,8 @@
 
 只想运行模型，阅读第 2、3、4 节；准备增加厂商适配，继续阅读第 5 节。需要逐项核对适配函数，直接看[完整接口定义](docs/hardware/INTERFACE.md)和[函数签名索引](docs/hardware/API_INDEX.md)。
 
+原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
+
 ## 1. 增加了什么功能
 
 ```text
@@ -37,7 +39,7 @@
 
 | 硬件 | 配置中的 `backend` | 设备名 | 当前状态 |
 | --- | --- | --- | --- |
-| NVIDIA A800 | `nvidia` | `cuda` | 算子/合成模型/双卡已测；分类短程训练一致，检测严格精度对比尚未通过 |
+| NVIDIA A800 | `nvidia` | `cuda` | Faster R-CNN 10 对平均 AP 等价但非逐步一致；ResNet18/ViT 各 5 对一致；YOLO/DETR 多种子对照进行中 |
 | 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
 | 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
 | 沐曦 C500 | `metax` | `cuda` | 同上；不会因为设备名为 `cuda` 就自动使用 NVIDIA 二进制 |
@@ -66,7 +68,7 @@
 | NVIDIA 算子和代表模型 | Linux、Python `3.12.3`、PyTorch `2.8.0a0+5228986c39.nv25.06`、CUDA `12.9` | 32 个算子对比样例、4 个代表模型、AMP 和双卡通信 |
 | 与上述 PyTorch 配套的 TorchVision | `0.22.0a0+95f10a4e` | 使用服务器原有配套分发，不是建议与任意官方 PyTorch wheel 混装 |
 | 部分普通依赖 | NumPy `1.26.4`、ONNX `1.17.0` 等 | 清单见下方，完整版本快照见验证产物 |
-| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；新增完整接口清单和真实训练协议检查后 68 项通过 |
+| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；含完整接口、成对训练/统计协议与新增模型配置检查后 117 项通过 |
 | 无 CUDA 公共包构建 | Windows、Python `3.13.11`、未安装 PyTorch | wheel 和 sdist 构建通过；没有在此环境验证模型运行 |
 | 昇腾、寒武纪、沐曦 | 尚未建立经真机确认的完整环境组合 | 不能据 NVIDIA 的结果推断这三家的版本支持 |
 
@@ -385,11 +387,11 @@ python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py te
 | 262 条上游硬件依赖记录 | [`upstream_inventory.json`](docs/hardware/upstream_inventory.json) |
 | 详细接口与接入说明 | [接口说明](docs/hardware/README.md)、[新增厂商说明](docs/hardware/ADDING_BACKENDS.md) |
 | 完整适配函数定义 | [中文接口契约](docs/hardware/INTERFACE.md)、[全部函数签名](docs/hardware/API_INDEX.md)、[机器可读清单](docs/hardware/interface_contract.json) |
-| 真实数据训练与精度变化 | [原版/改造版训练报告](docs/hardware/TRAINING_ACCURACY.md)，保留检测严格不一致和同版本重复漂移，未写成全部通过 |
+| 真实数据训练与精度变化 | [五模型多种子报告](docs/hardware/MULTISEED_ACCURACY.md)；[早期短程对照](docs/hardware/TRAINING_ACCURACY.md)与原始差异记录继续保留 |
 | 能力和实际测试范围 | [能力矩阵](docs/hardware/CAPABILITIES.md)、[验证报告](docs/hardware/VALIDATION.md) |
 | 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
 | 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
 
-首轮 NVIDIA 检查为有界数值与合成输入验证；新增了真实数据的完整 Runner 短程对照：ResNet18 两种子 Top-1、loss、权重相同；Faster R-CNN 两种子的严格一致性检查未通过，同版本重复也存在漂移，不能据此宣称精度等价。两轮检查均不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，未将外部模型冒充 UP 原有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
+首轮 NVIDIA 检查是有界数值与合成输入验证，最新真实数据完整 Runner 对照另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性、平均 AP 等价、完整预算和仍在进行的项。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。linklink、spconv、MQBench、MSBench 的真实执行及三家国产硬件验证仍未完成。
 
 检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。

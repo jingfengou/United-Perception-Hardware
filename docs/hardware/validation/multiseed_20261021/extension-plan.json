@@ -1,0 +1,47 @@
+{
+  "id": "nvidia-five-model-extension-20261021-v2",
+  "protocol": "multiseed_v2",
+  "scope": "Additional native YOLOv5-S/ViT-B16 and corrected external DETR optimizer; fixed PennFudan/CIFAR-10 subsets, not COCO/ImageNet convergence",
+  "extends": "nvidia-real-data-multiseed-20261021-v1",
+  "baseline_ref": "52aaeb9ed27a490820696d7754d19f98cd6ecd11",
+  "routed_runtime_ref": "092f428",
+  "selection": "Final epoch only; all five fixed seeds; no best-checkpoint or best-seed selection",
+  "reason": "User added YOLO and ViT. Initial DETR uniform/batch-scaled learning rates caused catastrophic forgetting in BOTH versions; preserve those results and use official-style separate backbone LR and no batch scaling for this new predeclared paired recipe.",
+  "equivalence": {
+    "method": "paired Student t two one-sided tests (TOST)",
+    "alpha": 0.05,
+    "confidence_level": 0.90,
+    "margin_percentage_points": 1.0,
+    "interpretation": "Fixed-holdout mean over training seeds only, not exact identity or full-benchmark equivalence"
+  },
+  "strict_numeric_tolerances": {"rtol": 0.0001, "atol": 0.00001, "metric_atol": 0.000001},
+  "models": {
+    "yolov5s": {
+      "epochs": 300,
+      "seeds": [131, 132, 133, 134, 135],
+      "repeat_seeds": [],
+      "primary_metric": "bbox.AP",
+      "metric_to_percentage_points": 100.0,
+      "provenance": "Native UP YOLOv5-S SiLU, one foreground class, random initialization, 320px mosaic, batch64, EMA off, original SGD/cosine, evaluate each10epochs",
+      "expected_steps_per_run": 600
+    },
+    "vit_b16": {
+      "epochs": 20,
+      "seeds": [131, 132, 133, 134, 135],
+      "repeat_seeds": [],
+      "primary_metric": "top1",
+      "metric_to_percentage_points": 1.0,
+      "provenance": "Native UP ViT-B/16, all12blocks/width768, CIFAR10/64px token grid, random initialization, batch64, native dropout/AutoAugment/Cutmixup/label smoothing, AdamW7.5e-4/cosine",
+      "expected_steps_per_run": 3140
+    },
+    "detr": {
+      "epochs": 12,
+      "seeds": [131, 132, 133, 134, 135],
+      "repeat_seeds": [],
+      "primary_metric": "bbox.AP",
+      "metric_to_percentage_points": 100.0,
+      "provenance": "Same pinned official DETR R50 adapter-v2 in both UP trees; AdamW1e-4/1e-5 backbone, no batch LR scaling, same data/architecture/losses/gradient clipping; NOT an upstream UP model",
+      "expected_steps_per_run": 720
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "baseline": "/workspace/up-hardware-routing-20261020/baseline",
+  "data": "/workspace/up-hardware-routing-20261021-multiseed/five-models-v2/data.json",
+  "data_sha256": "b3dd9e53be720dee693af08df7253db077ae489d82a2a07ed0a9cd5a8014b98a",
+  "devices": [
+    "3"
+  ],
+  "driver_sha256": "a8c0138f742cae53aa0b4384abc698d879751a1e024aef4c3263468a4e6b96d6",
+  "models": [
+    "detr"
+  ],
+  "plan_sha256": "3e897a53ce5279c9c08173d7a9323723651cf759652faaed18548ba1be0690b1",
+  "routed": "/workspace/up-hardware-routing-20261020/changed",
+  "suite_sha256": "c44d8488d79bca4bc8cacf15ca812bd06b79fc4116618659f479872c6c6b70bf"
+}

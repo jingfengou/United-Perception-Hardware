@@ -1,0 +1,53 @@
+{
+  "comparisons": [
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed131-baseline-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "baseline",
+      "seed": 131,
+      "sha256": "937dbb190c58b57696a780cf85127e2c6a4f59fa60fdc27c889522bbf7dc9201"
+    },
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed131-routed-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "routed",
+      "seed": 131,
+      "sha256": "5723a6f036a6d2a5c5514c04ce1ca878068d666853f6b63b3e044e8474e4ab47"
+    },
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed132-baseline-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "baseline",
+      "seed": 132,
+      "sha256": "21db944608c9cceb0a91ff901a0997fd5aa195649109ca0089747471e426e790"
+    },
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed132-routed-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "routed",
+      "seed": 132,
+      "sha256": "fdffeb5bf9a998012adfcaa1b662d3dd5baa37aed72999ea63b7b0fcab75706c"
+    },
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed133-baseline-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "baseline",
+      "seed": 133,
+      "sha256": "70f266a0f773b69d85bb7d16872836aad14800af175c20dc405048a25a9ef7a3"
+    },
+    {
+      "output": "/workspace/up-hardware-routing-20261021-multiseed/results/faster_rcnn-seed133-routed-control-comparison.json",
+      "passed": false,
+      "preconditions_equal": true,
+      "role": "routed",
+      "seed": 133,
+      "sha256": "c1fd0972f1536c605b0c048b773ab6bcc9bbff4282aa40b2909629f424065777"
+    }
+  ],
+  "driver_sha256": "a8c0138f742cae53aa0b4384abc698d879751a1e024aef4c3263468a4e6b96d6"
+}

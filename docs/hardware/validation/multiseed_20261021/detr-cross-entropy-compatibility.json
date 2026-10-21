@@ -1,0 +1,11 @@
+{
+  "adapter_sha256": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+  "flattened_gradient_repeat_bitwise_equal": true,
+  "flattened_training_deterministic_request": true,
+  "full_adapter_gpu_backward_and_adamw_preflight": "passed; strict deterministic request; not accuracy acceptance",
+  "gradient_max_abs_difference": 9.313225746154785e-10,
+  "loss_abs_difference": 5.960464477539063e-08,
+  "repeats": 5,
+  "scope": "isolated compatibility probe, not accuracy acceptance; original 3-D loss allowed nondeterminism only for reference",
+  "torch": "2.8.0a0+5228986c39.nv25.06"
+}

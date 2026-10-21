@@ -1,0 +1,42 @@
+{
+  "id": "nvidia-real-data-multiseed-20261021-v1",
+  "protocol": "multiseed_v1",
+  "scope": "Complete declared schedules on fixed CIFAR-10 10000/2000 and PennFudan 120/50 splits; not full ImageNet/COCO convergence",
+  "baseline_ref": "52aaeb9ed27a490820696d7754d19f98cd6ecd11",
+  "routed_runtime_ref": "092f428",
+  "selection": "Final epoch only; no best-checkpoint or best-seed selection",
+  "equivalence": {
+    "method": "paired Student t two one-sided tests (TOST)",
+    "alpha": 0.05,
+    "confidence_level": 0.90,
+    "margin_percentage_points": 1.0,
+    "interpretation": "Equivalence of the mean metric over training seeds on this fixed holdout, not bitwise identity or COCO generalization"
+  },
+  "strict_numeric_tolerances": {"rtol": 0.0001, "atol": 0.00001, "metric_atol": 0.000001},
+  "models": {
+    "faster_rcnn": {
+      "epochs": 12,
+      "seeds": [131, 132, 133, 134, 135, 136, 137, 138, 139, 140],
+      "repeat_seeds": [131, 132, 133],
+      "primary_metric": "bbox.AP",
+      "metric_to_percentage_points": 100.0,
+      "provenance": "Unmodified original UP R50-FPN architecture in both source trees"
+    },
+    "resnet18": {
+      "epochs": 20,
+      "seeds": [131, 132, 133, 134, 135],
+      "repeat_seeds": [],
+      "primary_metric": "top1",
+      "metric_to_percentage_points": 1.0,
+      "provenance": "Unmodified original UP ResNet18 architecture in both source trees"
+    },
+    "detr": {
+      "epochs": 12,
+      "seeds": [131, 132, 133, 134, 135],
+      "repeat_seeds": [],
+      "primary_metric": "bbox.AP",
+      "metric_to_percentage_points": 100.0,
+      "provenance": "External pinned facebookresearch/detr R50 6-encoder/6-decoder adapter, identical in both UP trees; NOT an upstream UP model"
+    }
+  }
+}

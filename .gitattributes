@@ -1,3 +1,12 @@
 # Keep recorded validation hashes stable on Windows and Linux checkouts.
 docs/hardware/validation/accuracy_20261021/** text eol=lf
 tools/diagnose_training_divergence.py text eol=lf
+tools/validate_training_accuracy.py text eol=lf
+tools/run_multiseed_accuracy.py text eol=lf
+tools/accuracy_detr_adapter.py text eol=lf
+tools/prepare_detr_accuracy.py text eol=lf
+tools/prepare_multiseed_extension.py text eol=lf
+tools/validate_models.py text eol=lf
+docs/hardware/validation/multiseed_20261021/** text eol=lf
+# The upstream anchor asset has recorded CRLF bytes; preserve its exact checksum.
+docs/hardware/validation/multiseed_20261021/five-models-v2/yolov5-anchors.json -text

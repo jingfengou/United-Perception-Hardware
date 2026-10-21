@@ -1,0 +1,66 @@
+{
+  "baseline_metrics": {
+    "bbox.AP": 0.18924093522366925,
+    "bbox.AP.5": 0.48271840213537875,
+    "bbox.AP.75": 0.10487588257660306,
+    "bbox.AP_L": 0.2731839333036053,
+    "bbox.AP_M": 0.06425554295289189,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.5466165413533834,
+    "bbox.AR_1": 0.13684210526315788,
+    "bbox.AR_10": 0.43609022556390986,
+    "bbox.AR_L": 0.5768595041322314,
+    "bbox.AR_M": 0.3222222222222222,
+    "bbox.AR_S": 0.0
+  },
+  "baseline_report_sha256": "9d9cfaf2323982a6e612c1b6c451a38a0e3f96e90c2473c29100ff684297815f",
+  "differences": [],
+  "epochs": 300,
+  "losses_close": true,
+  "max_loss_abs_difference": 0.0,
+  "metric_deltas": {
+    "bbox.AP": 0.0,
+    "bbox.AP.5": 0.0,
+    "bbox.AP.75": 0.0,
+    "bbox.AP_L": 0.0,
+    "bbox.AP_M": 0.0,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.0,
+    "bbox.AR_1": 0.0,
+    "bbox.AR_10": 0.0,
+    "bbox.AR_L": 0.0,
+    "bbox.AR_M": 0.0,
+    "bbox.AR_S": 0.0
+  },
+  "model": "yolov5s",
+  "passed": true,
+  "precondition_differences": [],
+  "preconditions_equal": true,
+  "routed_metrics": {
+    "bbox.AP": 0.18924093522366925,
+    "bbox.AP.5": 0.48271840213537875,
+    "bbox.AP.75": 0.10487588257660306,
+    "bbox.AP_L": 0.2731839333036053,
+    "bbox.AP_M": 0.06425554295289189,
+    "bbox.AP_S": 0.0,
+    "bbox.AR": 0.5466165413533834,
+    "bbox.AR_1": 0.13684210526315788,
+    "bbox.AR_10": 0.43609022556390986,
+    "bbox.AR_L": 0.5768595041322314,
+    "bbox.AR_M": 0.3222222222222222,
+    "bbox.AR_S": 0.0
+  },
+  "routed_report_sha256": "9f7fec42f16b8383e2e9bf1f262b6ab4a4737038c08208088ecbc665e37ec6a5",
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 131,
+  "tolerances": {
+    "atol": 1e-05,
+    "metric_atol": 1e-06,
+    "rtol": 0.0001
+  },
+  "training_steps_per_version": 600,
+  "weights": {
+    "max_abs_difference": 0.0,
+    "not_close": []
+  }
+}

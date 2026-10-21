@@ -1,0 +1,36 @@
+{
+  "baseline_metrics": {
+    "top1": 66.45000457763672,
+    "top5": 96.95000457763672
+  },
+  "baseline_report_sha256": "2240909978188a726083631a8f52fcb6b733c45e5cc305750009c0ef918c461d",
+  "differences": [],
+  "epochs": 20,
+  "losses_close": true,
+  "max_loss_abs_difference": 0.0,
+  "metric_deltas": {
+    "top1": 0.0,
+    "top5": 0.0
+  },
+  "model": "resnet18",
+  "passed": true,
+  "precondition_differences": [],
+  "preconditions_equal": true,
+  "routed_metrics": {
+    "top1": 66.45000457763672,
+    "top5": 96.95000457763672
+  },
+  "routed_report_sha256": "abc9a277b0b168255614fe7a61276bee94d4b413cec72751d65360fe69df4156",
+  "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
+  "seed": 134,
+  "tolerances": {
+    "atol": 1e-05,
+    "metric_atol": 1e-06,
+    "rtol": 0.0001
+  },
+  "training_steps_per_version": 3140,
+  "weights": {
+    "max_abs_difference": 0.0,
+    "not_close": []
+  }
+}

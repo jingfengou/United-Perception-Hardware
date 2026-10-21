@@ -1,0 +1,67 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+2026-10-21 05:49:21,255-rk0-normalize.py#37:[1;33mimport error No module named 'mqbench'; If you need Mqbench to quantize model,      you should add Mqbench to this project. Or just ignore this error.[0m
+2026-10-21 05:49:21,255-rk0-normalize.py#44:[1;33mimport error No module named 'msbench'; If you need Msbench to prune model,     you should add Msbench to this project. Or just ignore this error.[0m
+node memory info before build {'node_mem_total': 1007.278, 'node_mem_used': 31.537, 'node_mem_used_percent': 3.8, 'node_swap_mem_total': 0.0, 'node_swap_mem_used_percent': 0.0}
+2026-10-21 05:49:21,962-rk0-base_runner.py#229:world size:1
+fatal: not a git repository (or any of the parent directories): .git
+2026-10-21 05:49:21,964-rk0-base_runner.py#276:current git version 
+Traceback (most recent call last):
+  File "/workspace/up-hardware-routing-20261021-multiseed/five-models-v2/tools/validate_training_accuracy.py", line 438, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/up-hardware-routing-20261021-multiseed/five-models-v2/tools/validate_training_accuracy.py", line 433, in main
+    run(args)
+  File "/workspace/up-hardware-routing-20261021-multiseed/five-models-v2/tools/validate_training_accuracy.py", line 256, in run
+    runner = BaseRunner(config, work_dir=str(output), training=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/runner/base_runner.py", line 60, in __init__
+    self.build()
+  File "/workspace/up-hardware-routing-20261020/baseline/up/runner/base_runner.py", line 98, in build
+    self.build_dataloaders()
+  File "/workspace/up-hardware-routing-20261020/baseline/up/runner/base_runner.py", line 197, in build_dataloaders
+    self.data_loaders = build(builder_type, cfg_data, pool, reload_cfg)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/runner/base_runner.py", line 177, in build
+    loader = data_builder.build_dataloader()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/data/data_builder.py", line 94, in build_dataloader
+    dataset = self.build_dataset(cfg['dataset'])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/data/data_builder.py", line 37, in build_dataset
+    return DATASET_REGISTRY.build(cfg_dataset)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/utils/general/registry.py", line 111, in build
+    raise e
+  File "/workspace/up-hardware-routing-20261020/baseline/up/utils/general/registry.py", line 101, in build
+    return build_fn(**obj_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/tasks/cls/data/cls_dataset.py", line 139, in __init__
+    super(ClsDataset, self).__init__(meta_file,
+  File "/workspace/up-hardware-routing-20261020/baseline/up/data/datasets/base_dataset.py", line 48, in __init__
+    self.transformer = dataset_timer_log(build_transformer(transformer), "transform")
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/data/datasets/transforms.py", line 227, in build_transformer
+    transform_list = [AUGMENTATION_REGISTRY.build(cfg) for cfg in cfgs]
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/utils/general/registry.py", line 111, in build
+    raise e
+  File "/workspace/up-hardware-routing-20261020/baseline/up/utils/general/registry.py", line 101, in build
+    return build_fn(**obj_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/tasks/cls/data/cls_transforms.py", line 98, in __init__
+    self.op = ImageNetPolicy()
+              ^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/tasks/cls/data/auto_augmentation.py", line 22, in __init__
+    SubPolicy(0.4, "posterize", 8, 0.6, "rotate", 9, fillcolor),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-hardware-routing-20261020/baseline/up/tasks/cls/data/auto_augmentation.py", line 179, in __init__
+    "posterize": np.round(np.linspace(8, 4, 10), 0).astype(np.int),
+                                                           ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/numpy/__init__.py", line 324, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'int'.
+`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations. Did you mean: 'inf'?
