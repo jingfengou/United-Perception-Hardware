@@ -234,6 +234,12 @@ def run(args):
     os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     sys.path.insert(0, str(root))
     import up
+    backend = getattr(args, "backend", "nvidia")
+    if (root / "up/accelerator").is_dir():
+        from up.accelerator import configure_accelerator
+        configure_accelerator(backend=backend)
+    elif backend != "nvidia":
+        raise ValueError("The original upstream tree only supports the NVIDIA validation path")
     initialize = vars(up).get("initialize")
     if initialize is not None and getattr(initialize, "__module__", None) == "up":
         initialize()
@@ -252,10 +258,20 @@ def run(args):
     torch.use_deterministic_algorithms(True)
     torch.cuda.set_device(0)
     config, original_config = effective_config(root, data, args.model, args.seed, args.epochs, args.protocol)
+    config["runtime"]["accelerator"]["backend"] = backend
     config_digest = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
+    algorithm_config = copy.deepcopy(config)
+    algorithm_config["runtime"]["accelerator"].pop("backend")
+    algorithm_digest = hashlib.sha256(json.dumps(algorithm_config, sort_keys=True).encode()).hexdigest()
     (output / "effective_config.json").write_text(json.dumps(config, indent=2, sort_keys=True))
     config["saver"].update(save_dir=str(output / "checkpoints"), results_dir=str(output / "predictions"))
     runner = BaseRunner(config, work_dir=str(output), training=True)
+    declared_steps = runner.max_iter
+    probe_steps = getattr(args, "probe_steps", None)
+    if probe_steps is not None:
+        if not 0 < probe_steps < declared_steps:
+            raise ValueError("Probe steps must be positive and smaller than the declared schedule")
+        runner.max_iter = probe_steps
 
     class Recorder(Hook):
         def __init__(self, owner):
@@ -307,15 +323,22 @@ def run(args):
         raise AssertionError("Restored model changed validation metrics")
     sources = {str(path.relative_to(root)): file_hash(path) for path in sorted((root / "up").rglob("*.py"))}
     binaries = {str(path.relative_to(root)): file_hash(path) for path in sorted((root / "up").rglob("*.so"))}
+    normalized_sources = {str(path.relative_to(root)): hashlib.sha256(
+        path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+        for path in sorted((root / "up").rglob("*.py"))}
     report = {
         "status": "completed", "scope": "complete declared real-data regression schedule, not full ImageNet/COCO convergence",
         "model": args.model, "seed": args.seed, "epochs": args.epochs,
         "protocol": args.protocol,
+        "backend": backend,
         "model_provenance": "external official DETR adapter in both UP trees" if args.model == "detr" else "upstream UP model",
         "source_root": str(root), "original_config": original_config,
         "source_manifest_sha256": hashlib.sha256(json.dumps(sources, sort_keys=True).encode()).hexdigest(),
         "source_files": sources, "native_binaries": binaries,
+        "normalized_source_manifest_sha256": hashlib.sha256(
+            json.dumps(normalized_sources, sort_keys=True).encode()).hexdigest(),
         "effective_config_sha256": config_digest, "data_manifest_sha256": file_hash(data_path),
+        "algorithm_config_sha256": algorithm_digest,
         "data": data["cifar10" if args.model in ("resnet18", "vit_b16") else "pennfudan"],
         "initial_state_sha256": initial_hash, "final_state_sha256": state_hash(final_state),
         "initial_rng_sha256": initial_rng,
@@ -332,12 +355,19 @@ def run(args):
                         "cuda": torch.version.cuda, "gpu": torch.cuda.get_device_name(0),
                         "visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
                         "deterministic_algorithms": True, "tf32": False,
+                        "matmul_precision": torch.get_float32_matmul_precision(),
+                        "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
+                        "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
                         "default_tasks": os.environ["DEFAULT_TASKS"]},
+        "nvidia_extension_loaded": "up.extensions._C" in sys.modules,
         "compatibility_shims": compatibility_shims,
         "driver_sha256": file_hash(__file__),
         "adapter_sha256": file_hash(Path(__file__).with_name("accuracy_detr_adapter.py")) if args.model == "detr" else None,
         "external_model": data.get("detr") if args.model == "detr" else None,
     }
+    if probe_steps is not None:
+        report.update(status="probe_completed", declared_training_steps=declared_steps,
+                      scope="Real-data Runner setup probe only; excluded from complete-training cohorts")
     (output / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
     print(json.dumps({k: report[k] for k in ("status", "model", "seed", "training_steps", "final_metrics")}, indent=2))
 
@@ -418,6 +448,10 @@ def main():
     parser.add_argument("--data", type=Path)
     parser.add_argument("--model", choices=("resnet18", "faster_rcnn", "detr", "yolov5s", "vit_b16"))
     parser.add_argument("--protocol", choices=("legacy", "multiseed_v1", "multiseed_v2"), default="legacy")
+    parser.add_argument("--backend", choices=("nvidia", "metax"), default="nvidia",
+                        help="Explicit vendor identity; both validated runtimes expose CUDA-shaped devices")
+    parser.add_argument("--probe-steps", type=int,
+                        help="Separate setup diagnostic, never eligible as a completed accuracy run")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)

@@ -1,0 +1,23 @@
+{
+  "id": "metax-nvidia-real-data-20261021-v1",
+  "scope": "User selected the previous complete CIFAR-10/PennFudan budgets, not full ImageNet/COCO training",
+  "backends": ["nvidia", "metax"],
+  "selection": "Final epoch, all five fixed seeds, no best-checkpoint or best-seed selection",
+  "precision": "FP32, both TF32 flags false, deterministic algorithms requested, cuDNN benchmark false",
+  "software_scope": "Vendor-supported PyTorch stacks differ (NVIDIA 2.8 vs MetaX 2.10); this compares platform stacks, not hardware alone",
+  "data": {"cifar10_train": 10000, "cifar10_test": 2000, "pennfudan_train": 120, "pennfudan_test": 50},
+  "equivalence": {
+    "method": "paired Student t two one-sided tests (TOST)",
+    "alpha": 0.05,
+    "margin_percentage_points": 1.0,
+    "interpretation": "Per-model mean over training seeds on a fixed holdout; inconclusive is not equivalent"
+  },
+  "pairing": ["data_manifest_sha256", "algorithm_config_sha256", "normalized_source_manifest_sha256", "initial_state_sha256", "first_batch_sha256", "learning_rates", "driver_sha256", "adapter_sha256", "external_model"],
+  "not_required_equal": ["vendor GPU RNG state", "environment", "backend", "native_binaries", "final model weights", "loss trace"],
+  "models": {
+    "resnet18": {"epochs": 20, "protocol": "multiseed_v1", "seeds": [131, 132, 133, 134, 135], "primary_metric": "top1", "metric_to_percentage_points": 1.0, "expected_steps_per_run": 3140, "provenance": "Native UP ResNet18, 64px CIFAR-10, 10 classes, random initialization, batch64, SGD0.05"},
+    "yolov5s": {"epochs": 300, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 600, "provenance": "Native UP YOLOv5-S SiLU, 320px PennFudan, one foreground class, random initialization, batch64, EMA off"},
+    "detr": {"epochs": 12, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "bbox.AP", "metric_to_percentage_points": 100.0, "expected_steps_per_run": 720, "provenance": "Same external official DETR R50 adapter-v2, person/no-object, pinned COCO weights, backbone LR1e-5 and other LR1e-4; NOT an upstream UP model"},
+    "vit_b16": {"epochs": 20, "protocol": "multiseed_v2", "seeds": [131, 132, 133, 134, 135], "primary_metric": "top1", "metric_to_percentage_points": 1.0, "expected_steps_per_run": 3140, "provenance": "Native UP ViT-B/16, full12blocks/width768 but64px/17tokens, CIFAR-10, random initialization, batch64, AdamW7.5e-4"}
+  }
+}

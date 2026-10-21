@@ -12,6 +12,8 @@
 
 沐曦 C500 在已有厂商 Docker 镜像中完成了[四模型单卡功能检查](docs/hardware/METAX_VALIDATION.md)：严格 FP32 下前后向、推理和恢复通过；默认 TF32 有 ResNet/DETR 一致性失败并保留记录。这不是完整数据集精度验收，进入容器和复现方法见该文档。
 
+按用户确认，正在进行[沐曦/NVIDIA 真实数据多种子对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)：沿用 CIFAR-10/PennFudan 的完整预算，四模型、每个平台五个种子，预先固定配置和精度判据。运行完成前不宣称跨厂商精度等价。
+
 ## 1. 增加了什么功能
 
 ```text

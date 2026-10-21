@@ -1,5 +1,7 @@
 # 沐曦 C500 四模型验证
 
+后续真实数据训练与 NVIDIA 的多种子对照单独记录在[跨厂商训练报告](CROSS_VENDOR_ACCURACY.md)。本页保留早期两步合成检查，不能将两轮证据混为完整训练。
+
 ## 结论与范围
 
 2026-10-21 在服务器已有的沐曦 PyTorch Docker 镜像中完成了单张 C500 的验证。**显式关闭 TF32、使用严格 FP32 时，UP 的 ResNet18、YOLOv5-S、ViT-B/16，以及已有外部官方 DETR 适配器，均通过两步合成训练、有限梯度、推理和新建模型/优化器恢复检查。** 没有修改 `up/` 模型或硬件后端实现，没有加载 UP 的 NVIDIA `_C`，没有新增静默 CPU 回退。
@@ -88,7 +90,7 @@ python tools/validate_models.py --backend metax --strict-fp32 --model detr --det
 python tools/validate_vendor_runtime.py --backend metax --output /workspace/up-run/results/recheck-runtime.json
 ```
 
-模型入口显式选择 `metax`，原有 `validate_models.py` 的默认后端仍为 nvidia，未改变默认精度行为。`validate_training_accuracy.py` 和 `run_multiseed_accuracy.py` 仍是 NVIDIA 专用成对精度协议，不可原样用来声称完成沐曦精度测试。
+模型入口显式选择 `metax`，原有 `validate_models.py` 的默认后端仍为 nvidia，未改变默认精度行为。后续 `validate_training_accuracy.py` 已增加显式 `--backend metax`，跨厂商汇总使用新的 `run_cross_vendor_accuracy.py`；旧 `run_multiseed_accuracy.py` 的原版/路由版环境相同检查不适用于跨厂商比较。
 
 验证入口恢复了 `collections.Iterable`、`np.float`、`np.int` 三项历史别名，与此前 NVIDIA 检查一致。这不代表未修改的原始 CLI 对所有现代依赖组合都已通过。
 
