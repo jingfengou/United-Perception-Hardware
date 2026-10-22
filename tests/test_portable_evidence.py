@@ -61,6 +61,12 @@ def test_source_snapshot_normalizes_only_newlines_and_rejects_overwrite(tmp_path
     (source / "up").mkdir(parents=True)
     content = b"VALUE = 1\r\n"
     (source / "up" / "example.py").write_bytes(content)
+    for relative in ("packages/up-platform/src/up_platform/common/runtime.py",
+                     "packages/up-platform/src/up_platform/backends/nvidia/csrc/example.cu",
+                     "benchmark/hardware/example.py"):
+        target = source / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(content)
     archive = tmp_path / "nvidia-source.tar.gz"
     command = [sys.executable, str(ROOT / "tools/platform/snapshot_hardware_source.py"),
                "--source", str(source), "--output", str(archive)]
@@ -68,10 +74,16 @@ def test_source_snapshot_normalizes_only_newlines_and_rejects_overwrite(tmp_path
     manifest, _, index, _ = tool("summarize_portable_cohort").read_source(tmp_path, "nvidia")
     assert index["files"]["up/example.py"] == hashlib.sha256(content).hexdigest()
     assert index["normalized_up_files"]["up/example.py"] == hashlib.sha256(b"VALUE = 1\n").hexdigest()
+    assert index["source_layout"] == "up-platform-v1"
+    assert len(index["files"]) == 4
     assert manifest == index["normalized_up_manifest_sha256"]
     before = archive.read_bytes()
     assert subprocess.run(command, capture_output=True).returncode != 0
     assert archive.read_bytes() == before
+    index["source_layout"] = "untrusted-layout"
+    archive.with_name(archive.name + ".index.json").write_text(json.dumps(index))
+    with pytest.raises(AssertionError, match="Unknown source snapshot layout"):
+        tool("summarize_portable_cohort").read_source(tmp_path, "nvidia")
 
 
 @pytest.mark.parametrize("name,kind", [("../up/escape.py", "file"), ("/up/escape.py", "file"),

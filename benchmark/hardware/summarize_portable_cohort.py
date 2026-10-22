@@ -26,13 +26,18 @@ def save(path,value):
 def read_source(root, backend):
     archive = root / (backend + '-source.tar.gz')
     index = json.loads(archive.with_name(archive.name + '.index.json').read_text())
+    layout = index.get('source_layout', 'legacy')
+    assert layout in ('legacy', 'up-platform-v1'), 'Unknown source snapshot layout'
+    prefixes = ('up/', 'configs/', 'tools/', 'tests/')
+    if layout == 'up-platform-v1':
+        prefixes += ('packages/up-platform/src/up_platform/', 'benchmark/hardware/')
     sha = lambda value: hashlib.sha256(value).hexdigest()
     assert sha(archive.read_bytes()) == index['archive_sha256']
     files, normalized, upper = {}, {}, {}
     with tarfile.open(archive) as stream:
         for member in stream:
             path = PurePosixPath(member.name)
-            assert member.isfile() and path.parts[0] in ('up', 'configs', 'tools', 'tests')
+            assert member.isfile() and member.name.startswith(prefixes)
             assert '..' not in path.parts and not path.is_absolute() and '\\' not in member.name
             assert member.name not in files and member.size < 16 * 1024 * 1024
             content = stream.extractfile(member).read()

@@ -23,7 +23,7 @@ def main():
     normalized = {}
     for folder in ("up", "packages/up-platform/src/up_platform", "configs", "benchmark/hardware", "tools", "tests"):
         for path in sorted((root / folder).rglob("*")):
-            if not path.is_file() or path.suffix not in (".py", ".yaml", ".json"):
+            if not path.is_file() or path.suffix not in (".py", ".yaml", ".json", ".cpp", ".cu", ".h", ".hpp", ".cuh"):
                 continue
             if path.is_symlink():
                 raise ValueError("Source snapshot cannot contain symlinks")
@@ -36,11 +36,12 @@ def main():
     with tarfile.open(args.output, "w:gz") as stream:
         for relative in files:
             stream.add(root / relative, arcname=relative, recursive=False)
-    index = {"archive_sha256": sha(args.output.read_bytes()), "files": files,
+    index = {"source_layout": "up-platform-v1", "archive_sha256": sha(args.output.read_bytes()), "files": files,
              "normalized_up_files": normalized,
              "normalized_up_manifest_sha256": sha(json.dumps(normalized, sort_keys=True).encode()),
              "native_binary_hashes": {p.relative_to(root).as_posix(): sha(p.read_bytes())
-                                      for p in sorted((root / "up").rglob("*.so"))},
+                                      for folder in ("up", "packages/up-platform/src/up_platform")
+                                      for p in sorted((root / folder).rglob("*.so"))},
              "scope": "Collected source snapshot; training report hashes identify the actually executed critical files",
              "exclusions": ["SDK binaries", "native extension binaries", "weights", "data images", "credentials"]}
     index_path.write_text(json.dumps(index, indent=2, sort_keys=True) + "\n")
