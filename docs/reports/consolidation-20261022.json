@@ -47,7 +47,31 @@
   },
   "boundaries": {"violations": 0, "runtime_members": 31, "operations": 73},
   "local_links_verified": 179,
-  "github_ci": {"status": "pending", "verified": false},
+  "github_ci": {
+    "status": "success",
+    "verified": true,
+    "implementation_commit": "cca572fa22ab0247aaabc1a2b48155992482ff42",
+    "run_id": 39746051459,
+    "url": "https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39746051459",
+    "cpu_environments": ["Python 3.10 / Torch 2.6.0", "Python 3.12 / Torch 2.6.0", "Python 3.12 / Torch 2.10.0"],
+    "junit_cases_per_environment": 297,
+    "junit_cases_include_subtests": true,
+    "wheel_tests_per_environment": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "three_previously_omitted_regression_groups_confirmed": true,
+    "public_packaging": "success"
+  },
+  "tracked_tree_footprint": {
+    "before_commit": "a3e2752f454c72d6b46e0b64d0debeef0d7105a3",
+    "before_files": 2442,
+    "before_bytes": 95391045,
+    "first_consolidated_commit": "45693188defcfb0ce81ef687543c4e6114d785f8",
+    "after_files": 959,
+    "after_bytes": 6429314,
+    "git_history_size_claimed": false
+  },
   "gpu_tests_started": false,
   "paused_multiseed_cohort_resumed": false
 }

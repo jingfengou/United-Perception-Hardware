@@ -2,6 +2,8 @@
 
 基本厂商接入不依赖数值实验。默认 `numerics: native` 不进入实验 PyTorch 模式、不改变厂商 RNG，也不注册实验操作供应者。
 
+`shared/portable.py` 的 portable 表示普通同设备共享实现；它与实验策略 portable_v1 不同，使用公共 NMS/overlap 不会自动启用 FP64 或替换 RNG。
+
 | 策略 | 实现归属 | 用途与限制 |
 | --- | --- | --- |
 | `native` | `common/policy.py` | 无操作策略，保留原生设备行为 |
