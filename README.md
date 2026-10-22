@@ -6,6 +6,8 @@
 
 这是保留原项目 Git 历史的独立派生仓库。上游基线为 `52aaeb9ed27a490820696d7754d19f98cd6ecd11`，原项目的 [Apache-2.0 LICENSE](LICENSE) 和代码归属保留。平台实现已抽为同仓独立包 [`up-platform`](packages/up-platform/)，导入名 `up_platform`；[`up/accelerator/`](up/accelerator/) 保留旧接口门面与 UP 配置转换。
 
+整体职责、相对原版的逐文件增删改、问题与收敛路线见[平台总设计与仓库审计](docs/architecture/PROJECT_REVIEW.md)。其中明确区分当前实现、历史实验和最终项目结构，不把尚未完成的整理或验证记为完成。
+
 只想运行模型，阅读第 2、3、4 节；准备增加厂商适配，继续阅读第 5 节。新架构见[平台文档](docs/platform/README.md)，逐项实现义务见[完整接口](docs/platform/INTERFACES.md)、[73 项操作索引](docs/platform/API_INDEX.md)和[厂商模板](docs/platform/ADDING_VENDOR.md)。
 
 **训练、训练中验证、`train --evaluate` 走 training；独立图片/视频推理、ONNX 导出走 inference。** 共同设备/RNG/内存/通信和明确共用的操作只维护一份，不根据 `.eval()` 或 `no_grad()` 猜用途。普通导入不初始化设备、不加载所有厂商 SDK；独立平台包禁止导入 UP。

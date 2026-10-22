@@ -1,0 +1,113 @@
+{
+  "areas": {
+    "configs": {
+      "bytes": 894270,
+      "files": 168
+    },
+    "documentation": {
+      "bytes": 1017244,
+      "files": 93
+    },
+    "frozen_evidence": {
+      "bytes": 89491967,
+      "files": 1505
+    },
+    "other": {
+      "bytes": 155075,
+      "files": 39
+    },
+    "platform_package": {
+      "bytes": 461851,
+      "files": 128
+    },
+    "tests": {
+      "bytes": 102988,
+      "files": 13
+    },
+    "tools": {
+      "bytes": 365829,
+      "files": 46
+    },
+    "up": {
+      "bytes": 2163066,
+      "files": 445
+    }
+  },
+  "base": "52aaeb9ed27a490820696d7754d19f98cd6ecd11",
+  "bytes_after": 94652290,
+  "bytes_before": 3842058,
+  "categories": {
+    "bootstrap": 3,
+    "ci": 1,
+    "compatibility": 49,
+    "device": 2,
+    "distributed": 2,
+    "documentation": 25,
+    "entry_point": 7,
+    "environment": 3,
+    "evidence": 1506,
+    "examples": 6,
+    "experimental": 9,
+    "inference": 3,
+    "maintenance": 1,
+    "metax_fix": 1,
+    "nvidia_ops": 44,
+    "optional_sdk": 2,
+    "packaging": 7,
+    "platform_core": 6,
+    "shared": 11,
+    "tests": 17,
+    "training": 6,
+    "up_integration": 62,
+    "validation_tool": 46,
+    "vendor_backend": 37
+  },
+  "changes": {
+    "A": 1716,
+    "M": 97,
+    "R100": 43
+  },
+  "comparison": "committed Git trees, not dirty files or .git pack size",
+  "configs_unchanged": true,
+  "files_after": 2437,
+  "files_before": 721,
+  "license_unchanged": true,
+  "model_directory_modified": [
+    "up/models/backbones/mobilenet_v3.py",
+    "up/models/backbones/regnet.py",
+    "up/models/model_helper.py",
+    "up/tasks/cls/models/losses/cls_loss.py",
+    "up/tasks/det/models/losses/focal_loss.py",
+    "up/tasks/det/models/losses/l1_loss.py",
+    "up/tasks/det/models/losses/smooth_l1_loss.py",
+    "up/tasks/det/models/postprocess/roi_supervisor.py",
+    "up/tasks/det/models/utils/anchor_generator.py",
+    "up/tasks/det/models/utils/bbox_helper.py",
+    "up/tasks/det/models/utils/matcher.py",
+    "up/tasks/det/models/utils/nms_wrapper.py",
+    "up/tasks/det/plugins/condinst/models/postprocess/condinst_postprocess.py",
+    "up/tasks/det/plugins/efl/models/losses/efl.py",
+    "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+    "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+    "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+    "up/tasks/det/plugins/yolox/models/preprocess/multiscale.py",
+    "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+    "up/tasks/det_3d/models/backbones_3d/map_to_bev.py",
+    "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+    "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+    "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_post_process.py",
+    "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+    "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+    "up/tasks/det_3d/models/utils/anchor_generator.py",
+    "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+    "up/tasks/det_3d/models/utils/voxel_generator.py",
+    "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+    "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+    "up/tasks/nas/bignas/models/search_space/base_bignas_searchspace.py",
+    "up/tasks/seg/models/decoder/ocrnet.py",
+    "up/tasks/seg/models/encoder/hrnet.py",
+    "up/tasks/ssl/models/losses/ssl_loss.py"
+  ],
+  "root_requirements_unchanged": true,
+  "target": "fcccc05634536c83cd850728e29fdbe811d92cf6"
+}
