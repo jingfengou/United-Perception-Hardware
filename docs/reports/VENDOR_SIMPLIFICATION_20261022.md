@@ -30,9 +30,11 @@
 | 边界与契约 | 0 违规；31 成员 / 73 操作索引无漂移 |
 | 算法、配置和证据保护 | 665 项受保护文件、6 项原字节协议夹具通过；归档清单和历史报告无修改 |
 | 文档 | 190 项本地链接通过；README Skill 审计通过，未新增图片或视觉包装 |
-| 云端 CI | 提交后由三个 CPU 版本组合及无 Torch 公共构建验证；最终运行链接另行补记 |
+| 云端 CI | 实现提交 `add59929085540554d3d668bf145059baa66232d` 的三个 CPU 版本组合及无 Torch 公共构建均成功，[固定运行记录](https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39749631687) |
 
 CI 自动发现新增测试，并在安装平台 wheel 后实际安装最小插件、分别执行训练和推理路由。未引入新一套测试调度。原始 JUnit 与构建日志保留在本地忽略目录 `dist/vendor-simplification-20261022/`，云端相应 JUnit / 分发包由 workflow artifact 保存。
+
+云端 JUnit 已实际下载核对：Python 3.10 / Torch 2.6、Python 3.12 / Torch 2.6、Python 3.12 / Torch 2.10 三组均为全仓 320 个 XML case、安装后 wheel 56 个 case，全部零失败、错误和跳过，两种报告都包含新增的 26 项注册回归。验收记录的后续提交只更新本文，不改变已验证的运行时、示例、契约、测试或 CI 配置。
 
 ```bash
 python tools/platform/check_hardware_boundaries.py
