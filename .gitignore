@@ -38,3 +38,4 @@ dist/
 !docs/hardware/validation/metax_20261021/**/*.log
 !docs/hardware/validation/cross_vendor_20261021/**/*.log
 !docs/platform/validation/hardware_20261022/**/*.log
+!docs/platform/validation/metax_determinism_20261022/**/*.log

@@ -1,0 +1,795 @@
+{
+  "cases": {
+    "batch_norm": {
+      "bitwise_repeatable": true,
+      "input_hashes": [
+        "87de5c55961cf18cdcc0951724650f5edae6ca54d9d21b24bc00f314144d982c",
+        "f2079f9191068324558b0b8fbe410502fcdc718e2fdd1476b8ae074758dd4863",
+        "475498de8c084953a9765dba7eb2547c67c1b46990780b80a22cfe56fb3d9666"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "8da6457cfc34a8431077e4e4477d7b2c6c74f9c211a9b9578085e8e988727dd4",
+            "e29ff12c777154ffb14aad3874fab24a549100680cd71a699700991bc0bfc707",
+            "92e996717828feea45a62cd6b002d26598a3659c2787954f60a78f1fc5095ab6",
+            "f7b3b1839f7ae7e34f258b53be6b253ff1e8025d5460e6d5524d153552bdf9bd"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "upstream_hash": "36e826935ba795382bfebfd86ddcc6e54e4d4cc5dfe6c793557c385606ad3c9e"
+    },
+    "conv2d": {
+      "bitwise_repeatable": false,
+      "input_hashes": [
+        "ef7844bab3d320eadca4c56a358c1f661a47660b690de4f6ee6f4d50f6ca0cd4",
+        "b63e3f4bf94af1a754f673d24b05e5822e5c972ef4c188f4a4df5657381dc8a6"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "dd0db0b01d7ddcf11888799895b0029d9aea1ec66640e0e85e3fd6577d0fa07e"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "42e2a2a0f03059d3713baaff68c2457ea20c696c124b6641d774d83a8f2dba61"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.000152587890625
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "4f2c641b54047eab05861bf2ed8c177e96fb0359439211c7ce09d03b6fa4d3c4"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.000152587890625
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "d7b7151010063e59e729d1438e83f03685147a2e3e6db718422f1c8fc7cf1244"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0001220703125
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "a8561ef438fc8fb833414d8e83e7fdee33986cd75eae905b1552002a684dc190"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.000152587890625
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "198d1ba5828b49a4d312b4a9b8e5ffcb1d1ac0fdc474a5b7343b7016b827eb6c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0001220703125
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "e29254f9ae93aff6af6a82801e69bf1bc2751b790e4100c3357b07c1cb9550f9"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0001220703125
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "76de311b4f179400a345b0a1525d7550f43459aaa6e34b2366ea9ace501d522b"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0001220703125
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "269080689ffe9dd895241a5618900c046ad07c5381c748ac2a0ba59f4867366e"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.000152587890625
+          ]
+        },
+        {
+          "hashes": [
+            "d3f4dcb5cd158418a1b684403c90ce90abef12083ebc50b7795ef8e5af236a11",
+            "7e00ac1dbac1377f5941b742919cb2758984967e01d08069a188a53c8829a7e5",
+            "96f60f1e07653cd2122888950de4beddcdd57789a738221ac5c5c66f22a6ac2f"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.000152587890625
+          ]
+        }
+      ],
+      "upstream_hash": "83d7fb73cf02f11f456fac186edc7e9acf1a5ad0d318c69743f8caeb6680bdd9"
+    },
+    "gelu": {
+      "bitwise_repeatable": true,
+      "input_hashes": [
+        "fccb918dee6755e61c9ed5935b8dba526fca1fe28e47f7bc1ec7fc9009500ebd"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "197626d2974fece9ebd58accf379a2941bb391904a19daa7720b97b746597043",
+            "3b1c81f4eda9309f45ac7d723ebcddd351d12b30f94849c6c4220f87dad65c0a"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "upstream_hash": "70cff83896b5657758c9a75b68e711f9229758a46c560318b1f2d455660a19fd"
+    },
+    "layer_norm": {
+      "bitwise_repeatable": true,
+      "input_hashes": [
+        "f83bb2c315fcb1b0279b1fe963ec07209bab7c81cc1c9410d61ada7086daeaff",
+        "d5e120d47639187e75f6b4f8e7ad7aa8c78c2024c8f5aca96a00e10ee5fedb01",
+        "eed800c5317e5c85a1dbbcc5249e39bcc406fab47aab37d480b305853531d189"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "0a0b1360de439bd671955e5bd847f428a6d26e1f695a4c1171caea7d94065eea",
+            "dd0d07f8a5dec5631a056d6d8d538bf5506b902706b04d3a5848b72961827db9",
+            "23a8602074a2c5b375f3c31ed4062b287635fbf486ea95d6f9eda62ddb017720",
+            "2ba0eab4dde33138600eadc9dafd9215b4cf54959ec2569554af19354d5cd356"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "upstream_hash": "8bfc48ee5efa7a9d3fdb6a3df303046734311c2d30077f820e917d46fd1fe4da"
+    },
+    "linear": {
+      "bitwise_repeatable": true,
+      "input_hashes": [
+        "1a32786e930cd302c9c172e07b3d2f755ced7488e2e74383ee219b093ca40cc7",
+        "61553a16239eb2ff155995de411e8bafe9b013c0749d06dee8cdde045e2d329c"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "5c4549b1911fbdd4bff890aa1395f6f3a1ff7269b0d4363bb556079d7edb548a",
+            "60563a9cfa9559d246f3380b37a7c1f176673875303d2f5ec5aa8c1ba5c06238",
+            "fdf1150162cebd3f808f52765d2d7fed99538f0c1f850973958b944689f971ac"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "upstream_hash": "833a5d4724ce597cf3a1b9cef290a358cc18c2e9810d941e134a60fd9a929c6c"
+    },
+    "softmax": {
+      "bitwise_repeatable": true,
+      "input_hashes": [
+        "69d7f81f0624ac78b3885a6d9d5d83f8da043f99ccb8d20e71ab61ccddb70fef"
+      ],
+      "rows": [
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "hashes": [
+            "4093b2cba5666f60367798d0a15feeabd4502c7223cca6b9bd124a4eca42c045",
+            "5d2c593ed564f286dc024ab9f6940052b4af6744530e8efad4d92d01e263e54c"
+          ],
+          "max_abs_vs_first": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "upstream_hash": "18e4f94073518c8bcb687465ce6ad9cd37704b82c1c32890c13e2439ad6fc949"
+    }
+  },
+  "convolution_deterministic": true,
+  "convolution_library_enabled": true,
+  "deterministic_requested": true,
+  "gpu": "MetaX C500",
+  "repetitions": 10,
+  "scope": "diagnostic_only; fixed tensors, repeated fresh autograd graphs, no optimizer or UP",
+  "status": "completed",
+  "tf32": false,
+  "tool_sha256": "79bbec707eec925bfa985b4299103770c12b49b1140d4ff97915f20238fa17d2",
+  "torch": "2.10.0+metax3.8.1.0",
+  "visible_devices": "0"
+}

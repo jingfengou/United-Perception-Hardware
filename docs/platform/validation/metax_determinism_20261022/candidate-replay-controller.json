@@ -1,0 +1,67 @@
+{
+  "completed": true,
+  "jobs": [
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/resnet18/case-0.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/resnet18/case-0"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/resnet18/case-1.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/resnet18/case-1"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/resnet18/case-2.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/resnet18/case-2"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/resnet18/case-3.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/resnet18/case-3"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/yolov5s/case-0.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/yolov5s/case-0"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/yolov5s/case-1.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/yolov5s/case-1"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/yolov5s/case-2.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/yolov5s/case-2"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/yolov5s/case-3.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/yolov5s/case-3"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/detr/case-0.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/detr/case-0"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/detr/case-1.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/detr/case-1"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/detr/case-2.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/detr/case-2"
+    },
+    {
+      "case": "/workspace/up-run/platform-determinism-20261022/capture/detr/case-3.pt",
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/candidate-replay/detr/case-3"
+    }
+  ],
+  "stage": "candidate-replay",
+  "tool_sha256": "6a397241c80cfc4ba411e2f0a2bd2c953fee2fd4f997ece557b5c6f043e19a5b"
+}

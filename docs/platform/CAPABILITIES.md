@@ -24,6 +24,7 @@
 | legacy_link / 融合优化器 / 工具库 | NVIDIA 可选 SDK | 延迟加载；未执行，不声称当前结构已验证 |
 | ONNX | InferenceBackend.export_onnx | 保留 legacy symbolic；未有 symbolic 的操作不承诺导出，无新引擎 |
 | portable_v1 | experimental/numerics | native 默认关闭；仅已有显式 CUDA-shaped 厂商声明，含 GPU FP64 和性能代价；不提升精度验收结论 |
+| metax_deterministic_v1 | backends/metax/determinism.py | 显式 C500 FP32 卷积权重梯度替换；原前向、输入/偏置梯度及 RNG 不变，无 FP64/CPU 代算；ResNet/YOLO/DETR 同种子三步新旧及重复检查通过，见[专项报告](METAX_DETERMINISM.md)；不提升 native 或完整精度结论 |
 
 ## 历史证据与本轮结论
 

@@ -1,0 +1,379 @@
+{
+  "atol": 1e-05,
+  "case": "/workspace/up-run/platform-determinism-20261022/capture/resnet18/case-1.pt",
+  "completed": true,
+  "elapsed_seconds": 15.472206640057266,
+  "gpu": "MetaX C500",
+  "input_sha256": "5f87e03d5b99eb4e9e10a67f0812676ea493488bc11dc44ad5cf7139008bc596",
+  "parameter": "backbone.layer1.1.conv1.weight",
+  "providers": {
+    "dnn_off": {
+      "exact": true,
+      "max_abs": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "output_sha256": "29ad56a925d50957d1734009e6f55087b67c2e133dcf67ac5cbc88aa0c9dc513",
+      "repeats": 10,
+      "rows": [
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ]
+      ]
+    },
+    "dnn_on": {
+      "exact": false,
+      "max_abs": [
+        0.0,
+        7.450580596923828e-08,
+        0.0
+      ],
+      "output_sha256": "6cefa0a8cf5788e707982870b07720899a267273d79c441ed591dc11fbc4cf37",
+      "repeats": 10,
+      "rows": [
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 7.450580596923828e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ],
+        [
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": false,
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0
+          },
+          {
+            "exact": true,
+            "max_abs": 0.0,
+            "outside_tolerance": 0
+          }
+        ]
+      ]
+    }
+  },
+  "rtol": 0.0001,
+  "scope": "pure PyTorch, actual saved primitive operands; no UP or model imported",
+  "tool_sha256": "544f0d68ccc7d0428b090224b671387217ecba5797a0d86c30b694374b15dab5",
+  "torch": "2.10.0+metax3.8.1.0"
+}

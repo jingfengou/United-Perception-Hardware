@@ -1,0 +1,4 @@
+{"prediction": 3, "label": 6, "topk_idx": [3, 6, 5, 7, 8], "topk_score": [1.0, 0.0, 0.0, 0.0, 0.0], "filename": "03582.png"}
+{"prediction": 3, "label": 6, "topk_idx": [3, 6, 5, 7, 8], "topk_score": [1.0, 0.0, 0.0, 0.0, 0.0], "filename": "00994.png"}
+{"prediction": 3, "label": 3, "topk_idx": [3, 6, 5, 7, 8], "topk_score": [1.0, 0.0, 0.0, 0.0, 0.0], "filename": "01625.png"}
+{"prediction": 3, "label": 2, "topk_idx": [3, 6, 5, 7, 8], "topk_score": [1.0, 0.0, 0.0, 0.0, 0.0], "filename": "01382.png"}

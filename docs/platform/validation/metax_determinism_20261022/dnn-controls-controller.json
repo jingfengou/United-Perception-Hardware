@@ -1,0 +1,98 @@
+{
+  "jobs": [
+    {
+      "command": [
+        "training",
+        "--source",
+        "/workspace/up-run/platform-validation-20261022/changed",
+        "--data",
+        "/workspace/up-run/platform-determinism-20261022/data/data.json",
+        "--model",
+        "resnet18",
+        "--disable-dnn"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/resnet18/0"
+    },
+    {
+      "command": [
+        "training",
+        "--source",
+        "/workspace/up-run/platform-validation-20261022/changed",
+        "--data",
+        "/workspace/up-run/platform-determinism-20261022/data/data.json",
+        "--model",
+        "resnet18",
+        "--disable-dnn"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/resnet18/1"
+    },
+    {
+      "command": [
+        "compare",
+        "--first",
+        "/workspace/up-run/platform-determinism-20261022/dnn-controls/resnet18/0",
+        "--second",
+        "/workspace/up-run/platform-determinism-20261022/dnn-controls/resnet18/1"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/resnet18/comparison"
+    },
+    {
+      "command": [
+        "training",
+        "--source",
+        "/workspace/up-run/platform-validation-20261022/changed",
+        "--data",
+        "/workspace/up-run/platform-determinism-20261022/data/data.json",
+        "--model",
+        "yolov5s",
+        "--disable-dnn"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/yolov5s/0"
+    },
+    {
+      "command": [
+        "training",
+        "--source",
+        "/workspace/up-run/platform-validation-20261022/changed",
+        "--data",
+        "/workspace/up-run/platform-determinism-20261022/data/data.json",
+        "--model",
+        "yolov5s",
+        "--disable-dnn"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/yolov5s/1"
+    },
+    {
+      "command": [
+        "compare",
+        "--first",
+        "/workspace/up-run/platform-determinism-20261022/dnn-controls/yolov5s/0",
+        "--second",
+        "/workspace/up-run/platform-determinism-20261022/dnn-controls/yolov5s/1"
+      ],
+      "exit_code": 0,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/yolov5s/comparison"
+    },
+    {
+      "command": [
+        "training",
+        "--source",
+        "/workspace/up-run/platform-validation-20261022/changed",
+        "--data",
+        "/workspace/up-run/platform-determinism-20261022/data/data.json",
+        "--model",
+        "detr",
+        "--disable-dnn"
+      ],
+      "exit_code": 1,
+      "output": "/workspace/up-run/platform-determinism-20261022/dnn-controls/detr/0"
+    }
+  ],
+  "stage": "dnn-controls",
+  "tool_sha256": "5b40de77aff8ca87e49f5942a8b1cb3a5966c37a1c17e97a5f2b161e85bbc217"
+}

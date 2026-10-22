@@ -1,0 +1,2 @@
+{"dnn": true, "exact": false, "max_abs": [0.0, 9.313225746154785e-10, 0.0]}
+{"dnn": false, "exact": true, "max_abs": [0.0, 0.0, 0.0]}

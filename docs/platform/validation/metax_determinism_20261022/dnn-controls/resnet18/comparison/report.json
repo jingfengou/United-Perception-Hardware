@@ -1,0 +1,45 @@
+{
+  "artifacts": {
+    "checkpoint.pt": {
+      "error": "root/model/backbone.layer0.0.weight: Tensor-likes are not close!\n\nMismatched elements: 6 / 9408 (0.1%)\nGreatest absolute difference: 1.314561814069748e-05 at index (16, 2, 3, 6) (up to 1e-05 allowed)\nGreatest relative difference: 0.43086153268814087 at index (16, 0, 4, 6) (up to 0.0001 allowed)",
+      "passed": false
+    },
+    "eval-1.pt": {
+      "exact_tensor_count": 2,
+      "max_abs": 0.00095367431640625,
+      "max_rel": 5.730008481585891e-05,
+      "passed": true,
+      "tensor_count": 6
+    },
+    "eval-2.pt": {
+      "error": "root/0/logits: Tensor-likes are not close!\n\nMismatched elements: 1 / 20 (5.0%)\nGreatest absolute difference: 0.0001342296600341797 at index (0, 0) (up to 1e-05 allowed)\nGreatest relative difference: 0.00011385112156858668 at index (0, 0) (up to 0.0001 allowed)",
+      "passed": false
+    },
+    "gradients-1.pt": {
+      "exact_tensor_count": 0,
+      "max_abs": 3.829598426818848e-06,
+      "max_rel": 17.4,
+      "passed": true,
+      "tensor_count": 62
+    },
+    "gradients-2.pt": {
+      "error": "root/backbone.layer0.0.weight: Tensor-likes are not close!\n\nMismatched elements: 693 / 9408 (7.4%)\nGreatest absolute difference: 0.00010018050670623779 at index (50, 1, 3, 4) (up to 1e-05 allowed)\nGreatest relative difference: 0.0891566276550293 at index (37, 1, 0, 5) (up to 0.0001 allowed)",
+      "passed": false
+    },
+    "gradients-3.pt": {
+      "error": "root/backbone.layer0.0.weight: Tensor-likes are not close!\n\nMismatched elements: 9211 / 9408 (97.9%)\nGreatest absolute difference: 0.014004424214363098 at index (16, 2, 5, 6) (up to 1e-05 allowed)\nGreatest relative difference: 330.9241027832031 at index (20, 1, 1, 2) (up to 0.0001 allowed)",
+      "passed": false
+    },
+    "restored-output.pt": {
+      "error": "root/logits: Tensor-likes are not close!\n\nMismatched elements: 1 / 20 (5.0%)\nGreatest absolute difference: 0.0001322031021118164 at index (0, 0) (up to 1e-05 allowed)\nGreatest relative difference: 0.00011213230027351528 at index (0, 0) (up to 0.0001 allowed)",
+      "passed": false
+    }
+  },
+  "atol": 1e-05,
+  "elapsed_seconds": 3.2074350928887725,
+  "initial_batch_rng_identical": true,
+  "losses_passed": true,
+  "passed": false,
+  "rtol": 0.0001,
+  "tool_sha256": "5b40de77aff8ca87e49f5942a8b1cb3a5966c37a1c17e97a5f2b161e85bbc217"
+}

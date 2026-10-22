@@ -1,0 +1,1133 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+node memory info before build {'node_mem_total': 2015.54, 'node_mem_used': 25.509, 'node_mem_used_percent': 1.8, 'node_swap_mem_total': 0.0, 'node_swap_mem_used_percent': 0.0}
+2026-10-22 07:00:48,984-rk0-base_runner.py#238:world size:1
+/bin/sh: 1: git: not found
+2026-10-22 07:00:48,990-rk0-base_runner.py#285:current git version 
+2026-10-22 07:00:48,991-rk0-base_runner.py#187:build train:train done
+2026-10-22 07:00:48,993-rk0-data_builder.py#49:[1;33mWe use dist_test instead of dist for test.                     If you use a rank based dataset,                     you need to use the local_test as the test sampler[0m
+2026-10-22 07:00:48,993-rk0-base_runner.py#187:build test:test done
+2026-10-22 07:00:49,118-rk0-base_runner.py#654:.backbone (DarkNetv5())
+         .focus (Focus())
+               .space2depth (Space2Depth())
+               .conv_block (ConvBnAct())
+                          .conv (Conv2d(12, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                               - weight: torch.float32
+                          .bn1 (BatchNorm2d(32, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                              - weight: torch.float32
+                              - bias: torch.float32
+                          .act (SiLU(inplace=True))
+         .csp_modules (ModuleList())
+                     .0 (Sequential())
+                       .0 (ConvBnAct())
+                         .conv (Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                              - weight: torch.float32
+                         .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                       .1 (BottleneckCSP())
+                         .conv_block1 (ConvBnAct())
+                                     .conv (Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(32, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .conv2 (Conv2d(64, 32, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv3 (Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv_block4 (ConvBnAct())
+                                     .conv (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                         .cbh_blocks (Sequential())
+                                    .0 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(32, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(32, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                     .1 (Sequential())
+                       .0 (ConvBnAct())
+                         .conv (Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                              - weight: torch.float32
+                         .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                       .1 (BottleneckCSP())
+                         .conv_block1 (ConvBnAct())
+                                     .conv (Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .conv2 (Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv3 (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv_block4 (ConvBnAct())
+                                     .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                         .cbh_blocks (Sequential())
+                                    .0 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                    .1 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                    .2 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                     .2 (Sequential())
+                       .0 (ConvBnAct())
+                         .conv (Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                              - weight: torch.float32
+                         .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                       .1 (BottleneckCSP())
+                         .conv_block1 (ConvBnAct())
+                                     .conv (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .conv2 (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv3 (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv_block4 (ConvBnAct())
+                                     .conv (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                         .cbh_blocks (Sequential())
+                                    .0 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                    .1 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                    .2 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                     .3 (Sequential())
+                       .0 (ConvBnAct())
+                         .conv (Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                              - weight: torch.float32
+                         .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                       .1 (SPP())
+                         .conv_block1 (ConvBnAct())
+                                     .conv (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .conv_block2 (ConvBnAct())
+                                     .conv (Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .pooling_blocks (ModuleList())
+                                        .0 (MaxPool2d(kernel_size=5, stride=1, padding=2, dilation=1, ceil_mode=False))
+                                        .1 (MaxPool2d(kernel_size=9, stride=1, padding=4, dilation=1, ceil_mode=False))
+                                        .2 (MaxPool2d(kernel_size=13, stride=1, padding=6, dilation=1, ceil_mode=False))
+                       .2 (BottleneckCSP())
+                         .conv_block1 (ConvBnAct())
+                                     .conv (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .conv2 (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv3 (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                               - weight: torch.float32
+                         .conv_block4 (ConvBnAct())
+                                     .conv (Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                          - weight: torch.float32
+                                     .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                         - weight: torch.float32
+                                         - bias: torch.float32
+                                     .act (SiLU(inplace=True))
+                         .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                             - weight: torch.float32
+                             - bias: torch.float32
+                         .act (SiLU(inplace=True))
+                         .cbh_blocks (Sequential())
+                                    .0 (Bottleneck())
+                                      .conv_block1 (ConvBnAct())
+                                                  .conv (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+                                      .conv_block2 (ConvBnAct())
+                                                  .conv (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                       - weight: torch.float32
+                                                  .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                      - weight: torch.float32
+                                                      - bias: torch.float32
+                                                  .act (SiLU(inplace=True))
+.neck (DarknetPAFPN())
+     .up_sample_stream (ModuleList())
+                      .0 (ConvBnAct())
+                        .conv (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                             - weight: torch.float32
+                        .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                            - weight: torch.float32
+                            - bias: torch.float32
+                        .act (SiLU(inplace=True))
+                      .1 (Upsample(scale_factor=2.0, mode='nearest'))
+                      .2 (Concat())
+                      .3 (BottleneckCSP())
+                        .conv_block1 (ConvBnAct())
+                                    .conv (Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                         - weight: torch.float32
+                                    .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                        - weight: torch.float32
+                                        - bias: torch.float32
+                                    .act (SiLU(inplace=True))
+                        .conv2 (Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                              - weight: torch.float32
+                        .conv3 (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                              - weight: torch.float32
+                        .conv_block4 (ConvBnAct())
+                                    .conv (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                         - weight: torch.float32
+                                    .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                        - weight: torch.float32
+                                        - bias: torch.float32
+                                    .act (SiLU(inplace=True))
+                        .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                            - weight: torch.float32
+                            - bias: torch.float32
+                        .act (SiLU(inplace=True))
+                        .cbh_blocks (Sequential())
+                                   .0 (Bottleneck())
+                                     .conv_block1 (ConvBnAct())
+                                                 .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                      - weight: torch.float32
+                                                 .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                     - weight: torch.float32
+                                                     - bias: torch.float32
+                                                 .act (SiLU(inplace=True))
+                                     .conv_block2 (ConvBnAct())
+                                                 .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                      - weight: torch.float32
+                                                 .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                     - weight: torch.float32
+                                                     - bias: torch.float32
+                                                 .act (SiLU(inplace=True))
+                      .4 (ConvBnAct())
+                        .conv (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                             - weight: torch.float32
+                        .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                            - weight: torch.float32
+                            - bias: torch.float32
+                        .act (SiLU(inplace=True))
+                      .5 (Upsample(scale_factor=2.0, mode='nearest'))
+                      .6 (Concat())
+                      .7 (BottleneckCSP())
+                        .conv_block1 (ConvBnAct())
+                                    .conv (Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                         - weight: torch.float32
+                                    .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                        - weight: torch.float32
+                                        - bias: torch.float32
+                                    .act (SiLU(inplace=True))
+                        .conv2 (Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                              - weight: torch.float32
+                        .conv3 (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                              - weight: torch.float32
+                        .conv_block4 (ConvBnAct())
+                                    .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                         - weight: torch.float32
+                                    .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                        - weight: torch.float32
+                                        - bias: torch.float32
+                                    .act (SiLU(inplace=True))
+                        .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                            - weight: torch.float32
+                            - bias: torch.float32
+                        .act (SiLU(inplace=True))
+                        .cbh_blocks (Sequential())
+                                   .0 (Bottleneck())
+                                     .conv_block1 (ConvBnAct())
+                                                 .conv (Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                      - weight: torch.float32
+                                                 .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                     - weight: torch.float32
+                                                     - bias: torch.float32
+                                                 .act (SiLU(inplace=True))
+                                     .conv_block2 (ConvBnAct())
+                                                 .conv (Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                      - weight: torch.float32
+                                                 .bn1 (BatchNorm2d(64, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                     - weight: torch.float32
+                                                     - bias: torch.float32
+                                                 .act (SiLU(inplace=True))
+     .down_sample_stream (ModuleList())
+                        .0 (ConvBnAct())
+                          .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                               - weight: torch.float32
+                          .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                              - weight: torch.float32
+                              - bias: torch.float32
+                          .act (SiLU(inplace=True))
+                        .1 (Concat())
+                        .2 (BottleneckCSP())
+                          .conv_block1 (ConvBnAct())
+                                      .conv (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                           - weight: torch.float32
+                                      .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                          - weight: torch.float32
+                                          - bias: torch.float32
+                                      .act (SiLU(inplace=True))
+                          .conv2 (Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                - weight: torch.float32
+                          .conv3 (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                - weight: torch.float32
+                          .conv_block4 (ConvBnAct())
+                                      .conv (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                           - weight: torch.float32
+                                      .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                          - weight: torch.float32
+                                          - bias: torch.float32
+                                      .act (SiLU(inplace=True))
+                          .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                              - weight: torch.float32
+                              - bias: torch.float32
+                          .act (SiLU(inplace=True))
+                          .cbh_blocks (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv_block1 (ConvBnAct())
+                                                   .conv (Conv2d(128, 128, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                        - weight: torch.float32
+                                                   .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                       - weight: torch.float32
+                                                       - bias: torch.float32
+                                                   .act (SiLU(inplace=True))
+                                       .conv_block2 (ConvBnAct())
+                                                   .conv (Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                        - weight: torch.float32
+                                                   .bn1 (BatchNorm2d(128, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                       - weight: torch.float32
+                                                       - bias: torch.float32
+                                                   .act (SiLU(inplace=True))
+                        .3 (ConvBnAct())
+                          .conv (Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False))
+                               - weight: torch.float32
+                          .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                              - weight: torch.float32
+                              - bias: torch.float32
+                          .act (SiLU(inplace=True))
+                        .4 (Concat())
+                        .5 (BottleneckCSP())
+                          .conv_block1 (ConvBnAct())
+                                      .conv (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                           - weight: torch.float32
+                                      .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                          - weight: torch.float32
+                                          - bias: torch.float32
+                                      .act (SiLU(inplace=True))
+                          .conv2 (Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                - weight: torch.float32
+                          .conv3 (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                - weight: torch.float32
+                          .conv_block4 (ConvBnAct())
+                                      .conv (Conv2d(512, 512, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                           - weight: torch.float32
+                                      .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                          - weight: torch.float32
+                                          - bias: torch.float32
+                                      .act (SiLU(inplace=True))
+                          .bn1 (BatchNorm2d(512, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                              - weight: torch.float32
+                              - bias: torch.float32
+                          .act (SiLU(inplace=True))
+                          .cbh_blocks (Sequential())
+                                     .0 (Bottleneck())
+                                       .conv_block1 (ConvBnAct())
+                                                   .conv (Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False))
+                                                        - weight: torch.float32
+                                                   .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                       - weight: torch.float32
+                                                       - bias: torch.float32
+                                                   .act (SiLU(inplace=True))
+                                       .conv_block2 (ConvBnAct())
+                                                   .conv (Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False))
+                                                        - weight: torch.float32
+                                                   .bn1 (BatchNorm2d(256, eps=0.001, momentum=0.03, affine=True, track_running_stats=True))
+                                                       - weight: torch.float32
+                                                       - bias: torch.float32
+                                                   .act (SiLU(inplace=True))
+     .down_sample_convs (ModuleList())
+     .out_align_convs (ModuleList())
+.head (YoloV5Head())
+     .cls_subnet (ModuleList())
+                .0 (Conv2d(128, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .1 (Conv2d(256, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .2 (Conv2d(512, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+     .loc_subnet (ModuleList())
+                .0 (Conv2d(128, 12, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .1 (Conv2d(256, 12, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .2 (Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+     .obj_subnet (ModuleList())
+                .0 (Conv2d(128, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .1 (Conv2d(256, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+                .2 (Conv2d(512, 3, kernel_size=(1, 1), stride=(1, 1)))
+                  - weight: torch.float32
+                  - bias: torch.float32
+.post_process (YoloV5PostProcess())
+             .box_loss (IOULoss())
+             .obj_loss (SigmoidCrossEntropyLoss())
+             .cls_loss (SigmoidCrossEntropyLoss())
+2026-10-22 07:00:49,119-rk0-optimizer_helper.py#128:build optimizer done
+2026-10-22 07:00:49,119-rk0-base_runner.py#146:using iter_base, data_size are set to 1
+2026-10-22 07:00:49,125-rk0-base_runner.py#319:test_freq: 2
+2026-10-22 07:00:49,125-rk0-base_runner.py#321:test_start: 0
+2026-10-22 07:00:49,126-rk0-base_runner.py#323:save_freq: 1000
+2026-10-22 07:00:49,126-rk0-base_runner.py#334:only save latest: False
+2026-10-22 07:00:49,126-rk0-base_runner.py#335:save latest freq: 4
+2026-10-22 07:00:49,126-rk0-base_runner.py#336:save_start: 1
+2026-10-22 07:00:49,126-rk0-base_runner.py#339:max_iter: 3
+2026-10-22 07:00:49,126-rk0-base_runner.py#341:is_eval: True
+2026-10-22 07:00:49,217-rk0-base_runner.py#306:build hooks done
+2026-10-22 07:00:49,217-rk0-saver_helper.py#87:[1;33mLoad nothing! No weights provided {}[0m
+2026-10-22 07:00:49,217-rk0-model_helper.py#158:Try to load the whole resume model or pretrained detection model...
+2026-10-22 07:00:49,225-rk0-model_helper.py#175:Failed to load the whole detection model directly, trying to load each part seperately...
+2026-10-22 07:00:49,228-rk0-model_helper.py#220:Loading backbone:0 shared keys, 0 unexpected keys, 214 missing keys.
+missing keys are as follows:
+    csp_modules.0.1.cbh_blocks.0.conv_block2.bn1.running_var
+    csp_modules.2.1.conv_block4.conv.weight
+    csp_modules.1.1.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    csp_modules.0.1.cbh_blocks.0.conv_block1.bn1.bias
+    csp_modules.1.1.conv_block4.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.num_batches_tracked
+    csp_modules.3.1.conv_block2.conv.weight
+    csp_modules.2.0.bn1.running_var
+    csp_modules.0.1.conv3.weight
+    csp_modules.3.2.cbh_blocks.0.conv_block2.bn1.running_mean
+    csp_modules.3.2.bn1.num_batches_tracked
+    csp_modules.3.2.bn1.bias
+    csp_modules.3.2.cbh_blocks.0.conv_block1.bn1.bias
+    csp_modules.0.1.bn1.running_var
+    csp_modules.2.1.cbh_blocks.2.conv_block2.bn1.running_var
+    csp_modules.1.1.cbh_blocks.2.conv_block2.bn1.running_var
+    csp_modules.2.1.cbh_blocks.0.conv_block1.conv.weight
+    csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight
+    focus.conv_block.bn1.num_batches_tracked
+    csp_modules.3.2.cbh_blocks.0.conv_block2.bn1.running_var
+    csp_modules.2.1.cbh_blocks.1.conv_block1.bn1.bias
+    focus.conv_block.bn1.running_var
+    csp_modules.3.2.conv_block4.bn1.running_mean
+    csp_modules.3.2.cbh_blocks.0.conv_block1.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.1.conv_block2.bn1.bias
+    csp_modules.0.1.conv2.weight
+    csp_modules.0.1.cbh_blocks.0.conv_block1.bn1.running_mean
+    csp_modules.1.1.cbh_blocks.0.conv_block1.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block2.bn1.running_mean
+    csp_modules.3.2.bn1.weight
+    csp_modules.1.1.conv_block4.bn1.weight
+    csp_modules.3.2.conv2.weight
+    csp_modules.1.1.conv_block1.bn1.bias
+    csp_modules.2.1.conv_block4.bn1.running_var
+    csp_modules.1.1.cbh_blocks.0.conv_block1.bn1.bias
+    csp_modules.3.1.conv_block1.bn1.weight
+    csp_modules.2.1.cbh_blocks.1.conv_block2.bn1.running_mean
+    csp_modules.3.0.bn1.bias
+    csp_modules.1.1.cbh_blocks.1.conv_block2.conv.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block2.bn1.weight
+    csp_modules.3.2.conv_block4.conv.weight
+    csp_modules.2.1.conv_block1.bn1.running_var
+    csp_modules.0.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.0.1.cbh_blocks.0.conv_block1.bn1.running_var
+    csp_modules.3.1.conv_block1.bn1.running_mean
+    focus.conv_block.bn1.weight
+    csp_modules.0.0.conv.weight
+    csp_modules.1.1.bn1.weight
+    csp_modules.0.1.conv_block4.bn1.running_mean
+    csp_modules.0.1.conv_block1.bn1.running_mean
+    csp_modules.1.1.conv_block4.bn1.num_batches_tracked
+    csp_modules.3.2.conv_block4.bn1.bias
+    csp_modules.2.0.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block2.bn1.bias
+    csp_modules.1.1.cbh_blocks.0.conv_block1.bn1.weight
+    csp_modules.2.1.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.2.conv_block2.bn1.running_mean
+    csp_modules.3.2.conv_block4.bn1.running_var
+    csp_modules.1.1.cbh_blocks.2.conv_block2.bn1.num_batches_tracked
+    csp_modules.1.1.cbh_blocks.0.conv_block2.conv.weight
+    csp_modules.2.1.cbh_blocks.1.conv_block2.bn1.num_batches_tracked
+    csp_modules.2.1.cbh_blocks.1.conv_block2.bn1.running_var
+    csp_modules.2.1.cbh_blocks.2.conv_block2.bn1.bias
+    csp_modules.3.0.bn1.running_mean
+    csp_modules.2.1.conv_block1.bn1.bias
+    csp_modules.1.1.cbh_blocks.0.conv_block2.bn1.running_var
+    csp_modules.2.1.cbh_blocks.1.conv_block2.conv.weight
+    csp_modules.3.2.conv_block4.bn1.weight
+    csp_modules.0.1.conv_block4.bn1.bias
+    csp_modules.1.1.conv_block1.bn1.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block1.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block1.bn1.running_var
+    csp_modules.2.1.bn1.num_batches_tracked
+    csp_modules.1.1.conv_block4.bn1.running_var
+    csp_modules.2.0.bn1.bias
+    csp_modules.3.1.conv_block2.bn1.weight
+    csp_modules.3.2.cbh_blocks.0.conv_block1.bn1.weight
+    csp_modules.3.2.conv_block4.bn1.num_batches_tracked
+    csp_modules.0.0.bn1.running_mean
+    csp_modules.1.1.conv_block4.conv.weight
+    csp_modules.3.1.conv_block1.conv.weight
+    focus.conv_block.bn1.bias
+    csp_modules.1.0.conv.weight
+    csp_modules.0.1.bn1.bias
+    csp_modules.3.1.conv_block2.bn1.num_batches_tracked
+    csp_modules.3.2.cbh_blocks.0.conv_block1.bn1.running_var
+    csp_modules.3.1.conv_block2.bn1.running_mean
+    csp_modules.0.1.cbh_blocks.0.conv_block2.bn1.weight
+    csp_modules.1.1.bn1.running_mean
+    csp_modules.1.1.cbh_blocks.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.2.1.cbh_blocks.1.conv_block1.conv.weight
+    csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.running_var
+    csp_modules.3.1.conv_block2.bn1.bias
+    csp_modules.3.2.cbh_blocks.0.conv_block2.bn1.bias
+    csp_modules.2.1.conv_block1.bn1.running_mean
+    csp_modules.0.1.conv_block4.bn1.weight
+    csp_modules.0.1.conv_block1.bn1.running_var
+    csp_modules.2.1.conv_block4.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.0.conv_block2.bn1.running_mean
+    csp_modules.1.1.cbh_blocks.1.conv_block1.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.0.conv_block1.bn1.running_mean
+    csp_modules.1.0.bn1.num_batches_tracked
+    csp_modules.1.1.conv_block4.bn1.bias
+    csp_modules.1.0.bn1.running_var
+    csp_modules.0.1.conv_block1.conv.weight
+    csp_modules.2.1.cbh_blocks.1.conv_block1.bn1.running_mean
+    focus.conv_block.bn1.running_mean
+    csp_modules.1.1.conv3.weight
+    csp_modules.2.0.bn1.num_batches_tracked
+    csp_modules.2.1.cbh_blocks.0.conv_block1.bn1.running_var
+    csp_modules.3.2.conv_block1.bn1.num_batches_tracked
+    csp_modules.0.0.bn1.num_batches_tracked
+    csp_modules.0.0.bn1.bias
+    csp_modules.1.1.cbh_blocks.1.conv_block2.bn1.weight
+    csp_modules.2.1.conv_block4.bn1.num_batches_tracked
+    csp_modules.0.1.cbh_blocks.0.conv_block2.bn1.bias
+    csp_modules.1.1.cbh_blocks.2.conv_block2.bn1.bias
+    csp_modules.0.1.conv_block4.conv.weight
+    csp_modules.2.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.0.1.conv_block1.bn1.weight
+    csp_modules.2.1.cbh_blocks.2.conv_block2.conv.weight
+    csp_modules.2.1.conv2.weight
+    csp_modules.0.0.bn1.weight
+    csp_modules.3.2.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    csp_modules.1.1.bn1.num_batches_tracked
+    csp_modules.2.1.bn1.bias
+    csp_modules.2.1.conv_block4.bn1.weight
+    csp_modules.3.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.3.2.bn1.running_var
+    csp_modules.2.1.bn1.running_var
+    csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.running_mean
+    csp_modules.3.2.bn1.running_mean
+    csp_modules.2.0.bn1.running_mean
+    csp_modules.1.1.bn1.running_var
+    csp_modules.0.1.cbh_blocks.0.conv_block2.conv.weight
+    csp_modules.1.1.cbh_blocks.0.conv_block2.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block1.conv.weight
+    csp_modules.3.2.cbh_blocks.0.conv_block1.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block1.bn1.weight
+    csp_modules.1.1.conv_block1.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.0.conv_block2.conv.weight
+    csp_modules.1.1.conv_block1.conv.weight
+    csp_modules.2.1.cbh_blocks.1.conv_block1.bn1.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block2.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.1.conv_block2.bn1.weight
+    csp_modules.0.1.bn1.num_batches_tracked
+    csp_modules.2.1.conv_block4.bn1.bias
+    csp_modules.2.1.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    csp_modules.0.1.bn1.running_mean
+    focus.conv_block.conv.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block1.bn1.bias
+    csp_modules.1.1.cbh_blocks.2.conv_block1.bn1.running_mean
+    csp_modules.1.1.cbh_blocks.2.conv_block2.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block1.bn1.bias
+    csp_modules.1.1.conv_block1.bn1.running_var
+    csp_modules.3.2.conv_block1.conv.weight
+    csp_modules.1.1.cbh_blocks.1.conv_block2.bn1.running_var
+    csp_modules.1.0.bn1.bias
+    csp_modules.2.1.cbh_blocks.2.conv_block2.bn1.num_batches_tracked
+    csp_modules.0.1.bn1.weight
+    csp_modules.1.1.bn1.bias
+    csp_modules.2.1.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    csp_modules.0.1.conv_block4.bn1.num_batches_tracked
+    csp_modules.2.1.cbh_blocks.2.conv_block1.conv.weight
+    csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.bias
+    csp_modules.2.1.cbh_blocks.0.conv_block2.bn1.weight
+    csp_modules.2.1.bn1.weight
+    csp_modules.1.0.bn1.weight
+    csp_modules.3.0.conv.weight
+    csp_modules.3.1.conv_block1.bn1.bias
+    csp_modules.3.2.conv_block1.bn1.weight
+    csp_modules.3.1.conv_block2.bn1.running_var
+    csp_modules.2.0.bn1.weight
+    csp_modules.2.1.cbh_blocks.0.conv_block1.bn1.weight
+    csp_modules.1.0.bn1.running_mean
+    csp_modules.1.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.1.1.cbh_blocks.0.conv_block2.bn1.weight
+    csp_modules.2.1.cbh_blocks.1.conv_block1.bn1.running_var
+    csp_modules.3.2.conv_block1.bn1.running_var
+    csp_modules.3.1.conv_block1.bn1.running_var
+    csp_modules.3.2.conv3.weight
+    csp_modules.3.2.conv_block1.bn1.running_mean
+    csp_modules.0.1.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    csp_modules.2.1.cbh_blocks.0.conv_block2.bn1.bias
+    csp_modules.3.2.cbh_blocks.0.conv_block2.bn1.weight
+    csp_modules.0.1.conv_block1.bn1.bias
+    csp_modules.3.0.bn1.num_batches_tracked
+    csp_modules.0.0.bn1.running_var
+    csp_modules.1.1.cbh_blocks.1.conv_block2.bn1.num_batches_tracked
+    csp_modules.3.0.bn1.weight
+    csp_modules.1.1.cbh_blocks.0.conv_block1.bn1.running_var
+    csp_modules.2.1.conv_block1.conv.weight
+    csp_modules.1.1.cbh_blocks.0.conv_block2.bn1.bias
+    csp_modules.2.1.cbh_blocks.1.conv_block1.bn1.num_batches_tracked
+    csp_modules.3.0.bn1.running_var
+    csp_modules.1.1.conv2.weight
+    csp_modules.3.2.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    csp_modules.0.1.conv_block4.bn1.running_var
+    csp_modules.2.1.cbh_blocks.2.conv_block2.bn1.weight
+    csp_modules.0.1.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    csp_modules.2.1.conv3.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block1.bn1.weight
+    csp_modules.0.1.cbh_blocks.0.conv_block2.bn1.running_mean
+    csp_modules.2.1.cbh_blocks.0.conv_block1.bn1.bias
+    csp_modules.1.1.cbh_blocks.2.conv_block1.bn1.running_var
+    csp_modules.1.1.cbh_blocks.0.conv_block1.bn1.running_mean
+    csp_modules.2.1.conv_block1.bn1.weight
+    csp_modules.2.1.cbh_blocks.0.conv_block2.bn1.running_var
+    csp_modules.3.2.cbh_blocks.0.conv_block2.conv.weight
+    csp_modules.0.1.cbh_blocks.0.conv_block1.bn1.weight
+    csp_modules.1.1.cbh_blocks.2.conv_block1.bn1.num_batches_tracked
+    csp_modules.3.2.conv_block1.bn1.bias
+    csp_modules.1.1.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+2026-10-22 07:00:49,231-rk0-model_helper.py#220:Loading neck:0 shared keys, 0 unexpected keys, 148 missing keys.
+missing keys are as follows:
+    up_sample_stream.4.bn1.running_mean
+    up_sample_stream.3.conv_block4.bn1.bias
+    down_sample_stream.5.bn1.running_mean
+    down_sample_stream.5.conv3.weight
+    up_sample_stream.4.bn1.running_var
+    down_sample_stream.5.cbh_blocks.0.conv_block1.bn1.bias
+    up_sample_stream.3.cbh_blocks.0.conv_block2.bn1.bias
+    up_sample_stream.3.cbh_blocks.0.conv_block2.bn1.running_mean
+    up_sample_stream.3.bn1.running_var
+    up_sample_stream.3.cbh_blocks.0.conv_block1.bn1.weight
+    down_sample_stream.5.conv_block4.bn1.running_mean
+    down_sample_stream.5.bn1.bias
+    down_sample_stream.5.cbh_blocks.0.conv_block1.conv.weight
+    down_sample_stream.2.conv_block4.bn1.bias
+    down_sample_stream.3.bn1.weight
+    down_sample_stream.0.bn1.running_mean
+    up_sample_stream.0.bn1.num_batches_tracked
+    down_sample_stream.5.bn1.running_var
+    up_sample_stream.7.conv_block4.conv.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block2.bn1.bias
+    down_sample_stream.2.conv_block1.bn1.weight
+    up_sample_stream.4.bn1.num_batches_tracked
+    up_sample_stream.7.cbh_blocks.0.conv_block2.conv.weight
+    down_sample_stream.2.conv2.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block1.conv.weight
+    down_sample_stream.0.bn1.weight
+    down_sample_stream.2.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.2.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    up_sample_stream.7.bn1.running_var
+    up_sample_stream.7.conv_block4.bn1.running_var
+    up_sample_stream.7.conv_block1.bn1.running_mean
+    up_sample_stream.7.cbh_blocks.0.conv_block2.bn1.running_var
+    down_sample_stream.2.bn1.num_batches_tracked
+    up_sample_stream.7.conv_block1.bn1.running_var
+    down_sample_stream.3.conv.weight
+    up_sample_stream.3.cbh_blocks.0.conv_block2.bn1.running_var
+    up_sample_stream.3.bn1.bias
+    down_sample_stream.2.cbh_blocks.0.conv_block2.bn1.running_mean
+    up_sample_stream.7.conv_block1.conv.weight
+    up_sample_stream.3.conv_block4.bn1.num_batches_tracked
+    down_sample_stream.5.cbh_blocks.0.conv_block1.bn1.running_mean
+    up_sample_stream.0.bn1.running_mean
+    down_sample_stream.5.conv_block1.bn1.bias
+    up_sample_stream.4.bn1.weight
+    up_sample_stream.7.bn1.bias
+    down_sample_stream.5.conv_block4.bn1.bias
+    down_sample_stream.2.conv_block1.bn1.running_mean
+    up_sample_stream.3.cbh_blocks.0.conv_block1.bn1.running_mean
+    down_sample_stream.2.cbh_blocks.0.conv_block1.conv.weight
+    up_sample_stream.3.cbh_blocks.0.conv_block1.bn1.running_var
+    down_sample_stream.5.conv_block4.bn1.weight
+    up_sample_stream.7.conv_block1.bn1.bias
+    up_sample_stream.3.conv2.weight
+    up_sample_stream.7.bn1.running_mean
+    down_sample_stream.2.cbh_blocks.0.conv_block2.bn1.weight
+    up_sample_stream.0.bn1.running_var
+    up_sample_stream.3.cbh_blocks.0.conv_block1.conv.weight
+    up_sample_stream.7.conv_block4.bn1.weight
+    down_sample_stream.5.bn1.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block1.bn1.running_var
+    down_sample_stream.5.conv_block4.conv.weight
+    down_sample_stream.2.cbh_blocks.0.conv_block2.conv.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block1.bn1.bias
+    up_sample_stream.7.conv_block4.bn1.bias
+    up_sample_stream.3.conv3.weight
+    down_sample_stream.2.conv_block4.bn1.running_mean
+    down_sample_stream.2.bn1.bias
+    up_sample_stream.7.bn1.weight
+    down_sample_stream.5.conv_block1.bn1.running_mean
+    up_sample_stream.3.cbh_blocks.0.conv_block2.conv.weight
+    down_sample_stream.3.bn1.running_var
+    down_sample_stream.2.conv_block1.conv.weight
+    down_sample_stream.2.conv_block4.bn1.weight
+    up_sample_stream.3.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.2.bn1.running_var
+    up_sample_stream.7.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.5.cbh_blocks.0.conv_block1.bn1.running_var
+    down_sample_stream.2.conv_block4.bn1.num_batches_tracked
+    up_sample_stream.7.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    up_sample_stream.3.conv_block1.bn1.bias
+    down_sample_stream.5.conv_block1.bn1.num_batches_tracked
+    up_sample_stream.0.bn1.weight
+    up_sample_stream.3.conv_block1.bn1.weight
+    up_sample_stream.3.bn1.num_batches_tracked
+    down_sample_stream.2.cbh_blocks.0.conv_block1.bn1.running_var
+    up_sample_stream.3.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    up_sample_stream.7.conv_block4.bn1.num_batches_tracked
+    down_sample_stream.5.conv_block1.bn1.running_var
+    down_sample_stream.5.conv_block4.bn1.num_batches_tracked
+    down_sample_stream.2.conv_block1.bn1.bias
+    down_sample_stream.2.cbh_blocks.0.conv_block2.bn1.running_var
+    up_sample_stream.3.conv_block4.bn1.running_mean
+    up_sample_stream.3.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.5.cbh_blocks.0.conv_block1.bn1.weight
+    up_sample_stream.4.bn1.bias
+    up_sample_stream.0.bn1.bias
+    down_sample_stream.0.bn1.running_var
+    down_sample_stream.2.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.2.conv_block4.bn1.running_var
+    down_sample_stream.2.cbh_blocks.0.conv_block1.bn1.bias
+    up_sample_stream.7.conv_block4.bn1.running_mean
+    down_sample_stream.2.conv3.weight
+    up_sample_stream.3.cbh_blocks.0.conv_block1.bn1.bias
+    down_sample_stream.5.cbh_blocks.0.conv_block2.bn1.running_var
+    down_sample_stream.3.bn1.num_batches_tracked
+    down_sample_stream.3.bn1.bias
+    down_sample_stream.2.conv_block4.conv.weight
+    down_sample_stream.5.bn1.num_batches_tracked
+    up_sample_stream.3.bn1.running_mean
+    up_sample_stream.7.conv2.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block1.bn1.running_mean
+    down_sample_stream.5.conv_block1.bn1.weight
+    down_sample_stream.2.cbh_blocks.0.conv_block1.bn1.running_mean
+    up_sample_stream.7.conv_block1.bn1.weight
+    up_sample_stream.0.conv.weight
+    down_sample_stream.2.cbh_blocks.0.conv_block1.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block2.bn1.num_batches_tracked
+    up_sample_stream.7.conv_block1.bn1.num_batches_tracked
+    down_sample_stream.5.conv_block1.conv.weight
+    up_sample_stream.3.conv_block1.conv.weight
+    up_sample_stream.3.conv_block4.bn1.running_var
+    up_sample_stream.7.conv3.weight
+    down_sample_stream.2.cbh_blocks.0.conv_block2.bn1.bias
+    up_sample_stream.3.conv_block1.bn1.running_var
+    down_sample_stream.3.bn1.running_mean
+    up_sample_stream.3.conv_block4.conv.weight
+    down_sample_stream.0.bn1.bias
+    up_sample_stream.7.cbh_blocks.0.conv_block1.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block2.conv.weight
+    up_sample_stream.3.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block2.bn1.running_mean
+    down_sample_stream.2.bn1.running_mean
+    up_sample_stream.7.cbh_blocks.0.conv_block2.bn1.running_mean
+    up_sample_stream.3.conv_block4.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block2.bn1.weight
+    down_sample_stream.5.conv2.weight
+    down_sample_stream.0.bn1.num_batches_tracked
+    down_sample_stream.2.bn1.weight
+    up_sample_stream.7.cbh_blocks.0.conv_block2.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block1.bn1.num_batches_tracked
+    up_sample_stream.7.bn1.num_batches_tracked
+    down_sample_stream.0.conv.weight
+    down_sample_stream.2.conv_block1.bn1.running_var
+    up_sample_stream.3.conv_block1.bn1.running_mean
+    up_sample_stream.3.cbh_blocks.0.conv_block2.bn1.weight
+    down_sample_stream.5.cbh_blocks.0.conv_block2.bn1.bias
+    up_sample_stream.4.conv.weight
+    down_sample_stream.5.conv_block4.bn1.running_var
+2026-10-22 07:00:49,231-rk0-model_helper.py#220:Loading head:0 shared keys, 0 unexpected keys, 18 missing keys.
+missing keys are as follows:
+    cls_subnet.0.bias
+    loc_subnet.2.bias
+    cls_subnet.0.weight
+    cls_subnet.1.weight
+    loc_subnet.0.weight
+    obj_subnet.2.weight
+    obj_subnet.1.bias
+    cls_subnet.1.bias
+    cls_subnet.2.weight
+    obj_subnet.0.weight
+    loc_subnet.2.weight
+    obj_subnet.2.bias
+    obj_subnet.0.bias
+    obj_subnet.1.weight
+    cls_subnet.2.bias
+    loc_subnet.1.bias
+    loc_subnet.1.weight
+    loc_subnet.0.bias
+2026-10-22 07:00:49,232-rk0-model_helper.py#220:Loading post_process:0 shared keys, 0 unexpected keys, 0 missing keys.
+2026-10-22 07:00:49,232-rk0-gene_env.py#21:Collecting env info (might take some time)
+2026-10-22 07:00:55,025-rk0-gene_env.py#23:
+PyTorch version: 2.10.0+metax3.8.1.0
+Is debug build: False
+CUDA used to build PyTorch: 11.6
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 24.04.1 LTS (x86_64)
+GCC version: (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.39
+
+Python version: 3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0] (64-bit runtime)
+Python platform: Linux-5.15.0-138-generic-x86_64-with-glibc2.39
+Is CUDA available: True
+CUDA runtime version: Could not collect
+CUDA_MODULE_LOADING set to: 
+GPU models and configuration: Could not collect
+Nvidia driver version: Could not collect
+cuDNN version: Could not collect
+Is XPU available: False
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+Is XNNPACK available: False
+Caching allocator config: N/A
+
+CPU:
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        52 bits physical, 57 bits virtual
+Byte Order:                           Little Endian
+CPU(s):                               160
+On-line CPU(s) list:                  0-159
+Vendor ID:                            GenuineIntel
+Model name:                           Intel(R) Xeon(R) Platinum 8460Y+
+CPU family:                           6
+Model:                                143
+Thread(s) per core:                   2
+Core(s) per socket:                   40
+Socket(s):                            2
+Stepping:                             8
+CPU(s) scaling MHz:                   67%
+CPU max MHz:                          3700.0000
+CPU min MHz:                          800.0000
+BogoMIPS:                             4000.00
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cat_l2 cdp_l3 invpcid_single intel_ppin cdp_l2 ssbd mba ibrs ibpb stibp ibrs_enhanced fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local split_lock_detect avx_vnni avx512_bf16 wbnoinvd dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req avx512vbmi umip pku ospke waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg tme avx512_vpopcntdq la57 rdpid bus_lock_detect cldemote movdiri movdir64b enqcmd fsrm md_clear serialize tsxldtrk pconfig arch_lbr amx_bf16 avx512_fp16 amx_tile amx_int8 flush_l1d arch_capabilities
+L1d cache:                            3.8 MiB (80 instances)
+L1i cache:                            2.5 MiB (80 instances)
+L2 cache:                             160 MiB (80 instances)
+L3 cache:                             210 MiB (2 instances)
+NUMA node(s):                         2
+NUMA node0 CPU(s):                    0-39,80-119
+NUMA node1 CPU(s):                    40-79,120-159
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Not affected
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected
+
+Versions of relevant libraries:
+[pip3] causal_conv1d==1.5.4+metax3.8.1.0torch2.10
+[pip3] dropout_layer_norm==0.1+metax3.8.1.0torch2.10
+[pip3] flash_attn==2.6.3+metax3.8.1.0torch2.10
+[pip3] flash-linear-attention==0.5.0+metax3.8.1.0torch2.10
+[pip3] flash_mla==1.0.1+metax3.8.1.0torch2.10
+[pip3] flash_prefill==1.0+metax3.8.1.0torch2.10
+[pip3] flashinfer==0.2.6+metax3.8.1.0torch2.10
+[pip3] fused_dense_lib==2.6.3+metax3.8.1.0torch2.10
+[pip3] hstu_attn==1.0+metax3.8.1.0torch2.10
+[pip3] mamba_ssm==2.2.4+metax3.8.1.0torch2.10
+[pip3] mctlassEx==0.1.1+metax3.8.1.0torch2.10
+[pip3] numpy==1.26.4
+[pip3] onnx==1.17.0
+[pip3] rotary_emb==0.1+metax3.8.1.0torch2.10
+[pip3] sageattention==2.0.1+metax3.8.1.0torch2.10
+[pip3] spargeattention==2.0.1+metax3.8.1.0torch2.10
+[pip3] spconv==2.1.0+metax3.8.1.0torch2.10
+[pip3] torch==2.10.0+metax3.8.1.0
+[pip3] torchaudio==2.4.1+metax3.8.1.0
+[pip3] torchcodec==0.6.0+metax3.8.1.0
+[pip3] torchvision==0.25.0+metax3.8.1.0
+[pip3] triton==3.6.0+metax3.8.1.0
+[pip3] xentropy_cuda_lib==0.1+metax3.8.1.0torch2.10
+[pip3] xformers==0.0.22+metax3.8.1.0torch2.10
+[conda] causal-conv1d             1.5.4+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] dropout-layer-norm        0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] flash-attn                2.6.3+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] flash-linear-attention    0.5.0+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] flash-mla                 1.0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] flash-prefill             1.0+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] flashinfer                0.2.6+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] fused-dense-lib           2.6.3+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] hstu-attn                 1.0+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] mamba-ssm                 2.2.4+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] mctlassex                 0.1.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] numpy                     1.26.4                   pypi_0    pypi
+[conda] rotary-emb                0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] sageattention             2.0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] spargeattention           2.0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] spconv                    2.1.0+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] torch                     2.10.0+metax3.8.1.0          pypi_0    pypi
+[conda] torchaudio                2.4.1+metax3.8.1.0          pypi_0    pypi
+[conda] torchcodec                0.6.0+metax3.8.1.0          pypi_0    pypi
+[conda] torchvision               0.25.0+metax3.8.1.0          pypi_0    pypi
+[conda] triton                    3.6.0+metax3.8.1.0          pypi_0    pypi
+[conda] xentropy-cuda-lib         0.1+metax3.8.1.0torch2.10          pypi_0    pypi
+[conda] xformers                  0.0.22+metax3.8.1.0torch2.10          pypi_0    pypi
+node memory info after build {'node_mem_total': 2015.54, 'node_mem_used': 25.629, 'node_mem_used_percent': 1.8, 'node_swap_mem_total': 0.0, 'node_swap_mem_used_percent': 0.0}
+2026-10-22 07:00:55,169-rk0-log_helper.py#246:Load a image:  {read_time:0.0069(0.0069) transform_time:0.0418(0.0418)}
+2026-10-22 07:01:07,774-rk0-base_runner.py#488:saving inference results into /workspace/up-run/platform-determinism-20261022/fixed-v1/yolov5s/changed-1/training/predictions/results.txt
+2026-10-22 07:01:07,864-rk0-base_runner.py#505:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.02s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.0000,0.0000,0.0000,-1.0000,0.0000,0.0000
+2026-10-22 07:01:07,890-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-22 07:01:07,890-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-22 07:01:07,890-rk0-coco_evaluator.py#137:copypaste: 0.0000,0.0000,0.0000,-1.0000,0.0000,0.0000
+2026-10-22 07:01:07,890-rk0-base_runner.py#508:{
+  "bbox.AP": 0.0,
+  "bbox.AP.5": 0.0,
+  "bbox.AP.75": 0.0,
+  "bbox.AP_S": -1.0,
+  "bbox.AP_M": 0.0,
+  "bbox.AP_L": 0.0,
+  "bbox.AR_1": 0.0,
+  "bbox.AR_10": 0.0,
+  "bbox.AR": 0.0,
+  "bbox.AR_S": -1.0,
+  "bbox.AR_M": 0.0,
+  "bbox.AR_L": 0.0
+}
+2026-10-22 07:01:16,525-rk0-base_runner.py#488:saving inference results into /workspace/up-run/platform-determinism-20261022/fixed-v1/yolov5s/changed-1/training/predictions/results.txt
+2026-10-22 07:01:16,615-rk0-base_runner.py#505:begin evaluate
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.02s).
+Accumulating evaluation results...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+copypaste: Task bbox
+copypaste: AP,AP50,AP75,APs,APm,APl
+copypaste: 0.0000,0.0000,0.0000,-1.0000,0.0000,0.0000
+2026-10-22 07:01:16,640-rk0-coco_evaluator.py#135:copypaste: Task bbox
+2026-10-22 07:01:16,640-rk0-coco_evaluator.py#136:copypaste: AP,AP50,AP75,APs,APm,APl
+2026-10-22 07:01:16,640-rk0-coco_evaluator.py#137:copypaste: 0.0000,0.0000,0.0000,-1.0000,0.0000,0.0000
+2026-10-22 07:01:16,641-rk0-base_runner.py#508:{
+  "bbox.AP": 0.0,
+  "bbox.AP.5": 0.0,
+  "bbox.AP.75": 0.0,
+  "bbox.AP_S": -1.0,
+  "bbox.AP_M": 0.0,
+  "bbox.AP_L": 0.0,
+  "bbox.AR_1": 0.0,
+  "bbox.AR_10": 0.0,
+  "bbox.AR": 0.0,
+  "bbox.AR_S": -1.0,
+  "bbox.AR_M": 0.0,
+  "bbox.AR_L": 0.0
+}
+2026-10-22 07:01:17,323-rk0-optimizer_helper.py#128:build optimizer done

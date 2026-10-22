@@ -1,0 +1,74 @@
+{
+  "artifacts": {
+    "../inference/batch-predictions.pt": {
+      "exact_tensor_count": 1,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 1
+    },
+    "../inference/image-predictions.pt": {
+      "exact_tensor_count": 1,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 1
+    },
+    "checkpoint.pt": {
+      "exact_tensor_count": 577,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 577
+    },
+    "eval-1.pt": {
+      "exact_tensor_count": 2,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 2
+    },
+    "eval-2.pt": {
+      "exact_tensor_count": 2,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 2
+    },
+    "gradients-1.pt": {
+      "exact_tensor_count": 197,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 197
+    },
+    "gradients-2.pt": {
+      "exact_tensor_count": 197,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 197
+    },
+    "gradients-3.pt": {
+      "exact_tensor_count": 197,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 197
+    },
+    "restored-output.pt": {
+      "exact_tensor_count": 1,
+      "max_abs": 0.0,
+      "max_rel": 0.0,
+      "passed": true,
+      "tensor_count": 1
+    }
+  },
+  "atol": 1e-05,
+  "elapsed_seconds": 3.070211465470493,
+  "initial_batch_rng_identical": true,
+  "losses_passed": true,
+  "passed": true,
+  "rtol": 0.0001,
+  "tool_sha256": "73c2077869a46599e43852fb61de1c0c7e496b41b90fc3eafc4198be46864185"
+}

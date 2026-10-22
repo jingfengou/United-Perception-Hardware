@@ -14,3 +14,7 @@ docs/hardware/validation/multiseed_20261021/five-models-v2/yolov5-anchors.json -
 docs/platform/validation/hardware_20261022/** -text
 tools/validate_platform_equivalence.py text eol=lf
 tools/collect_platform_evidence.py text eol=lf
+docs/platform/validation/metax_determinism_20261022/** -text
+tools/diagnose_metax_determinism.py text eol=lf
+tools/run_metax_determinism_controls.py text eol=lf
+tools/collect_metax_determinism.py text eol=lf

@@ -1,0 +1,50 @@
+{
+  "original_manifest_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+  "selection": "first 8 train / 4 test; no resampling",
+  "subsets": {
+    "cifar10/test": {
+      "images": {
+        "00994.png": "6e0cd8dac3b1854e56e59773be47553ce10c0f861e1df26280c8718d6267bab3",
+        "01382.png": "6ea2a84fbdde7265005c316087aab0dd3c06fbf19ee22bee81c0747388908e6f",
+        "01625.png": "77f58fb73274f23ed51b8f7d545d208b527fdd8ae27de1a61efe87e586383a80",
+        "03582.png": "e952bfb2ec0580e039b7ba27599830fe1e2d3f9bc6fc287726c9cb4d9c994a21"
+      },
+      "metadata_sha256": "3fdb7649374d57851598382436d6e6d3038d5a986d839db1786c365b15f0e187"
+    },
+    "cifar10/train": {
+      "images": {
+        "02270.png": "c8fe4784cac9f4c15f56333602299bb771ad524c4c85c70457e1e95914f87efe",
+        "02626.png": "074ea65301abb06b7c77a5439a6be08df7a61065833053184e5b6cc87e349d2f",
+        "05209.png": "15273b3ad3c31b36e9fd686a06014b8af5ef1baf773c2fff1b633d6b706a0a0d",
+        "05328.png": "d4a12acc90eabdf72924de9efea16b30e4dd7904fdad00683eafc1dec3053d8d",
+        "07038.png": "040479c7e13ffa33c9cda9bf16cb1566de7aca3e8eae4718c48ca0331b99451d",
+        "19967.png": "6828071cc693b41aa8d66bef4837d0db93ae16bd8e2a5f4407c17046f344fccd",
+        "30622.png": "27d00e82c006026352fa5d64e72e86c61fc71dab366840b49522c89479ac1aa2",
+        "42057.png": "0f1cee59b9b6f4df899a723baffd65b967559793c6381f1269d5ae93c4acae2e"
+      },
+      "metadata_sha256": "f8aeb9495e5c1bd3f2452685f8e96e8accd01eb981c52133de4f3689fa9e627d"
+    },
+    "pennfudan/test": {
+      "images": {
+        "FudanPed00005.png": "4de7a665b06b680c715c2d6941611bb372ac0c33d98a09ac1673cbe6af1a66f7",
+        "PennPed00051.png": "f3e251809bcdee9e21b26dbce82170ddd07a7dde77c2fd0a0bbb54b13957cb65",
+        "PennPed00062.png": "0449c9cb5c5eea2c97d05bd234be1c6fd8a2a10af73b42ff2b5b6d0fb2d2ef1f",
+        "PennPed00086.png": "17e40a1f137e9ee1e5c577111cebd3d9bc8db270873af83a250bcfda17589e35"
+      },
+      "metadata_sha256": "46f04a315e237a530b5846c63b47d0c1c86d0a437f0f70cdc0774ef1c854baaf"
+    },
+    "pennfudan/train": {
+      "images": {
+        "FudanPed00023.png": "facdeafe8142db71085f3ae86c811fecd9a3aa00e0cd419ae88b00dbf93b5491",
+        "FudanPed00025.png": "714c75273275f6ad31f30063fb241b26fa2a8ac853b14795b220ebd38ee1d805",
+        "FudanPed00026.png": "7a108cfe65ba5c2c89ea0400095685811854d78c618a39cd6298d183666c8780",
+        "FudanPed00068.png": "5df539028a6f42d55efd0f35affc06551821372bda5f9d554bfcf62c691d7788",
+        "PennPed00026.png": "d249c2e810a868aada1316d700788aa4394425fd5f11fb8fcef0f816c40bdea1",
+        "PennPed00028.png": "3e782b04ee66983b2ee1e4d0848cf6ef44d7923217515634415345e0b1685520",
+        "PennPed00031.png": "9aed5638ae8ecebee8f2a6919a3c8f5b5f9975b9bf0c6f09550d08adc9e064b1",
+        "PennPed00093.png": "014e2c30dbd83f14b3a5ac5ac32a66d4077d1ba892726096eb3075e0399e97f3"
+      },
+      "metadata_sha256": "0843d30e2671a8f25e226abc979a698f87634ac389917b5dd4a010eebc271ac7"
+    }
+  }
+}

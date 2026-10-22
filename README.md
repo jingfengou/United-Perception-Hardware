@@ -12,6 +12,8 @@
 
 **以下历史精度报告对应各自冻结的旧源码快照，不自动转记为新平台包通过。** 新结构已完成[CPU/接口/构建验收](docs/platform/VALIDATION.md)及[NVIDIA、沐曦短程真机对照](docs/platform/REAL_HARDWARE.md)：四模型的训练、训练内 eval、恢复和独立推理均能运行；NVIDIA 数值比较全部通过，沐曦同权重推理逐位相同，但其原生训练严格数值比较仅 ViT 通过，另外三模型仍有旧版自身也能复现的差异。此前暂停的多随机种子精度复测没有恢复。
 
+后续[沐曦非确定性定位与局部修复](docs/platform/METAX_DETERMINISM.md)在固定真实操作数下复现了卷积权重梯度非确定性，增加显式 `metax_deterministic_v1`：仅在平台层使用 GPU FP32 重算该项，模型算法和容差不变。三个模型各三次同种子短程训练的梯度、权重、训练 eval 与独立推理对照均逐位一致。**默认 native 不变，不代表完整数据集或跨厂商精度已通过；旧多随机种子任务仍暂停。**
+
 原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
 
 沐曦 C500 在已有厂商 Docker 镜像中完成了[四模型单卡功能检查](docs/hardware/METAX_VALIDATION.md)：严格 FP32 下前后向、推理和恢复通过；默认 TF32 有 ResNet/DETR 一致性失败并保留记录。这不是完整数据集精度验收，进入容器和复现方法见该文档。

@@ -216,7 +216,7 @@ def configure_platform(config=None, *, purpose, reset=False):
             raise BackendConfigurationError("Configured backend/device mismatch: " + str(target))
         _active.validate_environment(options.get("requirements", {}))
         if "numerics" in options:
-            current = "portable_v1" if _active.runtime._numerics is not None else "native"
+            current = _active.runtime.numerics_state()["profile"]
             if options["numerics"] != current:
                 raise BackendConfigurationError("Reset the platform to change numerical profiles")
         return _active
