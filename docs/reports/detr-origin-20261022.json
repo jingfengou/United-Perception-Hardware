@@ -1,0 +1,516 @@
+{
+  "atol": 1e-05,
+  "cpu_fp64_primitive_audit": {
+    "cross_vendor_first_result": {
+      "exact": false,
+      "max_abs": 1.9073486328125e-06,
+      "outside_tolerance": 0
+    },
+    "metax": {
+      "exact": false,
+      "max_abs": 1.9073486328125e-06,
+      "outside_tolerance": 0
+    },
+    "nvidia": {
+      "exact": false,
+      "max_abs": 1.9073486328125e-06,
+      "outside_tolerance": 0
+    },
+    "scope": "saved operator operands only, not CPU model training"
+  },
+  "created_at_utc": "2026-10-22T11:56:17.357412+00:00",
+  "environment": {
+    "nvidia_control_device": 1,
+    "physical_metax_device": 2,
+    "python": "3.12.11",
+    "torch": "2.10.0+metax3.8.1.0",
+    "torch_cuda_compatibility_field": "11.6",
+    "torchvision": "0.25.0+metax3.8.1.0"
+  },
+  "evidence": {
+    "assets": {
+      "detr-origin-evidence.tar.gz": {
+        "bytes": 25778361,
+        "sha256": "5463403b2e9cef3c5b482d9c15aa2bece6555046167cdcaf32c5c4e21a180748"
+      },
+      "evidence-index.json": {
+        "bytes": 190021,
+        "sha256": "2c5c06f7ceb5df16fac1997949becab3efeaef4bb176897d3473d97dc0a29584"
+      },
+      "first-different-operation.pt": {
+        "bytes": 630787,
+        "sha256": "0bcbe92b0db33291da6d7d1b232e53e53e2ee9613f77c8ca1e0dc3788b882ec1"
+      }
+    },
+    "indexed_retained_pt_bytes": 39582535431,
+    "indexed_retained_pt_files": 993,
+    "native_original_queue_failure_preserved": true,
+    "release": "https://github.com/jingfengou/United-Perception-Hardware/releases/tag/detr-origin-20261022",
+    "verified_archive_text_files": 54
+  },
+  "executed_source_audit": {
+    "published_driver_bytes_equal_final_executed_snapshot": true,
+    "published_driver_sha256": "5d99d5029d35b938bd48922fea90c1b2fa62002b2b3ddf713100c1785a2c27e4",
+    "trace_exception_change": "Final tool adds failed partial-trace persistence only; earlier successful trace sources retained",
+    "unchanged_ast_functions": {
+      "full_capture": {
+        "functions": [
+          "capture",
+          "setup",
+          "digest",
+          "map_tensors",
+          "cpu",
+          "rng",
+          "gradients"
+        ],
+        "snapshot": "drivers/trace_driver_v3.py"
+      },
+      "full_standalone": {
+        "functions": [
+          "standalone",
+          "load_official",
+          "setup",
+          "restore_rng",
+          "local_mode",
+          "gradients"
+        ],
+        "snapshot": "drivers/final_driver_v4.py"
+      },
+      "nvidia_replay_0": {
+        "functions": [
+          "replay",
+          "restore_layout",
+          "tensor_comparison",
+          "setup"
+        ],
+        "snapshot": "nvidia/diagnose_detr_origin.py"
+      },
+      "nvidia_replay_1": {
+        "functions": [
+          "replay",
+          "restore_layout",
+          "tensor_comparison",
+          "setup"
+        ],
+        "snapshot": "nvidia/diagnose_detr_origin_v4.py"
+      }
+    }
+  },
+  "full_pairs": [
+    {
+      "all_inputs_equal": true,
+      "final_model": {
+        "different_tensors": 235,
+        "exact": false,
+        "max_abs": 0.017172399908304214,
+        "outside_tolerance": 35124990
+      },
+      "first_clipped_gradient_difference": 58,
+      "first_loss_difference": 59,
+      "first_loss_outside_tolerance": 65,
+      "first_raw_gradient_difference": 58,
+      "first_weight_difference": 58,
+      "initial_model_equal": true,
+      "left": "capture-full",
+      "maximum_loss_absolute_difference": 1.9714339971542358,
+      "right": "official-full-0",
+      "steps": 720
+    },
+    {
+      "all_inputs_equal": true,
+      "final_model": {
+        "different_tensors": 235,
+        "exact": false,
+        "max_abs": 0.016109943389892578,
+        "outside_tolerance": 35089680
+      },
+      "first_clipped_gradient_difference": 58,
+      "first_loss_difference": 59,
+      "first_loss_outside_tolerance": 65,
+      "first_raw_gradient_difference": 58,
+      "first_weight_difference": 58,
+      "initial_model_equal": true,
+      "left": "capture-full",
+      "maximum_loss_absolute_difference": 2.48648738861084,
+      "right": "official-full-1",
+      "steps": 720
+    },
+    {
+      "all_inputs_equal": true,
+      "final_model": {
+        "different_tensors": 235,
+        "exact": false,
+        "max_abs": 0.016840625554323196,
+        "outside_tolerance": 35111124
+      },
+      "first_clipped_gradient_difference": 58,
+      "first_loss_difference": 59,
+      "first_loss_outside_tolerance": 70,
+      "first_raw_gradient_difference": 58,
+      "first_weight_difference": 58,
+      "initial_model_equal": true,
+      "left": "official-full-0",
+      "maximum_loss_absolute_difference": 3.016758441925049,
+      "right": "official-full-1",
+      "steps": 720
+    }
+  ],
+  "full_run_audits": {
+    "capture-full": {
+      "completed_steps": 720,
+      "driver_sha256": "34a2b0e04f2e88c0d32c9046cefcec57c5bf51214d8207ef0605f977d3826872",
+      "final_model_matches_report": true,
+      "final_sha256": "05c4e3416f34df6250578a32261ed762bb52e02268ac9764e32c92941bf30982",
+      "finite_model_optimizer": true,
+      "platform_imported": null,
+      "up_imported": null
+    },
+    "official-full-0": {
+      "completed_steps": 720,
+      "driver_sha256": "c4f4e229d273e690832efff906c5f0ae69c4e70e83e020810ec99e20b51080da",
+      "final_model_matches_report": true,
+      "final_sha256": "5b35d37e69108a88c8c8aa6973647357039c46a2a5cf30dc6646c02b47666d95",
+      "finite_model_optimizer": true,
+      "platform_imported": true,
+      "up_imported": false
+    },
+    "official-full-1": {
+      "completed_steps": 720,
+      "driver_sha256": "c4f4e229d273e690832efff906c5f0ae69c4e70e83e020810ec99e20b51080da",
+      "final_model_matches_report": true,
+      "final_sha256": "4cc6ee1f065bbd727f2d3f27759c560c98009cd2d58fd7b3a2309b2c5b4f9d6a",
+      "finite_model_optimizer": true,
+      "platform_imported": true,
+      "up_imported": false
+    }
+  },
+  "full_to_trace_preconditions": {
+    "inputs_equal": true,
+    "model_equal": true,
+    "rng_equal": true,
+    "root_parameter_verified": "bbox_embed.layers.2.weight",
+    "step": 58
+  },
+  "maintenance_validation": {
+    "cpu_subtests": 3,
+    "cpu_tests": 339,
+    "existing_warnings": 2,
+    "hardware_boundary_violations": 0,
+    "historical_protocol_fixtures": 6,
+    "protected_algorithm_config_files": 665,
+    "routed_operations": 73,
+    "runtime_members": 31
+  },
+  "metric_atol": 1e-06,
+  "nvidia_primitive": {
+    "pure-mm-0": {
+      "exact": true,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+      "max_abs": 0.0,
+      "nonexact_repeats": 0,
+      "operation": "aten.mm.default",
+      "outside_tolerance": 0,
+      "repeats": 100,
+      "scope": "pure PyTorch fixed ATen operands; no UP/platform/model/loss/optimizer",
+      "torch": "2.10.0+cu126"
+    },
+    "pure-mm-1": {
+      "exact": true,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+      "max_abs": 0.0,
+      "nonexact_repeats": 0,
+      "operation": "aten.mm.default",
+      "outside_tolerance": 0,
+      "repeats": 100,
+      "scope": "pure PyTorch fixed ATen operands; no UP/platform/model/loss/optimizer",
+      "torch": "2.10.0+cu126"
+    }
+  },
+  "primitive": {
+    "pure-mm-0": {
+      "exact": false,
+      "gpu": "MetaX C500",
+      "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+      "max_abs": 3.814697265625e-06,
+      "nonexact_repeats": 99,
+      "operation": "aten.mm.default",
+      "outside_tolerance": 0,
+      "repeats": 100,
+      "scope": "pure PyTorch fixed ATen operands; no UP/platform/model/loss/optimizer",
+      "torch": "2.10.0+metax3.8.1.0"
+    },
+    "pure-mm-1": {
+      "exact": false,
+      "gpu": "MetaX C500",
+      "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+      "max_abs": 3.814697265625e-06,
+      "nonexact_repeats": 99,
+      "operation": "aten.mm.default",
+      "outside_tolerance": 0,
+      "repeats": 100,
+      "scope": "pure PyTorch fixed ATen operands; no UP/platform/model/loss/optimizer",
+      "torch": "2.10.0+metax3.8.1.0"
+    }
+  },
+  "rtol": 0.0001,
+  "runtime_commit": "f78e27a5f2139480a90e5f7a8cdcfa94c48ab48c",
+  "scope": "DETR origin attribution, not revised accuracy acceptance",
+  "seed": 131,
+  "traces": {
+    "trace58-0": {
+      "completed": true,
+      "criterion": "matched",
+      "first_difference": null,
+      "gradient_sha256": "5c87c84a0a67a14c0a99e7a41ee996ad88b7488805206fa770cf10c8e278a754",
+      "input_sha256": "2cc1b7c737cda830c9f5a2f379d1d24463674d606c9fbf8d106f79a175a252ca",
+      "loss": 6.650187015533447,
+      "model_sha256": "2c8a10ef137ebc6aa84ae8ff80218913783f6f369adf0855314265a5c885f08f",
+      "operation_count": 6185,
+      "platform_imported": true,
+      "profile": "metax_deterministic_v1",
+      "rng_sha256": "f4239b6777666aa472c4662c44d8722f664109a9ec2474fcdede9d2ac9fad835",
+      "scope": "single frozen official DETR step; trace returns native results unchanged",
+      "step": 58,
+      "up_imported": false
+    },
+    "trace58-1": {
+      "completed": true,
+      "criterion": "matched",
+      "first_difference": {
+        "actual": {
+          "index": 3787,
+          "input_layout": [
+            [
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  4,
+                  600
+                ],
+                "stride": [
+                  1,
+                  4
+                ]
+              },
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  600,
+                  256
+                ],
+                "stride": [
+                  256,
+                  1
+                ]
+              }
+            ],
+            {}
+          ],
+          "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+          "operation": "aten.mm.default",
+          "output_layout": {
+            "device": "cuda:0",
+            "dtype": "torch.float32",
+            "shape": [
+              4,
+              256
+            ],
+            "stride": [
+              256,
+              1
+            ]
+          },
+          "output_sha256": "52276631ef97a3316fdec7b59074bdf665894f167db57656903a759b3e5d1bb4"
+        },
+        "reference": {
+          "index": 3787,
+          "input_layout": [
+            [
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  4,
+                  600
+                ],
+                "stride": [
+                  1,
+                  4
+                ]
+              },
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  600,
+                  256
+                ],
+                "stride": [
+                  256,
+                  1
+                ]
+              }
+            ],
+            {}
+          ],
+          "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+          "operation": "aten.mm.default",
+          "output_layout": {
+            "device": "cuda:0",
+            "dtype": "torch.float32",
+            "shape": [
+              4,
+              256
+            ],
+            "stride": [
+              256,
+              1
+            ]
+          },
+          "output_sha256": "6035b9eeb55fc39597cfa691050dccf6a947c66407203e23bfd0707c10b25f7e"
+        }
+      },
+      "gradient_sha256": "8c5369b3a8da93c2291e20d93998d8704404485df661197ccd36fde245aa76c7",
+      "input_sha256": "2cc1b7c737cda830c9f5a2f379d1d24463674d606c9fbf8d106f79a175a252ca",
+      "loss": 6.650187015533447,
+      "model_sha256": "2c8a10ef137ebc6aa84ae8ff80218913783f6f369adf0855314265a5c885f08f",
+      "operation_count": 6185,
+      "operation_count_equal": true,
+      "platform_imported": true,
+      "profile": "metax_deterministic_v1",
+      "rng_sha256": "f4239b6777666aa472c4662c44d8722f664109a9ec2474fcdede9d2ac9fad835",
+      "scope": "single frozen official DETR step; trace returns native results unchanged",
+      "step": 58,
+      "up_imported": false
+    },
+    "trace58-2": {
+      "completed": true,
+      "criterion": "matched",
+      "first_difference": {
+        "actual": {
+          "index": 3787,
+          "input_layout": [
+            [
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  4,
+                  600
+                ],
+                "stride": [
+                  1,
+                  4
+                ]
+              },
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  600,
+                  256
+                ],
+                "stride": [
+                  256,
+                  1
+                ]
+              }
+            ],
+            {}
+          ],
+          "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+          "operation": "aten.mm.default",
+          "output_layout": {
+            "device": "cuda:0",
+            "dtype": "torch.float32",
+            "shape": [
+              4,
+              256
+            ],
+            "stride": [
+              256,
+              1
+            ]
+          },
+          "output_sha256": "0f21286b4606e97c28333808fa6b0e9eaaa78613827c4a19f85e50d0d79cab73"
+        },
+        "reference": {
+          "index": 3787,
+          "input_layout": [
+            [
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  4,
+                  600
+                ],
+                "stride": [
+                  1,
+                  4
+                ]
+              },
+              {
+                "device": "cuda:0",
+                "dtype": "torch.float32",
+                "shape": [
+                  600,
+                  256
+                ],
+                "stride": [
+                  256,
+                  1
+                ]
+              }
+            ],
+            {}
+          ],
+          "input_sha256": "08acee0aa315e7a97f0f5e2d0e0a3ec81c6a47d1e7b965ee6f0d33d304ebdb58",
+          "operation": "aten.mm.default",
+          "output_layout": {
+            "device": "cuda:0",
+            "dtype": "torch.float32",
+            "shape": [
+              4,
+              256
+            ],
+            "stride": [
+              256,
+              1
+            ]
+          },
+          "output_sha256": "6035b9eeb55fc39597cfa691050dccf6a947c66407203e23bfd0707c10b25f7e"
+        }
+      },
+      "gradient_sha256": "faf54b02bac54b8bd9934ad1045c7dfa233ae5d1192e14a3cefe713eb7fdfda6",
+      "input_sha256": "2cc1b7c737cda830c9f5a2f379d1d24463674d606c9fbf8d106f79a175a252ca",
+      "loss": 6.650187015533447,
+      "matching_parameter_gradients": [
+        "bbox_embed.layers.2.weight"
+      ],
+      "model_sha256": "2c8a10ef137ebc6aa84ae8ff80218913783f6f369adf0855314265a5c885f08f",
+      "operation_count": 6185,
+      "operation_count_equal": true,
+      "platform_imported": true,
+      "profile": "metax_deterministic_v1",
+      "rng_sha256": "f4239b6777666aa472c4662c44d8722f664109a9ec2474fcdede9d2ac9fad835",
+      "scope": "single frozen official DETR step; trace returns native results unchanged",
+      "step": 58,
+      "up_imported": false
+    }
+  },
+  "unmodified_official_criterion_control": {
+    "completed": false,
+    "error": "RuntimeError(\"nll_loss2d_forward_out_cuda_template does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True)'. You can turn off determinism just for this operation, or you can use the 'warn_only=True' option, if that's acceptable for your application. You can also file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation.\")",
+    "evidence_retry": "same settings in a fresh output, only partial-trace exception recording added",
+    "operation_count_before_failure": 1878,
+    "platform_imported": false,
+    "repeat_not_started": "original queue stopped after the first rejection; no relaxed retry",
+    "status": "blocked_by_unchanged_deterministic_guard",
+    "up_imported": false
+  }
+}

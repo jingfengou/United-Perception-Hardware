@@ -21,6 +21,8 @@
 
 C500 完整预算两版均显式启用 `metax_deterministic_v1`，不代表默认 native 训练通过。失败与同版本重复对照均保留；旧多随机种子复测仍暂停，CPU CI 不代表 GPU 精度验收。[本轮协议与结果](docs/reports/CURRENT_VALIDATION_20261022.md) · [历史结果与证据](docs/reports/README.md)
 
+DETR 后续归因已在不经过 UP 的官方网络反向中定位到 FP32 矩阵乘法非确定性，并用纯 PyTorch 固定操作数复现；这不把原精度失败改判通过。[定位过程与复现](docs/reports/DETR_ORIGIN_20261022.md)
+
 ## 工作方式
 
 ![UP 通过兼容门面进入平台包；训练及训练内 eval、独立推理分别路由，复用 common/shared 与已选厂商实现。](assets/readme/platform.svg)

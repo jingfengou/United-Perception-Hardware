@@ -10,6 +10,7 @@
 | 当前单种子完整预算 | `validate_current_accuracy.py` | 固定四模型配方与 seed=131，成对运行两个冻结版本；不是恢复旧多种子任务，见[本轮报告](../../docs/reports/CURRENT_VALIDATION_20261022.md) |
 | 基础真机回归 | `validate_vendor_runtime.py`、`validate_native_ops.py`、`validate_models.py`、`validate_distributed.py`、`validate_onnx.py` | 需要真实 SDK、工具链与适配依赖，分别记录结果 |
 | C500 局部诊断 | `diagnose_metax_determinism.py`、`run_metax_determinism_controls.py`、`collect_metax_determinism.py` | 固定操作数、原容差与失败记录，不能泛化为全形状确定性 |
+| DETR 归因 | `diagnose_detr_origin.py` | UP tensor tape、独立官方网络、逐步梯度/ATen 追踪与纯 PyTorch 重放，见[归因报告](../../docs/reports/DETR_ORIGIN_20261022.md)；不修改模型或恢复旧多种子任务 |
 | 固定预算精度协议 | `prepare_*`、`validate_training_accuracy.py`、`run_multiseed_accuracy.py`、`run_cross_vendor_accuracy.py` | 必须显式给定计划/数据/输出；旧阶段按冻结版本复现，不恢复当前暂停任务 |
 | 数值实验诊断 | `probe_*`、`trace_gpu_dispatch.py`、`validate_portable_*`、`run_portable_probes.py` | 默认关闭，仅显式实验；不是新增厂商接入步骤 |
 | 证据与统计 | `audit_*`、`collect_*`、`package_*`、`summarize_*`、`recompute_*` | 校验执行版本/计划/数据，保留失败与未验证；CPU 指标复算不是模型代算 |
