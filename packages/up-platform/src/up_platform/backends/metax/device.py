@@ -7,7 +7,7 @@ class MetaXDevice(CudaConvolutionControls, DeviceBackend):
     name = "metax"
     device_type = "cuda"
     communication_backend = "nccl"
-    numerical_profiles = ("native", "portable_v1", "metax_deterministic_v1")
+    numerical_profiles = ("native", "portable_v1", "metax_deterministic_v1", "metax_deterministic_v2")
     extension_modules = {}
 
     def __init__(self, device=None):
@@ -16,15 +16,19 @@ class MetaXDevice(CudaConvolutionControls, DeviceBackend):
 
     def _configure_numerics(self, policy):
         if self._determinism is not None:
-            if policy != "metax_deterministic_v1":
+            if policy != getattr(self._determinism, "profile", "metax_deterministic_v1"):
                 raise BackendConfigurationError("Reset the platform to change numerical profiles")
             return
-        if policy != "metax_deterministic_v1":
+        if policy not in ("metax_deterministic_v1", "metax_deterministic_v2"):
             return super()._configure_numerics(policy)
         if self._numerics is not None:
             raise BackendConfigurationError("Reset the platform to change numerical profiles")
-        from .determinism import DeterministicConvolution
-        self._determinism = DeterministicConvolution()
+        if policy == "metax_deterministic_v1":
+            from .determinism import DeterministicConvolution
+            self._determinism = DeterministicConvolution()
+        else:
+            from .determinism_v2 import DeterministicGemm
+            self._determinism = DeterministicGemm()
         self._determinism.__enter__()
 
     def _close_numerics(self):
@@ -40,6 +44,10 @@ class MetaXDevice(CudaConvolutionControls, DeviceBackend):
     def numerics_state(self):
         result = super().numerics_state()
         if self._determinism is not None:
-            result.update(profile="metax_deterministic_v1", accumulation="GPU FP32 per-sample convolution weight GEMM",
+            profile = getattr(self._determinism, "profile", "metax_deterministic_v1")
+            accumulation = "GPU FP32 per-sample convolution weight GEMM"
+            if profile == "metax_deterministic_v2":
+                accumulation += "; fixed-order IEEE FP32 mm, one writer per tile"
+            result.update(profile=profile, accumulation=accumulation,
                           operations=dict(self._determinism.counts))
         return result

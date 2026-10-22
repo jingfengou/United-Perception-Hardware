@@ -221,6 +221,9 @@ def capture(args):
 
     runner._hooks.hooks.insert(0, Before(runner))
     runner._hooks.hooks.append(After(runner))
+    if args.audit_evaluation:
+        from validate_metax_detr_fix import audit_evaluations
+        audit_evaluations(runner, report, output)
     report["initial_metrics"] = dict(runner.evaluate())
     if args.steps < 720:
         runner.max_iter = args.steps
@@ -233,6 +236,10 @@ def capture(args):
     report.update(completed=True, training_steps=len(report["steps"]), elapsed_seconds=time.monotonic() - started)
     write_json(output / "report.json", report)
     torch.save({"model": cpu(model.state_dict()), "optimizer": cpu(runner.optimizer.state_dict())}, output / "final.pt")
+    if args.audit_evaluation:
+        from validate_metax_detr_fix import finish_capture
+        finish_capture(runner, report, config, output)
+        write_json(output / "report.json", report)
 
 
 def load_official(initial, criterion):
@@ -281,8 +288,11 @@ def local_mode(args):
     if args.source is None:
         raise ValueError("Local-convolution control needs its frozen platform source")
     sys.path.insert(0, str(args.source.resolve() / "packages/up-platform/src"))
-    from up_platform.backends.metax.determinism import DeterministicConvolution
-    return DeterministicConvolution()
+    if args.profile == "metax_deterministic_v1":
+        from up_platform.backends.metax.determinism import DeterministicConvolution
+        return DeterministicConvolution()
+    from up_platform.backends.metax.determinism_v2 import DeterministicGemm
+    return DeterministicGemm()
 
 
 def standalone(args):
@@ -502,10 +512,11 @@ def main():
     parser.add_argument("--data", type=Path)
     parser.add_argument("--tape", type=Path)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--profile", choices=("native", "metax_deterministic_v1"), default="metax_deterministic_v1")
+    parser.add_argument("--profile", choices=("native", "metax_deterministic_v1", "metax_deterministic_v2"), default="metax_deterministic_v1")
     parser.add_argument("--criterion", choices=("matched", "official"), default="matched")
     parser.add_argument("--steps", type=int, default=70)
     parser.add_argument("--save-gradients", type=int, default=70)
+    parser.add_argument("--audit-evaluation", action="store_true", help="Audit train/eval/restore without changing the training recipe")
     parser.add_argument("--step", type=int, default=1)
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--case", type=Path)

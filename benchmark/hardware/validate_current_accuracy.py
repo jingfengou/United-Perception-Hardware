@@ -87,7 +87,7 @@ def main():
     parser.add_argument("--backend", choices=("nvidia", "metax"), required=True)
     parser.add_argument("--model", choices=tuple(BUDGETS), required=True)
     parser.add_argument("--device", required=True)
-    parser.add_argument("--numerical-profile", choices=("native", "metax_deterministic_v1"), default="native")
+    parser.add_argument("--numerical-profile", choices=("native", "metax_deterministic_v1", "metax_deterministic_v2"), default="native")
     args = parser.parse_args()
     raise SystemExit(run(args))
 

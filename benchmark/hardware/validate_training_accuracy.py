@@ -489,7 +489,7 @@ def main():
                         help="Hash every training input and pre-forward RNG without changing training")
     parser.add_argument("--disable-convolution-library", action="store_true",
                         help="Explicit same-device convolution-provider ablation via Runner's existing nocudnn option")
-    parser.add_argument("--numerical-profile", choices=("native", "portable_v1", "metax_deterministic_v1"), default="native")
+    parser.add_argument("--numerical-profile", choices=("native", "portable_v1", "metax_deterministic_v1", "metax_deterministic_v2"), default="native")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)

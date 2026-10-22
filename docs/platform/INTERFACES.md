@@ -90,3 +90,5 @@ capabilities 每项分别记录 registered、dependencies_available（未知为 
 native 默认不变；experimental/numerics 的 portable_v1 只有显式选择才启用，包含 GPU FP64 中间计算和额外开销，不是新厂商基本接入义务。原失败/未验证证据继续保留；不得混用历史快照与新包结果。
 
 沐曦另提供显式 `numerics: metax_deterministic_v1`，定义、支持变体、生命周期及同厂商证据见[专项说明](../reports/platform/METAX_DETERMINISM.md)。它只替换 GPU FP32 普通二维卷积的权重一阶梯度，不改目的、语义算子供应者或 native RNG；`numerics_state()` 报告厂商 profile 及真实执行次数。该选项不是通用确定性保证，不用于自动启用 FP64 或掩盖 native 未通过项。
+
+`metax_deterministic_v2` 另覆盖密集二维 GPU FP32 `aten.mm.default`，含通过原 PyTorch autograd 调用的反向矩阵乘法；不按模型名、参数名或 `[4,600]` 特定形状分支。Triton 只在首次执行该操作时加载，保留输入步幅并返回同设备 FP32 矩阵，空 K 返回零；其他 GPU dtype、稀疏布局或 `mm.out` 不在该覆盖契约内，不能伪装成已验证变体。它不替换全部 BMM/addmm、全部厂商 BLAS 或导出路径，详见[专项记录](../reports/METAX_GEMM_FIX_20261022.md)。

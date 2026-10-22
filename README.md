@@ -10,18 +10,19 @@
 
 ## 验证状态
 
-验证运行时冻结于 `f78e27a`。本轮使用真实 CIFAR-10 / PennFudan 子集，四模型、单种子、完整固定预算；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。
+四模型基线冻结于 `f78e27a`，后续 GEMM 修复另有独立快照和验收。使用真实 CIFAR-10 / PennFudan 子集、单种子、完整固定预算；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。
 
 | 范围 | 实测结论 |
 | --- | --- |
 | NVIDIA RTX 4090 | 四模型与原版 UP 完整预算结果逐位一致；32 项算子与训练/eval/恢复/独立推理短程对照通过 |
 | C500 native | 同权重独立推理四模型逐位一致；训练短程数值对照仅 ViT 通过 |
-| C500 可选策略 | ResNet18、YOLO、ViT 完整预算逐位一致；DETR 未通过 |
+| C500 v1 策略 | ResNet18、YOLO、ViT 完整预算逐位一致；DETR 未通过 |
+| C500 v2 策略 | DETR 四份 720 步控制的梯度、权重与 AP 一致；训练内 eval、恢复及独立推理通过 |
 | 昇腾 / 寒武纪 | 有设备入口，专用操作与真机验收未齐全 |
 
-C500 完整预算两版均显式启用 `metax_deterministic_v1`，不代表默认 native 训练通过。失败与同版本重复对照均保留；旧多随机种子复测仍暂停，CPU CI 不代表 GPU 精度验收。[本轮协议与结果](docs/reports/CURRENT_VALIDATION_20261022.md) · [历史结果与证据](docs/reports/README.md)
+四模型基线的 C500 两版均显式启用 `metax_deterministic_v1`，不代表默认 native 训练通过。失败与同版本重复对照均保留；旧多随机种子复测仍暂停，CPU CI 不代表 GPU 精度验收。[四模型协议与结果](docs/reports/CURRENT_VALIDATION_20261022.md) · [历史结果与证据](docs/reports/README.md)
 
-DETR 后续归因已在不经过 UP 的官方网络反向中定位到 FP32 矩阵乘法非确定性，并用纯 PyTorch 固定操作数复现；这不把原精度失败改判通过。[定位过程与复现](docs/reports/DETR_ORIGIN_20261022.md)
+DETR 的原生 FP32 GEMM 非确定性已在无 UP 的控制中复现。新增显式 `metax_deterministic_v2`，仅在沐曦平台层用固定 GPU FP32 计算绕开该问题；同策略下的整理前后、同种子重复及官方核心控制均一致，最终 AP 为 `0.7706035845`。不宣称与旧 v1 随机轨迹等价。[归因](docs/reports/DETR_ORIGIN_20261022.md) · [修复、结果与复现](docs/reports/METAX_GEMM_FIX_20261022.md)
 
 ## 工作方式
 
@@ -78,6 +79,8 @@ runtime:
 
 厂商身份不等于设备名；两家都叫 cuda 不会共用 NVIDIA 二进制。先从单卡 FP32 开始，再单独验证 AMP/多卡。
 
+C500 的 DETR 专项需在已有 `accelerator` 段显式增加 `numerics: metax_deterministic_v2`；其余模型与策略按各自验收记录选择，不自动启用。
+
 准备好数据、标注、权重与实际配置文件后：
 
 ```bash
@@ -102,7 +105,7 @@ python -m up inference --config your_detection_model.yaml \
 
 从[逐步指南](docs/platform/ADDING_VENDOR.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)开始。函数签名、布局、空输入、梯度和导出要求见[完整接口索引](docs/platform/API_INDEX.md)；已有模型与配方保持不变，注册成功不等于真机通过。
 
-默认 `native` 不变。`metax_deterministic_v1` 仅处理局部卷积权重梯度，**不能保证全流程确定性**；`portable_v1` 是另行隔离的实验选项，都不是基本接入要求。[数值策略边界](docs/platform/NUMERICAL_POLICIES.md)
+默认 `native` 不变。`metax_deterministic_v1` 仅处理局部卷积权重梯度；`metax_deterministic_v2` 另修复二维 FP32 mm，需厂商 Triton；`portable_v1` 仍是隔离的实验选项。均不构成所有模型、AMP 或多卡的确定性保证，也不是基本接入要求。[数值策略边界](docs/platform/NUMERICAL_POLICIES.md)
 
 ## 开发与目录
 

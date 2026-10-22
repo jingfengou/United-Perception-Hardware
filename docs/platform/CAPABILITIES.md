@@ -2,6 +2,8 @@
 
 以下记录注册边界及 **`f78e27a` 的有限真机回归**，完整协议和失败见[本轮报告](../reports/CURRENT_VALIDATION_20261022.md)。73 项基础操作见[机器契约](interface_contract.json)；四模型执行成功不代表全部操作、dtype、AMP 或多卡均已验证。更早证据只对各自冻结快照成立。
 
+后续 [C500 GEMM 专项](../reports/METAX_GEMM_FIX_20261022.md)在显式 v2 策略下验证 DETR 四份单种子完整预算、训练 eval/恢复及独立推理一致；它不升级下表的 native 状态，也不重写 v1 失败。
+
 | 厂商 / 设备 | 设备工厂 | 训练工厂 | 推理工厂 | 默认共享能力 | 本轮真机训练 | 本轮独立推理/导出 |
 | --- | --- | --- | --- | --- | --- | --- |
 | nvidia / cuda | 已迁移 | 已注册 | 已注册 | portable + NVIDIA 专用实现 | RTX 4090 四模型单种子完整固定预算与原版 UP 一致；含训练内 eval/恢复；32 项原生操作通过 | 简化前后四模型独立推理通过；GPU 导出未复测 |
@@ -25,6 +27,7 @@
 | ONNX | InferenceBackend.export_onnx | 保留 legacy symbolic；未有 symbolic 的操作不承诺导出，无新引擎 |
 | portable_v1 | experimental/numerics | native 默认关闭；仅已有显式 CUDA-shaped 厂商声明，含 GPU FP64 和性能代价；不提升精度验收结论 |
 | metax_deterministic_v1 | backends/metax/determinism.py | 显式 C500 FP32 卷积权重梯度替换；原前向、输入/偏置梯度及 RNG 不变，无 FP64/CPU 代算；短程结果见[专项报告](../reports/platform/METAX_DETERMINISM.md)。[本轮完整预算](../reports/CURRENT_VALIDATION_20261022.md)三模型通过、DETR 同版本亦不稳定，不能保证全流程确定性或提升 native 支持等级 |
+| metax_deterministic_v2 | backends/metax/determinism_v2.py、fixed_gemm_kernel.py | 复用 v1 卷积实现，另以厂商 Triton 固定 GPU IEEE FP32 mm；DETR 同策略四份 720 步、恢复和 50 图独立推理一致。默认关闭；不是 v1/跨厂商等价、全形状或 AMP/DDP/导出通过，见[完整验收](../reports/METAX_GEMM_FIX_20261022.md) |
 
 ## 历史证据与本轮结论
 
