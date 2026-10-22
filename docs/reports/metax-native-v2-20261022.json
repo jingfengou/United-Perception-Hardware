@@ -1,0 +1,1387 @@
+{
+  "all_four_v2_final_optimizers_exact": true,
+  "all_four_v2_final_weights_exact": true,
+  "all_four_v2_step_records_exact": true,
+  "atol": 1e-05,
+  "cohorts": {
+    "cold": {
+      "comparison": {
+        "allocated_ratio_v2_over_native": 1.0042694373760541,
+        "mean_ap_difference_v2_minus_native": 9.998752131301636e-05,
+        "reserved_ratio_v2_over_native": 1.017094017094017,
+        "steady_time_ratio_v2_over_native": 1.6974120602552372,
+        "throughput_ratio_v2_over_native": 0.5891173473384361
+      },
+      "cpu_audit": {
+        "data_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+        "integrity_verified": true,
+        "metric_atol": 1e-06,
+        "runs": {
+          "native-0": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "c99e5eea92091f399f1383119b8db794c7e37b0f08861e29d23d3d0855840f90",
+            "final_predictions_sha256": "5cfd70d83deaf7964b9c4a4f884943cc9727fd857de6a58b38e4383d0ee16609",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7721016190760137,
+              "bbox.AP.5": 0.9686160316065887,
+              "bbox.AP.75": 0.9056371647084666,
+              "bbox.AP_L": 0.8032729290781582,
+              "bbox.AP_M": 0.40190788196466715,
+              "bbox.AP_S": 0.2727462219906201,
+              "bbox.AR": 0.8255639097744358,
+              "bbox.AR_1": 0.34060150375939846,
+              "bbox.AR_10": 0.8218045112781953,
+              "bbox.AR_L": 0.8520661157024794,
+              "bbox.AR_M": 0.6444444444444444,
+              "bbox.AR_S": 0.3
+            }
+          },
+          "native-1": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "e141c3bda9160a8de82d875ed0ced2b505a7ce309e91c03ec412e0f27543aa4c",
+            "final_predictions_sha256": "470a8a63f1cdca0293929dfc51d7b33daae811ace7eb0b1ebc74d1bdeb9ca146",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7689055748006629,
+              "bbox.AP.5": 0.9644524810445164,
+              "bbox.AP.75": 0.8741373093743138,
+              "bbox.AP_L": 0.8037311656070368,
+              "bbox.AP_M": 0.4366075362446708,
+              "bbox.AP_S": 0.3029702970297029,
+              "bbox.AR": 0.8368421052631578,
+              "bbox.AR_1": 0.3383458646616541,
+              "bbox.AR_10": 0.8195488721804512,
+              "bbox.AR_L": 0.8611570247933884,
+              "bbox.AR_M": 0.6888888888888889,
+              "bbox.AR_S": 0.3
+            }
+          },
+          "v2-0": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "371c5bbb491a6de7cc4258f8f5903b44423a18ef6b6dd5cab04c9a82a5c72074",
+            "final_predictions_sha256": "8d80cece838a75c1695c4398f8ea16dd886542c69f7da7f23b0e84468c3ee7b8",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7706035844596513,
+              "bbox.AP.5": 0.9749259715083918,
+              "bbox.AP.75": 0.9005956455964739,
+              "bbox.AP_L": 0.802008879037267,
+              "bbox.AP_M": 0.41088504454841085,
+              "bbox.AP_S": 0.2295010794312513,
+              "bbox.AR": 0.8315789473684209,
+              "bbox.AR_1": 0.3360902255639098,
+              "bbox.AR_10": 0.8248120300751879,
+              "bbox.AR_L": 0.8570247933884299,
+              "bbox.AR_M": 0.6222222222222222,
+              "bbox.AR_S": 0.4333333333333333
+            }
+          },
+          "v2-1": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "371c5bbb491a6de7cc4258f8f5903b44423a18ef6b6dd5cab04c9a82a5c72074",
+            "final_predictions_sha256": "8d80cece838a75c1695c4398f8ea16dd886542c69f7da7f23b0e84468c3ee7b8",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7706035844596513,
+              "bbox.AP.5": 0.9749259715083918,
+              "bbox.AP.75": 0.9005956455964739,
+              "bbox.AP_L": 0.802008879037267,
+              "bbox.AP_M": 0.41088504454841085,
+              "bbox.AP_S": 0.2295010794312513,
+              "bbox.AR": 0.8315789473684209,
+              "bbox.AR_1": 0.3360902255639098,
+              "bbox.AR_10": 0.8248120300751879,
+              "bbox.AR_L": 0.8570247933884299,
+              "bbox.AR_M": 0.6222222222222222,
+              "bbox.AR_S": 0.4333333333333333
+            }
+          }
+        },
+        "source_manifest_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+      },
+      "invariants": {
+        "algorithm_config_sha256": "7dca29d2cc302069db6e3f46d8e9d189876425a64904cf56edba3a8f5aba61e8",
+        "data_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+        "driver_sha256": "975a6cfdcc3b9ef7bf99e40449c01f884dac11330b5d44da8b170b59bf25c1bb",
+        "epochs": 12,
+        "first_batch_sha256": "2ae996406c63264861fd2b2b26bfaa0f8593c73b3bfa6171088a0bb4c52cd1c1",
+        "initial_metrics": {
+          "bbox.AP": 0.7476246570894742,
+          "bbox.AP.5": 0.9404987172034478,
+          "bbox.AP.75": 0.8832682951733054,
+          "bbox.AP_L": 0.7911459938513826,
+          "bbox.AP_M": 0.38010347761962043,
+          "bbox.AP_S": 0.27313254014477073,
+          "bbox.AR": 0.8203007518796992,
+          "bbox.AR_1": 0.3270676691729323,
+          "bbox.AR_10": 0.8165413533834587,
+          "bbox.AR_L": 0.8421487603305786,
+          "bbox.AR_M": 0.6555555555555556,
+          "bbox.AR_S": 0.4333333333333333
+        },
+        "initial_model_sha256": "739c9b28c292ad102e55205dec0044db7b5c7822e10046c50bbfbcf1af2ab1ae",
+        "initial_optimizer_sha256": "05002eae45a377bc87d7a02e0b099cca3d3c03a42ea15e370897ce07d0299beb",
+        "initial_rng_sha256": "294794cf4f2424c61e41b77b4f6851724fd880905ed9dabbc1c2826207ac0df7",
+        "seed": 131,
+        "source_manifest_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9",
+        "training_steps": 720
+      },
+      "modes": {
+        "native": {
+          "final_ap": [
+            0.7721016190760137,
+            0.7689055748006629
+          ],
+          "final_weights_repeat_exact": false,
+          "losses_repeat_exact": false,
+          "steady_images_per_second": {
+            "mean": 16.64061224761958,
+            "values": [
+              16.728106924544043,
+              16.553117570695115
+            ]
+          },
+          "steady_wall_ms_per_update": {
+            "mean": 119.18961487738699,
+            "values": [
+              118.56292778851859,
+              119.81630196625537
+            ]
+          },
+          "training_peak_allocated_bytes": {
+            "mean": 1141658624,
+            "values": [
+              1141658624,
+              1141658624
+            ]
+          },
+          "training_peak_reserved_bytes": {
+            "mean": 1226833920,
+            "values": [
+              1226833920,
+              1226833920
+            ]
+          },
+          "training_seconds_excluding_eval_save": {
+            "mean": 85.93930593458936,
+            "values": [
+              85.49861895851791,
+              86.3799929106608
+            ]
+          },
+          "warmup_training_seconds": {
+            "mean": 7.274160115513951,
+            "values": [
+              7.247086618095636,
+              7.301233612932265
+            ]
+          }
+        },
+        "v2": {
+          "final_ap": [
+            0.7706035844596513,
+            0.7706035844596513
+          ],
+          "final_weights_repeat_exact": true,
+          "losses_repeat_exact": true,
+          "steady_images_per_second": {
+            "mean": 9.803273345405138,
+            "values": [
+              9.787662251900189,
+              9.818884438910088
+            ]
+          },
+          "steady_wall_ms_per_update": {
+            "mean": 202.3138897500537,
+            "values": [
+              202.6360618387998,
+              201.9917176613076
+            ]
+          },
+          "training_peak_allocated_bytes": {
+            "mean": 1146532864,
+            "values": [
+              1146532864,
+              1146532864
+            ]
+          },
+          "training_peak_reserved_bytes": {
+            "mean": 1247805440,
+            "values": [
+              1247805440,
+              1247805440
+            ]
+          },
+          "training_seconds_excluding_eval_save": {
+            "mean": 178.14873588550836,
+            "values": [
+              178.29273349512368,
+              178.00473827589303
+            ]
+          },
+          "warmup_training_seconds": {
+            "mean": 44.62156865047291,
+            "values": [
+              44.55293268151581,
+              44.690204619430006
+            ]
+          }
+        }
+      },
+      "order": [
+        "native-0",
+        "v2-0",
+        "v2-1",
+        "native-1"
+      ],
+      "runs": {
+        "native-0": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/native-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7721016190760137,
+            "bbox.AP.5": 0.9686160316065887,
+            "bbox.AP.75": 0.9056371647084666,
+            "bbox.AP_L": 0.8032729290781582,
+            "bbox.AP_M": 0.40190788196466715,
+            "bbox.AP_S": 0.2727462219906201,
+            "bbox.AR": 0.8255639097744358,
+            "bbox.AR_1": 0.34060150375939846,
+            "bbox.AR_10": 0.8218045112781953,
+            "bbox.AR_L": 0.8520661157024794,
+            "bbox.AR_M": 0.6444444444444444,
+            "bbox.AR_S": 0.3
+          },
+          "final_model_sha256": "a8b0179a9f09dccae2ad2ffb44185f8e2f4f2e415ef8427ba6806f7cdeec2563",
+          "final_optimizer_sha256": "7ac0529401f97804cb9da1130dba78a322a35493e8d59259a06144f374d17329",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "vendor-native",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {},
+            "profile": "native",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "native",
+          "setup_and_initial_eval_seconds": 27.80977006163448,
+          "train_loop_seconds": 108.2436702074483,
+          "training_steps": 720
+        },
+        "native-1": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/native-1-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7689055748006629,
+            "bbox.AP.5": 0.9644524810445164,
+            "bbox.AP.75": 0.8741373093743138,
+            "bbox.AP_L": 0.8037311656070368,
+            "bbox.AP_M": 0.4366075362446708,
+            "bbox.AP_S": 0.3029702970297029,
+            "bbox.AR": 0.8368421052631578,
+            "bbox.AR_1": 0.3383458646616541,
+            "bbox.AR_10": 0.8195488721804512,
+            "bbox.AR_L": 0.8611570247933884,
+            "bbox.AR_M": 0.6888888888888889,
+            "bbox.AR_S": 0.3
+          },
+          "final_model_sha256": "6a833b88d1d52d5fe67b8ce29f0f1312264754362fcd1294e569931066158264",
+          "final_optimizer_sha256": "788d1e4a15b350e2bc312d7cab488bccb167f8f85540bed13c791eb968a0d455",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "vendor-native",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {},
+            "profile": "native",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "native",
+          "setup_and_initial_eval_seconds": 26.83725424017757,
+          "train_loop_seconds": 108.51607836596668,
+          "training_steps": 720
+        },
+        "v2-0": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "final_model_sha256": "e08361e51a0a751600ed52622100e4a070cdba12b1bcc0a8717336434b25aa08",
+          "final_optimizer_sha256": "d5d7e20236215e50a5347d12b6335af31633878db0369605ef8aec4ad256d724",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "GPU FP32 per-sample convolution weight GEMM; fixed-order IEEE FP32 mm, one writer per tile",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {
+              "aten.convolution_backward.weight": 30960,
+              "aten.mm.default": 148570
+            },
+            "profile": "metax_deterministic_v2",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "metax_deterministic_v2",
+          "setup_and_initial_eval_seconds": 37.42931305523962,
+          "train_loop_seconds": 205.76843637693673,
+          "training_steps": 720
+        },
+        "v2-1": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-1-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "final_model_sha256": "e08361e51a0a751600ed52622100e4a070cdba12b1bcc0a8717336434b25aa08",
+          "final_optimizer_sha256": "d5d7e20236215e50a5347d12b6335af31633878db0369605ef8aec4ad256d724",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "GPU FP32 per-sample convolution weight GEMM; fixed-order IEEE FP32 mm, one writer per tile",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {
+              "aten.convolution_backward.weight": 30960,
+              "aten.mm.default": 148570
+            },
+            "profile": "metax_deterministic_v2",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "metax_deterministic_v2",
+          "setup_and_initial_eval_seconds": 37.48582779150456,
+          "train_loop_seconds": 204.68672283925116,
+          "training_steps": 720
+        }
+      },
+      "timing": {
+        "native-0": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 104.84983099735145,
+            "median": 104.57407760620117,
+            "p95": 106.27686309814453,
+            "sum": 69200.88845825195
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.0699128480628133,
+            "evaluation": 21.675094894133508
+          },
+          "steady_images_per_second": 16.728106924544043,
+          "steady_steps": 660,
+          "steady_training_seconds": 78.25153234042227,
+          "steady_wall_ms_per_update": 118.56292778851859,
+          "training_peak_allocated_bytes": 1141658624,
+          "training_peak_reserved_bytes": 1226833920,
+          "training_seconds_excluding_eval_save": 85.49861895851791,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 7.247086618095636
+        },
+        "native-1": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 105.44947283195727,
+            "median": 104.53555297851562,
+            "p95": 110.18009948730469,
+            "sum": 69596.6520690918
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.0363011276349425,
+            "evaluation": 21.099741837009788
+          },
+          "steady_images_per_second": 16.553117570695115,
+          "steady_steps": 660,
+          "steady_training_seconds": 79.07875929772854,
+          "steady_wall_ms_per_update": 119.81630196625537,
+          "training_peak_allocated_bytes": 1141658624,
+          "training_peak_reserved_bytes": 1226833920,
+          "training_seconds_excluding_eval_save": 86.3799929106608,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 7.301233612932265
+        },
+        "v2-0": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 181.67903592658766,
+            "median": 164.0588836669922,
+            "p95": 166.60275268554688,
+            "sum": 119908.16371154785
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.1089122230187058,
+            "evaluation": 26.366748957894742
+          },
+          "steady_images_per_second": 9.787662251900189,
+          "steady_steps": 660,
+          "steady_training_seconds": 133.73980081360787,
+          "steady_wall_ms_per_update": 202.6360618387998,
+          "training_peak_allocated_bytes": 1146532864,
+          "training_peak_reserved_bytes": 1247805440,
+          "training_seconds_excluding_eval_save": 178.29273349512368,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 44.55293268151581
+        },
+        "v2-1": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 181.0295810583866,
+            "median": 163.3966064453125,
+            "p95": 166.99827575683594,
+            "sum": 119479.52349853516
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.0714178010821342,
+            "evaluation": 25.610527705401182
+          },
+          "steady_images_per_second": 9.818884438910088,
+          "steady_steps": 660,
+          "steady_training_seconds": 133.31453365646303,
+          "steady_wall_ms_per_update": 201.9917176613076,
+          "training_peak_allocated_bytes": 1146532864,
+          "training_peak_reserved_bytes": 1247805440,
+          "training_seconds_excluding_eval_save": 178.00473827589303,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 44.690204619430006
+        }
+      }
+    },
+    "warm": {
+      "cache_files_after": 874,
+      "cache_files_before": 874,
+      "cache_unchanged": true,
+      "comparison": {
+        "allocated_ratio_v2_over_native": 1.0042694373760541,
+        "mean_ap_difference_v2_minus_native": -0.006403718012007786,
+        "reserved_ratio_v2_over_native": 1.017094017094017,
+        "steady_time_ratio_v2_over_native": 1.5408864843864225,
+        "throughput_ratio_v2_over_native": 0.6490518622517079
+      },
+      "cpu_audit": {
+        "data_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+        "integrity_verified": true,
+        "metric_atol": 1e-06,
+        "runs": {
+          "native-0": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "a66494ec6e01e7a2dcb1f298dfe4a4e6aabe12a7018d4f11cbe2adc078e7f2c6",
+            "final_predictions_sha256": "78a53cf7a3f8e8242dcc1b9175a1e8d28078ecc4591c8d81fa6e58a8d12f66a2",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7698512063055721,
+              "bbox.AP.5": 0.9730918395351622,
+              "bbox.AP.75": 0.9049533644658977,
+              "bbox.AP_L": 0.80402020489353,
+              "bbox.AP_M": 0.42989986095502414,
+              "bbox.AP_S": 0.2719207920792079,
+              "bbox.AR": 0.8300751879699249,
+              "bbox.AR_1": 0.3353383458646616,
+              "bbox.AR_10": 0.8165413533834587,
+              "bbox.AR_L": 0.8586776859504133,
+              "bbox.AR_M": 0.6222222222222222,
+              "bbox.AR_S": 0.3
+            }
+          },
+          "native-1": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "83305add6330744c9c416d97311c3b17e72978eef7a29f9561bdd935f22503f1",
+            "final_predictions_sha256": "f53240cc985c6bbcf4289971bf8da7183ac0792152cec399557aaa39f0ec9d2f",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7841633986377461,
+              "bbox.AP.5": 0.9692499234282878,
+              "bbox.AP.75": 0.8993500902234233,
+              "bbox.AP_L": 0.8207113366288761,
+              "bbox.AP_M": 0.45636042102176194,
+              "bbox.AP_S": 0.1691546077684691,
+              "bbox.AR": 0.8330827067669173,
+              "bbox.AR_1": 0.3451127819548872,
+              "bbox.AR_10": 0.8233082706766919,
+              "bbox.AR_L": 0.8636363636363636,
+              "bbox.AR_M": 0.6333333333333333,
+              "bbox.AR_S": 0.19999999999999998
+            }
+          },
+          "v2-0": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "371c5bbb491a6de7cc4258f8f5903b44423a18ef6b6dd5cab04c9a82a5c72074",
+            "final_predictions_sha256": "8d80cece838a75c1695c4398f8ea16dd886542c69f7da7f23b0e84468c3ee7b8",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7706035844596513,
+              "bbox.AP.5": 0.9749259715083918,
+              "bbox.AP.75": 0.9005956455964739,
+              "bbox.AP_L": 0.802008879037267,
+              "bbox.AP_M": 0.41088504454841085,
+              "bbox.AP_S": 0.2295010794312513,
+              "bbox.AR": 0.8315789473684209,
+              "bbox.AR_1": 0.3360902255639098,
+              "bbox.AR_10": 0.8248120300751879,
+              "bbox.AR_L": 0.8570247933884299,
+              "bbox.AR_M": 0.6222222222222222,
+              "bbox.AR_S": 0.4333333333333333
+            }
+          },
+          "v2-1": {
+            "checkpoint_finite": true,
+            "checkpoint_verified": true,
+            "details": {
+              "detections": 5000,
+              "iou_thresholds": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.8999999999999999,
+                0.95
+              ],
+              "max_detections": [
+                1,
+                10,
+                100
+              ],
+              "validation_images": 50
+            },
+            "detr_core_sha256": "371c5bbb491a6de7cc4258f8f5903b44423a18ef6b6dd5cab04c9a82a5c72074",
+            "final_predictions_sha256": "8d80cece838a75c1695c4398f8ea16dd886542c69f7da7f23b0e84468c3ee7b8",
+            "maximum_metric_absolute_difference": 0.0,
+            "metric_recomputation": {
+              "bbox.AP": 0.7706035844596513,
+              "bbox.AP.5": 0.9749259715083918,
+              "bbox.AP.75": 0.9005956455964739,
+              "bbox.AP_L": 0.802008879037267,
+              "bbox.AP_M": 0.41088504454841085,
+              "bbox.AP_S": 0.2295010794312513,
+              "bbox.AR": 0.8315789473684209,
+              "bbox.AR_1": 0.3360902255639098,
+              "bbox.AR_10": 0.8248120300751879,
+              "bbox.AR_L": 0.8570247933884299,
+              "bbox.AR_M": 0.6222222222222222,
+              "bbox.AR_S": 0.4333333333333333
+            }
+          }
+        },
+        "source_manifest_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+      },
+      "invariants": {
+        "algorithm_config_sha256": "7dca29d2cc302069db6e3f46d8e9d189876425a64904cf56edba3a8f5aba61e8",
+        "data_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+        "driver_sha256": "975a6cfdcc3b9ef7bf99e40449c01f884dac11330b5d44da8b170b59bf25c1bb",
+        "epochs": 12,
+        "first_batch_sha256": "2ae996406c63264861fd2b2b26bfaa0f8593c73b3bfa6171088a0bb4c52cd1c1",
+        "initial_metrics": {
+          "bbox.AP": 0.7476246570894742,
+          "bbox.AP.5": 0.9404987172034478,
+          "bbox.AP.75": 0.8832682951733054,
+          "bbox.AP_L": 0.7911459938513826,
+          "bbox.AP_M": 0.38010347761962043,
+          "bbox.AP_S": 0.27313254014477073,
+          "bbox.AR": 0.8203007518796992,
+          "bbox.AR_1": 0.3270676691729323,
+          "bbox.AR_10": 0.8165413533834587,
+          "bbox.AR_L": 0.8421487603305786,
+          "bbox.AR_M": 0.6555555555555556,
+          "bbox.AR_S": 0.4333333333333333
+        },
+        "initial_model_sha256": "739c9b28c292ad102e55205dec0044db7b5c7822e10046c50bbfbcf1af2ab1ae",
+        "initial_optimizer_sha256": "05002eae45a377bc87d7a02e0b099cca3d3c03a42ea15e370897ce07d0299beb",
+        "initial_rng_sha256": "294794cf4f2424c61e41b77b4f6851724fd880905ed9dabbc1c2826207ac0df7",
+        "seed": 131,
+        "source_manifest_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9",
+        "training_steps": 720
+      },
+      "modes": {
+        "native": {
+          "final_ap": [
+            0.7698512063055721,
+            0.7841633986377461
+          ],
+          "final_weights_repeat_exact": false,
+          "losses_repeat_exact": false,
+          "steady_images_per_second": {
+            "mean": 16.81249873339118,
+            "values": [
+              16.882619628352387,
+              16.742377838429974
+            ]
+          },
+          "steady_wall_ms_per_update": {
+            "mean": 117.96984290915795,
+            "values": [
+              117.47781902297653,
+              118.46186679533936
+            ]
+          },
+          "training_peak_allocated_bytes": {
+            "mean": 1141658624,
+            "values": [
+              1141658624,
+              1141658624
+            ]
+          },
+          "training_peak_reserved_bytes": {
+            "mean": 1226833920,
+            "values": [
+              1226833920,
+              1226833920
+            ]
+          },
+          "training_seconds_excluding_eval_save": {
+            "mean": 85.14511594548821,
+            "values": [
+              84.78267996851355,
+              85.50755192246288
+            ]
+          },
+          "warmup_training_seconds": {
+            "mean": 7.285019625443965,
+            "values": [
+              7.247319413349032,
+              7.322719837538898
+            ]
+          }
+        },
+        "v2": {
+          "final_ap": [
+            0.7706035844596513,
+            0.7706035844596513
+          ],
+          "final_weights_repeat_exact": true,
+          "losses_repeat_exact": true,
+          "steady_images_per_second": {
+            "mean": 10.912183612012026,
+            "values": [
+              10.786517054154187,
+              11.037850169869866
+            ]
+          },
+          "steady_wall_ms_per_update": {
+            "mean": 181.77813650391093,
+            "values": [
+              183.87152436471573,
+              179.68474864310613
+            ]
+          },
+          "training_peak_allocated_bytes": {
+            "mean": 1146532864,
+            "values": [
+              1146532864,
+              1146532864
+            ]
+          },
+          "training_peak_reserved_bytes": {
+            "mean": 1247805440,
+            "values": [
+              1247805440,
+              1247805440
+            ]
+          },
+          "training_seconds_excluding_eval_save": {
+            "mean": 132.43902169680223,
+            "values": [
+              133.8366355523467,
+              131.04140784125775
+            ]
+          },
+          "warmup_training_seconds": {
+            "mean": 12.465451604221016,
+            "values": [
+              12.481429471634328,
+              12.449473736807704
+            ]
+          }
+        }
+      },
+      "order": [
+        "native-0",
+        "v2-0",
+        "v2-1",
+        "native-1"
+      ],
+      "runs": {
+        "native-0": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7698512063055721,
+            "bbox.AP.5": 0.9730918395351622,
+            "bbox.AP.75": 0.9049533644658977,
+            "bbox.AP_L": 0.80402020489353,
+            "bbox.AP_M": 0.42989986095502414,
+            "bbox.AP_S": 0.2719207920792079,
+            "bbox.AR": 0.8300751879699249,
+            "bbox.AR_1": 0.3353383458646616,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8586776859504133,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.3
+          },
+          "final_model_sha256": "e6bd7e492dce43bf434329d2bce6c5c75301f88a8ecb0d5d4421b574221b122b",
+          "final_optimizer_sha256": "1670509b521dcb22ced2980430c10aaa9905868f4cac3185ab8deb138afc0bda",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "vendor-native",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {},
+            "profile": "native",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "native",
+          "setup_and_initial_eval_seconds": 26.683210217393935,
+          "train_loop_seconds": 106.65348701458424,
+          "training_steps": 720
+        },
+        "native-1": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7841633986377461,
+            "bbox.AP.5": 0.9692499234282878,
+            "bbox.AP.75": 0.8993500902234233,
+            "bbox.AP_L": 0.8207113366288761,
+            "bbox.AP_M": 0.45636042102176194,
+            "bbox.AP_S": 0.1691546077684691,
+            "bbox.AR": 0.8330827067669173,
+            "bbox.AR_1": 0.3451127819548872,
+            "bbox.AR_10": 0.8233082706766919,
+            "bbox.AR_L": 0.8636363636363636,
+            "bbox.AR_M": 0.6333333333333333,
+            "bbox.AR_S": 0.19999999999999998
+          },
+          "final_model_sha256": "79730a3d072a06d46b054b93b2d105d68fd4925b87cc9bb80b1b60b0a46fc1e0",
+          "final_optimizer_sha256": "4b273c34f33a77ac8d1b1db5c7b342fbae35ad9d4fafaede645f4418266a8592",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "vendor-native",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {},
+            "profile": "native",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "native",
+          "setup_and_initial_eval_seconds": 27.532644798979163,
+          "train_loop_seconds": 108.36357425246388,
+          "training_steps": 720
+        },
+        "v2-0": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "final_model_sha256": "e08361e51a0a751600ed52622100e4a070cdba12b1bcc0a8717336434b25aa08",
+          "final_optimizer_sha256": "d5d7e20236215e50a5347d12b6335af31633878db0369605ef8aec4ad256d724",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "GPU FP32 per-sample convolution weight GEMM; fixed-order IEEE FP32 mm, one writer per tile",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {
+              "aten.convolution_backward.weight": 30960,
+              "aten.mm.default": 148570
+            },
+            "profile": "metax_deterministic_v2",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "metax_deterministic_v2",
+          "setup_and_initial_eval_seconds": 30.084557002410293,
+          "train_loop_seconds": 161.05037281755358,
+          "training_steps": 720
+        },
+        "v2-1": {
+          "environment": {
+            "cudnn_allow_tf32": false,
+            "cudnn_benchmark": false,
+            "cudnn_deterministic": true,
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "python": "3.12.11 | packaged by conda-forge | (main, Jun  4 2025, 14:45:31) [GCC 13.3.0]",
+            "torch": "2.10.0+metax3.8.1.0",
+            "torchvision": "0.25.0+metax3.8.1.0",
+            "triton": "3.6.0+metax3.8.1.0",
+            "triton_cache_dir": "/workspace/up-run/metax-native-v2-20261022/results/v2-0-triton-cache",
+            "visible_devices": "2"
+          },
+          "final_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "final_model_sha256": "e08361e51a0a751600ed52622100e4a070cdba12b1bcc0a8717336434b25aa08",
+          "final_optimizer_sha256": "d5d7e20236215e50a5347d12b6335af31633878db0369605ef8aec4ad256d724",
+          "initial_metrics": {
+            "bbox.AP": 0.7476246570894742,
+            "bbox.AP.5": 0.9404987172034478,
+            "bbox.AP.75": 0.8832682951733054,
+            "bbox.AP_L": 0.7911459938513826,
+            "bbox.AP_M": 0.38010347761962043,
+            "bbox.AP_S": 0.27313254014477073,
+            "bbox.AR": 0.8203007518796992,
+            "bbox.AR_1": 0.3270676691729323,
+            "bbox.AR_10": 0.8165413533834587,
+            "bbox.AR_L": 0.8421487603305786,
+            "bbox.AR_M": 0.6555555555555556,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "numerics": {
+            "accumulation": "GPU FP32 per-sample convolution weight GEMM; fixed-order IEEE FP32 mm, one writer per tile",
+            "convolution_library_enabled": true,
+            "offset": null,
+            "operations": {
+              "aten.convolution_backward.weight": 30960,
+              "aten.mm.default": 148570
+            },
+            "profile": "metax_deterministic_v2",
+            "rng": "vendor-native",
+            "seed": null
+          },
+          "profile": "metax_deterministic_v2",
+          "setup_and_initial_eval_seconds": 29.635470303706825,
+          "train_loop_seconds": 158.10963767487556,
+          "training_steps": 720
+        }
+      },
+      "timing": {
+        "native-0": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 103.39489976131554,
+            "median": 103.08339309692383,
+            "p95": 104.32256317138672,
+            "sum": 68240.63384246826
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.0219671726226807,
+            "evaluation": 20.848797746933997
+          },
+          "steady_images_per_second": 16.882619628352387,
+          "steady_steps": 660,
+          "steady_training_seconds": 77.53536055516452,
+          "steady_wall_ms_per_update": 117.47781902297653,
+          "training_peak_allocated_bytes": 1141658624,
+          "training_peak_reserved_bytes": 1226833920,
+          "training_seconds_excluding_eval_save": 84.78267996851355,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 7.247319413349032
+        },
+        "native-1": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 104.88351872762044,
+            "median": 104.56806564331055,
+            "p95": 105.76716613769531,
+            "sum": 69223.12236022949
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.0949306972324848,
+            "evaluation": 21.761034437455237
+          },
+          "steady_images_per_second": 16.742377838429974,
+          "steady_steps": 660,
+          "steady_training_seconds": 78.18483208492398,
+          "steady_wall_ms_per_update": 118.46186679533936,
+          "training_peak_allocated_bytes": 1141658624,
+          "training_peak_reserved_bytes": 1226833920,
+          "training_seconds_excluding_eval_save": 85.50755192246288,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 7.322719837538898
+        },
+        "v2-0": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 162.63395857377486,
+            "median": 158.97344207763672,
+            "p95": 183.08583068847656,
+            "sum": 107338.4126586914
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.1032478073611856,
+            "evaluation": 26.110446338541806
+          },
+          "steady_images_per_second": 10.786517054154187,
+          "steady_steps": 660,
+          "steady_training_seconds": 121.35520608071238,
+          "steady_wall_ms_per_update": 183.87152436471573,
+          "training_peak_allocated_bytes": 1146532864,
+          "training_peak_reserved_bytes": 1247805440,
+          "training_seconds_excluding_eval_save": 133.8366355523467,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 12.481429471634328
+        },
+        "v2-1": {
+          "core_stream_ms": {
+            "count": 660,
+            "mean": 158.84010324189157,
+            "median": 157.24813079833984,
+            "p95": 160.50201416015625,
+            "sum": 104834.46813964844
+          },
+          "excluded_seconds": {
+            "checkpoint": 1.1247971877455711,
+            "evaluation": 25.943389689549804
+          },
+          "steady_images_per_second": 11.037850169869866,
+          "steady_steps": 660,
+          "steady_training_seconds": 118.59193410445005,
+          "steady_wall_ms_per_update": 179.68474864310613,
+          "training_peak_allocated_bytes": 1146532864,
+          "training_peak_reserved_bytes": 1247805440,
+          "training_seconds_excluding_eval_save": 131.04140784125775,
+          "warmup_steps": 60,
+          "warmup_training_seconds": 12.449473736807704
+        }
+      }
+    }
+  },
+  "cpu_junit_cases": 358,
+  "data_sha256": "d62a893d9ea3733b55e972e0609a5243022a26b3f5fa67076acf7e88a08a6830",
+  "evidence": {
+    "archive": {
+      "bytes": 3642246,
+      "name": "metax-native-v2-evidence.tar.gz",
+      "sha256": "7b345334a87368724e82cfeb11853f04bcf3478b056e24e95bc2a86cefd12d98"
+    },
+    "archived_members": 82,
+    "index_sha256": "e2d178ff55b2cd085343658b7f584b48f6daa19238c0571dd13f4621a173317e",
+    "release_tag": "metax-native-v2-20261022",
+    "retained_checkpoint_bytes": 11928360200,
+    "retained_checkpoints": 24
+  },
+  "hardware": {
+    "bus_id": "0000:0e:00.0",
+    "device": 2,
+    "driver": "3.6.11",
+    "maca": "3.8.1.3",
+    "model": "MetaX C500"
+  },
+  "metric_atol": 1e-06,
+  "native_v2_accuracy_equivalence_verified": false,
+  "packages": {
+    "numpy": "1.26.4",
+    "pycocotools": "2.0.10",
+    "scipy": "1.16.0",
+    "torch": "2.10.0+metax3.8.1.0",
+    "torchvision": "0.25.0+metax3.8.1.0",
+    "triton": "3.6.0+metax3.8.1.0"
+  },
+  "publication_code_audit": {
+    "changed_control_analysis_functions": [
+      "main",
+      "suite",
+      "summarize"
+    ],
+    "executed_driver_sha256": "975a6cfdcc3b9ef7bf99e40449c01f884dac11330b5d44da8b170b59bf25c1bb",
+    "measured_functions_ast_unchanged": [
+      "clock",
+      "distribution",
+      "TrainingMeter",
+      "run"
+    ]
+  },
+  "python": "3.12.11",
+  "rtol": 0.0001,
+  "runtime_files": 730,
+  "runtime_manifest_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9",
+  "scope": "C500 FP32 DETR, seed 131, 8 complete 720-step runs; not COCO convergence or multi-seed equivalence",
+  "source_commit": "0b7f0c7ba5da96741e7661ed8dac2212c3694693",
+  "status": "completed"
+}

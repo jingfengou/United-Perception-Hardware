@@ -12,6 +12,7 @@
 | C500 局部诊断 | `diagnose_metax_determinism.py`、`run_metax_determinism_controls.py`、`collect_metax_determinism.py` | 固定操作数、原容差与失败记录，不能泛化为全形状确定性 |
 | DETR 归因 | `diagnose_detr_origin.py` | UP tensor tape、独立官方网络、逐步梯度/ATen 追踪与纯 PyTorch 重放，见[归因报告](../../docs/reports/DETR_ORIGIN_20261022.md)；不修改模型或恢复旧多种子任务 |
 | C500 GEMM 修复 | `validate_metax_gemm.py`、`validate_metax_detr_fix.py`、`collect_metax_gemm.py` | 真实步幅的固定算例及梯度、完整预算的 eval/恢复/独立推理和归档审计，见[专项报告](../../docs/reports/METAX_GEMM_FIX_20261022.md)；原容差不变 |
+| C500 native/v2 成本 | `benchmark_metax_detr.py`、`collect_metax_detr_benchmark.py` | 同卡 seed=131，冷/热缓存各一组 ABBA 完整预算；排除 eval/save 的计时、分配器峰值和 CPU 指标复算，见[成本报告](../../docs/reports/METAX_NATIVE_V2_20261022.md) |
 | 固定预算精度协议 | `prepare_*`、`validate_training_accuracy.py`、`run_multiseed_accuracy.py`、`run_cross_vendor_accuracy.py` | 必须显式给定计划/数据/输出；旧阶段按冻结版本复现，不恢复当前暂停任务 |
 | 数值实验诊断 | `probe_*`、`trace_gpu_dispatch.py`、`validate_portable_*`、`run_portable_probes.py` | 默认关闭，仅显式实验；不是新增厂商接入步骤 |
 | 证据与统计 | `audit_*`、`collect_*`、`package_*`、`summarize_*`、`recompute_*` | 校验执行版本/计划/数据，保留失败与未验证；CPU 指标复算不是模型代算 |

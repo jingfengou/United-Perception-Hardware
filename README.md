@@ -24,6 +24,8 @@
 
 DETR 的原生 FP32 GEMM 非确定性已在无 UP 的控制中复现。新增显式 `metax_deterministic_v2`，仅在沐曦平台层用固定 GPU FP32 计算绕开该问题；同策略下的整理前后、同种子重复及官方核心控制均一致，最终 AP 为 `0.7706035845`。不宣称与旧 v1 随机轨迹等价。[归因](docs/reports/DETR_ORIGIN_20261022.md) · [修复、结果与复现](docs/reports/METAX_GEMM_FIX_20261022.md)
 
+默认仍为 native，v2 需显式开启。同卡、同种子 DETR 的 native/v2 完整预算对照，分别记录冷/热缓存的精度、训练速度和峰值显存，见[实际代价与复现](docs/reports/METAX_NATIVE_V2_20261022.md)。
+
 ## 工作方式
 
 ![UP 通过兼容门面进入平台包；训练及训练内 eval、独立推理分别路由，复用 common/shared 与已选厂商实现。](assets/readme/platform.svg)
