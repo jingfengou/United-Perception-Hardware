@@ -1,442 +1,124 @@
-# United Perception：多厂商硬件适配版
+# United Perception Hardware
 
-本仓库基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception)，在原有模型、训练和推理框架上增加了**硬件中间层、厂商选择和算子路由**。
-
-希望解决的问题是：换一家的显卡时，普通 PyTorch 算法继续复用，设备接口和不兼容的专用算子集中在适配层处理，不再逐个修改模型里的硬件调用。
-
-这是保留原项目 Git 历史的独立派生仓库。上游基线为 `52aaeb9ed27a490820696d7754d19f98cd6ecd11`，原项目的 [Apache-2.0 LICENSE](LICENSE) 和代码归属保留。平台实现已抽为同仓独立包 [`up-platform`](packages/up-platform/)，导入名 `up_platform`；[`up/accelerator/`](up/accelerator/) 保留旧接口门面与 UP 配置转换。
-
-整体职责、相对原版的逐文件增删改、问题与收敛路线见[平台总设计与仓库审计](docs/architecture/PROJECT_REVIEW.md)。其中明确区分当前实现、历史实验和最终项目结构，不把尚未完成的整理或验证记为完成。
-
-只想运行模型，阅读第 2、3、4 节；准备增加厂商适配，继续阅读第 5 节。新架构见[平台文档](docs/platform/README.md)，逐项实现义务见[完整接口](docs/platform/INTERFACES.md)、[73 项操作索引](docs/platform/API_INDEX.md)和[厂商模板](docs/platform/ADDING_VENDOR.md)。
-
-**训练、训练中验证、`train --evaluate` 走 training；独立图片/视频推理、ONNX 导出走 inference。** 共同设备/RNG/内存/通信和明确共用的操作只维护一份，不根据 `.eval()` 或 `no_grad()` 猜用途。普通导入不初始化设备、不加载所有厂商 SDK；独立平台包禁止导入 UP。
-
-**以下历史精度报告对应各自冻结的旧源码快照，不自动转记为新平台包通过。** 新结构已完成[CPU/接口/构建验收](docs/platform/VALIDATION.md)及[NVIDIA、沐曦短程真机对照](docs/platform/REAL_HARDWARE.md)：四模型的训练、训练内 eval、恢复和独立推理均能运行；NVIDIA 数值比较全部通过，沐曦同权重推理逐位相同，但其原生训练严格数值比较仅 ViT 通过，另外三模型仍有旧版自身也能复现的差异。此前暂停的多随机种子精度复测没有恢复。
-
-后续[沐曦非确定性定位与局部修复](docs/platform/METAX_DETERMINISM.md)在固定真实操作数下复现了卷积权重梯度非确定性，增加显式 `metax_deterministic_v1`：仅在平台层使用 GPU FP32 重算该项，模型算法和容差不变。三个模型各三次同种子短程训练的梯度、权重、训练 eval 与独立推理对照均逐位一致。**默认 native 不变，不代表完整数据集或跨厂商精度已通过；旧多随机种子任务仍暂停。**
-
-原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
-
-沐曦 C500 在已有厂商 Docker 镜像中完成了[四模型单卡功能检查](docs/hardware/METAX_VALIDATION.md)：严格 FP32 下前后向、推理和恢复通过；默认 TF32 有 ResNet/DETR 一致性失败并保留记录。这不是完整数据集精度验收，进入容器和复现方法见该文档。
-
-已完成[沐曦/NVIDIA 真实数据多种子对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)：沿用用户确认的 CIFAR-10/PennFudan 完整预算，四模型、每个平台五个种子，共 40 次训练、76,000 步，推理、恢复与指标独立复算均完成。**预设 +/-1 点平均精度等价仅 ResNet18 通过；YOLO、DETR、ViT 未能确认，不宣称四模型精度完全一致。**
-
-此前的[差异定位与版本对齐复测](docs/hardware/CROSS_VENDOR_DIAGNOSIS.md)已追加 41 次完整训练：两边对齐 PyTorch 2.10 / TorchVision 0.25 主版本及 23 项依赖，全部训练输入配对一致。已定位 ViT Dropout 掩码差异和 C500 软件栈的卷积反向不重复，并修复 MetaX 卷积库开关；**三模型仍未确认 +/-1 点精度等价，不能宣称已全部修好**。同一权重双向交叉推理的 6 份权重 / 12 次评估指标完全一致，完整结果、失败对照及复现命令在报告中。
-
-后续[适配层数值修复](docs/hardware/CROSS_VENDOR_FIX.md)未改上层算法，增加显式、实验性的 [`portable_v1`](docs/hardware/PORTABLE_NUMERICS.md) 配置。第一版 30 次完整训练仍未通过；固定前后向和归约顺序后，短程及 GPU 数学对照已对齐。**修复版沐曦已完成三模型各五种子、15 次 / 22,300 步及全部状态审计和指标复算；NVIDIA 完整多种子重测保持暂停，尚不能宣称完整精度等价。** 默认 `native` NVIDIA 路径不变；该配置含 GPU FP64 内部计算及明显额外开销，不冒充原生 FP32 或性能优化。
-
-## 1. 增加了什么功能
+基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception) 的多厂商硬件适配版。保留 UP 的模型、损失、数据和训练配方，将设备、专用算子与厂商 SDK 隔离到同仓独立包 [`up-platform`](packages/up-platform/)。
 
 ```text
-原有模型、损失函数、训练和推理流程
-                  |
-          统一硬件接口和路由
-                  |
-       共享 PyTorch 实现 / 厂商适配实现
-                  |
-           所选厂商的设备与 SDK
+UP 模型与业务 → up.accelerator 兼容门面 → up_platform
+                                        ├ training：训练与训练内 eval
+                                        ├ inference：独立推理与导出
+                                        └ common/shared + 厂商后端
 ```
 
-| 功能 | 具体作用 |
-| --- | --- |
-| 选择显卡厂商 | 在配置文件中选择 NVIDIA、昇腾、寒武纪、沐曦或新增的后端 |
-| 统一设备操作 | 统一设备选择、模型与数据迁移、同步、随机状态和显存查询 |
-| 统一混合精度 | 统一 autocast、GradScaler 等入口，厂商可覆盖不兼容部分 |
-| 专用算子路由 | NMS、RoIAlign、DeformConv、Focal Loss、3D IoU、点云池化等通过统一入口调用 |
-| 专用层和通信隔离 | SyncBN、稀疏卷积及其张量操作、融合优化器、分布式通信通过适配层访问 |
-| 复用与局部覆盖 | 兼容的实现直接复用，只给不兼容的操作增加厂商实现 |
-| 保留原有使用方式 | 保留原算子导入路径、`.apply()` 入口和模型权重参数层级 |
-| 防止重新耦合 | 静态检查阻止上层代码重新直接使用厂商 SDK、专用设备接口和底层扩展 |
+普通 PyTorch 计算直接复用；新增厂商只实现不兼容部分。缺少能力时明确报错，不新增静默 CPU 模型代算。训练中的 `.eval()` 不切换部署后端。
 
-普通、设备无关的 PyTorch 计算继续直接使用，不包装整个 PyTorch。
+[平台手册](docs/platform/README.md) · [完整接口](docs/platform/INTERFACES.md) · [新增厂商](docs/platform/ADDING_VENDOR.md) · [能力矩阵](docs/platform/CAPABILITIES.md) · [验证与归档](docs/reports/README.md)
 
-**当前完成了硬件隔离和路由、NVIDIA 验证，以及沐曦 C500 的有限单卡功能和固定预算真实数据训练验证。跨厂商精度结论按模型分别记录。昇腾和寒武纪尚未真机验证，国产后端的专用算子也未全部补齐。选择后端不等于该厂商已经能运行所有模型。**
+## 安装
 
-| 硬件 | 配置中的 `backend` | 设备名 | 旧快照验收 / 未验证范围 |
-| --- | --- | --- | --- |
-| NVIDIA A800 | `nvidia` | `cuda` | 五模型真实数据训练/推理/恢复已完成；4 个模型各 5 对一致，Faster R-CNN 10 对平均 AP 等价但非逐步一致 |
-| 昇腾 910B | `ascend` | `npu` | 运行时入口和共享实现已接入，专用算子及真机验证待完成 |
-| 寒武纪 MLU590 | `cambricon` | `mlu` | 同上 |
-| 沐曦 C500 | `metax` | `cuda` | 四模型各 5 种子真实数据训练/推理/恢复完成；与 NVIDIA 的 +/-1 点平均精度等价仅 ResNet18 通过，其余未确认；非全量基准或多卡验收，不使用 NVIDIA 二进制 |
-| CPU | `cpu` | `cpu` | 用于公共接口和共享实现测试，不代表所有模型都有 CPU 实现 |
-
-旧快照逐项情况见[历史能力矩阵](docs/hardware/CAPABILITIES.md)；当前独立包的训练/推理状态见[新矩阵](docs/platform/CAPABILITIES.md)，不把历史结论自动转记为新结构通过。
-
-## 2. 框架自己有没有环境要求
-
-**有。能使用的环境必须同时满足框架、显卡厂商和目标模型三方面的要求。**
-
-| 要求来自哪里 | 需要核对什么 |
-| --- | --- |
-| 框架本身 | Python、PyTorch、匹配的 TorchVision、NumPy、ONNX、图像处理及数据集依赖 |
-| 显卡厂商 | 驱动、SDK、厂商适配的 PyTorch，以及它们支持的 Python 版本组合 |
-| 目标模型 | 是否还需要 RoIAlign、3D IoU、稀疏卷积等专用实现，及其前向、反向和精度支持 |
-
-因此，使用某家的 PyTorch 容器后，还要确认本框架及目标模型在该环境中能运行。中间层不会自动解决 Python 版本冲突、第三方库 API 差异或二进制 ABI 不兼容。
-
-### 2.1 当前有哪些已验证的环境
-
-以下是 **2026-10-20/21 实际执行过的环境**，不是对其他版本的支持保证：
-
-| 范围 | 环境 | 实际验证 |
-| --- | --- | --- |
-| NVIDIA 算子和代表模型 | Linux、Python `3.12.3`、PyTorch `2.8.0a0+5228986c39.nv25.06`、CUDA `12.9` | 32 个算子对比样例、4 个代表模型、AMP 和双卡通信 |
-| 与上述 PyTorch 配套的 TorchVision | `0.22.0a0+95f10a4e` | 使用服务器原有配套分发，不是建议与任意官方 PyTorch wheel 混装 |
-| 部分普通依赖 | NumPy `1.26.4`、ONNX `1.17.0` 等 | 清单见下方，完整版本快照见验证产物 |
-| 公共接口 CPU 测试 | 上述 Linux/PyTorch 环境，隐藏 CUDA 设备 | 首轮 52 项；此前扩展为 117 项，本次含跨厂商协议/证据检查共 164 项通过 |
-| 无 CUDA 公共包构建 | Windows、Python `3.13.11`、未安装 PyTorch | wheel 和 sdist 构建通过；没有在此环境验证模型运行 |
-| 沐曦 C500 | 厂商 Docker：Python 3.12.11、Torch `2.10.0+metax3.8.1.0`、TorchVision `0.25.0+metax3.8.1.0` | 严格 FP32 四模型两步检查、运行时及小样本 NMS/IoU，以及固定预算真实数据训练；本次 CPU 契约/协议/证据检查 164 项通过，精度结论见跨厂商报告 |
-| 昇腾、寒武纪 | 尚未建立经真机确认的完整环境组合 | 不能据其他厂商的结果推断其版本支持 |
-
-CPU CI 还配置了 Python 3.10/3.12、CPU PyTorch 2.6 的接口检查；云端执行状态见仓库的 Actions 页面。接口检查通过不等于完整模型和全部依赖都通过。
-
-本仓库的环境资料如下：
-
-- [`requirements.txt`](requirements.txt)：原项目的历史依赖，含 SciPy 1.1.0、ONNX <= 1.6.0 等旧约束，保留用于追溯。
-- [`requirements/validated-a800.txt`](requirements/validated-a800.txt)：从首轮 A800 环境提取的应用和测试依赖子集，供该环境复验；保留配套的 PyTorch/TorchVision，COCO 数据链路另按任务报告处理。
-- [`requirements/metax-c500-validation.txt`](requirements/metax-c500-validation.txt)：本次 C500 指定厂商镜像的应用检查环境，保留厂商 PyTorch/TorchVision；严格 FP32 设置和范围见[沐曦报告](docs/hardware/METAX_VALIDATION.md)。
-- [`docs/hardware/validation/packages.json`](docs/hardware/validation/packages.json)：实际验证环境中可见的包名和版本快照，包含继承的系统包，不是跨机器通用的安装锁。
-
-首轮环境清单并不保证真实数据链路也兼容：本次检测训练发现 NVIDIA 增强版 COCO 库需要任务内的标准 `pycocotools==2.0.10` 覆盖，旧官方预训练权重需要保值转换序列化格式。具体操作见[真实数据训练报告](docs/hardware/TRAINING_ACCURACY.md)，不替换系统 PyTorch/TorchVision，也不全局关闭权重安全加载。
-
-Python 3.12/NumPy 1.26 下的回归启动器还给两边相同地恢复了旧代码依赖的 `collections.Iterable`、`np.float`、`np.int` 别名，保持原 dtype。这是已记录的共同兼容前置，不代表原始 CLI 对任意现代依赖组合自动兼容；直接使用旧入口时也需处理这些旧 API，或选择经验证的兼容环境。测试启动器与具体命令见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)。
-
-当前两个包的元数据下限为 Python 3.8，**不代表该版本以上任意 Python/PyTorch 组合都能运行全部功能**。实际运行支持以对应环境的测试记录为准；旧报告中的 Python 3.6 元数据是历史状态。
-
-### 2.2 厂商只支持某个 PyTorch/Python 版本，怎么办
-
-例如，某厂商只提供了某一套 Python + PyTorch + SDK 组合，应先保留这套组合，再验证框架的依赖和模型。若存在冲突，在该厂商的环境配置或适配层中解决并复验，不把它强制换成本轮 NVIDIA 使用的版本。
-
-不同厂商可以使用不同的容器或虚拟环境。确定可用组合后，记录镜像版本、驱动/SDK、Python/PyTorch/TorchVision、普通依赖和算子实现版本，为该厂商单独维护环境清单。
-
-也可以在配置中加入启动时的包版本检查。例如，下面仅演示**本轮 NVIDIA 环境**的约束写法：
-
-```yaml
-runtime:
-  accelerator:
-    backend: nvidia
-    requirements:
-      python: ">=3.12,<3.13"
-      torch: ">=2.8.0a0,<2.9"
-```
-
-确定国产环境的可用版本后，再填写它自己的约束。版本检查只会校验和报错，不会自动安装或切换环境。
-
-## 3. 如何安装
-
-以下命令在目标 Linux 机器或厂商容器内执行。安装顺序是：**厂商运行环境 → 普通依赖 → 平台包 → UP**。不要用 NVIDIA wheel 覆盖厂商 PyTorch。
-
-### 3.1 先准备运行环境
-
-1. 安装与显卡匹配的驱动和厂商 SDK，或进入厂商提供的适用容器。
-2. 运行厂商自带的 PyTorch 示例，确认能在目标卡上创建张量和计算。
-3. 保留厂商配套的 PyTorch 和 TorchVision。昇腾后端会加载 `torch_npu`，寒武纪后端会加载 `torch_mlu`，沐曦后端使用厂商的 PyTorch 分发。
-4. 核对框架所需普通依赖，以及目标模型需要的额外库。
-
-### 3.2 安装公共框架
+在目标 Linux 主机或厂商容器中，先准备匹配的驱动、SDK、PyTorch/TorchVision 和 UP 业务依赖，再安装平台包和 UP。**不要用 NVIDIA wheel 覆盖厂商 PyTorch。**
 
 ```bash
 git clone https://github.com/jingfengou/United-Perception-Hardware.git
 cd United-Perception-Hardware
-```
-
-这是公共仓库，可直接克隆。在代码根目录补齐普通依赖：复验首轮 A800 环境时，可在保留其配套 PyTorch/TorchVision 的前提下使用下列子集；真实数据检测还需按训练报告准备兼容的 COCO 库和权重格式：
-
-```bash
-python -m pip install -r requirements/validated-a800.txt
-```
-
-此文件不是三家国产硬件的安装方案，也不能仅靠它重建原 NVIDIA 容器。国产环境需要与厂商 SDK 要求协调依赖版本，再形成自己的安装清单。
-
-依赖准备好后，安装公共框架：
-
-```bash
 python -m pip install setuptools wheel packaging
-UP_BUILD_BACKEND=none python -m pip install -e ./packages/up-platform --no-deps --no-build-isolation
-python -m pip install -e . --no-deps --no-build-isolation
+UP_BUILD_BACKEND=none python -m pip install --no-deps --no-build-isolation -e ./packages/up-platform
+python -m pip install --no-deps --no-build-isolation -e .
 ```
 
-`--no-deps` 表示保留前面准备的依赖环境；这条命令本身不会把完整训练依赖安装齐。
+`--no-deps` 保留预先准备的环境，不会安装完整训练依赖。原 `requirements.txt` 是历史记录，不是现代环境的通用安装锁。已验证组合、依赖清单和环境限制见[环境说明](docs/platform/ENVIRONMENTS.md)。平台普通安装不探测或编译 GPU 扩展。
 
-平台包默认不编译任何 GPU 扩展，`auto` 也不自动探测 CUDA 或编译。UP 自身不再构建扩展。厂商专用扩展在对应的 SDK 环境中另外构建、安装和注册。
+### NVIDIA 扩展
 
-### 3.3 NVIDIA 额外编译原有扩展
-
-NVIDIA 检测和点云模型使用原生扩展时，还需安装与 PyTorch 匹配的 CUDA toolkit 和编译器，然后编译：
+需要 UP 原生检测/点云操作时，在匹配的 CUDA toolkit 和编译器环境中显式构建：
 
 ```bash
-# 8.0 是本轮 A800 的编译架构；其他卡应使用相应架构。
-UP_BUILD_BACKEND=nvidia CUDA_HOME=/usr/local/cuda \
-  TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=2 \
-  python -m pip install -e ./packages/up-platform --no-deps --no-build-isolation
+# 8.0 对应 A800；其他设备请设置其真实编译架构。
+UP_BUILD_BACKEND=nvidia TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=2 \
+  python -m pip install --no-deps --no-build-isolation -e ./packages/up-platform
 ```
 
-二进制现在归属 `up_platform.backends.nvidia._C`，旧路径构建的扩展不能代替新包的构建。原 `easy_setup.sh` 保留了上游历史配置，不适用于当前安装；新环境使用本节入口并核对工具链。
+扩展归属 `up_platform.backends.nvidia._C`；UP 根目录不再编译扩展。上游保留的 `easy_setup.sh` 不是当前安装入口。
 
-## 4. 如何选择显卡并使用
+## 选择硬件与运行
 
-### 4.1 修改模型配置
-
-以沐曦运行分类模型为例，编辑模型 YAML 中**已有的** `runtime` 段，保留其他配置：
+编辑模型 YAML **已有的** `runtime` 段，保留其他字段：
 
 ```yaml
 runtime:
-  task_names: cls
-  accelerator:
-    backend: metax
   device: cuda
   fp16: false
+  accelerator:
+    backend: metax
 ```
 
-不要在同一个 YAML 中重复添加两个 `runtime` 段。其他硬件对应关系为：
-
-| 显卡 | `runtime.accelerator.backend` | `runtime.device` |
+| 显卡 | backend | device |
 | --- | --- | --- |
 | NVIDIA | `nvidia` | `cuda` |
+| 沐曦 | `metax` | `cuda` |
 | 昇腾 | `ascend` | `npu` |
 | 寒武纪 | `cambricon` | `mlu` |
-| 沐曦 | `metax` | `cuda` |
 
-设备名不能单独标识厂商。国产环境应显式选择厂商；`device` 也可省略，采用该后端的默认设备。
+厂商身份不等于设备名；两家都叫 cuda 不会共用 NVIDIA 二进制。先从单卡 FP32 开始，再单独验证 AMP/多卡。
 
-### 4.2 先检查设备是否可用
-
-下面以沐曦后端为例；其他厂商替换 `metax`：
+准备好数据、标注、权重与实际配置文件后：
 
 ```bash
-UP_ACCELERATOR_BACKEND=metax python -c \
-  "from up.accelerator import get_accelerator; a=get_accelerator(); print(a.name, a.device); print(a.health_check())"
-```
+python -m up train --config your_model.yaml --launch pytorch --ng 1 --backend dist
+python -m up train --evaluate --config your_model.yaml --launch pytorch --ng 1 --backend dist
 
-这个检查只验证基础设备计算和同步，不代表整个模型已经适配。配置中的厂商选择优先于环境变量。
-
-### 4.3 单卡训练、评估和推理
-
-先准备模型配置、数据和需要的权重。可从 [`configs/cls/resnet/res18.yaml`](configs/cls/resnet/res18.yaml) 复制配置，修改数据目录、标注文件、类别数、batch size 和上一节的后端选项。
-
-```bash
-# 单卡训练。your_model.yaml 替换为准备好的实际配置文件。
-python -m up train --config your_model.yaml \
-  --launch pytorch --ng 1 --backend dist
-
-# 评估。先在配置的 saver.resume_model 中填写权重路径。
-python -m up train --evaluate --config your_model.yaml \
-  --launch pytorch --ng 1 --backend dist
-```
-
-使用指定评估权重时，检查 `saver.auto_resume` 的优先级；需要明确指定文件时设为 `false`。例如编辑原有 `saver` 段，保留目录设置并加入：
-
-```yaml
-saver:
-  save_dir: checkpoints/my_model
-  results_dir: results_dir/my_model
-  auto_resume: false
-  resume_model: /path/to/checkpoint.pth
-```
-
-支持原检测推理接口的模型，还可以使用：
-
-```bash
+# 使用原检测推理接口的模型
 python -m up inference --config your_detection_model.yaml \
   --ckpt /path/to/checkpoint.pth --img_path /path/to/images \
   --vis_dir vis_dir --launch pytorch --ng 1 --backend dist
 ```
 
-用途由命令入口固定，不需要在 YAML 写 purpose。直接使用独立包时必须显式指定：
+评估指定权重时，在配置中设置 `saver.resume_model` 并核对 `saver.auto_resume` 的优先级。CLI 的 `--backend dist/linklink` 是通信策略，不是显卡厂商。独立使用平台时，显式指定 `purpose="training"` 或 `"inference"`，见[平台手册](docs/platform/README.md)。
 
-```python
-from up_platform import configure_platform
+## 新增厂商
 
-platform = configure_platform({"backend": "metax", "device": "cuda"}, purpose="training")
-# 部署进程使用 purpose="inference"，不要在训练验证期间切换。
-```
+1. 准备厂商匹配的 PyTorch、SDK 和通信库，记录环境组合。
+2. 实现设备后端，分别声明训练/推理用途；兼容操作直接复用公共实现。
+3. 只覆盖缺失操作，交付所需反向、状态及契约测试，再做真机验收。
 
-这里的 `--backend dist` 表示使用 PyTorch 通信框架；它与 YAML 中选择厂商的 `runtime.accelerator.backend` 是两个不同参数。
+无需先猜厂商“支持哪些模型”，也不必重写全部 73 项操作。按[接口定义](docs/platform/INTERFACES.md)、[逐项索引](docs/platform/API_INDEX.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)实现与验证即可；已有模型和配方保持不变。
 
-首次接入先使用单卡、FP32。跑通后再验证 AMP 和多卡；多卡可将 `--ng` 改为卡数并使用 `--fork-method spawn`。三个国产后端的多卡通信仍需真机核验。
+## 验证范围
 
-沐曦本次镜像的一致性检查使用了[显式关闭 TF32 的设置](docs/hardware/METAX_VALIDATION.md)。仅把张量转换成 float32 不等于关闭底层 TF32；原 CLI 的默认精度不会被验证工具自动更改。
+以下是各自冻结版本的已有记录，不代表整理后的新版本已重新完成 GPU 验收：
 
-### 4.4 遇到“缺少算子”，应该怎么做
+| 范围 | 已有证据 / 限制 |
+| --- | --- |
+| NVIDIA A800 | 独立包四模型短程训练、训练 eval、恢复、独立推理及 32 项操作对照通过 |
+| 沐曦 C500 native | 四模型可运行且同权重推理一致；严格训练数值对照仅 ViT 通过 |
+| 沐曦局部确定性选项 | ResNet/YOLO/DETR 同种子短程对照通过，不等于全量或跨厂商精度等价 |
+| 昇腾、寒武纪 | 有运行时入口，专用操作及真机验收未齐全 |
 
-例如报错包含：
+默认 `native` 不变。`portable_v1` 等[数值策略](docs/platform/NUMERICAL_POLICIES.md)显式启用、单独验收，不是基本厂商接入要求；旧多随机种子复测仍暂停。当前 CPU/构建/CI 结果见[本次整理记录](docs/reports/CONSOLIDATION_20261022.md)，历史结果见[报告索引](docs/reports/README.md)。
+
+## 开发与目录
 
 ```text
-backend='ascend', device='npu', operation='roi_align': no implementation registered
+up/                     UP 业务与旧接口兼容
+packages/up-platform/   独立平台包、厂商实现和契约测试
+configs/                原有模型配方
+benchmark/hardware/     真机验证、精度协议与诊断工具
+tools/platform/         边界、契约、归档与发布检查
+tests/                  兼容/协议/证据回归及必要小夹具
+docs/platform/          当前开发手册
+docs/reports/           冻结报告、归档清单和验证记录
+docs/architecture/      总设计、变更台账及整理约束
 ```
-
-这表示框架还没有为该后端接上这个算子，需要在适配层补实现，不能靠换配置自动解决。
-
-- 兼容的常规 PyTorch 运算及已注册共享实现继续复用。
-- 模型用了 RoIAlign、DeformConv、某些 Focal Loss、3D IoU 或点云池化时，要确认该厂商已有相应实现。
-- 使用稀疏卷积、linklink、量化或剪枝工具时，还要提供对应供应者。
-- 不增加自动 CPU 代算或无实际计算的占位实现。
-
-**使用者准备显卡环境、模型配置、数据和权重；适配开发者负责补齐该模型缺失的操作并验收。** 补齐后，其他经过相同接口的模型可以复用。
-
-## 5. 如何增加一个厂商的适配
-
-### 5.1 需要准备哪些东西
-
-| 材料 | 用途 |
-| --- | --- |
-| 实际硬件和可访问的运行环境 | 验证真实计算、反向、显存及通信，不以 mock 代替真机 |
-| 驱动、SDK、容器或安装包版本 | 明确目标部署环境，能够重复创建 |
-| Python、PyTorch、TorchVision 版本及 SDK 扩展 | 确认框架与厂商共同可用的版本组合 |
-| 设备接口说明 | 确认设备名，以及设备绑定、同步、随机状态、内存、AMP 和通信入口 |
-| 目标模型、配置、数据与权重 | 确定实际需要适配哪些操作 |
-| 厂商算子库或编译工具链 | 复用已有算子，或构建缺失的专用实现 |
-| 数值和梯度参考结果 | 验证输出、索引、精度、反向与模型权重兼容 |
-
-先适配目标模型需要的操作，不要求第一天就实现仓库的所有专用算子。
-
-### 5.2 已有厂商：补算子即可
-
-昇腾、寒武纪、沐曦的后端名已经注册。为它们补实现时，在可导入的插件模块中注册缺失算子即可，无需再创建整套后端。
-
-例如，为昇腾增加 RoIAlign 的**注册模板**：
-
-```python
-# 文件：ascend_up_adapter/__init__.py
-from up_platform import register_op
-
-register_op(
-    "ascend",
-    "roi_align",
-    "ascend_up_adapter.roi_align:roi_align",
-    scope="training",  # 推理要另行注册 inference，或完整实现已确认可共用时用 common。
-    backward=True,
-    conventions=("aligned",),
-)
-```
-
-还必须在 `ascend_up_adapter/roi_align.py` 中提供真正的 `roi_align` 函数。它应接收原接口的参数：
-
-```python
-roi_align(features, rois, pooled_h, pooled_w,
-          spatial_scale, sampling_ratio, pooled_mode, aligned=False)
-```
-
-函数可以调用厂商已有算子，也可以使用可微的 PyTorch 组合实现；需要处理输入/输出、坐标与对齐约定、支持的模式、dtype，以及训练所需的反向。
-
-`backward=True` 只是在声明能力，不会自动生成梯度。若使用自定义 autograd Function，应注册包含完整前向、反向和必要 context 的入口。
-
-安装该插件，或把它放到 Python 可导入的路径后，在配置中启用：
-
-```yaml
-runtime:
-  accelerator:
-    backend: ascend
-    plugins:
-      - ascend_up_adapter
-  device: npu
-```
-
-这个例子中的适配函数需要实际开发，注册一条模块路径不会自动产生实现。
-
-### 5.3 全新厂商：增加运行时后端，再覆盖差异
-
-在一个独立插件模块中注册后端。下面是模板，SDK 模块、设备名和通信名需要替换为厂商实际提供的接口：
-
-```python
-# 文件：vendor_x_up/__init__.py，仅注册元数据，不在此加载 SDK。
-from up_platform import BackendSpec, register_backend
-
-register_backend(BackendSpec(
-    name="vendor_x", device_type="vendor_device",
-    device_factory="vendor_x_up.device:VendorDevice",
-    training_factory="vendor_x_up.training:Backend",
-    inference_factory="vendor_x_up.inference:Backend",
-    shared_providers=("portable",),
-))
-```
-
-在 `device.py` 继承 `DeviceBackend`，在构造时按需加载 SDK；`training.py` 继承 `TrainingBackend`，`inference.py` 继承 `InferenceBackend`。兼容的方法不必重写，允许只交付一种用途，将另一工厂设为 `None`。完整文件和测试命令见[新增厂商指南](docs/platform/ADDING_VENDOR.md)。SDK 需先注册其真实 PyTorch 设备，厂商身份与设备命名分开管理。
-
-然后按上一节的方法注册不兼容的算子，配置选择：
-
-```yaml
-runtime:
-  accelerator:
-    backend: vendor_x
-    plugins:
-      - vendor_x_up
-  device: vendor_device
-```
-
-共享实现通过 `BackendSpec.shared_providers` 显式复用。先查当前厂商当前用途/common，再查明确允许的共享实现当前用途/common，最后报错，不能借用另一用途的专用实现。不能因为设备也叫 cuda 就默认使用 NVIDIA 二进制。
-
-可运行的[独立厂商示例](packages/up-platform/examples/vendor_plugin/)在 CPU 上复用公共能力，只覆盖一个 NMS，不依赖 UP，也不模拟真实国产显卡。旧 [`example_plugin.py`](up/accelerator/example_plugin.py) 仍用于兼容协议测试。
-
-### 5.4 专用层、通信和编译也要接入
-
-| 不兼容部分 | 在哪里适配 |
-| --- | --- |
-| 设备、同步、RNG、内存 | `DeviceBackend` |
-| AMP、GradScaler、DDP | 两侧各自 autocast；GradScaler/DDP 仅 `TrainingBackend` |
-| NMS、RoIAlign、DeformConv、Focal Loss、点云操作 | `register_op(厂商名, 操作名, 实现)` |
-| SyncBN | `sync_batch_norm_forward` / `sync_batch_norm` 注册项 |
-| 稀疏卷积及张量表示 | `sparse.*` 工厂、特征读写、稠密化及容器执行接口 |
-| 集合通信 | common 的 `distributed.*` 注册项与默认传输配置；不等同 DDP |
-| 融合优化器及可选工具库 | 对应操作注册项或延迟供应者 |
-| 厂商二进制 | 在匹配的厂商 SDK 环境内独立构建、安装，再由后端延迟加载 |
-
-层实现应保持原权重参数的名称和布局，避免额外嵌套模块导致 checkpoint key 改变。缺失能力应说明厂商、操作和原因。
-
-### 5.5 怎样才算适配完成
-
-1. 记录并固定厂商环境组合，通过基础设备检查。
-2. 逐项检查目标模型需要的算子，比较输出和适用的梯度，记录精度与变体。
-3. 运行模型短程训练、推理、权重恢复；需要多卡时再验证通信、DDP 和 SyncBN。
-4. 运行静态检查，确保没有给上层模型和 Runner 增加厂商分支。
-5. 更新能力矩阵、环境清单和真机验证记录。
-
-**新增厂商应通过增加后端/插件和注册配置完成；已有模型和训练流程保持不变。**
-
-## 6. 检查、验证与代码位置
-
-在已经安装 PyTorch 的测试环境中：
 
 ```bash
-python -m pip install pytest packaging setuptools wheel PyYAML numpy
-python tools/check_hardware_boundaries.py
-python tools/export_accelerator_contract.py --check
-python tools/export_platform_contract.py --check
-python -m pytest -q packages/up-platform/tests
-python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py tests/test_multiseed_accuracy.py
+python tools/platform/check_hardware_boundaries.py
+python tools/platform/export_platform_contract.py --check
+python tools/platform/export_accelerator_contract.py --check
+python tools/platform/check_project.py
+python -m pytest -q
 ```
 
-`up.accelerator.capabilities()` 可查询已注册的操作、供应者和声明信息。查询结果是注册清单，不会证明对应 SDK 已安装或真机已经通过。
+CPU 测试、公共构建和 GPU 验收分别记录，不把注册成功当成硬件支持。目录迁移与旧命令对照见[工具入口](benchmark/hardware/README.md)。
 
-完整测试包含多种子统计测试，需要与当前 Python 匹配的 SciPy（本轮为 `1.15.3`）。2026-10-21 的 A800 成对回归结果如下；完整预设预算不等于完整 ImageNet/COCO 训练，DETR 为外部官方单类适配器：
+## 来源与证据
 
-| 模型 | 配对种子 | 原版 / NVIDIA 路由版平均指标 | 结论 |
-| --- | --- | --- | --- |
-| Faster R-CNN R50-FPN | 10 | AP 60.4172 / 60.4419 | 平均 AP 通过预设 +/-1 点等价检验，非逐步一致 |
-| YOLOv5-S SiLU | 5 | AP 26.0174 / 26.0174 | 逐步 loss、最终模型状态、指标相同 |
-| ResNet18 | 5 | Top-1 66.2200 / 66.2200 | 同上 |
-| 外部 DETR R50 | 5 | AP 77.6032 / 77.6032 | 同上 |
-| ViT-B/16，64px | 5 | Top-1 22.3400 / 22.3400 | 同上；仅小数据回归，不是收敛验收 |
-
-数据为 CIFAR-10 10,000/2,000 与 PennFudan 120/50，均值、标准差、每个种子和复现步骤见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)。不把不同预训练/预算下的绝对指标作为跨模型排行榜。
-
-| 内容 | 位置 |
-| --- | --- |
-| 厂商选择和统一入口 | [`up/accelerator/__init__.py`](up/accelerator/__init__.py) |
-| 后端与算子注册 | [`up_platform/registry.py`](packages/up-platform/src/up_platform/registry.py) |
-| 共享运行时与设备方法 | [`common/runtime.py`](packages/up-platform/src/up_platform/common/runtime.py) |
-| 已有厂商与各用途工厂 | [`backends/`](packages/up-platform/src/up_platform/backends/) |
-| 训练、推理与共用实现 | [`up_platform/`](packages/up-platform/src/up_platform/) |
-| 原有算子兼容入口 | [`up/extensions/python/`](up/extensions/python/) |
-| 262 条上游硬件依赖记录 | [`upstream_inventory.json`](docs/hardware/upstream_inventory.json) |
-| 详细接口与接入说明 | [接口说明](docs/hardware/README.md)、[新增厂商说明](docs/hardware/ADDING_BACKENDS.md) |
-| 当前完整适配函数定义 | [中文接口契约](docs/platform/INTERFACES.md)、[全部操作](docs/platform/API_INDEX.md)、[机器可读清单](docs/platform/interface_contract.json) |
-| 真实数据训练与精度变化 | [五模型多种子报告](docs/hardware/MULTISEED_ACCURACY.md)；[早期短程对照](docs/hardware/TRAINING_ACCURACY.md)与原始差异记录继续保留 |
-| 能力和实际测试范围 | [能力矩阵](docs/hardware/CAPABILITIES.md)、[验证报告](docs/hardware/VALIDATION.md) |
-| 受测快照与 Git 提交的内容核对 | [`git_source_match.json`](docs/hardware/validation/git_source_match.json)，行尾差异单独记录 |
-| 上游完整任务文档 | [UP 官方文档](https://modeltc-up.readthedocs.io/en/latest/index.html) |
-
-首轮 NVIDIA 检查是有界数值与合成输入验证，真实数据完整 Runner 对照另见[五模型报告](docs/hardware/MULTISEED_ACCURACY.md)，区分逐步数值一致性与平均 AP 等价。它们不代表完整 ImageNet/COCO 收敛或性能验收。当前上游快照没有 DETR，外部官方适配器单列，不冒充 UP 自有模型。沐曦另完成[严格 FP32 功能检查](docs/hardware/METAX_VALIDATION.md)及[四模型多种子真实数据对照](docs/hardware/CROSS_VENDOR_ACCURACY.md)，后者仅 ResNet18 确认预设精度等价。linklink、spconv、MQBench、MSBench 的真实执行、国产全量基准收敛及多卡、昇腾和寒武纪真机验证仍未完成。
-
-检测的[首次差异定位](docs/hardware/validation/accuracy_20261021/divergence/README.md)进一步确认：首步前向、输入和随机状态相同，差异从原版已有的 RoIAlign 原生反向开始；诊断中固定其返回梯度后，两版连续 3 步完全对齐。该回放不是正式训练实现或最终 AP 验收。
+保留上游 Git 历史与 [Apache-2.0 LICENSE](LICENSE)，UP 基线为 `52aaeb9`。[总设计与逐文件台账](docs/architecture/PROJECT_REVIEW.md)记录相对原版的改动和原因。整理前 1,505 份原始证据已保存到[固定标签与 Release](https://github.com/jingfengou/United-Perception-Hardware/releases/tag/evidence-pre-consolidation-20261022)，主分支保留逐文件哈希、复现入口与失败结论，不改写历史。

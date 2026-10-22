@@ -152,7 +152,7 @@ def test_nested_dispatch_mode_cannot_be_popped_by_reset():
 def test_new_plan_keeps_existing_models_budgets_seeds_and_threshold():
     import json
     from pathlib import Path
-    root = Path(__file__).resolve().parents[1] / "docs/hardware/validation"
+    root = Path(__file__).resolve().parents[1] / "tests/fixtures/protocols"
     old = json.loads((root / "cross_vendor_diagnosis_20261021/plan.json").read_text())
     new = json.loads((root / "cross_vendor_fix_20261021/plan.json").read_text())
     assert old["models"] == new["models"]

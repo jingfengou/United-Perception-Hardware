@@ -9,6 +9,14 @@ SCOPES = ("common",) + PURPOSES
 BACKENDS = {}
 BACKEND_PROBES = {}
 OPERATIONS = {}
+NUMERICAL_POLICIES = {}
+
+
+def register_numerical_policy(name, factory):
+    """Register only a lazy factory; policy implementation owns its entire lifecycle."""
+    if name in NUMERICAL_POLICIES:
+        raise ValueError("Numerical policy already registered: " + name)
+    NUMERICAL_POLICIES[name] = factory
 
 
 @dataclass(frozen=True)

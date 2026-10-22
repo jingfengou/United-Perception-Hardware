@@ -1,23 +1,76 @@
 name: Hardware boundaries
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   cpu-contracts:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
-        python: ["3.10", "3.12"]
+        include:
+          - python: "3.10"
+            torch: "2.6.0"
+          - python: "3.12"
+            torch: "2.6.0"
+          - python: "3.12"
+            torch: "2.10.0"
+    env:
+      CUDA_VISIBLE_DEVICES: ""
+      OMP_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+      UP_BUILD_BACKEND: none
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install torch==${{ matrix.torch }} --index-url https://download.pytorch.org/whl/cpu
       - run: python -m pip install pytest setuptools wheel packaging PyYAML numpy==1.26.4 scipy==1.15.3 onnx==1.17.0 pycocotools==2.0.10
       - run: python -m pip install --no-deps --no-build-isolation -e packages/up-platform
-      - run: python tools/check_hardware_boundaries.py
-      - run: python tools/export_accelerator_contract.py --check
-      - run: python tools/export_platform_contract.py --check
-      - run: python -m pytest -q packages/up-platform/tests
-      - run: python -m pytest -q tests/test_accelerator.py tests/test_hardware_contract.py tests/test_training_accuracy.py tests/test_multiseed_accuracy.py tests/test_vendor_validation.py tests/test_cross_vendor_accuracy.py tests/test_portable_numerics.py tests/test_portable_evidence.py tests/test_platform_migration.py
-      - run: UP_BUILD_BACKEND=none python -m pip wheel --no-deps --no-build-isolation .
-      - run: UP_BUILD_BACKEND=none python -m pip wheel --no-deps --no-build-isolation packages/up-platform
+      - run: python tools/platform/check_hardware_boundaries.py
+      - run: python tools/platform/export_accelerator_contract.py --check
+      - run: python tools/platform/export_platform_contract.py --check
+      - run: python tools/platform/check_project.py
+      - name: Discover every CPU, compatibility and maintenance regression
+        run: python -m pytest -q --junitxml=dist/cpu-contracts.xml
+      - name: Test installed platform wheel without UP, outside checkout
+        run: |
+          python -m pip wheel --no-deps --no-build-isolation -w dist/platform-wheel packages/up-platform
+          python -m pip install --force-reinstall --no-deps dist/platform-wheel/up_platform-*.whl
+          cd "$RUNNER_TEMP"
+          python -I -c "import importlib.util; assert importlib.util.find_spec('up') is None"
+          python -I -m pytest -q "$GITHUB_WORKSPACE/packages/up-platform/tests" -c "$GITHUB_WORKSPACE/packages/up-platform/pyproject.toml" --junitxml="$GITHUB_WORKSPACE/dist/wheel-contracts.xml"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpu-python-${{ matrix.python }}-torch-${{ matrix.torch }}
+          path: |
+            dist/cpu-contracts.xml
+            dist/wheel-contracts.xml
+          if-no-files-found: warn
+  public-packaging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      UP_BUILD_BACKEND: none
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install build setuptools wheel packaging
+      - run: python -m build --no-isolation --sdist --wheel --outdir dist/platform packages/up-platform
+      - run: python -m build --no-isolation --sdist --wheel --outdir dist/up .
+      - name: Import installed platform outside checkout without UP or Torch
+        run: |
+          python -m pip install --no-deps dist/platform/up_platform-*.whl
+          cd "$RUNNER_TEMP"
+          python -I -c "import importlib.util, sys; assert importlib.util.find_spec('torch') is None; assert importlib.util.find_spec('up') is None; import up_platform; assert 'torch' not in sys.modules; print(up_platform.__version__)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-wheels-and-sdists
+          path: |
+            dist/platform/*
+            dist/up/*

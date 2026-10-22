@@ -65,14 +65,16 @@ def register_catalog():
     for operation in contract["operations"]:
         name = operation["name"]
         for owner, metadata in operation["registered_providers"].items():
+            # The legacy manifest also records experimental providers. They are
+            # supplied by the selected policy, not registered in the native catalog.
+            if owner not in ("nvidia", "portable"):
+                continue
             conventions = ("offset",) if name == "naive_nms" else (("aligned",) if name == "roi_align" else ())
             if owner == "nvidia" and name in NATIVE_OPERATIONS:
                 module, attribute, _ = NATIVE_OPERATIONS[name]
                 value = native_operation(module, attribute)
             elif name == "torchvision_nms" and owner == "nvidia":
                 value = "up_platform.backends.nvidia.ops.vision:torchvision_nms"
-            elif owner == "portable_v1":
-                value = "up_platform.experimental.numerics.portable_numerics_ops:" + name
             elif name in ("naive_nms", "gpu_iou_overlap", "torchvision_nms"):
                 value = "up_platform.shared.portable:" + name
             elif name in ("sync_batch_norm", "sync_batch_norm_forward"):

@@ -9,14 +9,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def load(name):
-    spec = importlib.util.spec_from_file_location(name, ROOT / "tools" / (name + ".py"))
+    spec = importlib.util.spec_from_file_location(name, ROOT / "benchmark/hardware" / (name + ".py"))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
 TOOL = load("run_cross_vendor_accuracy")
-PLAN_PATH = ROOT / "docs/hardware/validation/cross_vendor_20261021/plan.json"
+PLAN_PATH = ROOT / "tests/fixtures/protocols/cross_vendor_20261021/plan.json"
 
 
 def report(backend="nvidia"):
@@ -117,7 +117,7 @@ def test_all_batch_audit_is_required_only_when_declared():
 
 
 def test_new_protocol_preserves_old_budgets_seeds_and_margin():
-    plan = TOOL.load_plan(ROOT / "docs/hardware/validation/cross_vendor_diagnosis_20261021/plan.json")
+    plan = TOOL.load_plan(ROOT / "tests/fixtures/protocols/cross_vendor_diagnosis_20261021/plan.json")
     old = TOOL.load_plan(PLAN_PATH)
     assert set(plan["models"]) == {"yolov5s", "detr", "vit_b16"}
     assert plan["audit_all_training_batches"]

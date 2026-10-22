@@ -1,20 +1,5 @@
-# Keep recorded validation hashes stable on Windows and Linux checkouts.
-docs/hardware/validation/accuracy_20261021/** text eol=lf
-tools/diagnose_training_divergence.py text eol=lf
-tools/validate_training_accuracy.py text eol=lf
-tools/run_multiseed_accuracy.py text eol=lf
-tools/accuracy_detr_adapter.py text eol=lf
-tools/prepare_detr_accuracy.py text eol=lf
-tools/prepare_multiseed_extension.py text eol=lf
-tools/validate_models.py text eol=lf
-docs/hardware/validation/multiseed_20261021/** text eol=lf
-# The upstream anchor asset has recorded CRLF bytes; preserve its exact checksum.
-docs/hardware/validation/multiseed_20261021/five-models-v2/yolov5-anchors.json -text
-# Preserve immutable raw evidence bytes, including mixed source/log line endings.
-docs/platform/validation/hardware_20261022/** -text
-tools/validate_platform_equivalence.py text eol=lf
-tools/collect_platform_evidence.py text eol=lf
-docs/platform/validation/metax_determinism_20261022/** -text
-tools/diagnose_metax_determinism.py text eol=lf
-tools/run_metax_determinism_controls.py text eol=lf
-tools/collect_metax_determinism.py text eol=lf
+# Preserve the exact archived protocol bytes; normalize maintained tools only.
+tests/fixtures/protocols/** -text
+docs/reports/evidence.manifest.json text eol=lf
+tools/platform/*.py text eol=lf
+benchmark/hardware/*.py text eol=lf

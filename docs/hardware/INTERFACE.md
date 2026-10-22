@@ -9,7 +9,7 @@
 | [完整函数索引](API_INDEX.md) | 31 个运行时成员、73 个路由操作、统一入口的完整清单及签名 |
 | [机器可读清单](interface_contract.json) | 逐项记录签名、返回、梯度范围、类别、源码和已注册供应者 |
 | [新增厂商步骤](ADDING_BACKENDS.md) | 编写插件、注册和配置的操作指南 |
-| [能力矩阵](CAPABILITIES.md) | 实现状态和真机验证状态，二者分别记录 |
+| [能力矩阵](../reports/hardware/CAPABILITIES.md) | 实现状态和真机验证状态，二者分别记录 |
 | [上游硬件依赖清单](upstream_inventory.json) | 262 个调用位置及迁移记录；它不是函数签名清单 |
 
 ## 1. 是否需要重新实现全部函数
@@ -72,9 +72,9 @@
 | 数值配置查询 | `numerics_state` | 返回实际数值配置、随机协议/计数器和已执行的适配操作计数；不是精度通过声明 |
 | 路由 | `call`、`dependency`、`capabilities` | 调用完整操作、延迟加载指定可选库、查询注册情况；缺失能力报后端和原因；能力查询不是硬件测试 |
 
-随机状态接口不承诺不同厂商在同一个 seed/state 下生成逐位相同的随机张量或 Dropout 掩码。跨厂商比较必须检查实际数据/掩码，不能只比较状态哈希；确定性请求也必须以重复前向、反向实测确认。C500 上已定位的 Dropout 映射和卷积反向重复性问题见[差异定位](CROSS_VENDOR_DIAGNOSIS.md)。CUDA-shaped 设备的卷积库开关由 NVIDIA/MetaX 共享实现管理，UP CLI 使用 `--nocudnn`，直接构造 Runner 则设 `config['args']['nocudnn']=True`；不新增框架 CPU 回退。默认不关闭，不能把它宣称为所有模型的精度保证。
+随机状态接口不承诺不同厂商在同一个 seed/state 下生成逐位相同的随机张量或 Dropout 掩码。跨厂商比较必须检查实际数据/掩码，不能只比较状态哈希；确定性请求也必须以重复前向、反向实测确认。C500 上已定位的 Dropout 映射和卷积反向重复性问题见[差异定位](../reports/hardware/CROSS_VENDOR_DIAGNOSIS.md)。CUDA-shaped 设备的卷积库开关由 NVIDIA/MetaX 共享实现管理，UP CLI 使用 `--nocudnn`，直接构造 Runner 则设 `config['args']['nocudnn']=True`；不新增框架 CPU 回退。默认不关闭，不能把它宣称为所有模型的精度保证。
 
-可选的 [portable_v1 数值配置](PORTABLE_NUMERICS.md)提供共同 GPU 随机流及选定算子的宽精度内部实现；参数、输出边界仍为 FP32，不修改模型模块。它不是原生 FP32 路径或全模型逐位一致保证；新厂商不必为基本接入实现这个可选配置。
+可选的 [portable_v1 数值配置](../reports/hardware/PORTABLE_NUMERICS.md)提供共同 GPU 随机流及选定算子的宽精度内部实现；参数、输出边界仍为 FP32，不修改模型模块。它不是原生 FP32 路径或全模型逐位一致保证；新厂商不必为基本接入实现这个可选配置。
 
 ## 4. 专用算子的输入输出和梯度
 
@@ -109,9 +109,9 @@ NVIDIA `softer_nms` 保留上游已有的显式 CPU 内部阶段及返回原设�
 
 所有实现必须保持输入输出设备、索引 dtype、空输入、连续性要求、坐标和角度、返回元组、异常及不支持变体。允许的精度和形状需逐项声明、测试。高阶梯度不自动保证。
 
-已有 ONNX symbolic 的节点、domain、属性应保持；无法导出时明确报错，不能把 CPU 导出占位函数当数值实现。已测变体见[验证报告](VALIDATION.md)。
+已有 ONNX symbolic 的节点、domain、属性应保持；无法导出时明确报错，不能把 CPU 导出占位函数当数值实现。已测变体见[验证报告](../reports/hardware/VALIDATION.md)。
 
-**确定性不是自动保证。** 本轮实测原版和改造版的原生 RoIAlign 反向均使用 atomicAdd：即使 PyTorch 全局启用 deterministic algorithms，固定输入和固定上游梯度重复反向仍有微小差异。应分别记录算子容差一致、逐位重复性和训练精度统计，不能把固定随机种子当作逐位确定的证明。相关真实数据对照和诊断见[训练报告](TRAINING_ACCURACY.md)；这也不证明所有检测差异都仅由该算子造成。
+**确定性不是自动保证。** 本轮实测原版和改造版的原生 RoIAlign 反向均使用 atomicAdd：即使 PyTorch 全局启用 deterministic algorithms，固定输入和固定上游梯度重复反向仍有微小差异。应分别记录算子容差一致、逐位重复性和训练精度统计，不能把固定随机种子当作逐位确定的证明。相关真实数据对照和诊断见[训练报告](../reports/hardware/TRAINING_ACCURACY.md)；这也不证明所有检测差异都仅由该算子造成。
 
 ## 5. 专用层和稀疏张量
 
@@ -164,13 +164,13 @@ NVIDIA `softer_nms` 保留上游已有的显式 CPU 内部阶段及返回原设�
 安装了 CPU 或厂商 PyTorch 即可运行，不需要 CUDA、GPU 或可选 SDK：
 
 ```bash
-python tools/export_accelerator_contract.py --check
+python tools/platform/export_accelerator_contract.py --check
 ```
 
 新增操作但缺少语义定义、签名变化、注册项或运行时成员变化却未更新清单，检查会失败。修改经过审查后重新生成：
 
 ```bash
-python tools/export_accelerator_contract.py --write
+python tools/platform/export_accelerator_contract.py --write
 ```
 
 这是**接口覆盖检查**，不是厂商实现正确性证明。最终需比较前向、所需梯度、真实数据训练指标、checkpoint 恢复，以及启用功能的双卡/导出行为，分别记录未实现、已注册、已执行和已验证状态。

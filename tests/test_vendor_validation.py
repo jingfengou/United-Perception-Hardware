@@ -9,7 +9,7 @@ import torch
 
 @pytest.fixture
 def driver():
-    path = Path(__file__).resolve().parents[1] / "tools/validate_models.py"
+    path = Path(__file__).resolve().parents[1] / "benchmark/hardware/validate_models.py"
     spec = importlib.util.spec_from_file_location("vendor_model_validation", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

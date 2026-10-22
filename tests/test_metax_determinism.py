@@ -10,7 +10,7 @@ import torch.nn.functional as F
 
 @pytest.fixture
 def tool(monkeypatch):
-    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "tools"))
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "benchmark/hardware"))
     return importlib.import_module("diagnose_metax_determinism")
 
 
@@ -121,7 +121,7 @@ def test_nvidia_native_is_not_changed_by_metax_profile():
 
 @pytest.fixture
 def evidence(tmp_path, monkeypatch):
-    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "tools"))
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "benchmark/hardware"))
     collector = importlib.import_module("collect_metax_determinism")
     monkeypatch.setattr(collector, "verify_data", lambda value: {"checked": True})
     root, before, after = [tmp_path / name for name in ("results", "before", "after")]

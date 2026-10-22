@@ -370,7 +370,7 @@ def test_build_without_torch_or_cuda():
 
 
 def test_static_hardware_boundary():
-    spec = importlib.util.spec_from_file_location("boundary_check", ROOT / "tools/check_hardware_boundaries.py")
+    spec = importlib.util.spec_from_file_location("boundary_check", ROOT / "tools/platform/check_hardware_boundaries.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     assert module.check_tree() == []
@@ -393,7 +393,7 @@ def test_static_hardware_boundary():
     "from torchvision.ops import roi_align",
 ])
 def test_static_checker_detects_bypasses(source):
-    spec = importlib.util.spec_from_file_location("boundary_check", ROOT / "tools/check_hardware_boundaries.py")
+    spec = importlib.util.spec_from_file_location("boundary_check", ROOT / "tools/platform/check_hardware_boundaries.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     assert module.check_source(source, "up/test_module.py")

@@ -1,5 +1,7 @@
 # 平台解耦总设计与仓库变更审计
 
+后续实施见[仓库收敛记录](../reports/CONSOLIDATION_20261022.md)。本文统计和 G01–G10 是固定审查版本的现状，不因后续整理而覆盖其原始结论。
+
 日期：2026-10-22。本文先说明产品目标和模块边界，再核对实际改动、问题与收敛路线。它是对现有工作的**回溯设计审查**，不把事后整理的决定冒充实施前就已具备的管理记录。
 
 ## 1. 先明确要交付什么
@@ -139,14 +141,14 @@ LightX2V 的 [`lightx2v_platform`](https://github.com/ModelTC/LightX2V/tree/19c1
 | 已观察问题 | 采取的改进 | 结果边界与证据 |
 | --- | --- | --- |
 | 上层散落 `.cuda()`、CUDA API、厂商 SDK 和直接扩展访问 | 设备/操作/层/通信路由与静态边界检查 | 入口集中；专用能力缺失仍须实现，不能只注册名字 |
-| 无 CUDA 或未装可选 SDK 时普通导入/构建失败 | 独立包、元数据注册、SDK 懒加载、可选编译 | 见[结构验收](../platform/VALIDATION.md)；无 Torch 普通导入不代表无 Torch 运行模型 |
+| 无 CUDA 或未装可选 SDK 时普通导入/构建失败 | 独立包、元数据注册、SDK 懒加载、可选编译 | 见[结构验收](../reports/platform/VALIDATION.md)；无 Torch 普通导入不代表无 Torch 运行模型 |
 | 同叫 cuda 可能错载 NVIDIA 二进制 | 厂商身份与设备名分开 | `nvidia/cuda`、`metax/cuda` 分别选择实现 |
 | 平台最初依赖 UP 全局标志，无法独立；两套入口难维护 | 拆 `up_platform`，UP 门面显式传入约定 | 平台禁止导入 UP；旧路径保持薄转发 |
 | 训练 eval 被误当部署推理、无条件恢复 train 破坏模块状态 | 显式 purpose、训练内验证上下文 | 用途/供应者不切换，恢复调用前状态及异常路径 |
-| NVIDIA Faster R-CNN 训练逐步有差异 | 固定输入、权重和真实 RoIAlign 反向重放 | 定位原生非确定性；不能用放宽逐步容差掩盖，见[历史定位](../hardware/TRAINING_ACCURACY.md) |
+| NVIDIA Faster R-CNN 训练逐步有差异 | 固定输入、权重和真实 RoIAlign 反向重放 | 定位原生非确定性；不能用放宽逐步容差掩盖，见[历史定位](../reports/hardware/TRAINING_ACCURACY.md) |
 | 跨厂商训练精度有差异 | 对齐版本、输入、随机性并交叉推理和操作重放 | 并非“路由一致所以结果必然一致”；历史跨厂商精度只有指定模型通过等价检验 |
 | C500 ResNet/YOLO/DETR 拆包比较超差 | 固定真实操作数重放原生卷积反向，拒绝只归因种子 | 复现权重梯度非确定性；关闭 DNN 不能完整解决 |
-| C500 局部非确定性 | 显式 `metax_deterministic_v1`，仅平台层 FP32 重算卷积权重梯度 | 三模型同种子短程对照通过；native 默认不变，不宣称跨厂商收敛已等价，见[专项报告](../platform/METAX_DETERMINISM.md) |
+| C500 局部非确定性 | 显式 `metax_deterministic_v1`，仅平台层 FP32 重算卷积权重梯度 | 三模型同种子短程对照通过；native 默认不变，不宣称跨厂商收敛已等价，见[专项报告](../reports/platform/METAX_DETERMINISM.md) |
 | 更早的跨厂商数值实验需要固定 RNG/归约顺序 | 增加显式 `portable_v1` | 含 GPU FP64 和性能开销；NVIDIA 完整复测仍暂停，不是基本厂商接入路径 |
 | 证据会因换行、源码阶段或失败重跑产生混淆 | 冻结源码/计划/数据哈希、原始失败、独立指标复算 | 各报告只对自己的版本和配置成立；不能混合种子或覆盖失败 |
 

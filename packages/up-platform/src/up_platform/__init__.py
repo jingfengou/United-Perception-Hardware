@@ -9,6 +9,7 @@ from .errors import BackendConfigurationError, CapabilityError
 from .registry import (BACKENDS, BACKEND_PROBES, OPERATIONS, PURPOSES, BackendSpec,
                        operation_entry, register_backend, register_op, resolve)
 from .catalog import register_catalog
+from . import backends as _backend_metadata
 
 __version__ = "0.1.0"
 _active = None
@@ -85,9 +86,10 @@ class PlatformContext:
         return self.execution.sparse
 
     def _operation_backend(self):
-        if self.runtime._numerics is None:
+        owner = self.runtime._numerical_policy.provider
+        if owner is None:
             return self._provider
-        return SimpleNamespace(name="portable_v1", device_type=self.device_type, purpose=self.purpose,
+        return SimpleNamespace(name=owner, device_type=self.device_type, purpose=self.purpose,
                                op_fallbacks=(self._provider.name,) + self._provider.op_fallbacks)
 
     def _entry(self, name):
@@ -141,10 +143,7 @@ class PlatformContext:
                     if parameter.kind == inspect.Parameter.VAR_KEYWORD:
                         values.update(arguments.arguments.get(parameter.name, {}))
                 self.require(name, variants={key: values[key] for key in entry["variants"] if key in values})
-            if self.runtime._numerics is not None:
-                key = "ops." + name
-                counts = self.runtime._numerics.counts
-                counts[key] = counts.get(key, 0) + 1
+            self.runtime._numerical_policy.record_operation(name)
             result = implementation(*args, **kwargs)
         except (ImportError, OSError) as exc:
             raise CapabilityError("backend={!r}, purpose={!r}, operation={!r}: could not load implementation: {}".format(
@@ -246,6 +245,7 @@ def configure_platform(config=None, *, purpose, reset=False):
         _active.runtime._close_numerics()
         _active = None
     runtime._configure_numerics(options.get("numerics", "native"))
+    context._operations.update(runtime._numerical_policy.operations)
     _active = context
     return context
 

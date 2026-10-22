@@ -1,9 +1,0 @@
-{
-  "atol": 1e-05,
-  "backend": "metax",
-  "driver_sha256": "d1f959b18da32aceb83d54457dfb934670eabd5a510ec201418c36be753a7e19",
-  "rtol": 0.0001,
-  "scope": "single-seed, 3 updates on 8 real training / 4 validation images per dataset; not accuracy convergence",
-  "seed": 131,
-  "steps": 3
-}

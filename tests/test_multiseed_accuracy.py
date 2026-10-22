@@ -8,11 +8,11 @@ from scipy import stats
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
-SUITE = runpy.run_path(str(ROOT / "tools/run_multiseed_accuracy.py"))
-DRIVER = runpy.run_path(str(ROOT / "tools/validate_training_accuracy.py"))
-ADAPTER = runpy.run_path(str(ROOT / "tools/accuracy_detr_adapter.py"))
-ASSETS = runpy.run_path(str(ROOT / "tools/prepare_multiseed_extension.py"))
-SMOKE = runpy.run_path(str(ROOT / "tools/validate_models.py"))
+SUITE = runpy.run_path(str(ROOT / "benchmark/hardware/run_multiseed_accuracy.py"))
+DRIVER = runpy.run_path(str(ROOT / "benchmark/hardware/validate_training_accuracy.py"))
+ADAPTER = runpy.run_path(str(ROOT / "benchmark/hardware/accuracy_detr_adapter.py"))
+ASSETS = runpy.run_path(str(ROOT / "benchmark/hardware/prepare_multiseed_extension.py"))
+SMOKE = runpy.run_path(str(ROOT / "benchmark/hardware/validate_models.py"))
 
 
 def test_tost_matches_independent_scipy_one_sided_tests():
@@ -69,7 +69,7 @@ def test_valid_run_has_complete_budget_and_restore():
 
 
 def test_predeclared_plan_has_distinct_seeds_and_external_detr_label():
-    plan = SUITE["load_plan"](ROOT / "docs/hardware/validation/multiseed_20261021/plan.json")
+    plan = SUITE["load_plan"](ROOT / "tests/fixtures/protocols/multiseed_20261021/plan.json")
     assert len(plan["models"]["faster_rcnn"]["seeds"]) == 10
     assert plan["models"]["faster_rcnn"]["repeat_seeds"] == [131, 132, 133]
     assert plan["equivalence"]["margin_percentage_points"] == 1.
@@ -77,7 +77,7 @@ def test_predeclared_plan_has_distinct_seeds_and_external_detr_label():
 
 
 def test_duplicate_seeds_are_not_independent_evidence(tmp_path):
-    plan = json.loads((ROOT / "docs/hardware/validation/multiseed_20261021/plan.json").read_text())
+    plan = json.loads((ROOT / "tests/fixtures/protocols/multiseed_20261021/plan.json").read_text())
     plan["models"]["resnet18"]["seeds"] = [131, 131]
     path = tmp_path / "plan.json"
     path.write_text(json.dumps(plan))
@@ -204,7 +204,7 @@ def test_flat_label_cross_entropy_preserves_weighted_loss_and_gradient(dtype):
 
 
 def test_extension_plan_preserves_original_plan_and_requires_five_distinct_seeds():
-    plan = SUITE["load_plan"](ROOT / "docs/hardware/validation/multiseed_20261021/extension-plan.json")
+    plan = SUITE["load_plan"](ROOT / "tests/fixtures/protocols/multiseed_20261021/extension-plan.json")
     assert plan["protocol"] == "multiseed_v2"
     assert set(plan["models"]) == {"yolov5s", "vit_b16", "detr"}
     for spec in plan["models"].values():

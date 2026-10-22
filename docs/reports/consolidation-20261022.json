@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "baseline_commit": "a3e2752f454c72d6b46e0b64d0debeef0d7105a3",
+  "scope": "Repository consolidation, optional numerical-policy isolation and CPU/public-package verification; no new GPU accuracy result",
+  "algorithms_and_configs": {
+    "protected_files_verified": 665,
+    "up_and_configs_git_diff_empty": true,
+    "mathematical_implementations_changed": false
+  },
+  "local_cpu": {
+    "python": "3.13.11",
+    "torch": "2.10.0+cpu",
+    "passed": 294,
+    "failed": 0,
+    "skipped": 0,
+    "subtests_passed": 3,
+    "warnings": 2,
+    "command": "python -m pytest -q"
+  },
+  "installed_platform_wheel": {
+    "outside_checkout": true,
+    "up_installed": false,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0
+  },
+  "public_build": {
+    "torch_installed": false,
+    "wheel_and_sdist": ["up-platform", "up"],
+    "native_sources_in_platform_sdist": 43,
+    "installed_import_without_up_or_torch": true,
+    "artifacts": {
+      "up_platform-0.1.0-py3-none-any.whl": "9355bc6fab77d0574670b29c1d1197f3dcfc2e3b46104b10c75546e06753df37",
+      "up_platform-0.1.0.tar.gz": "ee5739c965a5d0a31194d9c6431c93950c7677fc3c1c4351957380d837467817",
+      "up-0.3.0-py3-none-any.whl": "99d827e0d07760e07d80a18f9abe44da733603b76e63d7774be5a51ac8a2ab3d",
+      "up-0.3.0.tar.gz": "ffe0f9e35b7396f5dafc814010fb9e23e8880e5aad76b9ae4f5bf1d50d35bf9d"
+    }
+  },
+  "archive": {
+    "tag": "evidence-pre-consolidation-20261022",
+    "files_verified": 1505,
+    "uncompressed_file_bytes": 89491967,
+    "downloaded_public_release_verified": true,
+    "sha256": "bdb2886358d6ba67039b13147fc5da279bcb86985cf9d2d9a986ceb798d233ae",
+    "fixtures_verified": 6,
+    "git_history_rewritten": false
+  },
+  "boundaries": {"violations": 0, "runtime_members": 31, "operations": 73},
+  "local_links_verified": 179,
+  "github_ci": {"status": "pending", "verified": false},
+  "gpu_tests_started": false,
+  "paused_multiseed_cohort_resumed": false
+}

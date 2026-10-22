@@ -9,7 +9,7 @@ import pytest
 from up.accelerator.registry import OPERATIONS
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL = runpy.run_path(str(ROOT / "tools/export_accelerator_contract.py"))
+TOOL = runpy.run_path(str(ROOT / "tools/platform/export_accelerator_contract.py"))
 build_contract, markdown = TOOL["build_contract"], TOOL["markdown"]
 
 
@@ -44,7 +44,7 @@ def test_export_does_not_load_native_or_vendor_modules():
     script = """
 import sys
 import runpy
-runpy.run_path('tools/export_accelerator_contract.py')['build_contract']()
+runpy.run_path('tools/platform/export_accelerator_contract.py')['build_contract']()
 assert not any(name.startswith(('torch_npu', 'torch_mlu', 'spconv', 'spring',
                                'mqbench', 'msbench', 'up.extensions._C', 'up.tasks'))
                for name in sys.modules)

@@ -5,6 +5,9 @@ from collections.abc import Mapping
 import torch
 
 from up_platform.errors import BackendConfigurationError, CapabilityError
+from up_platform.registry import NUMERICAL_POLICIES, resolve
+
+from .policy import NativePolicy
 
 
 class DeviceBackend:
@@ -19,7 +22,7 @@ class DeviceBackend:
 
     def __init__(self, device=None):
         self._index = None
-        self._numerics = None
+        self._numerical_policy = NativePolicy(self)
         if device is not None:
             parsed = torch.device(device)
             if parsed.type != self.device_type:
@@ -123,68 +126,42 @@ class DeviceBackend:
             torch.manual_seed(seed)
         else:
             self.api.manual_seed(seed)
-        if self._numerics is not None:
-            self._numerics.reseed(seed)
+        self._numerical_policy.reseed(seed)
 
     def get_rng_state(self, *args, **kwargs):
         value = torch.get_rng_state() if self.api is None else self.api.get_rng_state(*args, **kwargs)
-        return self._numerics.state(value) if self._numerics is not None else value
+        return self._numerical_policy.wrap_rng_state(value)
 
     def set_rng_state(self, state, *args, **kwargs):
-        restored = self._numerics.restore(state) if self._numerics is not None else None
-        if restored is not None:
-            seed, offset, state = restored
-        if self.api is None:
-            torch.set_rng_state(state)
-        else:
-            self.api.set_rng_state(state, *args, **kwargs)
-        if restored is not None:
-            self._numerics.seed, self._numerics.offset = seed, offset
+        def restore_native(value):
+            if self.api is None:
+                torch.set_rng_state(value)
+            else:
+                self.api.set_rng_state(value, *args, **kwargs)
+        self._numerical_policy.restore_rng_state(state, restore_native)
+
+    @property
+    def _numerics(self):
+        """Private legacy hook for frozen diagnostic scripts, not a routing interface."""
+        return self._numerical_policy.mode
 
     def _configure_numerics(self, policy):
-        if policy not in ("native", "portable_v1"):
+        if policy not in NUMERICAL_POLICIES:
             raise BackendConfigurationError("Unknown numerical profile: " + str(policy))
-        if self._numerics is not None:
-            if policy != "portable_v1":
+        if self._numerical_policy.profile != "native":
+            if policy != self._numerical_policy.profile:
                 raise BackendConfigurationError("Reset the accelerator to change numerical profiles")
             return
-        if policy == "portable_v1":
-            if policy not in self.numerical_profiles or self.device_type != "cuda":
-                raise CapabilityError("{} has not enabled portable_v1 for its CUDA-shaped runtime".format(self.name))
-            from up_platform.experimental.numerics.mode import PortableNumerics
-            self._numerics = PortableNumerics(self.device_type, backend_name=self.name)
-            self._numerics._original_mha_fastpath = torch.backends.mha.get_fastpath_enabled()
-            self._numerics._original_convolution_enabled = torch.backends.cudnn.enabled
-            # Convolution backward reselects its backend from the current flag.
-            torch.backends.cudnn.enabled = False
-            torch.backends.mha.set_fastpath_enabled(False)
-            self._numerics.random_mode.__enter__()
-            self._numerics.__enter__()
+        selected = resolve(NUMERICAL_POLICIES[policy])(self)
+        selected.start()
+        self._numerical_policy = selected
 
     def _close_numerics(self):
-        if self._numerics is not None:
-            from torch.overrides import _get_current_function_mode
-            from torch.utils._python_dispatch import _get_current_dispatch_mode
-            self._numerics._check_thread()
-            if _get_current_function_mode() is not self._numerics:
-                raise BackendConfigurationError("Exit nested PyTorch modes before resetting the accelerator")
-            if _get_current_dispatch_mode() is not self._numerics.random_mode:
-                raise BackendConfigurationError("Exit nested PyTorch dispatch modes before resetting the accelerator")
-            self._numerics.__exit__(None, None, None)
-            self._numerics.random_mode.__exit__(None, None, None)
-            torch.backends.mha.set_fastpath_enabled(self._numerics._original_mha_fastpath)
-            torch.backends.cudnn.enabled = self._numerics._original_convolution_enabled
-            self._numerics = None
+        self._numerical_policy.close()
+        self._numerical_policy = NativePolicy(self)
 
     def numerics_state(self):
-        mode = self._numerics
-        return {"profile": "portable_v1" if mode is not None else "native",
-                "rng": "triton-philox4x32-10-v1" if mode is not None else "vendor-native",
-                "accumulation": "selected GPU FP64 operations with FP32 boundaries" if mode is not None else "vendor-native",
-                "seed": mode.seed if mode is not None else None,
-                "offset": mode.offset if mode is not None else None,
-                "convolution_library_enabled": torch.backends.cudnn.enabled if self.device_type == "cuda" else None,
-                "operations": dict(mode.counts) if mode is not None else {}}
+        return self._numerical_policy.state()
 
     def synchronize(self, *args, **kwargs):
         if self.api is not None:

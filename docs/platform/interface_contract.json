@@ -1025,19 +1025,6 @@
             "dtypes": null,
             "variants": null
           }
-        },
-        "portable_v1": {
-          "common": {
-            "backward": false,
-            "conventions": [],
-            "dependencies": [
-              "torch"
-            ],
-            "dtypes": [
-              "torch.float32"
-            ],
-            "variants": null
-          }
         }
       },
       "requirement": "model_or_feature_dependent",
@@ -1645,21 +1632,6 @@
               "torch"
             ],
             "dtypes": null,
-            "variants": null
-          }
-        },
-        "portable_v1": {
-          "common": {
-            "backward": false,
-            "conventions": [
-              "offset"
-            ],
-            "dependencies": [
-              "torch"
-            ],
-            "dtypes": [
-              "torch.float32"
-            ],
             "variants": null
           }
         }
@@ -2648,19 +2620,6 @@
               "torch"
             ],
             "dtypes": null,
-            "variants": null
-          }
-        },
-        "portable_v1": {
-          "common": {
-            "backward": false,
-            "conventions": [],
-            "dependencies": [
-              "torch"
-            ],
-            "dtypes": [
-              "torch.float32"
-            ],
             "variants": null
           }
         }

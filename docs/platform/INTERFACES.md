@@ -81,8 +81,10 @@ dependencies 为懒加载模块名，或 provider:sparse/link/quantization 等�
 
 ## 6. 能力与验收不是一回事
 
+native 的操作目录不包含实验供应者。显式数值策略通过通用生命周期钩子将局部操作合并到当前 context；不修改全局注册表，不改变 purpose，也不强迫厂商实现数值实验。完整策略边界见[数值策略](NUMERICAL_POLICIES.md)。
+
 capabilities 每项分别记录 registered、dependencies_available（未知为 None）、executed（成功调用数）、hardware_validated。当前结构迁移不会把历史证据升级为新结构真机通过，hardware_validated 默认 False。dependencies_available=True 也仅表示声明模块已加载，不证明 SDK ABI、设备可用、梯度正确或精度收敛。
 
 native 默认不变；experimental/numerics 的 portable_v1 只有显式选择才启用，包含 GPU FP64 中间计算和额外开销，不是新厂商基本接入义务。原失败/未验证证据继续保留；不得混用历史快照与新包结果。
 
-沐曦另提供显式 `numerics: metax_deterministic_v1`，定义、支持变体、生命周期及同厂商证据见[专项说明](METAX_DETERMINISM.md)。它只替换 GPU FP32 普通二维卷积的权重一阶梯度，不改目的、语义算子供应者或 native RNG；`numerics_state()` 报告厂商 profile 及真实执行次数。该选项不是通用确定性保证，不用于自动启用 FP64 或掩盖 native 未通过项。
+沐曦另提供显式 `numerics: metax_deterministic_v1`，定义、支持变体、生命周期及同厂商证据见[专项说明](../reports/platform/METAX_DETERMINISM.md)。它只替换 GPU FP32 普通二维卷积的权重一阶梯度，不改目的、语义算子供应者或 native RNG；`numerics_state()` 报告厂商 profile 及真实执行次数。该选项不是通用确定性保证，不用于自动启用 FP64 或掩盖 native 未通过项。

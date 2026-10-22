@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def tool(name):
-    spec = importlib.util.spec_from_file_location(name, ROOT / "tools" / (name + ".py"))
+    spec = importlib.util.spec_from_file_location(name, ROOT / "benchmark/hardware" / (name + ".py"))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -62,7 +62,7 @@ def test_source_snapshot_normalizes_only_newlines_and_rejects_overwrite(tmp_path
     content = b"VALUE = 1\r\n"
     (source / "up" / "example.py").write_bytes(content)
     archive = tmp_path / "nvidia-source.tar.gz"
-    command = [sys.executable, str(ROOT / "tools/snapshot_hardware_source.py"),
+    command = [sys.executable, str(ROOT / "tools/platform/snapshot_hardware_source.py"),
                "--source", str(source), "--output", str(archive)]
     subprocess.run(command, check=True, capture_output=True)
     manifest, _, index, _ = tool("summarize_portable_cohort").read_source(tmp_path, "nvidia")

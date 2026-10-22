@@ -10,7 +10,7 @@ import torch
 
 
 ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location("platform_equivalence", ROOT / "tools/validate_platform_equivalence.py")
+spec = importlib.util.spec_from_file_location("platform_equivalence", ROOT / "benchmark/hardware/validate_platform_equivalence.py")
 tool = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(tool)
 
@@ -61,7 +61,7 @@ def test_deployment_checkpoint_is_tensor_only_without_training_objects(tmp_path)
 
 
 def test_subset_manifest_hashes_describe_selected_images_not_parent(tmp_path, monkeypatch):
-    monkeypatch.syspath_prepend(str(ROOT / "tools"))
+    monkeypatch.syspath_prepend(str(ROOT / "benchmark/hardware"))
     from prepare_cross_vendor_data import verify_data
     data = {}
     for dataset in ("cifar10", "pennfudan"):

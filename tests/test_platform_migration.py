@@ -17,6 +17,15 @@ from up_platform.registry import OPERATIONS
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_common_cannot_import_experimental_policies():
+    tool = runpy.run_path(str(ROOT / "tools/platform/check_hardware_boundaries.py"))
+    path = "packages/up-platform/src/up_platform/common/runtime.py"
+    for source in ("from up_platform.experimental.numerics.mode import PortableNumerics",
+                   "import importlib\nimportlib.import_module('up_platform.experimental.numerics.mode')"):
+        findings = tool["check_platform_source"](source, path)
+        assert any(row["rule"] == "experimental_dependency" for row in findings)
+
+
 @pytest.fixture(autouse=True)
 def isolate():
     old = copy.deepcopy(OPERATIONS)
@@ -153,7 +162,7 @@ def test_legacy_and_moved_symbolic_nodes_match():
 
 
 def test_complete_platform_index_has_semantics_and_no_drift():
-    tool = runpy.run_path(str(ROOT / "tools/export_platform_contract.py"))
+    tool = runpy.run_path(str(ROOT / "tools/platform/export_platform_contract.py"))
     for path, expected in tool["outputs"]().items():
         assert path.read_text(encoding="utf-8") == expected
     from up_platform.contracts import build_contract
@@ -171,5 +180,5 @@ def test_complete_platform_index_has_semantics_and_no_drift():
     ("from ...inference.backend import InferenceBackend", "packages/up-platform/src/up_platform/training/nested/bad.py", "cross_purpose_import"),
 ])
 def test_checker_rejects_reverse_and_cross_purpose_imports(source, path, rule):
-    tool = runpy.run_path(str(ROOT / "tools/check_hardware_boundaries.py"))
+    tool = runpy.run_path(str(ROOT / "tools/platform/check_hardware_boundaries.py"))
     assert rule in [item["rule"] for item in tool["check_platform_source"](source, path)]

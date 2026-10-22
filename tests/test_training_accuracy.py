@@ -9,7 +9,7 @@ import pytest
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL = runpy.run_path(str(ROOT / "tools/validate_training_accuracy.py"))
+TOOL = runpy.run_path(str(ROOT / "benchmark/hardware/validate_training_accuracy.py"))
 compare, effective_config = TOOL["compare"], TOOL["effective_config"]
 
 
@@ -93,7 +93,7 @@ def test_legacy_numpy_alias_keeps_original_float64_dtype(monkeypatch):
 
 
 def test_verified_legacy_weight_conversion_preserves_tensors(tmp_path):
-    prepare = runpy.run_path(str(ROOT / "tools/prepare_accuracy_data.py"))
+    prepare = runpy.run_path(str(ROOT / "benchmark/hardware/prepare_accuracy_data.py"))
     source, target = tmp_path / "legacy.pth", tmp_path / "modern.pth"
     original = {"layer.weight": torch.arange(6.).reshape(2, 3)}
     torch.save(original, source, _use_new_zipfile_serialization=False)
@@ -123,7 +123,7 @@ def test_comparison_rejects_empty_training(tmp_path):
 
 
 def test_zero_epoch_training_is_rejected_before_gpu_initialization(tmp_path):
-    result = subprocess.run([sys.executable, str(ROOT / "tools/validate_training_accuracy.py"),
+    result = subprocess.run([sys.executable, str(ROOT / "benchmark/hardware/validate_training_accuracy.py"),
                              "--source", str(ROOT), "--data", "unused.json", "--model", "resnet18",
                              "--epochs", "0", "--output", str(tmp_path / "unused")],
                             capture_output=True, text=True)
@@ -132,7 +132,7 @@ def test_zero_epoch_training_is_rejected_before_gpu_initialization(tmp_path):
 
 
 def test_roi_trace_observes_native_result_without_replacing_it(tmp_path):
-    tool = runpy.run_path(str(ROOT / "tools/diagnose_training_divergence.py"))
+    tool = runpy.run_path(str(ROOT / "benchmark/hardware/diagnose_training_divergence.py"))
     trace = tool["RoiTrace"](tmp_path)
     trace.start(0)
     calls = []
@@ -151,7 +151,7 @@ def test_roi_trace_observes_native_result_without_replacing_it(tmp_path):
 
 
 def test_roi_trace_replay_validates_inputs_and_records_intervention(tmp_path):
-    tool = runpy.run_path(str(ROOT / "tools/diagnose_training_divergence.py"))
+    tool = runpy.run_path(str(ROOT / "benchmark/hardware/diagnose_training_divergence.py"))
     reference, output_dir = tmp_path / "reference", tmp_path / "output"
     reference.mkdir()
     output_dir.mkdir()
@@ -174,7 +174,7 @@ def test_roi_trace_replay_validates_inputs_and_records_intervention(tmp_path):
 
 
 def test_roi_trace_replay_rejects_mismatched_inputs(tmp_path):
-    tool = runpy.run_path(str(ROOT / "tools/diagnose_training_divergence.py"))
+    tool = runpy.run_path(str(ROOT / "benchmark/hardware/diagnose_training_divergence.py"))
     reference, output_dir = tmp_path / "reference", tmp_path / "output"
     reference.mkdir()
     output_dir.mkdir()
@@ -189,7 +189,7 @@ def test_roi_trace_replay_rejects_mismatched_inputs(tmp_path):
 
 
 def test_diagnostic_tensor_descriptors_preserve_shape_and_dtype():
-    tool = runpy.run_path(str(ROOT / "tools/diagnose_training_divergence.py"))
+    tool = runpy.run_path(str(ROOT / "benchmark/hardware/diagnose_training_divergence.py"))
     describe = tool["describe"]
     assert describe(torch.ones(2)) != describe(torch.ones(1, 2))
     assert describe(torch.ones(2)) != describe(torch.ones(2, dtype=torch.float64))

@@ -109,7 +109,7 @@ def purpose(path, status, diff=""):
         if "/common/" in path or "/shared/" in path:
             return "shared", "共用设备/RNG/通信/精度与同设备操作、层、稀疏表示", "portable 共享实现不表示静默 CPU 回退；当前数值实验仍耦合部分 common 代码"
         return "platform_core", "平台配置、后端注册、显式用途/操作路由、能力查询及完整契约", "一个操作的声明、依赖可用、执行、验证是不同状态"
-    if path.startswith("tools/"):
+    if path.startswith(("tools/", "benchmark/hardware/")):
         return "validation_tool", "准备/执行/诊断/审计或打包该模型与硬件回归，不参与 UP 训练运行时", "当前工具平铺且有专用阶段，后续应归入统一 benchmark/hardware 入口"
     if path.startswith("tests/") or path == "pytest.ini":
         return "tests", "保护平台契约、旧 API、协议、数据与证据工具的回归", "不是全体模型或所有 GPU 真机通过"

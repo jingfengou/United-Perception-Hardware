@@ -7,8 +7,7 @@ from up_platform.errors import CapabilityError
 
 
 def autocast(runtime, enabled=True, **kwargs):
-    if enabled and runtime._numerics is not None:
-        raise CapabilityError("portable_v1 does not support autocast; use FP32 model boundaries")
+    runtime._numerical_policy.validate_autocast(enabled)
     if enabled and kwargs.get("dtype") not in (None, torch.float16, torch.bfloat16):
         raise CapabilityError("{} autocast does not support {}".format(runtime.name, kwargs["dtype"]))
     if not enabled and runtime.device_type == "cpu":

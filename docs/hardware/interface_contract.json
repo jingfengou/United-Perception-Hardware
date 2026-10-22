@@ -511,13 +511,6 @@
           "backward": false,
           "dtypes": null,
           "variants": null
-        },
-        "portable_v1": {
-          "backward": false,
-          "dtypes": [
-            "torch.float32"
-          ],
-          "variants": null
         }
       },
       "requirement": "model_or_feature_dependent",
@@ -811,13 +804,6 @@
         "portable": {
           "backward": false,
           "dtypes": null,
-          "variants": null
-        },
-        "portable_v1": {
-          "backward": false,
-          "dtypes": [
-            "torch.float32"
-          ],
           "variants": null
         }
       },
@@ -1299,13 +1285,6 @@
         "portable": {
           "backward": false,
           "dtypes": null,
-          "variants": null
-        },
-        "portable_v1": {
-          "backward": false,
-          "dtypes": [
-            "torch.float32"
-          ],
           "variants": null
         }
       },

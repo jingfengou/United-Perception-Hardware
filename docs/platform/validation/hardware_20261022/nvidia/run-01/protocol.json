@@ -1,9 +1,0 @@
-{
-  "atol": 1e-05,
-  "backend": "nvidia",
-  "driver_sha256": "bcbdcd873dcd06e88fe4bb6377b1dae956841f49a4857ebdfeca537b14ec5ed8",
-  "rtol": 0.0001,
-  "scope": "single-seed, 3 updates on 8 real training / 4 validation images per dataset; not accuracy convergence",
-  "seed": 131,
-  "steps": 3
-}
