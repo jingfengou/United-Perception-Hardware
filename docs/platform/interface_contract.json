@@ -12,7 +12,7 @@
     },
     {
       "name": "register_backend",
-      "signature": "(spec, *, replace=False, probe=None)"
+      "signature": "(spec=None, *, training=Ellipsis, inference=Ellipsis, replace=False, probe=None)"
     },
     {
       "name": "register_op",

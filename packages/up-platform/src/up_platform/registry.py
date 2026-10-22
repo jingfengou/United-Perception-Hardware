@@ -10,6 +10,8 @@ BACKENDS = {}
 BACKEND_PROBES = {}
 OPERATIONS = {}
 NUMERICAL_POLICIES = {}
+TRAINING_FACTORY = "up_platform.training.backend:TrainingBackend"
+INFERENCE_FACTORY = "up_platform.inference.backend:InferenceBackend"
 
 
 def register_numerical_policy(name, factory):
@@ -30,9 +32,32 @@ class BackendSpec:
     requirements: dict = field(default_factory=dict)
 
 
-def register_backend(spec, *, replace=False, probe=None):
-    if not isinstance(spec, BackendSpec):
-        raise TypeError("register_backend requires a BackendSpec")
+def register_backend(spec=None, *, training=..., inference=..., replace=False, probe=None):
+    """Register a device class with shared execution defaults, or an explicit legacy spec.
+
+    Class registration also works as a decorator. Omitted execution factories use
+    the shared implementation; explicit None disables that purpose. BackendSpec
+    keeps its existing defaults and must not be mixed with these shorthand options.
+    """
+    if spec is None:
+        return lambda device: register_backend(
+            device, training=training, inference=inference, replace=replace, probe=probe)
+    value = spec
+    if isinstance(spec, type):
+        name = getattr(spec, "name", None)
+        device_type = getattr(spec, "device_type", None)
+        if not isinstance(name, str) or not name or not isinstance(device_type, str) or not device_type:
+            raise TypeError("A device backend class must declare non-empty name and device_type")
+        spec = BackendSpec(
+            name, device_type, spec,
+            TRAINING_FACTORY if training is ... else training,
+            INFERENCE_FACTORY if inference is ... else inference,
+            tuple(getattr(spec, "op_fallbacks", ("portable",))),
+            dict(getattr(spec, "requirements", {})))
+    elif not isinstance(spec, BackendSpec):
+        raise TypeError("register_backend requires a device backend class or BackendSpec")
+    elif training is not ... or inference is not ...:
+        raise TypeError("Set factories on BackendSpec itself, not with training/inference options")
     if spec.name in BACKENDS and not replace:
         raise ValueError("Backend already registered: " + spec.name)
     BACKENDS[spec.name] = spec
@@ -40,7 +65,7 @@ def register_backend(spec, *, replace=False, probe=None):
         BACKEND_PROBES[spec.name] = probe
     elif replace:
         BACKEND_PROBES.pop(spec.name, None)
-    return spec
+    return value
 
 
 def register_op(backend, name, implementation=None, *, scope, backward=None,

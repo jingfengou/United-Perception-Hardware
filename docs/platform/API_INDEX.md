@@ -10,7 +10,7 @@ Registration, dependency availability, execution and hardware validation are dis
 | --- | --- |
 | `configure_platform` | `(config=None, *, purpose, reset=False)` |
 | `get_platform` | `()` |
-| `register_backend` | `(spec, *, replace=False, probe=None)` |
+| `register_backend` | `(spec=None, *, training=Ellipsis, inference=Ellipsis, replace=False, probe=None)` |
 | `register_op` | `(backend, name, implementation=None, *, scope, backward=None, replace=False, dtypes=None, variants=None, conventions=(), dependencies=())` |
 | `capabilities` | `()` |
 | `require` | `(name, **kwargs)` |

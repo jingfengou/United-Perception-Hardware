@@ -77,8 +77,8 @@ python -m up inference --config your_detection_model.yaml \
 ## 新增厂商
 
 1. 准备厂商匹配的 PyTorch、SDK 和通信库，记录环境组合。
-2. 实现设备后端，分别声明训练/推理用途；兼容操作直接复用公共实现。
-3. 只覆盖缺失操作，交付所需反向、状态及契约测试，再做真机验收。
+2. 实现设备后端并 `register_backend(VendorDevice)`，训练/推理默认复用公共实现，不用写空类。
+3. 只在确有差异时增加训练/推理实现及缺失算子，交付所需反向、状态和测试，再做真机验收。
 
 无需先猜厂商“支持哪些模型”，也不必重写全部 73 项操作。按[接口定义](docs/platform/INTERFACES.md)、[逐项索引](docs/platform/API_INDEX.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)实现与验证即可；已有模型和配方保持不变。
 
@@ -93,7 +93,7 @@ python -m up inference --config your_detection_model.yaml \
 | 沐曦局部确定性选项 | ResNet/YOLO/DETR 同种子短程对照通过，不等于全量或跨厂商精度等价 |
 | 昇腾、寒武纪 | 有运行时入口，专用操作及真机验收未齐全 |
 
-默认 `native` 不变。`portable_v1` 等[数值策略](docs/platform/NUMERICAL_POLICIES.md)显式启用、单独验收，不是基本厂商接入要求；旧多随机种子复测仍暂停。当前 CPU/构建/CI 结果见[本次整理记录](docs/reports/CONSOLIDATION_20261022.md)，历史结果见[报告索引](docs/reports/README.md)。
+默认 `native` 不变。`portable_v1` 等[数值策略](docs/platform/NUMERICAL_POLICIES.md)显式启用、单独验收，不是基本厂商接入要求；旧多随机种子复测仍暂停。当前 CPU/构建/CI 结果见[厂商入口简化记录](docs/reports/VENDOR_SIMPLIFICATION_20261022.md)，目录与证据归档见[前次整理](docs/reports/CONSOLIDATION_20261022.md)，历史结果见[报告索引](docs/reports/README.md)。
 
 ## 开发与目录
 

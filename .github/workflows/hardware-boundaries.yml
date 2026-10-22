@@ -39,9 +39,20 @@ jobs:
         run: |
           python -m pip wheel --no-deps --no-build-isolation -w dist/platform-wheel packages/up-platform
           python -m pip install --force-reinstall --no-deps dist/platform-wheel/up_platform-*.whl
+          python -m pip install --no-deps --no-build-isolation -e packages/up-platform/examples/vendor_plugin
           cd "$RUNNER_TEMP"
           python -I -c "import importlib.util; assert importlib.util.find_spec('up') is None"
           python -I -m pytest -q "$GITHUB_WORKSPACE/packages/up-platform/tests" -c "$GITHUB_WORKSPACE/packages/up-platform/pyproject.toml" --junitxml="$GITHUB_WORKSPACE/dist/wheel-contracts.xml"
+          python -I - <<'PY'
+          import torch
+          from up_platform import configure_platform
+          boxes = torch.tensor([[0., 0., 4., 4., .9], [0., 0., 4., 4., .8]])
+          for purpose in ("training", "inference"):
+              ctx = configure_platform({"backend": "example_vendor", "plugins": ["up_example_vendor"]}, purpose=purpose, reset=True)
+              assert ctx.ops.naive_nms(boxes, .5).tolist() == [0]
+              assert ctx.require("naive_nms")["owner"] == "example_vendor"
+              assert ctx.require("gpu_iou_overlap")["owner"] == "portable"
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:

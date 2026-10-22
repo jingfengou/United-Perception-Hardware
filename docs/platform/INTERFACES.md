@@ -7,7 +7,7 @@
 ```text
 configure_platform(config=None, *, purpose, reset=False) -> PlatformContext
 get_platform() -> PlatformContext
-register_backend(spec, *, replace=False, probe=None)
+register_backend(spec=None, *, training=..., inference=..., replace=False, probe=None)
 register_op(backend, name, implementation=None, *, scope,
             backward=None, replace=False, dtypes=None, variants=None,
             conventions=(), dependencies=())
@@ -17,7 +17,9 @@ require(name, **checks) -> dict
 
 `config` 为字典或 `PlatformConfig`，字段仅 backend、device、plugins、requirements、numerics。purpose 仅 training/inference，不从模型状态推断。get_platform 在尚未初始化时明确报错；旧 get_accelerator 为兼容保留自动初始化。
 
-`BackendSpec(name, device_type, device_factory, training_factory=None, inference_factory=None, shared_providers=('portable',), requirements={})` 中三个工厂可用可调用对象或 `module:attribute` 路径。设备工厂接受 `device=None`，执行工厂接受 `context`。模块路径只在该厂商该用途被选中时加载，未提供的用途明确未支持。SDK 在 device 构造或操作执行时导入，不能放在注册模块顶层。
+新增厂商推荐 `register_backend(VendorDevice)` 或设备类装饰器，默认直接使用公共 TrainingBackend / InferenceBackend，不必创建两份空类。类声明 name、device_type，可继承 DeviceBackend 的 op_fallbacks，额外环境约束放 requirements。只有确有差异时传 training / inference 工厂（可调用对象或 `module:attribute`）；省略表示公共实现，显式 None 表示该用途未支持。具体模板见[新增厂商指南](ADDING_VENDOR.md)。
+
+旧 `BackendSpec(name, device_type, device_factory, training_factory=None, inference_factory=None, shared_providers=('portable',), requirements={})` 继续可用，**保持原 None 默认值的未支持含义**，不与简写的 training / inference 参数混用。三个工厂可为可调用对象或 `module:attribute`；设备工厂接受 `device=None`，执行工厂接受 `context`。模块路径只在该厂商该用途被选中时加载。SDK 在 device 构造或操作执行时导入，不能放在注册模块顶层。
 
 `name` 是厂商，device_type 是 PyTorch 设备命名：NVIDIA 与 MetaX 都可为 cuda，但不会因此复用 NVIDIA 二进制。额外后端可通过 config.plugins 或 `up_platform.backends` entry point 注册；只发现用户请求的 entry point，不遍历加载所有 SDK。
 
@@ -43,7 +45,7 @@ DeviceBackend 保留原查询、绑定、迁移、同步、RNG、内存、环境
 | inference | `ops` / `layers` / `sparse` / `call(name, ...)` | 仅本用途和 common 能力；默认普通 PyTorch 模型，不自动打包、量化、换模块 |
 | inference | `export_onnx(model, args, destination, **kwargs)` | 已有 ONNX 导出适配；默认保留 autograd symbolic 的 legacy 路径，支持新版时默认 dynamo=False；不替换节点、domain、属性 |
 
-TrainingBackend 与 InferenceBackend 都不隐式导入另一侧实现。兼容的 autocast/语义操作显式共用；厂商可单独覆盖训练或推理。推理 context 不能获取 GradScaler、融合优化器或 DDP 操作。
+TrainingBackend 与 InferenceBackend 都不隐式导入另一侧实现。兼容的 autocast/语义操作显式共用；厂商可单独覆盖训练或推理。内置厂商直接使用这两个公共类；原 backends/<vendor>/training.py、inference.py 地址仅保留一行兼容导出，不再增加空子类或参与默认加载。推理 context 不能获取 GradScaler、融合优化器或 DDP 操作。
 
 底层集合通信放 common，语义与固定 PyTorch 版本一致，包含原地修改、进程组、异步 Work；DDP 及梯度同步策略属于训练。原有 Gloo 对象通信、显式 CPU BEV/点云接口和 SofterNMS CPU 内部阶段保留，不授权新增静默 CPU 模型计算。
 

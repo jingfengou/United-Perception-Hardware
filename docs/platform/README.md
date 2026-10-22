@@ -1,6 +1,6 @@
 # UP 平台包
 
-`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。它管理硬件边界，不增加新模型算法或推理引擎。当前结构整理见[收敛记录](../reports/CONSOLIDATION_20261022.md)；[历史短程真机对照](../reports/platform/REAL_HARDWARE.md)分别记录 NVIDIA/沐曦的范围与未通过项，不自动转记为整理后版本已复测。
+`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。它管理硬件边界，不增加新模型算法或推理引擎。当前厂商入口见[简化记录](../reports/VENDOR_SIMPLIFICATION_20261022.md)，前次目录整理见[收敛记录](../reports/CONSOLIDATION_20261022.md)；[历史短程真机对照](../reports/platform/REAL_HARDWARE.md)分别记录 NVIDIA/沐曦的范围与未通过项，不自动转记为新版本已复测。
 
 ## 1. 调用关系
 
@@ -65,8 +65,8 @@ packages/up-platform/
       cuda_runtime.py          CUDA-shaped 运行时明确共享的卷积开关
     backends/<vendor>/
       device.py                SDK 与设备运行时
-      training.py              训练工厂，只按训练用途加载
-      inference.py             推理工厂，只按推理用途加载
+      training.py              可选：实际训练差异；现有同名文件仅为旧地址别名
+      inference.py             可选：实际推理差异；现有同名文件仅为旧地址别名
     backends/nvidia/
       ops/, native.py, csrc/   完整原生算子、二进制加载和编译源码
     experimental/numerics/     portable_v1 算法及 policy.py 生命周期；默认不加载
@@ -78,6 +78,8 @@ docs/reports/                 冻结报告、证据归档索引和整理验收
 ```
 
 shared 不是第二套后端：同一函数仅一份实现，由各用途/厂商显式复用。common 通信不拥有 DDP、梯度同步策略或训练状态；这些在 training，UP 仍负责编排。
+
+新增厂商最小只有 device.py 和注册入口；`register_backend(VendorDevice)` 默认选择公共执行类，缺失算子再补。没有差异就不创建 training.py / inference.py。现有五个内置厂商不再经过这两类兼容文件；保留旧地址只是为了已有导入和插件配置不失效，不需要新厂商仿写。
 
 数值实验通过懒加载策略接入，native 不导入 experimental。公共运行时只调用策略钩子，实验自己负责模式、RNG、局部操作注册与开关恢复，见[数值策略](NUMERICAL_POLICIES.md)。这不是新增厂商必须实现的另一套接口。
 

@@ -7,6 +7,7 @@ from types import SimpleNamespace
 
 from .errors import BackendConfigurationError, CapabilityError
 from .registry import (BACKENDS, BACKEND_PROBES, OPERATIONS, PURPOSES, BackendSpec,
+                       INFERENCE_FACTORY, TRAINING_FACTORY,
                        operation_entry, register_backend, register_op, resolve)
 from .catalog import register_catalog
 from . import backends as _backend_metadata
@@ -275,7 +276,8 @@ for _name, _device, _class in (("cpu", "cpu", "CpuDevice"), ("nvidia", "cuda", "
                                 ("ascend", "npu", "AscendDevice"), ("cambricon", "mlu", "CambriconDevice"),
                                 ("metax", "cuda", "MetaXDevice")):
     register_backend(BackendSpec(
-        _name, _device, "up_platform.backends.{}.device:{}".format(_name, _class),
-        "up_platform.backends.{}.training:Backend".format(_name),
-        "up_platform.backends.{}.inference:Backend".format(_name)))
+        _name, _device,
+        "up_platform.common.runtime:DeviceBackend" if _name == "cpu" else
+        "up_platform.backends.{}.device:{}".format(_name, _class),
+        TRAINING_FACTORY, INFERENCE_FACTORY))
 register_catalog()

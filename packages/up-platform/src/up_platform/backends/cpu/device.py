@@ -1,5 +1,1 @@
-from up_platform.common.runtime import DeviceBackend
-
-
-class CpuDevice(DeviceBackend):
-    pass
+from up_platform.common.runtime import DeviceBackend as CpuDevice
