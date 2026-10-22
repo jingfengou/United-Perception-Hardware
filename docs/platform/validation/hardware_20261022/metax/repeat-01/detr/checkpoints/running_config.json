@@ -1,0 +1,315 @@
+{
+  "num_classes": 2,
+  "runtime": {
+    "task_names": "det",
+    "device": "cuda:0",
+    "random_seed": 131,
+    "accelerator": {
+      "backend": "metax",
+      "numerics": "native"
+    },
+    "iter_base": true,
+    "rank_init": false,
+    "aligned": false,
+    "async_norm": false,
+    "special_bn_init": false,
+    "model_helper": {
+      "type": "base",
+      "kwargs": {}
+    }
+  },
+  "flip": {
+    "type": "flip",
+    "kwargs": {
+      "flip_p": 0.5
+    }
+  },
+  "resize": {
+    "type": "keep_ar_resize",
+    "kwargs": {
+      "scales": [
+        320
+      ],
+      "max_size": 512,
+      "separate_wh": true
+    }
+  },
+  "test_resize": {
+    "type": "keep_ar_resize",
+    "kwargs": {
+      "scales": [
+        320
+      ],
+      "max_size": 512,
+      "separate_wh": true
+    }
+  },
+  "to_tensor": {
+    "type": "to_tensor"
+  },
+  "normalize": {
+    "type": "normalize",
+    "kwargs": {
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    }
+  },
+  "dataset": {
+    "train": {
+      "dataset": {
+        "type": "coco",
+        "kwargs": {
+          "source": "train",
+          "meta_file": "/workspace/up-run/platform-validation-20261022/run-01/data/pennfudan-train.json",
+          "image_reader": {
+            "type": "fs_opencv",
+            "kwargs": {
+              "image_dir": "/workspace/up-cross-vendor-20261021/data/pennfudan/images",
+              "color_mode": "RGB"
+            }
+          },
+          "transformer": [
+            {
+              "type": "flip",
+              "kwargs": {
+                "flip_p": 0.5
+              }
+            },
+            {
+              "type": "keep_ar_resize",
+              "kwargs": {
+                "scales": [
+                  320
+                ],
+                "max_size": 512,
+                "separate_wh": true
+              }
+            },
+            {
+              "type": "to_tensor"
+            },
+            {
+              "type": "normalize",
+              "kwargs": {
+                "mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "batch_sampler": {
+        "type": "aspect_ratio_group",
+        "kwargs": {
+          "sampler": {
+            "type": "dist",
+            "kwargs": {}
+          },
+          "batch_size": 2,
+          "aspect_grouping": [
+            1
+          ]
+        }
+      },
+      "dataloader": {
+        "type": "base",
+        "kwargs": {
+          "num_workers": 0,
+          "alignment": 32,
+          "pin_memory": true
+        }
+      }
+    },
+    "test": {
+      "dataset": {
+        "type": "coco",
+        "kwargs": {
+          "source": "val",
+          "meta_file": "/workspace/up-run/platform-validation-20261022/run-01/data/pennfudan-test.json",
+          "image_reader": {
+            "type": "fs_opencv",
+            "kwargs": {
+              "image_dir": "/workspace/up-cross-vendor-20261021/data/pennfudan/images",
+              "color_mode": "RGB"
+            }
+          },
+          "transformer": [
+            {
+              "type": "keep_ar_resize",
+              "kwargs": {
+                "scales": [
+                  320
+                ],
+                "max_size": 512,
+                "separate_wh": true
+              }
+            },
+            {
+              "type": "to_tensor"
+            },
+            {
+              "type": "normalize",
+              "kwargs": {
+                "mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ]
+              }
+            }
+          ],
+          "evaluator": {
+            "type": "COCO",
+            "kwargs": {
+              "gt_file": "/workspace/up-run/platform-validation-20261022/run-01/data/pennfudan-test.json",
+              "iou_types": [
+                "bbox"
+              ]
+            }
+          }
+        }
+      },
+      "batch_sampler": {
+        "type": "aspect_ratio_group",
+        "kwargs": {
+          "sampler": {
+            "type": "dist",
+            "kwargs": {}
+          },
+          "batch_size": 2,
+          "aspect_grouping": [
+            1
+          ]
+        }
+      },
+      "dataloader": {
+        "type": "base",
+        "kwargs": {
+          "num_workers": 0,
+          "alignment": 32,
+          "pin_memory": true
+        }
+      }
+    },
+    "batch_sampler": {
+      "type": "aspect_ratio_group",
+      "kwargs": {
+        "sampler": {
+          "type": "dist",
+          "kwargs": {}
+        },
+        "batch_size": 2,
+        "aspect_grouping": [
+          1
+        ]
+      }
+    },
+    "dataloader": {
+      "type": "base",
+      "kwargs": {
+        "num_workers": 0,
+        "alignment": 32,
+        "pin_memory": true
+      }
+    },
+    "builder_type": "base",
+    "data_pool": [
+      "train:train",
+      "test:test"
+    ]
+  },
+  "trainer": {
+    "max_epoch": 3,
+    "test_freq": 2,
+    "optimizer": {
+      "type": "AdamW",
+      "kwargs": {
+        "lr": 0.0001,
+        "weight_decay": 0.0001
+      },
+      "special_param_group": [
+        {
+          "key": "detector.backbone",
+          "lr": 1e-05
+        }
+      ]
+    },
+    "lr_scheduler": {
+      "warmup_iter": 0,
+      "type": "MultiStepLR",
+      "kwargs": {
+        "milestones": [
+          2
+        ],
+        "gamma": 0.1
+      },
+      "warmup_register_type": "no_scale_lr"
+    },
+    "save_freq": 1000,
+    "only_save_latest": false,
+    "max_iter": 3,
+    "test_start": 0
+  },
+  "saver": {
+    "auto_resume": false,
+    "save_result": true,
+    "save_dir": "/workspace/up-run/platform-validation-20261022/repeat-01/detr/checkpoints",
+    "results_dir": "/workspace/up-run/platform-validation-20261022/repeat-01/detr/predictions"
+  },
+  "hooks": [
+    {
+      "type": "train_val_logger",
+      "kwargs": {
+        "freq": 50,
+        "skip_first_k": 5,
+        "logdir": "log"
+      }
+    },
+    {
+      "type": "grad_clipper",
+      "kwargs": {
+        "mode": "pre_defined",
+        "max_norm": 0.1,
+        "norm_type": 2
+      }
+    }
+  ],
+  "net": [
+    {
+      "name": "detr",
+      "type": "accuracy_detr_adapter.DetrForUP",
+      "kwargs": {
+        "source": "/workspace/up-cross-vendor-20261021/data/external/detr",
+        "checkpoint": "/workspace/up-cross-vendor-20261021/data/weights/detr-r50-tensors.pt",
+        "source_sha256": "954c6297faa72af4b59719a42c850d769d8276fcd99a7c704cb5e34f5e5eb5fb",
+        "checkpoint_sha256": "0bec6e1e5aeb57e452879341c3f68fff7e60272bdfdba250eaf9423704963ecd"
+      }
+    }
+  ],
+  "args": {
+    "backend": "dist",
+    "display": 50,
+    "no_running_config": true
+  }
+}

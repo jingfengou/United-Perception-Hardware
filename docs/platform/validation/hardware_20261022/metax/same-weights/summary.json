@@ -1,0 +1,78 @@
+{
+  "models": {
+    "detr": {
+      "checkpoint_sha256": "25bbdd0ded7109c55e1f9e61e4794e9552f4e96f868457c0974249095a1d035b",
+      "comparisons": {
+        "batch-predictions.pt": {
+          "exact_tensor_count": 1,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 1
+        },
+        "image-predictions.pt": {
+          "exact_tensor_count": 1,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 1
+        }
+      },
+      "passed": true
+    },
+    "resnet18": {
+      "checkpoint_sha256": "9fff9c9ca29df5e6c67b2d91f6330da0cbbf8486e8c9e62db4db4e40e4116760",
+      "comparisons": {
+        "batch-predictions.pt": {
+          "exact_tensor_count": 3,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 3
+        },
+        "image-predictions.pt": {
+          "exact_tensor_count": 3,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 3
+        }
+      },
+      "passed": true
+    },
+    "vit_b16": {
+      "checkpoint_sha256": "67aa8a7d2b03b613289417bfa9a78cd89c9ae5d1eac2f58cad9ea4e7e1d0f3d2",
+      "comparisons": {
+        "batch-predictions.pt": {
+          "exact_tensor_count": 3,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 3
+        },
+        "image-predictions.pt": {
+          "exact_tensor_count": 3,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 3
+        }
+      },
+      "passed": true
+    },
+    "yolov5s": {
+      "checkpoint_sha256": "7bc0abfa0c208b4a626928d85e6de9e94f2e40b0fc7eba98e81430fcdac9eeef",
+      "comparisons": {
+        "batch-predictions.pt": {
+          "exact_tensor_count": 1,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 1
+        },
+        "image-predictions.pt": {
+          "exact_tensor_count": 1,
+          "max_abs": 0.0,
+          "max_rel": 0.0,
+          "tensor_count": 1
+        }
+      },
+      "passed": true
+    }
+  },
+  "passed": true,
+  "scope": "same old checkpoint and input; split inference purpose; no training"
+}

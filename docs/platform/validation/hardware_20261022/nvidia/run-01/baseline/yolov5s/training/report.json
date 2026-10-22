@@ -1,0 +1,136 @@
+{
+  "action": "training",
+  "checkpoint_restore": true,
+  "driver_sha256": "bcbdcd873dcd06e88fe4bb6377b1dae956841f49a4857ebdfeca537b14ec5ed8",
+  "elapsed_seconds": 9.688103258609772,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "12.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "78.1.1",
+      "timm": null,
+      "torchvision": "0.25.0+cu126",
+      "triton": "3.6.0"
+    },
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.3",
+    "torch": "2.10.0+cu126",
+    "visible_devices": "3"
+  },
+  "evaluations": [
+    {
+      "after_steps": 2,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "nvidia",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    },
+    {
+      "after_steps": 3,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "nvidia",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    }
+  ],
+  "final_state_sha256": "d3f721144b7be394dbb21ca680f9bb7063c20b362919c621058d92c61eeba59b",
+  "initial_state_sha256": "d9da78c733e85915a74788fb65dad4eaec7f0a7079cacb5478c67886e4215777",
+  "model": "yolov5s",
+  "original_config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "passed": true,
+  "routing": {
+    "backend": "nvidia",
+    "purpose": "legacy_unseparated"
+  },
+  "steps": [
+    {
+      "batch_sha256": "7037e62107a4520f36b1c9e50c0bfe87ef042f90d89220025ffdc53d7a78d044",
+      "gradients_sha256": "83f10a60fa9a609a7b5b10e99823deec085c9e35595edc6f63925ab35204a7c1",
+      "loss": 0.23478400707244873,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.14132487773895264,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09345913678407669
+      },
+      "model_training": true,
+      "rng_sha256": "15c6242d91edd09c0dda8537d028e0476fa4ebbb064673e76fb5edc9187fde2a",
+      "state_sha256": "29515547066d3eda19fae8bbaf340ac08395892f404a7732284c23c49663c572"
+    },
+    {
+      "batch_sha256": "8e124f8d14c540aeaecd4c7bb6cc8996dd3e59fea3ec77fcf1b81d9c9601dcdf",
+      "gradients_sha256": "faf937909f66f790cfec9e3efeecc6009bcbf848e068630314e2a68da66cd4b8",
+      "loss": 0.27683591842651367,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.1415497362613678,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.13528616726398468
+      },
+      "model_training": true,
+      "rng_sha256": "03673c132f79ac4e991a64646dbdea89b60f8a4432dc3fae70c3c441eaf5554e",
+      "state_sha256": "537f054d2a935d38403a06b18733a8b83d96d8ae5a01709f8057af03dc09082c"
+    },
+    {
+      "batch_sha256": "9a6a698ff47e81fe8a58adc7c5c642fe072eb67cf17473f9497112d3d883a981",
+      "gradients_sha256": "b639a0ef675de26341c93574b6578562e9e5716f47ae3313be1f8e78e0d3243f",
+      "loss": 0.24751994013786316,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.15168975293636322,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09583018720149994
+      },
+      "model_training": true,
+      "rng_sha256": "d5a9624336423f77d1b695d6bdcdbb0d06ab8c1525b4a029672f650d2ccc1bfe",
+      "state_sha256": "d3f721144b7be394dbb21ca680f9bb7063c20b362919c621058d92c61eeba59b"
+    }
+  ]
+}

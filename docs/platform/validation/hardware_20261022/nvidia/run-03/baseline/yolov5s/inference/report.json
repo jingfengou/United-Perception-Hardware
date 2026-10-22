@@ -1,0 +1,58 @@
+{
+  "action": "inference",
+  "checkpoint_state_sha256": "d3f721144b7be394dbb21ca680f9bb7063c20b362919c621058d92c61eeba59b",
+  "coordinate_convention": {
+    "aligned": true,
+    "offset": 0
+  },
+  "driver_sha256": "14b360ac49d5e878c22ce08ec7ef8304639e17030617e03454649cc6b5f4f396",
+  "elapsed_seconds": 6.132236182689667,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "12.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "78.1.1",
+      "timm": null,
+      "torchvision": "0.25.0+cu126",
+      "triton": "3.6.0"
+    },
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.3",
+    "torch": "2.10.0+cu126",
+    "visible_devices": "3"
+  },
+  "image_predictions": 1,
+  "model": "yolov5s",
+  "nvidia_binary_loaded": false,
+  "original_training_checkpoint_sha256": "e68a871d318b00f9137970887c1afb6d02788cfed86cff4d501942db7041a1b0",
+  "passed": true,
+  "predict_called": true,
+  "routing": {
+    "backend": "nvidia",
+    "purpose": "legacy_unseparated"
+  },
+  "training_eval_vs_inference": {
+    "exact_tensor_count": 1,
+    "max_abs": 0.0,
+    "max_rel": 0.0,
+    "tensor_count": 1
+  },
+  "training_objects_created": false,
+  "weights_only_sha256": "7954b4f6d52524b849b15c007be952b6287f23ca3ab912db9fcb6421feb01bd4"
+}

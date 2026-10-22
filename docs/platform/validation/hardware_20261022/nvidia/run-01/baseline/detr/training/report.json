@@ -1,0 +1,181 @@
+{
+  "action": "training",
+  "checkpoint_restore": true,
+  "driver_sha256": "bcbdcd873dcd06e88fe4bb6377b1dae956841f49a4857ebdfeca537b14ec5ed8",
+  "elapsed_seconds": 18.357088565826416,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "12.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "78.1.1",
+      "timm": null,
+      "torchvision": "0.25.0+cu126",
+      "triton": "3.6.0"
+    },
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.3",
+    "torch": "2.10.0+cu126",
+    "visible_devices": "3"
+  },
+  "evaluations": [
+    {
+      "after_steps": 2,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.6699435053395449,
+        "bbox.AP.5": 1.0,
+        "bbox.AP.75": 0.8295829582958296,
+        "bbox.AP_L": 0.6805730243354006,
+        "bbox.AP_M": 0.6087458745874588,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.7266666666666667,
+        "bbox.AR_1": 0.18666666666666668,
+        "bbox.AR_10": 0.7266666666666667,
+        "bbox.AR_L": 0.7307692307692307,
+        "bbox.AR_M": 0.7,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "nvidia",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    },
+    {
+      "after_steps": 3,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.6781943304220532,
+        "bbox.AP.5": 1.0,
+        "bbox.AP.75": 0.8295829582958296,
+        "bbox.AP_L": 0.6891031081130091,
+        "bbox.AP_M": 0.6087458745874588,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.7333333333333333,
+        "bbox.AR_1": 0.18666666666666668,
+        "bbox.AR_10": 0.7333333333333333,
+        "bbox.AR_L": 0.7384615384615384,
+        "bbox.AR_M": 0.7,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "nvidia",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    }
+  ],
+  "final_state_sha256": "226ff4adec569c920a1a565d744bbea142afe60b0c1c0fadc4d2a19ae3c32ace",
+  "initial_state_sha256": "739c9b28c292ad102e55205dec0044db7b5c7822e10046c50bbfbcf1af2ab1ae",
+  "model": "detr",
+  "original_config": "configs/det/faster_rcnn/faster_rcnn_r50_fpn_1x.yaml",
+  "passed": true,
+  "routing": {
+    "backend": "nvidia",
+    "purpose": "legacy_unseparated"
+  },
+  "steps": [
+    {
+      "batch_sha256": "78d8d278129659920b9d7f69b240aa3a56d44c6a4d00b8e55ea7b442e29e1f9c",
+      "gradients_sha256": "c4bbe8232fb91c221d40694da84b0464972c7eb155ee8a450bd3d77011973639",
+      "loss": 3.7725918292999268,
+      "losses": {
+        "DETR.loss_bbox": 0.24987336993217468,
+        "DETR.loss_bbox_0": 0.4237512946128845,
+        "DETR.loss_bbox_1": 0.25578802824020386,
+        "DETR.loss_bbox_2": 0.2408539056777954,
+        "DETR.loss_bbox_3": 0.22180674970149994,
+        "DETR.loss_bbox_4": 0.20643927156925201,
+        "DETR.loss_ce": 0.14981169998645782,
+        "DETR.loss_ce_0": 0.1135781779885292,
+        "DETR.loss_ce_1": 0.13231243193149567,
+        "DETR.loss_ce_2": 0.15770769119262695,
+        "DETR.loss_ce_3": 0.14448845386505127,
+        "DETR.loss_ce_4": 0.1485387235879898,
+        "DETR.loss_giou": 0.19903986155986786,
+        "DETR.loss_giou_0": 0.3390945792198181,
+        "DETR.loss_giou_1": 0.22393426299095154,
+        "DETR.loss_giou_2": 0.20404446125030518,
+        "DETR.loss_giou_3": 0.1857883185148239,
+        "DETR.loss_giou_4": 0.17574040591716766
+      },
+      "model_training": true,
+      "rng_sha256": "03a53189607e584ede5459a0583ef312333568e630be6371c4c77b31820dd134",
+      "state_sha256": "ba322418386ad4a001918587b5e613e18a66158d42eb17df2076f162c537c60e"
+    },
+    {
+      "batch_sha256": "ea0af93eca4af39c564e218223d5f23b6540a7cceff95a4bb3366548d7c32d4a",
+      "gradients_sha256": "ad6f88d024aeea8ef87976a4a1e2c749e1aa6d12dcc8e86157dba200884ce783",
+      "loss": 3.543050765991211,
+      "losses": {
+        "DETR.loss_bbox": 0.21910063922405243,
+        "DETR.loss_bbox_0": 0.24961423873901367,
+        "DETR.loss_bbox_1": 0.2177753746509552,
+        "DETR.loss_bbox_2": 0.3107752799987793,
+        "DETR.loss_bbox_3": 0.23648139834403992,
+        "DETR.loss_bbox_4": 0.21406173706054688,
+        "DETR.loss_ce": 0.12613913416862488,
+        "DETR.loss_ce_0": 0.13145774602890015,
+        "DETR.loss_ce_1": 0.1301228106021881,
+        "DETR.loss_ce_2": 0.131639301776886,
+        "DETR.loss_ce_3": 0.13246935606002808,
+        "DETR.loss_ce_4": 0.122529536485672,
+        "DETR.loss_giou": 0.18773263692855835,
+        "DETR.loss_giou_0": 0.2676766514778137,
+        "DETR.loss_giou_1": 0.21491938829421997,
+        "DETR.loss_giou_2": 0.25937867164611816,
+        "DETR.loss_giou_3": 0.20179438591003418,
+        "DETR.loss_giou_4": 0.1893826127052307
+      },
+      "model_training": true,
+      "rng_sha256": "8b993c6f8237941e5fcde272412c006d5424979be6c7bf3c484badc32b171f7e",
+      "state_sha256": "2356ecde466d20f1ed00d77db22e25a9e8efe5b0895558f9777ff03c6ca96bc3"
+    },
+    {
+      "batch_sha256": "e45ab8ccf7621e983cb5ec831e146add5f074eaab75957e5424d9369739db5e6",
+      "gradients_sha256": "83be8f74e5e416d3ea798def07129fa53da8bc9423f70d52b6129331b57f3682",
+      "loss": 4.329789161682129,
+      "losses": {
+        "DETR.loss_bbox": 0.3064902722835541,
+        "DETR.loss_bbox_0": 0.3317421078681946,
+        "DETR.loss_bbox_1": 0.2675164043903351,
+        "DETR.loss_bbox_2": 0.27668124437332153,
+        "DETR.loss_bbox_3": 0.30275046825408936,
+        "DETR.loss_bbox_4": 0.31099629402160645,
+        "DETR.loss_ce": 0.05272844061255455,
+        "DETR.loss_ce_0": 0.05790316313505173,
+        "DETR.loss_ce_1": 0.055862635374069214,
+        "DETR.loss_ce_2": 0.05561735853552818,
+        "DETR.loss_ce_3": 0.04969127103686333,
+        "DETR.loss_ce_4": 0.04941357299685478,
+        "DETR.loss_giou": 0.38321739435195923,
+        "DETR.loss_giou_0": 0.3776995539665222,
+        "DETR.loss_giou_1": 0.3690670430660248,
+        "DETR.loss_giou_2": 0.34413594007492065,
+        "DETR.loss_giou_3": 0.3577439486980438,
+        "DETR.loss_giou_4": 0.38053247332572937
+      },
+      "model_training": true,
+      "rng_sha256": "d5605fca99aba0718c4decd90ceba8425d9093886ddb223d831f2066d8a091db",
+      "state_sha256": "226ff4adec569c920a1a565d744bbea142afe60b0c1c0fadc4d2a19ae3c32ace"
+    }
+  ]
+}

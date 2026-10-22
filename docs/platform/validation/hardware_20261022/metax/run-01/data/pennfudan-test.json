@@ -1,0 +1,251 @@
+{
+  "annotations": [
+    {
+      "area": 45650,
+      "bbox": [
+        37,
+        51,
+        166,
+        275
+      ],
+      "category_id": 1,
+      "id": 1,
+      "image_id": 125,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 50232,
+      "bbox": [
+        313,
+        66,
+        168,
+        299
+      ],
+      "category_id": 1,
+      "id": 2,
+      "image_id": 125,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 43860,
+      "bbox": [
+        458,
+        33,
+        129,
+        340
+      ],
+      "category_id": 1,
+      "id": 3,
+      "image_id": 125,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 20475,
+      "bbox": [
+        553,
+        66,
+        75,
+        273
+      ],
+      "category_id": 1,
+      "id": 4,
+      "image_id": 125,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 28413,
+      "bbox": [
+        85,
+        14,
+        99,
+        287
+      ],
+      "category_id": 1,
+      "id": 5,
+      "image_id": 136,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 30623,
+      "bbox": [
+        175,
+        34,
+        113,
+        271
+      ],
+      "category_id": 1,
+      "id": 6,
+      "image_id": 136,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 9968,
+      "bbox": [
+        1,
+        45,
+        56,
+        178
+      ],
+      "category_id": 1,
+      "id": 7,
+      "image_id": 136,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 9593,
+      "bbox": [
+        320,
+        53,
+        53,
+        181
+      ],
+      "category_id": 1,
+      "id": 8,
+      "image_id": 136,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 22542,
+      "bbox": [
+        7,
+        32,
+        102,
+        221
+      ],
+      "category_id": 1,
+      "id": 9,
+      "image_id": 160,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 26730,
+      "bbox": [
+        207,
+        48,
+        99,
+        270
+      ],
+      "category_id": 1,
+      "id": 10,
+      "image_id": 160,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 33222,
+      "bbox": [
+        344,
+        31,
+        113,
+        294
+      ],
+      "category_id": 1,
+      "id": 11,
+      "image_id": 160,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 20628,
+      "bbox": [
+        72,
+        162,
+        108,
+        191
+      ],
+      "category_id": 1,
+      "id": 12,
+      "image_id": 160,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 6916,
+      "bbox": [
+        112,
+        64,
+        52,
+        133
+      ],
+      "category_id": 1,
+      "id": 13,
+      "image_id": 160,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 36974,
+      "bbox": [
+        187,
+        58,
+        133,
+        278
+      ],
+      "category_id": 1,
+      "id": 14,
+      "image_id": 5,
+      "iscrowd": 0,
+      "segmentation": []
+    },
+    {
+      "area": 4134,
+      "bbox": [
+        1,
+        52,
+        39,
+        106
+      ],
+      "category_id": 1,
+      "id": 15,
+      "image_id": 5,
+      "iscrowd": 0,
+      "segmentation": []
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "person",
+      "supercategory": "person"
+    }
+  ],
+  "images": [
+    {
+      "file_name": "PennPed00051.png",
+      "height": 411,
+      "id": 125,
+      "width": 723
+    },
+    {
+      "file_name": "PennPed00062.png",
+      "height": 315,
+      "id": 136,
+      "width": 396
+    },
+    {
+      "file_name": "PennPed00086.png",
+      "height": 354,
+      "id": 160,
+      "width": 474
+    },
+    {
+      "file_name": "FudanPed00005.png",
+      "height": 344,
+      "id": 5,
+      "width": 335
+    }
+  ],
+  "info": {
+    "description": "PennFudan image-level holdout"
+  },
+  "licenses": []
+}

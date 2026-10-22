@@ -1,0 +1,495 @@
+Warning: 'classifiers' should be a list, got type 'tuple'
+running build_ext
+W1022 04:35:17.392000 250067 torch/utils/cpp_extension.py:525] The detected CUDA version (12.9) has a minor version mismatch with the version that was used to compile PyTorch (12.6). Most likely this shouldn't be a problem.
+W1022 04:35:17.393000 250067 torch/utils/cpp_extension.py:535] There are no x86_64-linux-gnu-g++ version bounds defined for CUDA version 12.9
+building 'up.extensions._C' extension
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d
+creating /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/softer_nms
+[1/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[2/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/deform_conv/deform_conv.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[3/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[4/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/deform_conv/deform_conv_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[5/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/focal_loss/focal_loss_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[6/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/deform_conv/deform_conv_cuda_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[7/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_sigmoid_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/focal_loss/focal_loss_sigmoid_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_sigmoid_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[8/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_softmax_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/focal_loss/focal_loss_softmax_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_softmax_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[9/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_cpu.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_cpu.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp: In function ‘int boxes_iou_bev_cpu(at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp:242:54: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  242 |     const float *boxes_a = boxes_a_tensor.data<float>();
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/function_hook.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:3,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/variable.h:7,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/jit/api/module.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/input-archive.h:6,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/archive.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/tensor.h:4,
+                 from /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp:9:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp:243:54: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  243 |     const float *boxes_b = boxes_b_tensor.data<float>();
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_cpu.cpp:244:48: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  244 |     float *ans_iou = ans_iou_tensor.data<float>();
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+[10/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp: In function ‘int boxes_overlap_bev_gpu(at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:54:5: note: in expansion of macro ‘CHECK_INPUT’
+   54 |     CHECK_INPUT(boxes_a);
+      |     ^~~~~~~~~~~
+In file included from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/function_hook.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:3,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/variable.h:7,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/jit/api/module.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/input-archive.h:6,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/archive.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/tensor.h:4,
+                 from /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:7:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:55:5: note: in expansion of macro ‘CHECK_INPUT’
+   55 |     CHECK_INPUT(boxes_b);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:56:5: note: in expansion of macro ‘CHECK_INPUT’
+   56 |     CHECK_INPUT(ans_overlap);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:61:53: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   61 |     const float * boxes_a_data = boxes_a.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:62:53: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   62 |     const float * boxes_b_data = boxes_b.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:63:55: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   63 |     float * ans_overlap_data = ans_overlap.data<float>();
+      |                                ~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp: In function ‘int boxes_iou_bev_gpu(at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:74:5: note: in expansion of macro ‘CHECK_INPUT’
+   74 |     CHECK_INPUT(boxes_a);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:75:5: note: in expansion of macro ‘CHECK_INPUT’
+   75 |     CHECK_INPUT(boxes_b);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:76:5: note: in expansion of macro ‘CHECK_INPUT’
+   76 |     CHECK_INPUT(ans_iou);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:81:53: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   81 |     const float * boxes_a_data = boxes_a.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:82:53: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   82 |     const float * boxes_b_data = boxes_b.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:83:47: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   83 |     float * ans_iou_data = ans_iou.data<float>();
+      |                            ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp: In function ‘int nms_gpu(at::Tensor, at::Tensor, float)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:93:5: note: in expansion of macro ‘CHECK_INPUT’
+   93 |     CHECK_INPUT(boxes);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:97:49: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   97 |     const float * boxes_data = boxes.data<float>();
+      |                                ~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:98:39: warning: ‘T* at::Tensor::data() const [with T = long int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   98 |     long * keep_data = keep.data<long>();
+      |                        ~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp: In function ‘int nms_normal_gpu(at::Tensor, at::Tensor, float)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:15:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+   15 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:26:24: note: in expansion of macro ‘CHECK_CUDA’
+   26 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:143:5: note: in expansion of macro ‘CHECK_INPUT’
+  143 |     CHECK_INPUT(boxes);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:147:49: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  147 |     const float * boxes_data = boxes.data<float>();
+      |                                ~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms.cpp:148:39: warning: ‘T* at::Tensor::data() const [with T = long int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  148 |     long * keep_data = keep.data<long>();
+      |                        ~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+[11/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[12/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou_overlap/iou_overlap.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[13/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_api.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou3d_nms/iou3d_nms_api.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_api.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[14/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/nms/nms_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[15/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/iou_overlap/iou_overlap_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[16/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/psroi_align/psroi_align_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[17/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/nms/nms_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[18/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/psroi_pooling/psroi_pooling.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[19/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/psroi_align/psroi_align_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[20/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/psroi_pooling/psroi_pooling_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[21/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/psroi_pooling/psroi_pooling_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[22/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roi_align/roi_align.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[23/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/pybind.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/pybind.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+In file included from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/Exceptions.h:13,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/python.h:12,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/extension.h:10,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/torch.h:7,
+                 from /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp:14:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h: In instantiation of ‘class pybind11::class_<IOUMethod>’:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2856:7:   required from ‘class pybind11::enum_<IOUMethod>’
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp:95:49:   required from here
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2042:7: warning: ‘pybind11::class_<IOUMethod>’ declared with greater visibility than its base ‘pybind11::detail::generic_type’ [-Wattributes]
+ 2042 | class class_ : public detail::generic_type {
+      |       ^~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h: In instantiation of ‘class pybind11::class_<Method>’:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2856:7:   required from ‘class pybind11::enum_<Method>’
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp:100:46:   required from here
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2042:7: warning: ‘pybind11::class_<Method>’ declared with greater visibility than its base ‘pybind11::detail::generic_type’ [-Wattributes]
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h: In instantiation of ‘pybind11::class_< <template-parameter-1-1>, <template-parameter-1-2> >::class_(pybind11::handle, const char*, const Extra& ...) [with Extra = {}; type_ = IOUMethod; options = {}]’:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2872:67:   required from ‘pybind11::enum_<Type>::enum_(const pybind11::handle&, const char*, const Extra& ...) [with Extra = {}; Type = IOUMethod]’
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp:95:49:   required from here
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2140:28: warning: ‘pybind11::class_<IOUMethod>::class_<>(pybind11::handle, const char*)::<lambda(pybind11::detail::internals&)>’ declared with greater visibility than the type of its field ‘pybind11::class_<IOUMethod>::class_<>(pybind11::handle, const char*)::<lambda(pybind11::detail::internals&)>::<record capture>’ [-Wattributes]
+ 2140 |             with_internals([&](internals &internals) {
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2141 |                 auto &instances = record.module_local ? get_local_internals().registered_types_cpp
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2142 |                                                       : internals.registered_types_cpp;
+      |                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2143 |                 instances[std::type_index(typeid(type_alias))]
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2144 |                     = instances[std::type_index(typeid(type))];
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 2145 |             });
+      |             ~               
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h: In instantiation of ‘pybind11::class_< <template-parameter-1-1>, <template-parameter-1-2> >::class_(pybind11::handle, const char*, const Extra& ...) [with Extra = {}; type_ = Method; options = {}]’:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2872:67:   required from ‘pybind11::enum_<Type>::enum_(const pybind11::handle&, const char*, const Extra& ...) [with Extra = {}; Type = Method]’
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/pybind.cpp:100:46:   required from here
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/pybind11/pybind11.h:2140:28: warning: ‘pybind11::class_<Method>::class_<>(pybind11::handle, const char*)::<lambda(pybind11::detail::internals&)>’ declared with greater visibility than the type of its field ‘pybind11::class_<Method>::class_<>(pybind11::handle, const char*)::<lambda(pybind11::detail::internals&)>::<record capture>’ [-Wattributes]
+[24/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_cuda.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roi_align/roi_align_cuda.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_cuda.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[25/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roi_align/roi_align_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[26/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[27/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp: In function ‘int roiaware_pool3d_gpu(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor, int)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:55:46: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   55 |     const float *rois_data = rois.data<float>();
+      |                              ~~~~~~~~~~~~~~~~^~
+In file included from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/function_hook.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:3,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/variable.h:7,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/jit/api/module.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/input-archive.h:6,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/archive.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/tensor.h:4,
+                 from /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:9:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:56:44: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   56 |     const float *pts_data = pts.data<float>();
+      |                             ~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:57:60: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   57 |     const float *pts_feature_data = pts_feature.data<float>();
+      |                                     ~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:58:40: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   58 |     int *argmax_data = argmax.data<int>();
+      |                        ~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:59:62: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   59 |     int *pts_idx_of_voxels_data = pts_idx_of_voxels.data<int>();
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:60:62: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   60 |     float *pooled_features_data = pooled_features.data<float>();
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp: In function ‘int roiaware_pool3d_gpu_backward(at::Tensor, at::Tensor, at::Tensor, at::Tensor, int)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:87:68: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   87 |     const int *pts_idx_of_voxels_data = pts_idx_of_voxels.data<int>();
+      |                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:88:46: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   88 |     const int *argmax_data = argmax.data<int>();
+      |                              ~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:89:54: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   89 |     const float *grad_out_data = grad_out.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:90:46: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   90 |     float *grad_in_data = grad_in.data<float>();
+      |                           ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp: In function ‘int points_in_boxes_gpu(at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:111:50: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  111 |     const float *boxes = boxes_tensor.data<float>();
+      |                          ~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:112:46: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  112 |     const float *pts = pts_tensor.data<float>();
+      |                        ~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:113:64: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  113 |     int *box_idx_of_points = box_idx_of_points_tensor.data<int>();
+      |                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp: In function ‘int points_in_boxes_cpu(at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:155:50: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  155 |     const float *boxes = boxes_tensor.data<float>();
+      |                          ~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:156:46: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  156 |     const float *pts = pts_tensor.data<float>();
+      |                        ~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.cpp:157:52: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+  157 |     int *pts_indices = pts_indices_tensor.data<int>();
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+[28/30] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d_kernel.o.d -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -gencode=arch=compute_80,code=sm_80 -std=c++17
+[29/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/softer_nms/softer_nms.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/softer_nms/softer_nms.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/softer_nms/softer_nms.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+[30/30] c++ -MMD -MF /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.o.d -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -DWITH_CUDA -I/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/usr/local/cuda/include -I/workspace/up-cross-vendor-diagnosis-20261021/venv/include -I/usr/include/python3.12 -c -c /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp -o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.o -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_C -std=c++17
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp: In function ‘int roipool3d_gpu(at::Tensor, at::Tensor, at::Tensor, at::Tensor, at::Tensor)’:
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:5:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+    5 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:16:24: note: in expansion of macro ‘CHECK_CUDA’
+   16 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:29:5: note: in expansion of macro ‘CHECK_INPUT’
+   29 |     CHECK_INPUT(xyz);
+      |     ^~~~~~~~~~~
+In file included from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/Tensor.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/function_hook.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:3,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/autograd/variable.h:7,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/jit/api/module.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/input-archive.h:6,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/archive.h:4,
+                 from /workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/torch/csrc/api/include/torch/serialize/tensor.h:4,
+                 from /workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:1:
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:5:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+    5 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:16:24: note: in expansion of macro ‘CHECK_CUDA’
+   16 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:30:5: note: in expansion of macro ‘CHECK_INPUT’
+   30 |     CHECK_INPUT(boxes3d);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:5:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+    5 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:16:24: note: in expansion of macro ‘CHECK_CUDA’
+   16 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:31:5: note: in expansion of macro ‘CHECK_INPUT’
+   31 |     CHECK_INPUT(pts_feature);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:5:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+    5 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:16:24: note: in expansion of macro ‘CHECK_CUDA’
+   16 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:32:5: note: in expansion of macro ‘CHECK_INPUT’
+   32 |     CHECK_INPUT(pooled_features);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:5:14: warning: ‘at::DeprecatedTypeProperties& at::Tensor::type() const’ is deprecated: Tensor.type() is deprecated. Instead use Tensor.options(), which in many cases (e.g. in a constructor) is a drop-in replacement. If you were using data from type(), that is now available from Tensor itself, so instead of tensor.type().scalar_type(), use tensor.scalar_type() instead and instead of tensor.type().backend() use tensor.device(). [-Wdeprecated-declarations]
+    5 |   if (!x.type().is_cuda()) { \
+      |              ^
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:16:24: note: in expansion of macro ‘CHECK_CUDA’
+   16 | #define CHECK_INPUT(x) CHECK_CUDA(x);CHECK_CONTIGUOUS(x)
+      |                        ^~~~~~~~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:33:5: note: in expansion of macro ‘CHECK_INPUT’
+   33 |     CHECK_INPUT(pooled_empty_flag);
+      |     ^~~~~~~~~~~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:229:30: note: declared here
+  229 |   DeprecatedTypeProperties & type() const {
+      |                              ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:42:45: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   42 |     const float * xyz_data = xyz.data<float>();
+      |                              ~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:43:53: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   43 |     const float * boxes3d_data = boxes3d.data<float>();
+      |                                  ~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:44:61: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   44 |     const float * pts_feature_data = pts_feature.data<float>();
+      |                                      ~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:45:63: warning: ‘T* at::Tensor::data() const [with T = float]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   45 |     float * pooled_features_data = pooled_features.data<float>();
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+/workspace/up-platform-validation-20261022/baseline/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.cpp:46:63: warning: ‘T* at::Tensor::data() const [with T = int]’ is deprecated: Tensor.data<T>() is deprecated. Please use Tensor.data_ptr<T>() instead. [-Wdeprecated-declarations]
+   46 |     int * pooled_empty_flag_data = pooled_empty_flag.data<int>();
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/include/ATen/core/TensorBody.h:251:7: note: declared here
+  251 |   T * data() const {
+      |       ^~~~
+creating build/lib.linux-x86_64-cpython-312/up/extensions
+x86_64-linux-gnu-g++ -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -shared -Wl,-O1 -Wl,-Bsymbolic-functions /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/deform_conv/deform_conv_cuda_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_sigmoid_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/focal_loss/focal_loss_softmax_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_cpu.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_api.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou3d_nms/iou3d_nms_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/iou_overlap/iou_overlap_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/nms/nms_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_align/psroi_align_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/psroi_pooling/psroi_pooling_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/pybind.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_cuda.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roi_align/roi_align_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roiaware_pool3d/roiaware_pool3d_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/roipoint_pool3d/roipoint_pool3d_kernel.o /workspace/up-platform-validation-20261022/baseline/build/temp.linux-x86_64-cpython-312/up/extensions/csrc/softer_nms/softer_nms.o -L/workspace/up-cross-vendor-diagnosis-20261021/venv/lib/python3.12/site-packages/torch/lib -L/usr/local/cuda/lib64 -L/usr/lib/x86_64-linux-gnu -lc10 -ltorch -ltorch_cpu -ltorch_python -lcudart -lc10_cuda -ltorch_cuda -o build/lib.linux-x86_64-cpython-312/up/extensions/_C.cpython-312-x86_64-linux-gnu.so
+copying build/lib.linux-x86_64-cpython-312/up/extensions/_C.cpython-312-x86_64-linux-gnu.so -> up/extensions

@@ -1,0 +1,562 @@
+{
+  "action": "training",
+  "checkpoint_restore": true,
+  "driver_sha256": "d1f959b18da32aceb83d54457dfb934670eabd5a510ec201418c36be753a7e19",
+  "elapsed_seconds": 40.65858121216297,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "11.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "69.5.1",
+      "timm": null,
+      "torchvision": "0.25.0+metax3.8.1.0",
+      "triton": "3.6.0+metax3.8.1.0"
+    },
+    "gpu": "MetaX C500",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.11",
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "0"
+  },
+  "evaluations": [
+    {
+      "after_steps": 2,
+      "legacy_caller_mode_restore": false,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": true,
+      "routing": {
+        "backend": "metax",
+        "providers": {
+          "distributed.all_gather": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_gather_into_tensor": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_gather_object": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_reduce": [
+            "portable",
+            "common"
+          ],
+          "distributed.barrier": [
+            "portable",
+            "common"
+          ],
+          "distributed.broadcast": [
+            "portable",
+            "common"
+          ],
+          "distributed.broadcast_object_list": [
+            "portable",
+            "common"
+          ],
+          "distributed.collective_device": [
+            "portable",
+            "common"
+          ],
+          "distributed.cpu_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.destroy_process_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.gather": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_backend": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_rank": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_world_size": [
+            "portable",
+            "common"
+          ],
+          "distributed.init_process_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.is_available": [
+            "portable",
+            "common"
+          ],
+          "distributed.is_initialized": [
+            "portable",
+            "common"
+          ],
+          "distributed.new_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.reduce": [
+            "portable",
+            "common"
+          ],
+          "distributed.reduce_scatter": [
+            "portable",
+            "common"
+          ],
+          "distributed.wrap_model": [
+            "portable",
+            "training"
+          ],
+          "gpu_iou_overlap": [
+            "portable",
+            "common"
+          ],
+          "naive_nms": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseConvTensor": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseInverseConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.SubMConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.features": [
+            "portable",
+            "common"
+          ],
+          "sparse.is_sparse_convolution": [
+            "portable",
+            "common"
+          ],
+          "sparse.replace_feature": [
+            "portable",
+            "common"
+          ],
+          "sparse.sequential_forward": [
+            "portable",
+            "common"
+          ],
+          "sparse.to_dense": [
+            "portable",
+            "common"
+          ],
+          "sync_batch_norm": [
+            "portable",
+            "training"
+          ],
+          "sync_batch_norm_forward": [
+            "portable",
+            "common"
+          ],
+          "torchvision_nms": [
+            "portable",
+            "common"
+          ]
+        },
+        "purpose": "training"
+      },
+      "training_objects_unchanged": true
+    },
+    {
+      "after_steps": 3,
+      "legacy_caller_mode_restore": false,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": true,
+      "routing": {
+        "backend": "metax",
+        "providers": {
+          "distributed.all_gather": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_gather_into_tensor": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_gather_object": [
+            "portable",
+            "common"
+          ],
+          "distributed.all_reduce": [
+            "portable",
+            "common"
+          ],
+          "distributed.barrier": [
+            "portable",
+            "common"
+          ],
+          "distributed.broadcast": [
+            "portable",
+            "common"
+          ],
+          "distributed.broadcast_object_list": [
+            "portable",
+            "common"
+          ],
+          "distributed.collective_device": [
+            "portable",
+            "common"
+          ],
+          "distributed.cpu_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.destroy_process_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.gather": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_backend": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_rank": [
+            "portable",
+            "common"
+          ],
+          "distributed.get_world_size": [
+            "portable",
+            "common"
+          ],
+          "distributed.init_process_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.is_available": [
+            "portable",
+            "common"
+          ],
+          "distributed.is_initialized": [
+            "portable",
+            "common"
+          ],
+          "distributed.new_group": [
+            "portable",
+            "common"
+          ],
+          "distributed.reduce": [
+            "portable",
+            "common"
+          ],
+          "distributed.reduce_scatter": [
+            "portable",
+            "common"
+          ],
+          "distributed.wrap_model": [
+            "portable",
+            "training"
+          ],
+          "gpu_iou_overlap": [
+            "portable",
+            "common"
+          ],
+          "naive_nms": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseConvTensor": [
+            "portable",
+            "common"
+          ],
+          "sparse.SparseInverseConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.SubMConv3d": [
+            "portable",
+            "common"
+          ],
+          "sparse.features": [
+            "portable",
+            "common"
+          ],
+          "sparse.is_sparse_convolution": [
+            "portable",
+            "common"
+          ],
+          "sparse.replace_feature": [
+            "portable",
+            "common"
+          ],
+          "sparse.sequential_forward": [
+            "portable",
+            "common"
+          ],
+          "sparse.to_dense": [
+            "portable",
+            "common"
+          ],
+          "sync_batch_norm": [
+            "portable",
+            "training"
+          ],
+          "sync_batch_norm_forward": [
+            "portable",
+            "common"
+          ],
+          "torchvision_nms": [
+            "portable",
+            "common"
+          ]
+        },
+        "purpose": "training"
+      },
+      "training_objects_unchanged": true
+    }
+  ],
+  "final_state_sha256": "091e1afc3761046505777a8d88f3099a128a92bfc310fcc588d5b7d6c607f720",
+  "initial_state_sha256": "d9da78c733e85915a74788fb65dad4eaec7f0a7079cacb5478c67886e4215777",
+  "model": "yolov5s",
+  "original_config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "passed": true,
+  "routing": {
+    "backend": "metax",
+    "providers": {
+      "distributed.all_gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_into_tensor": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_object": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.barrier": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast_object_list": [
+        "portable",
+        "common"
+      ],
+      "distributed.collective_device": [
+        "portable",
+        "common"
+      ],
+      "distributed.cpu_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.destroy_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_backend": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_rank": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_world_size": [
+        "portable",
+        "common"
+      ],
+      "distributed.init_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_available": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_initialized": [
+        "portable",
+        "common"
+      ],
+      "distributed.new_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce_scatter": [
+        "portable",
+        "common"
+      ],
+      "distributed.wrap_model": [
+        "portable",
+        "training"
+      ],
+      "gpu_iou_overlap": [
+        "portable",
+        "common"
+      ],
+      "naive_nms": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseConvTensor": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseInverseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SubMConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.features": [
+        "portable",
+        "common"
+      ],
+      "sparse.is_sparse_convolution": [
+        "portable",
+        "common"
+      ],
+      "sparse.replace_feature": [
+        "portable",
+        "common"
+      ],
+      "sparse.sequential_forward": [
+        "portable",
+        "common"
+      ],
+      "sparse.to_dense": [
+        "portable",
+        "common"
+      ],
+      "sync_batch_norm": [
+        "portable",
+        "training"
+      ],
+      "sync_batch_norm_forward": [
+        "portable",
+        "common"
+      ],
+      "torchvision_nms": [
+        "portable",
+        "common"
+      ]
+    },
+    "purpose": "training"
+  },
+  "steps": [
+    {
+      "batch_sha256": "7037e62107a4520f36b1c9e50c0bfe87ef042f90d89220025ffdc53d7a78d044",
+      "gradients_sha256": "0eb7055a11a1261a7e3f8671a407ff3e1a2b6765f6169b9493c6851a7b4238fa",
+      "loss": 0.2347840517759323,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.14132554829120636,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09345850348472595
+      },
+      "model_training": true,
+      "rng_sha256": "15c6242d91edd09c0dda8537d028e0476fa4ebbb064673e76fb5edc9187fde2a",
+      "state_sha256": "cf243460131b34715af0f5856ed966f46eab9e28e1f2791bc1ec65f0c85713c3"
+    },
+    {
+      "batch_sha256": "8e124f8d14c540aeaecd4c7bb6cc8996dd3e59fea3ec77fcf1b81d9c9601dcdf",
+      "gradients_sha256": "c20817d83f4bffd98def7f2fb8603a79b716026bf90ce86cf7f38cd29181b48a",
+      "loss": 0.27683597803115845,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.14154984056949615,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.1352861374616623
+      },
+      "model_training": true,
+      "rng_sha256": "03673c132f79ac4e991a64646dbdea89b60f8a4432dc3fae70c3c441eaf5554e",
+      "state_sha256": "a562d342c8986e20951b54cfc04a7d318fe5cf50f2616d36ef68876220012e3d"
+    },
+    {
+      "batch_sha256": "9a6a698ff47e81fe8a58adc7c5c642fe072eb67cf17473f9497112d3d883a981",
+      "gradients_sha256": "1c1dd78ac8945348e549e9097c11a8291cd4d3b7f9586aac4fcae287b545b9c4",
+      "loss": 0.24751991033554077,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.15168976783752441,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09583013504743576
+      },
+      "model_training": true,
+      "rng_sha256": "d5a9624336423f77d1b695d6bdcdbb0d06ab8c1525b4a029672f650d2ccc1bfe",
+      "state_sha256": "091e1afc3761046505777a8d88f3099a128a92bfc310fcc588d5b7d6c607f720"
+    }
+  ]
+}

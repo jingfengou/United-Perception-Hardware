@@ -1,0 +1,310 @@
+{
+  "action": "inference",
+  "checkpoint_state_sha256": "226ff4adec569c920a1a565d744bbea142afe60b0c1c0fadc4d2a19ae3c32ace",
+  "driver_sha256": "bcbdcd873dcd06e88fe4bb6377b1dae956841f49a4857ebdfeca537b14ec5ed8",
+  "elapsed_seconds": 6.686792254447937,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "12.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "78.1.1",
+      "timm": null,
+      "torchvision": "0.25.0+cu126",
+      "triton": "3.6.0"
+    },
+    "gpu": "NVIDIA A800-SXM4-80GB",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.3",
+    "torch": "2.10.0+cu126",
+    "visible_devices": "3"
+  },
+  "image_predictions": 1,
+  "model": "detr",
+  "nvidia_binary_loaded": false,
+  "passed": true,
+  "predict_called": true,
+  "routing": {
+    "backend": "nvidia",
+    "providers": {
+      "boxes_bev_iou_cpu": [
+        "nvidia",
+        "common"
+      ],
+      "boxes_iou3d_gpu": [
+        "nvidia",
+        "common"
+      ],
+      "boxes_iou_bev": [
+        "nvidia",
+        "common"
+      ],
+      "deformable_conv": [
+        "nvidia",
+        "common"
+      ],
+      "distributed.all_gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_into_tensor": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_object": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.barrier": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast_object_list": [
+        "portable",
+        "common"
+      ],
+      "distributed.collective_device": [
+        "portable",
+        "common"
+      ],
+      "distributed.cpu_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.destroy_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_backend": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_rank": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_world_size": [
+        "portable",
+        "common"
+      ],
+      "distributed.init_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_available": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_initialized": [
+        "portable",
+        "common"
+      ],
+      "distributed.new_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce_scatter": [
+        "portable",
+        "common"
+      ],
+      "gpu_iou_overlap": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.allgather": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.allreduce": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.allreduce_async": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.barrier": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.broadcast": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.finalize": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.gather": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.get_backend": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.get_local_rank": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.get_rank": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.get_world_size": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.initialize": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.is_initialized": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.new_group": [
+        "nvidia",
+        "common"
+      ],
+      "legacy_link.synchronize": [
+        "nvidia",
+        "common"
+      ],
+      "naive_nms": [
+        "nvidia",
+        "common"
+      ],
+      "nms_gpu": [
+        "nvidia",
+        "common"
+      ],
+      "nms_normal_gpu": [
+        "nvidia",
+        "common"
+      ],
+      "points_in_boxes_cpu": [
+        "nvidia",
+        "common"
+      ],
+      "points_in_boxes_gpu": [
+        "nvidia",
+        "common"
+      ],
+      "psroi_align": [
+        "nvidia",
+        "common"
+      ],
+      "psroi_pool": [
+        "nvidia",
+        "common"
+      ],
+      "quantization_backend_types": [
+        "nvidia",
+        "common"
+      ],
+      "roi_align": [
+        "nvidia",
+        "common"
+      ],
+      "roiaware_pool3d": [
+        "nvidia",
+        "common"
+      ],
+      "roipoint_pool3d": [
+        "nvidia",
+        "common"
+      ],
+      "rotate_iou_eval": [
+        "nvidia",
+        "common"
+      ],
+      "softer_nms": [
+        "nvidia",
+        "common"
+      ],
+      "sparse.SparseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseConvTensor": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseInverseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SubMConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.features": [
+        "portable",
+        "common"
+      ],
+      "sparse.is_sparse_convolution": [
+        "portable",
+        "common"
+      ],
+      "sparse.replace_feature": [
+        "portable",
+        "common"
+      ],
+      "sparse.sequential_forward": [
+        "portable",
+        "common"
+      ],
+      "sparse.to_dense": [
+        "portable",
+        "common"
+      ],
+      "sync_batch_norm_forward": [
+        "portable",
+        "common"
+      ],
+      "torchvision_nms": [
+        "nvidia",
+        "common"
+      ]
+    },
+    "purpose": "inference"
+  },
+  "training_eval_vs_inference": {
+    "exact_tensor_count": 1,
+    "max_abs": 0.0,
+    "max_rel": 0.0,
+    "tensor_count": 1
+  },
+  "training_objects_created": false
+}

@@ -37,3 +37,4 @@ dist/
 !docs/hardware/validation/multiseed_20261021/**/*.log
 !docs/hardware/validation/metax_20261021/**/*.log
 !docs/hardware/validation/cross_vendor_20261021/**/*.log
+!docs/platform/validation/hardware_20261022/**/*.log

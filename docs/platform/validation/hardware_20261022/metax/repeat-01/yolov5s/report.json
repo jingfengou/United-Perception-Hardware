@@ -1,0 +1,136 @@
+{
+  "action": "training",
+  "checkpoint_restore": true,
+  "driver_sha256": "d1f959b18da32aceb83d54457dfb934670eabd5a510ec201418c36be753a7e19",
+  "elapsed_seconds": 39.90368845965713,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "11.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "69.5.1",
+      "timm": null,
+      "torchvision": "0.25.0+metax3.8.1.0",
+      "triton": "3.6.0+metax3.8.1.0"
+    },
+    "gpu": "MetaX C500",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.11",
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "0"
+  },
+  "evaluations": [
+    {
+      "after_steps": 2,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "metax",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    },
+    {
+      "after_steps": 3,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "bbox.AP": 0.0,
+        "bbox.AP.5": 0.0,
+        "bbox.AP.75": 0.0,
+        "bbox.AP_L": 0.0,
+        "bbox.AP_M": 0.0,
+        "bbox.AP_S": -1.0,
+        "bbox.AR": 0.0,
+        "bbox.AR_1": 0.0,
+        "bbox.AR_10": 0.0,
+        "bbox.AR_L": 0.0,
+        "bbox.AR_M": 0.0,
+        "bbox.AR_S": -1.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "metax",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    }
+  ],
+  "final_state_sha256": "021a5e778d1c9bcaaf1ede768a90790d50610c11986a32c95c257fd0b7582920",
+  "initial_state_sha256": "d9da78c733e85915a74788fb65dad4eaec7f0a7079cacb5478c67886e4215777",
+  "model": "yolov5s",
+  "original_config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "passed": true,
+  "routing": {
+    "backend": "metax",
+    "purpose": "legacy_unseparated"
+  },
+  "steps": [
+    {
+      "batch_sha256": "7037e62107a4520f36b1c9e50c0bfe87ef042f90d89220025ffdc53d7a78d044",
+      "gradients_sha256": "ad02a72d53ba31f93e73c5b483645afdaedb76b50227ac4baeb42a0c056d15f4",
+      "loss": 0.2347840517759323,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.14132554829120636,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09345850348472595
+      },
+      "model_training": true,
+      "rng_sha256": "15c6242d91edd09c0dda8537d028e0476fa4ebbb064673e76fb5edc9187fde2a",
+      "state_sha256": "cf243460131b34715af0f5856ed966f46eab9e28e1f2791bc1ec65f0c85713c3"
+    },
+    {
+      "batch_sha256": "8e124f8d14c540aeaecd4c7bb6cc8996dd3e59fea3ec77fcf1b81d9c9601dcdf",
+      "gradients_sha256": "028a90513e55bfc30806870a1b305d2c2ac83b7aaa39a75815b75b6bc83348b4",
+      "loss": 0.27683597803115845,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.14154984056949615,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.1352861374616623
+      },
+      "model_training": true,
+      "rng_sha256": "03673c132f79ac4e991a64646dbdea89b60f8a4432dc3fae70c3c441eaf5554e",
+      "state_sha256": "a8c64b7986fab8697c2b237ee2e2ea757a8724494c405cbd182d80c86784c942"
+    },
+    {
+      "batch_sha256": "9a6a698ff47e81fe8a58adc7c5c642fe072eb67cf17473f9497112d3d883a981",
+      "gradients_sha256": "c028ddfe56f2ffc50c2ccc333a5ca95c2dc16a7fd0021319e6a0429747e42219",
+      "loss": 0.24751999974250793,
+      "losses": {
+        "YoloV5PostProcess.box_loss": 0.15168969333171844,
+        "YoloV5PostProcess.cls_loss": 0.0,
+        "YoloV5PostProcess.obj_loss": 0.09583029896020889
+      },
+      "model_training": true,
+      "rng_sha256": "d5a9624336423f77d1b695d6bdcdbb0d06ab8c1525b4a029672f650d2ccc1bfe",
+      "state_sha256": "021a5e778d1c9bcaaf1ede768a90790d50610c11986a32c95c257fd0b7582920"
+    }
+  ]
+}

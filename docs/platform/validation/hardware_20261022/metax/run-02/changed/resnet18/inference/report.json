@@ -1,0 +1,188 @@
+{
+  "action": "inference",
+  "checkpoint_state_sha256": "e5eb20b240c861a739953c6a1d2543e7b34035cf397aec55b03b33dac075ac96",
+  "driver_sha256": "74ed6db18e4b9c5076b64adbe99e6488884acc5b04fb1dcf3d5e37f44b651db1",
+  "elapsed_seconds": 19.52068600524217,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "11.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "69.5.1",
+      "timm": null,
+      "torchvision": "0.25.0+metax3.8.1.0",
+      "triton": "3.6.0+metax3.8.1.0"
+    },
+    "gpu": "MetaX C500",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.11",
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "0"
+  },
+  "image_predictions": 1,
+  "model": "resnet18",
+  "nvidia_binary_loaded": false,
+  "original_training_checkpoint_sha256": "49408432acee52a768b669fd1443d1343300ef374b7820c4f73e06ea8f5c1ced",
+  "passed": true,
+  "predict_called": true,
+  "routing": {
+    "backend": "metax",
+    "providers": {
+      "distributed.all_gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_into_tensor": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_gather_object": [
+        "portable",
+        "common"
+      ],
+      "distributed.all_reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.barrier": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast": [
+        "portable",
+        "common"
+      ],
+      "distributed.broadcast_object_list": [
+        "portable",
+        "common"
+      ],
+      "distributed.collective_device": [
+        "portable",
+        "common"
+      ],
+      "distributed.cpu_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.destroy_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.gather": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_backend": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_rank": [
+        "portable",
+        "common"
+      ],
+      "distributed.get_world_size": [
+        "portable",
+        "common"
+      ],
+      "distributed.init_process_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_available": [
+        "portable",
+        "common"
+      ],
+      "distributed.is_initialized": [
+        "portable",
+        "common"
+      ],
+      "distributed.new_group": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce": [
+        "portable",
+        "common"
+      ],
+      "distributed.reduce_scatter": [
+        "portable",
+        "common"
+      ],
+      "gpu_iou_overlap": [
+        "portable",
+        "common"
+      ],
+      "naive_nms": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseConvTensor": [
+        "portable",
+        "common"
+      ],
+      "sparse.SparseInverseConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.SubMConv3d": [
+        "portable",
+        "common"
+      ],
+      "sparse.features": [
+        "portable",
+        "common"
+      ],
+      "sparse.is_sparse_convolution": [
+        "portable",
+        "common"
+      ],
+      "sparse.replace_feature": [
+        "portable",
+        "common"
+      ],
+      "sparse.sequential_forward": [
+        "portable",
+        "common"
+      ],
+      "sparse.to_dense": [
+        "portable",
+        "common"
+      ],
+      "sync_batch_norm_forward": [
+        "portable",
+        "common"
+      ],
+      "torchvision_nms": [
+        "portable",
+        "common"
+      ]
+    },
+    "purpose": "inference"
+  },
+  "training_eval_vs_inference": {
+    "exact_tensor_count": 3,
+    "max_abs": 0.0,
+    "max_rel": 0.0,
+    "tensor_count": 3
+  },
+  "training_objects_created": false,
+  "weights_only_sha256": "031b1390ce40d0f939ca9a78fa93794cbdba541f28f4fe89c801bd5730a9b648"
+}

@@ -1,13 +1,13 @@
 # 能力矩阵
 
-以下是**包拆分后的注册/迁移状态**，不是新的真机支持证明。73 项当前注册见[机器契约](interface_contract.json)。历史结果属于各自冻结快照，不能自动转记为当前源码通过。
+以下分别记录**包拆分后的注册状态与有限真机结果**。73 项当前注册见[机器契约](interface_contract.json)。历史结果属于各自冻结快照，不能自动转记为当前源码通过；本次短程对照见[真机报告](REAL_HARDWARE.md)。
 
 | 厂商 / 设备 | 设备工厂 | 训练工厂 | 推理工厂 | 默认共享能力 | 当前结构真机训练 | 当前结构独立推理/导出 |
 | --- | --- | --- | --- | --- | --- | --- |
-| nvidia / cuda | 已迁移 | 已注册 | 已注册 | portable + NVIDIA 专用实现 | 未复测 | 未复测；仅 CPU symbolic/导出检查 |
+| nvidia / cuda | 已迁移 | 已注册 | 已注册 | portable + NVIDIA 专用实现 | A800 四模型各 3 步，含训练内 eval/恢复，数值通过；32 项原生操作通过 | 四模型独立推理通过；GPU 导出未复测 |
 | ascend / npu | 已迁移，按需加载 torch_npu | 共享入口 | 共享入口 | portable；缺失专用算子明确报错 | 未验证 | 未验证 |
 | cambricon / mlu | 已迁移，按需加载 torch_mlu | 共享入口 | 共享入口 | 同上 | 未验证 | 未验证 |
-| metax / cuda | 已迁移，不加载 NVIDIA 二进制 | 共享入口 | 共享入口 | portable；可显式选择既有 experimental numerics | 未复测 | 未复测 |
+| metax / cuda | 已迁移，不加载 NVIDIA 二进制 | 共享入口 | 共享入口 | portable；可显式选择既有 experimental numerics | C500 四模型功能通过；native 严格数值比较仅 ViT 通过，三模型有差异 | 四模型独立推理通过，同权重新旧输出逐位相同；导出未复测 |
 | cpu / cpu | 可执行 | 可执行 | 可执行 | 公共运行时/通信入口、同设备共享操作 | CPU 契约通过，不是全部模型训练 | CPU 契约/有限 ONNX 检查，不是全部模型 |
 
 两侧共用 DeviceBackend 和明确 common 操作；AMP 的基础实现共享，GradScaler/DDP/训练优化器不可从 inference 获取。普通 PyTorch 层算力由厂商 Torch 提供，注册入口不证明所有普通算子、dtype 或第三方扩展都可用。
@@ -30,6 +30,6 @@
 - 历史 NVIDIA 算子、AMP、双卡和代表模型结果见[原验证报告](../hardware/VALIDATION.md)，多种子回归见[五模型报告](../hardware/MULTISEED_ACCURACY.md)。
 - C500 旧快照的有限功能和真实数据对照见[沐曦报告](../hardware/METAX_VALIDATION.md)及[跨厂商报告](../hardware/CROSS_VENDOR_ACCURACY.md)。三模型精度差异和实验修复保留原结论。
 - 昇腾/寒武纪此前没有真机证据，本轮也没有。
-- 本次不恢复已暂停的 GPU 任务，不重写冻结 manifest，不把 CPU mock 当硬件验收。当前本地检查见[验收记录](VALIDATION.md)。
+- 本次只做短程真机回归，不恢复已暂停的多随机种子精度任务，不重写旧冻结 manifest，不把 CPU mock 当硬件验收。本地检查见[验收记录](VALIDATION.md)。
 
 capabilities 的 hardware_validated 默认 False；registered 是注册存在，dependencies_available 是按需检查的声明依赖可加载性，executed 是成功调用次数。只有明确记录硬件、版本、用途、变体、容差与证据后才能在文档中提升对应验证状态。

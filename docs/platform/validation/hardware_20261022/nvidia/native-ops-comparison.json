@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "compared_cases": 32,
+  "regressions": {},
+  "upstream_gaps": {},
+  "environment": {
+    "torch": "2.10.0+cu126",
+    "cuda": "12.6",
+    "python": "3.12.3 (main, Feb  4 2025, 14:48:35) [GCC 13.3.0]",
+    "device": "NVIDIA A800-SXM4-80GB",
+    "mode": "routed"
+  },
+  "artifact_sha256": {
+    "/workspace/up-platform-validation-20261022/baseline-ops.pt": "500fa3d00a332aaf31e8b14992ae618fcc6c5571e742a670ea5d0dc34ac6f89e",
+    "/workspace/up-platform-validation-20261022/changed-ops.pt": "ccb664c8d2378a7c9b3af6b6902e762cb5f1e745a845a2ae58c120733ccd5086"
+  }
+}

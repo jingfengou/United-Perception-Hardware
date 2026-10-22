@@ -1,6 +1,6 @@
 # UP 平台包
 
-`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。本轮是**已有能力的结构迁移**，不是增加新推理引擎、量化算法或新的硬件支持证明。
+`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。本轮是**已有能力的结构迁移**，不是增加新推理引擎或量化算法。[短程真机对照](REAL_HARDWARE.md)单独记录 NVIDIA/沐曦的已验证范围及未通过项，不把注册状态当作所有硬件能力通过。
 
 ## 1. 调用关系
 
@@ -110,7 +110,8 @@ UP 原 YAML 保持不变：`runtime.accelerator.backend` 选择厂商，`runtime
 - [完整 73 项索引](API_INDEX.md)及[机器契约](interface_contract.json)：参数、返回、设备/布局、空输入、状态、梯度、导出、dtype、依赖。
 - [新增厂商指南](ADDING_VENDOR.md)：完整模板、单用途交付、单项覆盖及测试步骤。
 - [能力矩阵](CAPABILITIES.md)：注册不等于依赖可用、已执行或真机通过。
-- [本次验收](VALIDATION.md)：CPU/构建结果与尚未复测的硬件范围。
+- [本次验收](VALIDATION.md)：CPU/构建结果与未覆盖范围。
+- [拆分前后真机对照](REAL_HARDWARE.md)：NVIDIA/沐曦四模型短程训练、训练内 eval、独立推理及数值差异证据。
 
 ```bash
 python tools/check_hardware_boundaries.py

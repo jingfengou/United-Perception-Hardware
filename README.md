@@ -10,7 +10,7 @@
 
 **训练、训练中验证、`train --evaluate` 走 training；独立图片/视频推理、ONNX 导出走 inference。** 共同设备/RNG/内存/通信和明确共用的操作只维护一份，不根据 `.eval()` 或 `no_grad()` 猜用途。普通导入不初始化设备、不加载所有厂商 SDK；独立平台包禁止导入 UP。
 
-**以下硬件精度报告对应各自冻结的旧源码快照，不是本次包结构迁移的真机验收。** [本次结构验收](docs/platform/VALIDATION.md)只覆盖本地 CPU 契约、路由、导出和构建；此前暂停的 GPU 精度复测没有恢复，当前新结构仍需重新做真机验收。
+**以下历史精度报告对应各自冻结的旧源码快照，不自动转记为新平台包通过。** 新结构已完成[CPU/接口/构建验收](docs/platform/VALIDATION.md)及[NVIDIA、沐曦短程真机对照](docs/platform/REAL_HARDWARE.md)：四模型的训练、训练内 eval、恢复和独立推理均能运行；NVIDIA 数值比较全部通过，沐曦同权重推理逐位相同，但其原生训练严格数值比较仅 ViT 通过，另外三模型仍有旧版自身也能复现的差异。此前暂停的多随机种子精度复测没有恢复。
 
 原版与 NVIDIA 路由版的模型训练对照见[五模型多随机种子报告](docs/hardware/MULTISEED_ACCURACY.md)，覆盖 Faster R-CNN、YOLOv5-S、ResNet18、外部官方 DETR 适配器和 ViT-B/16。报告分别列出完整预算、最终精度、逐步数值一致性、权重恢复与未覆盖范围，不把合成输入检查当作完整数据集精度验收。
 
@@ -20,7 +20,7 @@
 
 此前的[差异定位与版本对齐复测](docs/hardware/CROSS_VENDOR_DIAGNOSIS.md)已追加 41 次完整训练：两边对齐 PyTorch 2.10 / TorchVision 0.25 主版本及 23 项依赖，全部训练输入配对一致。已定位 ViT Dropout 掩码差异和 C500 软件栈的卷积反向不重复，并修复 MetaX 卷积库开关；**三模型仍未确认 +/-1 点精度等价，不能宣称已全部修好**。同一权重双向交叉推理的 6 份权重 / 12 次评估指标完全一致，完整结果、失败对照及复现命令在报告中。
 
-后续[适配层数值修复](docs/hardware/CROSS_VENDOR_FIX.md)未改上层算法，增加显式、实验性的 [`portable_v1`](docs/hardware/PORTABLE_NUMERICS.md) 配置。第一版 30 次完整训练仍未通过；固定前后向和归约顺序后，短程及 GPU 数学对照已对齐。**修复版沐曦已完成三模型各五种子、15 次 / 22,300 步及全部状态审计和指标复算；NVIDIA 完整重测待空闲 GPU，尚不能宣称完整精度等价。** 默认 `native` NVIDIA 路径不变；该配置含 GPU FP64 内部计算及明显额外开销，不冒充原生 FP32 或性能优化。
+后续[适配层数值修复](docs/hardware/CROSS_VENDOR_FIX.md)未改上层算法，增加显式、实验性的 [`portable_v1`](docs/hardware/PORTABLE_NUMERICS.md) 配置。第一版 30 次完整训练仍未通过；固定前后向和归约顺序后，短程及 GPU 数学对照已对齐。**修复版沐曦已完成三模型各五种子、15 次 / 22,300 步及全部状态审计和指标复算；NVIDIA 完整多种子重测保持暂停，尚不能宣称完整精度等价。** 默认 `native` NVIDIA 路径不变；该配置含 GPU FP64 内部计算及明显额外开销，不冒充原生 FP32 或性能优化。
 
 ## 1. 增加了什么功能
 

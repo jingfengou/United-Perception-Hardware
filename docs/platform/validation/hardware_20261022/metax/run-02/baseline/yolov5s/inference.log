@@ -1,0 +1,34 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+2026-10-22 04:51:59,861-rk0-inference.py#42:build data fetcher done
+2026-10-22 04:51:59,948-rk0-inference.py#45:build model done
+2026-10-22 04:51:59,950-rk0-inference.py#48:build saver done
+2026-10-22 04:51:59,950-rk0-inference.py#55:build visualizer done
+2026-10-22 04:52:00,046-rk0-model_helper.py#158:Try to load the whole resume model or pretrained detection model...
+2026-10-22 04:52:00,060-rk0-model_helper.py#220:Loading model:380 shared keys, 0 unexpected keys, 0 missing keys.
+2026-10-22 04:52:00,061-rk0-inference.py#58:load weights done
+2026-10-22 04:52:00,129-rk0-inference.py#214:predicting 0:/workspace/up-cross-vendor-20261021/data/pennfudan/images/PennPed00051.png
+2026-10-22 04:52:04,251-rk0-inference.py#238:visualizing PennPed00051
+Traceback (most recent call last):
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 507, in <module>
+    main()
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 496, in main
+    report = train(args) if args.action == "training" else infer(args)
+                                                           ^^^^^^^^^^^
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 351, in infer
+    consistency = close_trees(expected, actual)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 393, in close_trees
+    visit(first, second, path)
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 384, in visit
+    visit(a[key], b[key], name + "/" + str(key))
+  File "/workspace/up-run/platform-validation-20261022/tools/driver-v2.py", line 371, in visit
+    torch.testing.assert_close(a, b, rtol=RTOL if a.is_floating_point() else 0,
+  File "/opt/conda/lib/python3.12/site-packages/torch/testing/_comparison.py", line 1600, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: root/dt_bboxes: Tensor-likes are not close!
+
+Mismatched elements: 1200 / 4200 (28.6%)
+Greatest absolute difference: 1.0 at index (0, 3) (up to 1e-05 allowed)
+Greatest relative difference: 0.05427264794707298 at index (300, 3) (up to 0.0001 allowed)

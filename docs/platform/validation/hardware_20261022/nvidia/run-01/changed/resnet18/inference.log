@@ -1,0 +1,12 @@
+No module named 'petrel_client'
+init petrel failed
+No module named 'spring_aux'
+2026-10-22 04:44:16,715-rk0-inference.py#42:build data fetcher done
+2026-10-22 04:44:16,905-rk0-inference.py#45:build model done
+2026-10-22 04:44:16,906-rk0-inference.py#48:build saver done
+2026-10-22 04:44:16,906-rk0-inference.py#55:build visualizer done
+2026-10-22 04:44:16,955-rk0-model_helper.py#158:Try to load the whole resume model or pretrained detection model...
+2026-10-22 04:44:16,965-rk0-model_helper.py#220:Loading model:122 shared keys, 0 unexpected keys, 0 missing keys.
+2026-10-22 04:44:16,968-rk0-inference.py#58:load weights done
+2026-10-22 04:44:17,121-rk0-inference.py#214:predicting 0:/workspace/up-cross-vendor-20261021/data/cifar10/test/03582.png
+2026-10-22 04:44:17,351-rk0-inference.py#257:visualizing 03582.png

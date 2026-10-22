@@ -147,6 +147,38 @@ def test_dtype_variant_dependencies_and_execution_status():
     assert context.capabilities()["operations"]["test"]["executed"] == 1
 
 
+def test_unrestricted_dtype_does_not_walk_inputs(monkeypatch):
+    register_op("cpu", "unrestricted", lambda value: value, scope="common")
+    context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)
+    def unexpected_walk(value):
+        raise AssertionError("An unrestricted operation does not need tensor traversal")
+    monkeypatch.setattr(platform, "_tensor_values", unexpected_walk)
+    value = {"nested": [torch.ones(2, dtype=torch.float64)]}
+    assert context.call("unrestricted", value) is value
+
+
+def test_declared_dtype_checks_nested_inputs():
+    register_op("cpu", "restricted", lambda value: value, scope="common", dtypes=(torch.float32,))
+    context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)
+    value = {"nested": [torch.ones(2, dtype=torch.float64)]}
+    with pytest.raises(CapabilityError, match="float64"):
+        context.call("restricted", value)
+
+
+def test_variant_signature_is_resolved_once(monkeypatch):
+    register_op("cpu", "variant", lambda x, **kwargs: x, scope="common", variants={"mode": ("x",)})
+    context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)
+    original, calls = platform.inspect.signature, []
+    def signature(function):
+        calls.append(function)
+        return original(function)
+    monkeypatch.setattr(platform.inspect, "signature", signature)
+    assert context.call("variant", 1, mode="x") == 1
+    assert len(calls) == 1
+    with pytest.raises(CapabilityError, match="unsupported variant"):
+        context.call("variant", 1, mode="bad")
+
+
 def test_context_freezes_registration_after_initialization():
     register_op("cpu", "marker", lambda: 1, scope="common")
     context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)

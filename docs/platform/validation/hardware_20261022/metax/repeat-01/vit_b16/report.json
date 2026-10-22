@@ -1,0 +1,110 @@
+{
+  "action": "training",
+  "checkpoint_restore": true,
+  "driver_sha256": "d1f959b18da32aceb83d54457dfb934670eabd5a510ec201418c36be753a7e19",
+  "elapsed_seconds": 42.51606871280819,
+  "environment": {
+    "compatibility_shims": [
+      "collections.Iterable = collections.abc.Iterable (both processes)",
+      "numpy.float = float (original legacy dtype alias, both processes)",
+      "numpy.int = int (original AutoAugment dtype alias, both processes)"
+    ],
+    "cuda": "11.6",
+    "dependencies": {
+      "einops": "0.8.1",
+      "numpy": "1.26.4",
+      "pycocotools": "2.0.10",
+      "scipy": "1.16.0",
+      "setuptools": "69.5.1",
+      "timm": null,
+      "torchvision": "0.25.0+metax3.8.1.0",
+      "triton": "3.6.0+metax3.8.1.0"
+    },
+    "gpu": "MetaX C500",
+    "precision": {
+      "convolution_library": true,
+      "convolution_tf32": false,
+      "deterministic": true,
+      "matmul_precision": "highest",
+      "matmul_tf32": false,
+      "profile": "native"
+    },
+    "python": "3.12.11",
+    "torch": "2.10.0+metax3.8.1.0",
+    "visible_devices": "0"
+  },
+  "evaluations": [
+    {
+      "after_steps": 2,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "top1": 25.0,
+        "top5": 50.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "metax",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    },
+    {
+      "after_steps": 3,
+      "legacy_caller_mode_restore": true,
+      "metrics": {
+        "top1": 25.0,
+        "top5": 25.0
+      },
+      "module_modes_restored_by_runner": false,
+      "routing": {
+        "backend": "metax",
+        "purpose": "legacy_unseparated"
+      },
+      "training_objects_unchanged": true
+    }
+  ],
+  "final_state_sha256": "3e1659820575aa2d5eadcac4fdb0b3bf69ab64b98c0d0249b09610fb3b472fcb",
+  "initial_state_sha256": "2ee6284821767fee82c84f0313c9bda3dae1a2a010c62debb182ac566df3b758",
+  "model": "vit_b16",
+  "original_config": "configs/cls/vision_transformer/vit_b16_224.yaml",
+  "passed": true,
+  "routing": {
+    "backend": "metax",
+    "purpose": "legacy_unseparated"
+  },
+  "steps": [
+    {
+      "batch_sha256": "3fe8ec46e8cc0b165440e742d11fdc7337b7951ed67f452463ae5503f0f01776",
+      "gradients_sha256": "a24c360a754c1b140eb7253797f7698f893e44fb7463223eb0d6df31a1ddcb99",
+      "loss": 2.375133514404297,
+      "losses": {
+        "BaseClsPostProcess.loss": 2.375133514404297
+      },
+      "model_training": true,
+      "rng_sha256": "31e031bc8c0f6397c5e08f733736b4e4a0b0b5d9367aaf5e90a9b533754b549f",
+      "state_sha256": "3dd607da32678e76436a0d5dc92af74c4c31cebb264b5910403c72a369d7857c"
+    },
+    {
+      "batch_sha256": "a0110cb305acc8d135f0f8703d962fb021027350c5adfe304d96409e0cef30c8",
+      "gradients_sha256": "05f148e8a1ad509f962e71981c8b0deec34112f82614858739e75b99b757753f",
+      "loss": 2.187424659729004,
+      "losses": {
+        "BaseClsPostProcess.loss": 2.187424659729004
+      },
+      "model_training": true,
+      "rng_sha256": "51a3c6a0d0c4573af4bc811b8352d877d5efd84f6bab61f9887e7b4a91451b4e",
+      "state_sha256": "58770c5ef73499f5b3fa541fe742704deea95c98e2c03f8fa84889d0675c212d"
+    },
+    {
+      "batch_sha256": "c135689bf84d893a930c2a69e536854a7699db7ae3769216a56f9166eb96aec0",
+      "gradients_sha256": "ab419ebc11ad79962a0be5f76c626655abadca62563eaded2ec37a878a20143f",
+      "loss": 2.691520929336548,
+      "losses": {
+        "BaseClsPostProcess.loss": 2.691520929336548
+      },
+      "model_training": true,
+      "rng_sha256": "91b4ed8142470ac1c36823c664a19c59f7704aeb953a6b4ee767bc5c1fd897d0",
+      "state_sha256": "3e1659820575aa2d5eadcac4fdb0b3bf69ab64b98c0d0249b09610fb3b472fcb"
+    }
+  ]
+}

@@ -1,0 +1,1985 @@
+{
+  "atol": 1e-05,
+  "models": {
+    "detr": {
+      "pre_vs_post": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 41607880,
+            "exact_tensor_count": 243,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 9.404029697179794e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 6.66547566652298e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.4.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 5.465000867843628e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.3.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 4.46452759206295e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.0.downsample.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 589824,
+                "exact": false,
+                "max_abs": 1.7210841178894043e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 9.404029697179794e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 459
+          },
+          "eval-1.pt": {
+            "elements": 2800,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.023956298828125,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 4
+              },
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.009305953979492188,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 2
+              }
+            ],
+            "max_abs": 0.023956298828125,
+            "outside_tolerance": 6,
+            "tensor_count": 2
+          },
+          "eval-2.pt": {
+            "elements": 2800,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.045928955078125,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 3
+              },
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.01898193359375,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 6
+              }
+            ],
+            "max_abs": 0.045928955078125,
+            "outside_tolerance": 9,
+            "tensor_count": 2
+          },
+          "gradients-1.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 196,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 1.1641532182693481e-10,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1048576,
+                "exact": false,
+                "max_abs": 1.1641532182693481e-10,
+                "name": "root/detr.detector.backbone.0.body.layer4.2.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 32768,
+                "exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 147456,
+                "exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.1.conv2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 65536,
+                "exact": false,
+                "max_abs": 5.820766091346741e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.2.conv1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.1641532182693481e-10,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          },
+          "gradients-2.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 2.297711034771055e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 3.523309715092182e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.5.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 3.215009201085195e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.1.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 2.7757596399169415e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 2.634369593579322e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.4.conv3.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.297711034771055e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          },
+          "gradients-3.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 2097152,
+                "exact": false,
+                "max_abs": 1.5762040277422784e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.downsample.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 1.2203745427541435e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 131072,
+                "exact": false,
+                "max_abs": 7.05973434378393e-07,
+                "name": "root/detr.detector.backbone.0.body.layer2.0.downsample.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 6.489608495030552e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1048576,
+                "exact": false,
+                "max_abs": 6.222994102245138e-07,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv3.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.5762040277422784e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          3.0994415283203125e-06,
+          1.9073486328125e-06
+        ]
+      },
+      "pre_vs_pre_repeat": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 41607880,
+            "exact_tensor_count": 241,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 9.404029697179794e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 6.673857569694519e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.4.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 5.463138222694397e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.3.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 4.4424086809158325e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.0.downsample.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 589824,
+                "exact": false,
+                "max_abs": 1.7210841178894043e-06,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 9.404029697179794e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 459
+          },
+          "eval-1.pt": {
+            "elements": 2800,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.021575927734375,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 3
+              },
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.008756637573242188,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 3
+              }
+            ],
+            "max_abs": 0.021575927734375,
+            "outside_tolerance": 6,
+            "tensor_count": 2
+          },
+          "eval-2.pt": {
+            "elements": 2800,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.033538818359375,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 3
+              },
+              {
+                "elements": 1400,
+                "exact": false,
+                "max_abs": 0.01880645751953125,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 5
+              }
+            ],
+            "max_abs": 0.033538818359375,
+            "outside_tolerance": 8,
+            "tensor_count": 2
+          },
+          "gradients-1.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 196,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 1.1641532182693481e-10,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 32768,
+                "exact": false,
+                "max_abs": 8.731149137020111e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 65536,
+                "exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.3.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 7.275957614183426e-11,
+                "name": "root/detr.detector.backbone.0.body.layer3.3.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 65536,
+                "exact": false,
+                "max_abs": 6.548361852765083e-11,
+                "name": "root/detr.detector.backbone.0.body.layer2.1.conv1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.1641532182693481e-10,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          },
+          "gradients-2.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 2.2976219042902812e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 3.5255834518466145e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.5.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 3.2149273465620354e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.1.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 2.774331733235158e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 2.6349880499765277e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.4.conv3.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.2976219042902812e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          },
+          "gradients-3.pt": {
+            "elements": 41279238,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 2097152,
+                "exact": false,
+                "max_abs": 1.5762210523462272e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.downsample.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 524288,
+                "exact": false,
+                "max_abs": 1.2208256521262228e-06,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 262144,
+                "exact": false,
+                "max_abs": 6.489699444500729e-07,
+                "name": "root/detr.detector.backbone.0.body.layer3.2.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1048576,
+                "exact": false,
+                "max_abs": 6.223052082532377e-07,
+                "name": "root/detr.detector.backbone.0.body.layer4.0.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 65536,
+                "exact": false,
+                "max_abs": 6.188711267895997e-07,
+                "name": "root/detr.detector.backbone.0.body.layer2.3.conv1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.5762210523462272e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 235
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          2.6226043701171875e-06,
+          4.76837158203125e-07
+        ]
+      }
+    },
+    "resnet18": {
+      "pre_vs_post": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 11191242,
+            "exact_tensor_count": 1,
+            "largest": [
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 4.649162292480469e-06,
+                "name": "root/backbone.layer4.0.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 4.291534423828125e-06,
+                "name": "root/backbone.layer4.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 73728,
+                "exact": false,
+                "max_abs": 3.868713974952698e-06,
+                "name": "root/backbone.layer2.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 2.6226043701171875e-06,
+                "name": "root/backbone.layer2.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 256,
+                "exact": false,
+                "max_abs": 1.3113021850585938e-06,
+                "name": "root/backbone.layer3.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 4.649162292480469e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 102
+          },
+          "eval-1.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 9.918212890625e-05,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 8.392333984375e-05,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 2.970713952610282e-17,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 2.5445497358808957e-25,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 9.918212890625e-05,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "eval-2.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 0.00090789794921875,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 0.0003662109375,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 7.233103005432895e-14,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 5.36840217546915e-22,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 0.00090789794921875,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "gradients-1.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 57,
+            "largest": [
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 3.5762786865234375e-07,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "name": "root/backbone.layer1.1.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "name": "root/backbone.layer1.1.conv2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.5762786865234375e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 62
+          },
+          "gradients-2.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 5.036592483520508e-06,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 5120,
+                "exact": false,
+                "max_abs": 4.976987838745117e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 4.947185516357422e-06,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 4.895031452178955e-06,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 3.293156623840332e-06,
+                "name": "root/backbone.layer1.1.conv1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 5.036592483520508e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 62
+          },
+          "gradients-3.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 73728,
+                "exact": false,
+                "max_abs": 0.004089854657649994,
+                "name": "root/backbone.layer2.0.conv1.weight",
+                "outside_tolerance": 571
+              },
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 0.0008804351091384888,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 5246
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 0.0006378591060638428,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 24839
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 0.0006285980343818665,
+                "name": "root/backbone.layer2.0.bn1.bias",
+                "outside_tolerance": 1
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 0.0005951002240180969,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 25541
+              }
+            ],
+            "max_abs": 0.004089854657649994,
+            "outside_tolerance": 104467,
+            "tensor_count": 62
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          1.9073486328125e-06,
+          -3.814697265625e-06
+        ]
+      },
+      "pre_vs_pre_repeat": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 11191242,
+            "exact_tensor_count": 1,
+            "largest": [
+              {
+                "elements": 73728,
+                "exact": false,
+                "max_abs": 3.887340426445007e-06,
+                "name": "root/backbone.layer2.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 3.0994415283203125e-06,
+                "name": "root/backbone.layer4.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 2.5033950805664062e-06,
+                "name": "root/backbone.layer4.0.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 2.1457672119140625e-06,
+                "name": "root/backbone.layer2.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 256,
+                "exact": false,
+                "max_abs": 9.5367431640625e-07,
+                "name": "root/backbone.layer3.0.downsample.1.running_var",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.887340426445007e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 102
+          },
+          "eval-1.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 7.62939453125e-05,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 3.0517578125e-05,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 4.228388472693467e-18,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 2.5445497358808957e-25,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 7.62939453125e-05,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "eval-2.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 0.0010223388671875,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 0.00035858154296875,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 8.743006318923108e-14,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 5.15126726467398e-22,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 0.0010223388671875,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "gradients-1.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 57,
+            "largest": [
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 2.384185791015625e-07,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "name": "root/backbone.layer1.1.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 2.9802322387695312e-08,
+                "name": "root/backbone.layer1.1.conv2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.384185791015625e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 62
+          },
+          "gradients-2.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 4.872679710388184e-06,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 4.082918167114258e-06,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 3.933906555175781e-06,
+                "name": "root/backbone.layer1.1.conv1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 3.904104232788086e-06,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 5120,
+                "exact": false,
+                "max_abs": 3.814697265625e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 4.872679710388184e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 62
+          },
+          "gradients-3.pt": {
+            "elements": 11181642,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 73728,
+                "exact": false,
+                "max_abs": 0.004089482128620148,
+                "name": "root/backbone.layer2.0.conv1.weight",
+                "outside_tolerance": 572
+              },
+              {
+                "elements": 9408,
+                "exact": false,
+                "max_abs": 0.0008725970983505249,
+                "name": "root/backbone.layer0.0.weight",
+                "outside_tolerance": 5242
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 0.0006440281867980957,
+                "name": "root/backbone.layer1.0.conv1.weight",
+                "outside_tolerance": 24840
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 0.0006296522915363312,
+                "name": "root/backbone.layer2.0.bn1.bias",
+                "outside_tolerance": 1
+              },
+              {
+                "elements": 36864,
+                "exact": false,
+                "max_abs": 0.000594213604927063,
+                "name": "root/backbone.layer1.0.conv2.weight",
+                "outside_tolerance": 25502
+              }
+            ],
+            "max_abs": 0.004089482128620148,
+            "outside_tolerance": 104365,
+            "tensor_count": 62
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          9.5367431640625e-07,
+          -1.9073486328125e-06
+        ]
+      }
+    },
+    "vit_b16": {
+      "pre_vs_post": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 23,
+            "largest": [
+              {
+                "elements": 1769472,
+                "exact": false,
+                "max_abs": 4.0275335777550936e-06,
+                "name": "root/backbone.layers.encoder_0.attention.to_qkv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 3.069639205932617e-06,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 2.2510066628456116e-06,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.98977068066597e-06,
+                "name": "root/backbone.layers.encoder_3.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.7210841178894043e-06,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 4.0275335777550936e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "eval-1.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 2.1457672119140625e-06,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.430511474609375e-06,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 4.470348358154297e-07,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 3.2782554626464844e-07,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.1457672119140625e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "eval-2.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.9669532775878906e-06,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.2218952178955078e-06,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 5.364418029785156e-07,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.7881393432617188e-07,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.9669532775878906e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "gradients-1.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 8,
+            "largest": [
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 5.587935447692871e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 5.21540641784668e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 4.470348358154297e-08,
+                "name": "root/backbone.layers.encoder_1.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 4.284083843231201e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 4.284083843231201e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 5.587935447692871e-08,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "gradients-2.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 7680,
+                "exact": false,
+                "max_abs": 1.1771917343139648e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 10,
+                "exact": false,
+                "max_abs": 1.4901161193847656e-07,
+                "name": "root/head.classifier.bias",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 589824,
+                "exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "name": "root/backbone.layers.encoder_0.attention.to_out.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.475035429000854e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 7.82310962677002e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.1771917343139648e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "gradients-3.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 7680,
+                "exact": false,
+                "max_abs": 1.2814998626708984e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.73225998878479e-07,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 589824,
+                "exact": false,
+                "max_abs": 1.2665987014770508e-07,
+                "name": "root/backbone.layers.encoder_0.attention.to_out.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.0803341865539551e-07,
+                "name": "root/backbone.layers.encoder_3.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.195638656616211e-08,
+                "name": "root/backbone.layers.encoder_5.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.2814998626708984e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          2.384185791015625e-07,
+          -7.152557373046875e-07
+        ]
+      },
+      "pre_vs_pre_repeat": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 23,
+            "largest": [
+              {
+                "elements": 1769472,
+                "exact": false,
+                "max_abs": 1.3094395399093628e-06,
+                "name": "root/backbone.layers.encoder_2.attention.to_qkv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.1771917343139648e-06,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 1.084059476852417e-06,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2304,
+                "exact": false,
+                "max_abs": 1.0518203339415777e-06,
+                "name": "root/backbone.layers.encoder_0.attention.to_qkv.bias",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 9.872019290924072e-07,
+                "name": "root/backbone.layers.encoder_3.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.3094395399093628e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "eval-1.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 2.384185791015625e-06,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.3113021850585938e-06,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 6.258487701416016e-07,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 4.470348358154297e-07,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.384185791015625e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "eval-2.pt": {
+            "elements": 80,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.9073486328125e-06,
+                "name": "root/0/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 7.450580596923828e-07,
+                "name": "root/1/logits",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 5.960464477539062e-07,
+                "name": "root/0/scores",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 20,
+                "exact": false,
+                "max_abs": 1.4901161193847656e-07,
+                "name": "root/1/scores",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.9073486328125e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 4
+          },
+          "gradients-1.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 8,
+            "largest": [
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 5.4016709327697754e-08,
+                "name": "root/backbone.layers.encoder_3.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 4.842877388000488e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 4.190951585769653e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 3.3527612686157227e-08,
+                "name": "root/backbone.layers.encoder_1.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 5.960464477539063e-08,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "gradients-2.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 7680,
+                "exact": false,
+                "max_abs": 1.0132789611816406e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 10,
+                "exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "name": "root/head.classifier.bias",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 7.078051567077637e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "name": "root/backbone.layers.encoder_4.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 6.28642737865448e-08,
+                "name": "root/backbone.layers.encoder_0.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.0132789611816406e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          },
+          "gradients-3.pt": {
+            "elements": 85668106,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 7680,
+                "exact": false,
+                "max_abs": 1.1324882507324219e-06,
+                "name": "root/head.classifier.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "name": "root/backbone.layers.encoder_8.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.568167686462402e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.195638656616211e-08,
+                "name": "root/backbone.layers.encoder_2.feedforward.mlp1.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2359296,
+                "exact": false,
+                "max_abs": 8.009374141693115e-08,
+                "name": "root/backbone.layers.encoder_6.feedforward.mlp2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.1324882507324219e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 152
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "yolov5s": {
+      "pre_vs_post": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 7276470,
+            "exact_tensor_count": 88,
+            "largest": [
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 4.76837158203125e-07,
+                "name": "root/backbone.csp_modules.3.1.conv_block2.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 1.7881393432617188e-07,
+                "name": "root/neck.down_sample_stream.5.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 256,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.2.1.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.3.1.conv_block2.bn1.running_mean",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 4.76837158203125e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 321
+          },
+          "eval-1.pt": {
+            "elements": 8400,
+            "exact_tensor_count": 1,
+            "largest": [
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 3.814697265625e-06,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4200,
+                "exact": true,
+                "max_abs": 0.0,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.814697265625e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 2
+          },
+          "eval-2.pt": {
+            "elements": 8400,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 1.52587890625e-05,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 3.814697265625e-06,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.52587890625e-05,
+            "outside_tolerance": 0,
+            "tensor_count": 2
+          },
+          "gradients-1.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 126,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 3.3155083656311035e-07,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 1.4156103134155273e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4096,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block4.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 7.450580596923828e-08,
+                "name": "root/backbone.csp_modules.0.1.conv2.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.3155083656311035e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 197
+          },
+          "gradients-2.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 126,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 1.564621925354004e-07,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 8.940696716308594e-08,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4096,
+                "exact": false,
+                "max_abs": 7.078051567077637e-08,
+                "name": "root/backbone.csp_modules.0.1.conv_block4.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 4.842877388000488e-08,
+                "name": "root/backbone.csp_modules.0.1.conv3.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.564621925354004e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 197
+          },
+          "gradients-3.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 2,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 3.0875205993652344e-05,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 191
+              },
+              {
+                "elements": 18432,
+                "exact": false,
+                "max_abs": 2.4147331714630127e-05,
+                "name": "root/backbone.csp_modules.0.0.conv.weight",
+                "outside_tolerance": 110
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 1.780688762664795e-05,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 12
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 1.4759600162506104e-05,
+                "name": "root/backbone.csp_modules.0.1.conv3.weight",
+                "outside_tolerance": 1
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 1.3679265975952148e-05,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.0875205993652344e-05,
+            "outside_tolerance": 322,
+            "tensor_count": 197
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          0.0,
+          2.9802322387695312e-08
+        ]
+      },
+      "pre_vs_pre_repeat": {
+        "artifacts": {
+          "checkpoint.pt": {
+            "elements": 7276470,
+            "exact_tensor_count": 85,
+            "largest": [
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 7.152557373046875e-07,
+                "name": "root/backbone.csp_modules.3.1.conv_block2.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 512,
+                "exact": false,
+                "max_abs": 1.2665987014770508e-07,
+                "name": "root/backbone.csp_modules.3.1.conv_block2.bn1.running_mean",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 256,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.2.1.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 128,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.2.1.cbh_blocks.2.conv_block1.bn1.running_var",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 256,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/neck.down_sample_stream.3.bn1.running_var",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 7.152557373046875e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 321
+          },
+          "eval-1.pt": {
+            "elements": 8400,
+            "exact_tensor_count": 1,
+            "largest": [
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 3.814697265625e-06,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4200,
+                "exact": true,
+                "max_abs": 0.0,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 3.814697265625e-06,
+            "outside_tolerance": 0,
+            "tensor_count": 2
+          },
+          "eval-2.pt": {
+            "elements": 8400,
+            "exact_tensor_count": 0,
+            "largest": [
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 1.52587890625e-05,
+                "name": "root/1/dt_bboxes",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4200,
+                "exact": false,
+                "max_abs": 3.814697265625e-06,
+                "name": "root/0/dt_bboxes",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 1.52587890625e-05,
+            "outside_tolerance": 0,
+            "tensor_count": 2
+          },
+          "gradients-1.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 126,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 2.5704503059387207e-07,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 1.341104507446289e-07,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 1.1920928955078125e-07,
+                "name": "root/backbone.csp_modules.0.1.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4096,
+                "exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block4.conv.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.5704503059387207e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 197
+          },
+          "gradients-2.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 126,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 2.086162567138672e-07,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 1.043081283569336e-07,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 6.705522537231445e-08,
+                "name": "root/backbone.csp_modules.0.1.conv3.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 4096,
+                "exact": false,
+                "max_abs": 6.332993507385254e-08,
+                "name": "root/backbone.csp_modules.0.1.conv_block4.conv.weight",
+                "outside_tolerance": 0
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 5.960464477539063e-08,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block1.conv.weight",
+                "outside_tolerance": 0
+              }
+            ],
+            "max_abs": 2.086162567138672e-07,
+            "outside_tolerance": 0,
+            "tensor_count": 197
+          },
+          "gradients-3.pt": {
+            "elements": 7252397,
+            "exact_tensor_count": 2,
+            "largest": [
+              {
+                "elements": 3456,
+                "exact": false,
+                "max_abs": 5.833059549331665e-05,
+                "name": "root/backbone.focus.conv_block.conv.weight",
+                "outside_tolerance": 348
+              },
+              {
+                "elements": 18432,
+                "exact": false,
+                "max_abs": 3.420934081077576e-05,
+                "name": "root/backbone.csp_modules.0.0.conv.weight",
+                "outside_tolerance": 211
+              },
+              {
+                "elements": 2048,
+                "exact": false,
+                "max_abs": 2.3990869522094727e-05,
+                "name": "root/backbone.csp_modules.0.1.conv_block1.conv.weight",
+                "outside_tolerance": 15
+              },
+              {
+                "elements": 1024,
+                "exact": false,
+                "max_abs": 1.70879065990448e-05,
+                "name": "root/backbone.csp_modules.0.1.conv3.weight",
+                "outside_tolerance": 1
+              },
+              {
+                "elements": 9216,
+                "exact": false,
+                "max_abs": 1.6987323760986328e-05,
+                "name": "root/backbone.csp_modules.0.1.cbh_blocks.0.conv_block2.conv.weight",
+                "outside_tolerance": 8
+              }
+            ],
+            "max_abs": 5.833059549331665e-05,
+            "outside_tolerance": 591,
+            "tensor_count": 197
+          }
+        },
+        "initial_state_batches_and_rng_exact": true,
+        "loss_deltas": [
+          0.0,
+          0.0,
+          1.1920928955078125e-07
+        ]
+      }
+    }
+  },
+  "rtol": 0.0001,
+  "scope": "same-vendor, same-seed repeat controls, not multiseed accuracy",
+  "seed": 131,
+  "steps": 3
+}

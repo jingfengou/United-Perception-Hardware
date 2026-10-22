@@ -126,16 +126,18 @@ class PlatformContext:
             for key in entry.get("conventions", ()):
                 if key not in kwargs and key in _conventions:
                     kwargs[key] = _conventions[key]
-        for value in _tensor_values((args, kwargs)):
-            if value.is_floating_point():
-                self.require(name, dtype=value.dtype)
+        if entry["dtypes"] is not None:
+            for value in _tensor_values((args, kwargs)):
+                if value.is_floating_point():
+                    self.require(name, dtype=value.dtype)
         try:
             implementation = resolve(entry["implementation"])
             if entry.get("variants"):
-                arguments = inspect.signature(implementation).bind(*args, **kwargs)
+                signature = inspect.signature(implementation)
+                arguments = signature.bind(*args, **kwargs)
                 arguments.apply_defaults()
                 values = dict(arguments.arguments)
-                for parameter in inspect.signature(implementation).parameters.values():
+                for parameter in signature.parameters.values():
                     if parameter.kind == inspect.Parameter.VAR_KEYWORD:
                         values.update(arguments.arguments.get(parameter.name, {}))
                 self.require(name, variants={key: values[key] for key in entry["variants"] if key in values})
