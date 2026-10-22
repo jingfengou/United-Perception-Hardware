@@ -264,7 +264,6 @@ class QuantRunner(BaseRunner):
                     if self.ema is not None:
                         all_reduce_norm(self.ema.model)
                 self.evaluate()
-                self.model.train()
             if self.only_save_latest:
                 self.save_epoch_ckpt(iter_idx)
             else:

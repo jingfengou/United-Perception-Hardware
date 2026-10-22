@@ -5,6 +5,7 @@ import random
 import torch
 import copy
 from up.runner.base_runner import BaseRunner
+from up_platform.training.evaluation import preserve_evaluation_state
 from up.utils.general.registry_factory import MODEL_HELPER_REGISTRY, RUNNER_REGISTRY
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.env.dist_helper import env, reduce_gradients, barrier, broadcast_object
@@ -162,7 +163,6 @@ class BignasRunner(BaseRunner):
                     if self.ema is not None:
                         all_reduce_norm(self.ema.model)
                 self.evaluate_specific_subnets()
-                self.model.train()
             if self.only_save_latest:
                 self.save_epoch_ckpt(iter_idx)
             else:
@@ -236,6 +236,7 @@ class BignasRunner(BaseRunner):
         torch.save(state_dict, ckpt_name)
 
     # During the training process, sample maximum and minimum model and get accuracy
+    @preserve_evaluation_state
     def evaluate_specific_subnets(self):
         for sample_mode in ['max', 'min']:
             subnet_settings, sample_mode = self.controller.adjust_model(0, 0, sample_mode=sample_mode)
@@ -366,6 +367,7 @@ class BignasRunner(BaseRunner):
             logger.info(json.dumps(p))
         logger.info('--------------------------------------------')
 
+    @preserve_evaluation_state
     @torch.no_grad()
     def evaluate(self):
         res_file, all_device_results_list = self.inference()

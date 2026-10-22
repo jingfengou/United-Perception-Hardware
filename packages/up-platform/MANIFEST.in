@@ -1,0 +1,2 @@
+include LICENSE README.md
+recursive-include src/up_platform *.json *.cpp *.cu *.h *.hpp *.cuh

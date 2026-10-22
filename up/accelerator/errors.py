@@ -1,6 +1,5 @@
-class CapabilityError(RuntimeError):
-    """A selected backend cannot implement a requested hardware operation."""
+"""Compatibility alias; implementation lives in the independent platform package."""
+import importlib
+import sys
 
-
-class BackendConfigurationError(RuntimeError):
-    """Hardware identity, runtime configuration, or environment is inconsistent."""
+sys.modules[__name__] = importlib.import_module("up_platform.errors")

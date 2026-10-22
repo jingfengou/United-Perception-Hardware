@@ -5,6 +5,7 @@ import json
 
 from up.data.metrics.base_evaluator import Metric
 from up.runner.base_runner import BaseRunner
+from up_platform.training.evaluation import preserve_evaluation_state
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.env.dist_helper import env, barrier
 from up.utils.general.registry_factory import RUNNER_REGISTRY
@@ -135,6 +136,7 @@ class MultiTaskRunner(BaseRunner):
         self.set_cur_eval_iter()
         return metrics
 
+    @preserve_evaluation_state
     def evaluate(self):
         total_results_dir = self.results_dir
         metrics = None
@@ -229,7 +231,6 @@ class MultiTaskRunner(BaseRunner):
                     if self.ema is not None:
                         all_reduce_norm(self.ema.model)
                 self.evaluate()
-                self.model.train()
             if self.only_save_latest:
                 self.save_epoch_ckpt(iter_idx)
             else:

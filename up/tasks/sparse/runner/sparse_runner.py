@@ -107,7 +107,6 @@ class SparseRunner(BaseRunner):
                         all_reduce_norm(self.ema.model)
                 logger.info("current sparse rate = {}".format(self.sparse_scheduler.compute_sparse_rate(self.model)))
                 self.evaluate()
-                self.model.train()
             if self.only_save_latest:
                 self.save_epoch_ckpt(iter_idx)
             else:

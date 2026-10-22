@@ -10,6 +10,7 @@ import warnings
 
 # Import from third library
 import torch
+from up.accelerator import get_accelerator
 
 # Import from pod
 from up.utils.general.log_helper import default_logger as logger
@@ -119,7 +120,7 @@ class BaseToOnnx(object):
 
     def _convert(self):
         input_names = ['data']
-        torch.onnx.export(self.model,
+        get_accelerator().inference.export_onnx(self.model,
                           self.dummp_input,
                           self.save_prefix,
                           verbose=True,

@@ -78,7 +78,8 @@ def run(args):
               "portable_2d_cases": cases,
               "operation_owners": {name: accelerator.capabilities()["operations"][name]["owner"]
                                    for name in ("naive_nms", "gpu_iou_overlap", "torchvision_nms")},
-              "nvidia_extension_loaded": "up.extensions._C" in sys.modules,
+              "nvidia_extension_loaded": any(name in sys.modules for name in (
+                  "up.extensions._C", "up_platform.backends.nvidia._C")),
               "driver_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               "scope": "small fixed cases only; not full operator, model accuracy or performance qualification"}
     Path(args.output).write_text(json.dumps(report, indent=2))

@@ -1,5 +1,7 @@
 # 硬件适配接口定义
 
+当前独立平台包接口以[新接口定义](../platform/INTERFACES.md)及[完整语义索引](../platform/API_INDEX.md)为准。本文保留旧门面的参数兼容契约；旧签名仍有效，但新厂商应显式声明用途。既有验证报告不因结构迁移自动升级。
+
 本文回答：**接一家新厂商，需要适配哪些函数？参数、返回值、梯度和验收要求在哪里？**
 
 | 文档 | 用途 |
@@ -155,7 +157,7 @@ NVIDIA `softer_nms` 保留上游已有的显式 CPU 内部阶段及返回原设�
 
 `layers.OptionalModule(provider, path='')`、`layers.optional_symbol(provider, module, name)` 延迟访问可选库，不是数值操作的注册方式。
 
-构建入口 `up.accelerator.build.get_extensions()`：`UP_BUILD_BACKEND=none` 构建公共包，nvidia 构建原扩展，auto 根据构建环境选择。其他厂商插件独立构建安装，不把所有 SDK 放进公共 setup.py。`native.load_extension()` 是 NVIDIA 内部边界，不是通用厂商接口。
+构建已经迁移至 `packages/up-platform/setup.py`：默认、none、auto 均不编译，只有显式 nvidia 编译新路径 `up_platform.backends.nvidia._C`。旧 `up.accelerator.build.get_extensions()` 兼容入口返回空列表，UP 自身不构建扩展。其他厂商插件独立构建安装。`native.load_extension()` 是 NVIDIA 内部边界，不是通用厂商接口。
 
 ## 8. 完整性检查与验收
 

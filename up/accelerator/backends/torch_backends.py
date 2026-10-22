@@ -1,78 +1,23 @@
-import contextlib
-import importlib
-
-import torch
-
-from ..errors import BackendConfigurationError
-from ..runtime import TorchAccelerator
-
-
-def torchvision_nms(*args, **kwargs):
-    from torchvision.ops import nms
-    return nms(*args, **kwargs)
+"""Legacy device class names; implementations are shared with up_platform."""
+from up_platform.backends.nvidia.device import NvidiaDevice
+from up_platform.backends.ascend.device import AscendDevice
+from up_platform.backends.cambricon.device import CambriconDevice
+from up_platform.backends.metax.device import MetaXDevice
+from up_platform.backends.nvidia.ops.vision import torchvision_nms
+from up.accelerator.runtime import TorchAccelerator
 
 
-class _CudaConvolutionControls:
-    """Controls shared by runtimes exposing PyTorch's cuDNN-shaped interface."""
-
-    def configure_convolution(self, enabled=True):
-        torch.backends.cudnn.enabled = enabled if self._numerics is None else False
-
-    @contextlib.contextmanager
-    def convolution_flags(self, enabled=True):
-        with torch.backends.cudnn.flags(enabled=enabled if self._numerics is None else False):
-            yield
+class NvidiaAccelerator(NvidiaDevice, TorchAccelerator):
+    pass
 
 
-class NvidiaAccelerator(_CudaConvolutionControls, TorchAccelerator):
-    name = "nvidia"
-    device_type = "cuda"
-    communication_backend = "nccl"
-    numerical_profiles = ("native", "portable_v1")
-    extension_modules = {
-        "sparse": "spconv.pytorch", "link": "spring.linklink",
-        "quantization": "mqbench", "pruning": "msbench",
-    }
-
-    def __init__(self, device=None):
-        super().__init__(device)
-        if getattr(torch.version, "hip", None):
-            raise BackendConfigurationError("ROCm is not the NVIDIA backend; register an explicit plugin")
-
-    def dependency(self, name):
-        if name == "sparse":
-            try:
-                return importlib.import_module("spconv.pytorch")
-            except ModuleNotFoundError as exc:
-                if exc.name not in ("spconv", "spconv.pytorch"):
-                    raise
-                return importlib.import_module("spconv")
-        return super().dependency(name)
-
-class AscendAccelerator(TorchAccelerator):
-    name = "ascend"
-    device_type = "npu"
-    communication_backend = "hccl"
-
-    def __init__(self, device=None):
-        importlib.import_module("torch_npu")
-        super().__init__(device)
+class AscendAccelerator(AscendDevice, TorchAccelerator):
+    pass
 
 
-class CambriconAccelerator(TorchAccelerator):
-    name = "cambricon"
-    device_type = "mlu"
-    communication_backend = "cncl"
-
-    def __init__(self, device=None):
-        importlib.import_module("torch_mlu")
-        super().__init__(device)
+class CambriconAccelerator(CambriconDevice, TorchAccelerator):
+    pass
 
 
-class MetaXAccelerator(_CudaConvolutionControls, TorchAccelerator):
-    name = "metax"
-    device_type = "cuda"
-    communication_backend = "nccl"
-    numerical_profiles = ("native", "portable_v1")
-    # Reusing the CUDA-shaped runtime does not opt into NVIDIA binary kernels.
-    extension_modules = {}
+class MetaXAccelerator(MetaXDevice, TorchAccelerator):
+    pass

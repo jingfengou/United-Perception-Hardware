@@ -113,7 +113,7 @@ class Train(Subcommand):
 
 
 def main(args):
-    activate_args(args)
+    activate_args(args, purpose="training")
     if args.test_gpu:
         gpu_check()
     cfg = load_yaml(args.config, args.cfg_type)
@@ -158,7 +158,7 @@ def main(args):
 
 
 def _main(args):
-    prepare_args(args)
+    prepare_args(args, purpose="training")
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)

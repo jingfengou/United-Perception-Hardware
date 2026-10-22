@@ -1,0 +1,2904 @@
+{
+  "contract_snapshot_version": 2,
+  "dtype_policy": "null metadata means unspecified, not all dtypes supported",
+  "entry_points": [
+    {
+      "name": "configure_platform",
+      "signature": "(config=None, *, purpose, reset=False)"
+    },
+    {
+      "name": "get_platform",
+      "signature": "()"
+    },
+    {
+      "name": "register_backend",
+      "signature": "(spec, *, replace=False, probe=None)"
+    },
+    {
+      "name": "register_op",
+      "signature": "(backend, name, implementation=None, *, scope, backward=None, replace=False, dtypes=None, variants=None, conventions=(), dependencies=())"
+    },
+    {
+      "name": "capabilities",
+      "signature": "()"
+    },
+    {
+      "name": "require",
+      "signature": "(name, **kwargs)"
+    }
+  ],
+  "execution_interfaces": {
+    "inference": {
+      "autocast": "(self, enabled=True, **kwargs)",
+      "call": "(self, name, *args, **kwargs)",
+      "export_onnx": "(self, model, args, destination, **kwargs)"
+    },
+    "training": {
+      "autocast": "(self, enabled=True, **kwargs)",
+      "build_fused_optimizer": "(self, config)",
+      "call": "(self, name, *args, **kwargs)",
+      "grad_scaler": "(self, **kwargs)",
+      "reduce_gradients": "(self, model, sync=True, allow_dead_parameter=False)",
+      "reload_fused_optimizer": "(self, optimizer)",
+      "wrap_legacy_model": "(self, model, sync=True, master_rank=0)",
+      "wrap_model": "(self, model, device_ids=None, **kwargs)"
+    }
+  },
+  "operations": [
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "explicit CPU contiguous float32 Tensor or NumPy; return type follows original input",
+      "empty_input": "retain native empty shape and restrictions; test before declaring support",
+      "export": "evaluation operation without guaranteed ONNX export",
+      "gradients": "none",
+      "inputs": "boxes_a[N,7], boxes_b[M,7]=x,y,z,dx,dy,dz,heading; heading in radians",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "legacy_signature": "boxes_bev_iou_cpu(boxes_a, boxes_b)",
+      "name": "boxes_bev_iou_cpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "CPU Tensor[N,M] or ndarray matching the original input type",
+      "scope": "common",
+      "signature": "boxes_bev_iou_cpu(boxes_a, boxes_b)",
+      "state_updates": "no mutation or gradient contract; explicit CPU API, not a fallback"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; native contiguous float32 boxes",
+      "empty_input": "retain native empty shape/restrictions",
+      "export": "no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "boxes_a[N,7], boxes_b[M,7]; original BEV intersection and height/angle conventions",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "legacy_signature": "boxes_iou3d_gpu(boxes_a, boxes_b)",
+      "name": "boxes_iou3d_gpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device Tensor[N,M]; no complete native BEV backward contract",
+      "scope": "common",
+      "signature": "boxes_iou3d_gpu(boxes_a, boxes_b)",
+      "state_updates": "no complete differentiable BEV kernel; do not advertise full box gradients"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; native contiguous float32 box representation",
+      "empty_input": "retain native empty shape/restrictions and zero-size-kernel behavior",
+      "export": "no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "boxes_a[N,7], boxes_b[M,7] with x,y,z,dx,dy,dz,heading in radians",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "legacy_signature": "boxes_iou_bev(boxes_a, boxes_b)",
+      "name": "boxes_iou_bev",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device Tensor[N,M]",
+      "scope": "common",
+      "signature": "boxes_iou_bev(boxes_a, boxes_b)",
+      "state_updates": "no complete native BEV backward contract"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_optimizer",
+      "device_and_layout": "supplier parameter objects, groups/master tensors and backend enum representation remain unchanged",
+      "empty_input": "retain pinned supplier empty-module/parameter-group validation and exceptions",
+      "export": "host configuration/optimizer state, not a numeric ONNX graph operation",
+      "gradients": "not applicable",
+      "inputs": "build_fused_optimizer(config); exact optional supplier optimizer/precision/quantization configuration",
+      "legacy_reference_source": "up/accelerator/ops.py",
+      "legacy_signature": "build_fused_optimizer(config)",
+      "name": "build_fused_optimizer",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier optimizer with unchanged parameter groups",
+      "scope": "training",
+      "signature": "build_fused_optimizer(config)",
+      "state_updates": "optimizer construction/reload or explicit precision-module registration only; UP owns hyperparameters and training steps"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; retain label and exclusion-table layouts",
+      "empty_input": "preserve native empty/reduction rules and exceptions",
+      "export": "no guaranteed ONNX symbolic",
+      "gradients": "preds",
+      "inputs": "preds[N,C]; targets[N]; weight_pos; gamma; alpha; num_classes; gt_class_to_avoid; reduction",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/cross_focal_loss.py",
+      "legacy_signature": "cross_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, gt_class_to_avoid, reduction)",
+      "name": "cross_focal_loss",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/ops/cross_focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,C] for reduction=none, otherwise Tensor[1]",
+      "scope": "training",
+      "signature": "cross_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, gt_class_to_avoid, reduction)",
+      "state_updates": "saves complete exclusion/normalization state for preds backward; no reduction shape changes"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same device/dtype and original contiguous layouts; preserve im2col_step constraints",
+      "empty_input": "preserve supplier shape restrictions and exceptions; do not manufacture an empty output",
+      "export": "legacy DeformConv symbol/attributes; no extra forward-only substitution",
+      "gradients": "input, offset, weight",
+      "inputs": "input NCHW; offset channels=2*deformable_groups*kH*kW; weight[O,I/groups,kH,kW]; stride/padding/dilation/groups",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/deformable_conv.py",
+      "legacy_signature": "deformable_conv(input, offset, weight, out_channels, kernel_size, stride, pad, dilations, groups, deformable_groups)",
+      "name": "deformable_conv",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/deformable_conv.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "NCHW Tensor",
+      "scope": "common",
+      "signature": "deformable_conv(input, offset, weight, out_channels, kernel_size, stride, pad, dilations, groups, deformable_groups)",
+      "state_updates": "saves input, offset, weight, columns and ones for all three differentiable inputs"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.all_gather(tensor_list, tensor, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.all_gather(tensor_list, tensor, group=None, async_op=False)",
+      "name": "distributed.all_gather",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.all_gather(tensor_list, tensor, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.all_gather_into_tensor(output_tensor, input_tensor, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.all_gather_into_tensor(output_tensor, input_tensor, group=None, async_op=False)",
+      "name": "distributed.all_gather_into_tensor",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.all_gather_into_tensor(output_tensor, input_tensor, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.all_gather_object(object_list, obj, group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.all_gather_object(object_list, obj, group=None)",
+      "name": "distributed.all_gather_object",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.all_gather_object(object_list, obj, group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.all_reduce(tensor, op=SUM, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.all_reduce(tensor, op=SUM, group=None, async_op=False)",
+      "name": "distributed.all_reduce",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.all_reduce(tensor, op=SUM, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.barrier(group=None, async_op=False, device_ids=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.barrier(group=None, async_op=False, device_ids=None)",
+      "name": "distributed.barrier",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.barrier(group=None, async_op=False, device_ids=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.broadcast(tensor, src, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.broadcast(tensor, src, group=None, async_op=False)",
+      "name": "distributed.broadcast",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.broadcast(tensor, src, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.broadcast_object_list(object_list, src=0, group=None, device=None, **kwargs); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.broadcast_object_list(object_list, src=0, group=None, device=None, **kwargs)",
+      "name": "distributed.broadcast_object_list",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.broadcast_object_list(object_list, src=0, group=None, device=None, **kwargs)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.collective_device(group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.collective_device(group=None)",
+      "name": "distributed.collective_device",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "torch.device; CPU for Gloo, active device otherwise",
+      "scope": "common",
+      "signature": "distributed.collective_device(group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.cpu_group(provider='dist'); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.cpu_group(provider='dist')",
+      "name": "distributed.cpu_group",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Gloo process group",
+      "scope": "common",
+      "signature": "distributed.cpu_group(provider='dist')",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.destroy_process_group(group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.destroy_process_group(group=None)",
+      "name": "distributed.destroy_process_group",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.destroy_process_group(group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.gather(tensor, gather_list=None, dst=0, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.gather(tensor, gather_list=None, dst=0, group=None, async_op=False)",
+      "name": "distributed.gather",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.gather(tensor, gather_list=None, dst=0, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.get_backend(group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.get_backend(group=None)",
+      "name": "distributed.get_backend",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.get_backend(group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.get_rank(group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.get_rank(group=None)",
+      "name": "distributed.get_rank",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.get_rank(group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.get_world_size(group=None); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.get_world_size(group=None)",
+      "name": "distributed.get_world_size",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.get_world_size(group=None)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.init_process_group(backend=None, *args, **kwargs); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.init_process_group(backend=None, *args, **kwargs)",
+      "name": "distributed.init_process_group",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.init_process_group(backend=None, *args, **kwargs)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.is_available(); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.is_available()",
+      "name": "distributed.is_available",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.is_available()",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.is_initialized(); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.is_initialized()",
+      "name": "distributed.is_initialized",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.is_initialized()",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.new_group(ranks=None, timeout=None, backend=None, **kwargs); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.new_group(ranks=None, timeout=None, backend=None, **kwargs)",
+      "name": "distributed.new_group",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.new_group(ranks=None, timeout=None, backend=None, **kwargs)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.reduce(tensor, dst, op=SUM, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.reduce(tensor, dst, op=SUM, group=None, async_op=False)",
+      "name": "distributed.reduce",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.reduce(tensor, dst, op=SUM, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.reduce_scatter(output, input_list, op=SUM, group=None, async_op=False); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.reduce_scatter(output, input_list, op=SUM, group=None, async_op=False)",
+      "name": "distributed.reduce_scatter",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "common/collectives.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same return, mutation and async Work semantics as the supported PyTorch version",
+      "scope": "common",
+      "signature": "distributed.reduce_scatter(output, input_list, op=SUM, group=None, async_op=False)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "PyTorch-compatible core signature; version-specific extra kwargs belong to the supplier",
+      "category": "distributed",
+      "device_and_layout": "collectives use the process group's declared device; CPU Gloo/object groups remain explicit; DDP belongs to training",
+      "empty_input": "preserve pinned PyTorch/transport zero-count collective restrictions; never skip participation on one rank",
+      "export": "host orchestration, not an ONNX graph operator",
+      "gradients": "DDP-owned gradients; collectives do not promise autograd",
+      "inputs": "distributed.wrap_model(model, device_ids=None, **kwargs); standard supported PyTorch process-group, rank, reduction and async Work semantics",
+      "legacy_reference_source": "up/accelerator/distributed.py",
+      "legacy_signature": "distributed.wrap_model(model, device_ids=None, **kwargs)",
+      "name": "distributed.wrap_model",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "training/distributed.py",
+      "registered_providers": {
+        "portable": {
+          "training": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "DistributedDataParallel-compatible model with original parameters",
+      "scope": "training",
+      "signature": "distributed.wrap_model(model, device_ids=None, **kwargs)",
+      "state_updates": "preserve process-group lifecycle, in-place tensor/list writes and Work completion; wrap_model retains parameter identities"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same device/dtype; contiguous box matrices",
+      "empty_input": "either input empty returns the legacy [0] tensor, not [N,M]",
+      "export": "preserve original trace behavior; no dedicated symbolic guarantee",
+      "gradients": "none",
+      "inputs": "b1[N,4], b2[M,4]; mode IoU/IoF/IoS; inclusive coordinates and denominator clamp >=1",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou_overlap.py",
+      "legacy_signature": "gpu_iou_overlap(b1, b2, mode='IoU')",
+      "name": "gpu_iou_overlap",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou_overlap.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable_v1": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": [
+              "torch.float32"
+            ],
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,M]; legacy empty input returns Tensor[0]",
+      "scope": "common",
+      "signature": "gpu_iou_overlap(b1, b2, mode='IoU')",
+      "state_updates": "no input mutation or full backward contract"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.allgather(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.allgather(*args, **kwargs)",
+      "name": "legacy_link.allgather",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.allgather(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.allreduce(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.allreduce(*args, **kwargs)",
+      "name": "legacy_link.allreduce",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.allreduce(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.allreduce_async(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.allreduce_async(*args, **kwargs)",
+      "name": "legacy_link.allreduce_async",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.allreduce_async(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.barrier(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.barrier(*args, **kwargs)",
+      "name": "legacy_link.barrier",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.barrier(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.broadcast(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.broadcast(*args, **kwargs)",
+      "name": "legacy_link.broadcast",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.broadcast(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.finalize(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.finalize(*args, **kwargs)",
+      "name": "legacy_link.finalize",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.finalize(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.gather(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.gather(*args, **kwargs)",
+      "name": "legacy_link.gather",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.gather(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.get_backend(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.get_backend(*args, **kwargs)",
+      "name": "legacy_link.get_backend",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.get_backend(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.get_local_rank(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.get_local_rank(*args, **kwargs)",
+      "name": "legacy_link.get_local_rank",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.get_local_rank(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.get_rank(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.get_rank(*args, **kwargs)",
+      "name": "legacy_link.get_rank",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.get_rank(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.get_world_size(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.get_world_size(*args, **kwargs)",
+      "name": "legacy_link.get_world_size",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.get_world_size(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.initialize(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.initialize(*args, **kwargs)",
+      "name": "legacy_link.initialize",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.initialize(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.is_initialized(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.is_initialized(*args, **kwargs)",
+      "name": "legacy_link.is_initialized",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.is_initialized(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.new_group(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.new_group(*args, **kwargs)",
+      "name": "legacy_link.new_group",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.new_group(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "opaque legacy SDK signature; pin the SDK and delegate without reinterpretation",
+      "category": "optional_linklink",
+      "device_and_layout": "exact supplier tensor/communicator/device layout; optional dependency loaded only on use",
+      "empty_input": "pinned SDK contract; do not claim zero-count support without execution tests",
+      "export": "SDK host orchestration, not an ONNX graph operation",
+      "gradients": "supplier-defined; no invented backward",
+      "inputs": "legacy_link.synchronize(*args, **kwargs); exact pinned spring.linklink signature; no universal SDK ABI is claimed",
+      "legacy_reference_source": "up/accelerator/backends/legacy.py",
+      "legacy_signature": "legacy_link.synchronize(*args, **kwargs)",
+      "name": "legacy_link.synchronize",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "unchanged spring.linklink supplier return",
+      "scope": "common",
+      "signature": "legacy_link.synchronize(*args, **kwargs)",
+      "state_updates": "preserve supplier initialization, groups, in-place writes and async handles; no invented gradient semantics"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_linklink",
+      "device_and_layout": "input device/layout/dtype retained; group and local sample-count semantics follow supplier",
+      "empty_input": "preserve global/local empty-batch synchronization rules; never fake local gradients",
+      "export": "preserve eval normalization behavior; distributed training collectives are not export nodes",
+      "gradients": "supplier-owned complete autograd",
+      "inputs": "link_sync_batch_norm(*args, **kwargs); input[N,C,...], affine[C], running statistics[C], eps/momentum/group as applicable",
+      "legacy_reference_source": "up/accelerator/layers.py",
+      "legacy_signature": "link_sync_batch_norm(*args, **kwargs)",
+      "name": "link_sync_batch_norm",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "shared/layers.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "link.nn.SyncBNFunc.apply result",
+      "scope": "training",
+      "signature": "link_sync_batch_norm(*args, **kwargs)",
+      "state_updates": "training updates running mean/variance/count; eval reads statistics without updating them; complete declared affine/input backward"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same-device result; contiguous detections; no internal score reorder",
+      "empty_input": "N=0 returns same-device int64[0]",
+      "export": "no built-in generic ONNX NMS rewrite; keep original tracing/export behavior",
+      "gradients": "none",
+      "inputs": "dets[N,5]=x1,y1,x2,y2,score already sorted descending; thresh; explicit offset=0 (UP facade passes 0/1)",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/nms.py",
+      "legacy_signature": "naive_nms(dets, thresh)",
+      "name": "naive_nms",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/nms.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [
+              "offset"
+            ],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable": {
+          "common": {
+            "backward": false,
+            "conventions": [
+              "offset"
+            ],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable_v1": {
+          "common": {
+            "backward": false,
+            "conventions": [
+              "offset"
+            ],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": [
+              "torch.float32"
+            ],
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int64 Tensor[K] of kept indices; input already score-sorted",
+      "scope": "common",
+      "signature": "naive_nms(dets, thresh, offset=0)",
+      "state_updates": "does not mutate detections; kept indices retain original index semantics; no backward"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same-device int64 kept indices; original native float32 boxes",
+      "empty_input": "preserve original empty/preselection behavior; no claimed support beyond supplier restrictions",
+      "export": "no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "boxes[N,7], scores[N], thresh, optional pre_maxsize; descending score sort and rotated BEV suppression",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "legacy_signature": "nms_gpu(boxes, scores, thresh, pre_maxsize=None, **kwargs)",
+      "name": "nms_gpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(same-device int64 Tensor[K], None)",
+      "scope": "common",
+      "signature": "nms_gpu(boxes, scores, thresh, pre_maxsize=None, **kwargs)",
+      "state_updates": "no mutation or gradient contract; return (indices,None), not just indices"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same-device int64 kept indices; native contiguous box/score layout",
+      "empty_input": "preserve original empty behavior and exceptions",
+      "export": "no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "boxes[N,7], scores[N], thresh; original non-rotated suppression, not interchangeable with nms_gpu",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/iou3d_nms_utils.py",
+      "legacy_signature": "nms_normal_gpu(boxes, scores, thresh, **kwargs)",
+      "name": "nms_normal_gpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(same-device int64 Tensor[K], None)",
+      "scope": "common",
+      "signature": "nms_normal_gpu(boxes, scores, thresh, **kwargs)",
+      "state_updates": "no mutation or gradient contract; return (indices,None)"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "explicit CPU float32 inputs; int32 membership[M,N]",
+      "empty_input": "retain zero-dimensional membership axes and supplier restrictions",
+      "export": "CPU evaluation API, no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "points[N,3], boxes[M,7]=center,size,heading; preserve original inclusion boundaries",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "legacy_signature": "points_in_boxes_cpu(points, boxes)",
+      "name": "points_in_boxes_cpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "CPU int32 Tensor[M,N] membership mask",
+      "scope": "common",
+      "signature": "points_in_boxes_cpu(points, boxes)",
+      "state_updates": "no mutation or gradients"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; contiguous float32; output int32[B,N]",
+      "empty_input": "retain native empty-batch/point/box restrictions and -1 initialization",
+      "export": "no guaranteed symbolic",
+      "gradients": "none",
+      "inputs": "points[B,N,3], boxes[B,M,7]; same batch; first matching box index or -1",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "legacy_signature": "points_in_boxes_gpu(points, boxes)",
+      "name": "points_in_boxes_gpu",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int32 Tensor[B,N]; box index or -1",
+      "scope": "common",
+      "signature": "points_in_boxes_gpu(points, boxes)",
+      "state_updates": "no gradients or input mutation"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same device; contiguous NCHW features and RoIs",
+      "empty_input": "R=0 retains the original output and backward shapes",
+      "export": "legacy PSRoiAlign node/attributes; original CPU export limitation remains",
+      "gradients": "features",
+      "inputs": "features[N,output_dim*G*G,H,W]; rois[R,5]; group_size G; spatial_scale; output_dim; sampling_ratio",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/psroi_align.py",
+      "legacy_signature": "psroi_align(features, rois, group_size, spatial_scale, output_dim, sampling_ratio)",
+      "name": "psroi_align",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/psroi_align.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,output_dim,group_size,group_size]",
+      "scope": "common",
+      "signature": "psroi_align(features, rois, group_size, spatial_scale, output_dim, sampling_ratio)",
+      "state_updates": "saves channel mapping, RoIs and feature size for feature backward"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same device; contiguous NCHW features and RoIs",
+      "empty_input": "R=0 retains original empty output and zero feature backward",
+      "export": "legacy PSRoiPool node/attributes; CPU numeric execution is not supported",
+      "gradients": "features",
+      "inputs": "features[N,output_dim*G*G,H,W]; rois[R,5]; group_size; spatial_scale; output_dim",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/psroi_pool.py",
+      "legacy_signature": "psroi_pool(features, rois, group_size, spatial_scale, output_dim)",
+      "name": "psroi_pool",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/psroi_pool.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,output_dim,group_size,group_size]",
+      "scope": "common",
+      "signature": "psroi_pool(features, rois, group_size, spatial_scale, output_dim)",
+      "state_updates": "saves channel mapping, RoIs and input size; preserves discrete binning"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_quantization",
+      "device_and_layout": "supplier parameter objects, groups/master tensors and backend enum representation remain unchanged",
+      "empty_input": "retain pinned supplier empty-module/parameter-group validation and exceptions",
+      "export": "host configuration/optimizer state, not a numeric ONNX graph operation",
+      "gradients": "not applicable",
+      "inputs": "quantization_backend_types(); exact optional supplier optimizer/precision/quantization configuration",
+      "legacy_reference_source": "up/accelerator/ops.py",
+      "legacy_signature": "quantization_backend_types()",
+      "name": "quantization_backend_types",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:quantization"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "dict of platform names to supplier BackendType values",
+      "scope": "common",
+      "signature": "quantization_backend_types()",
+      "state_updates": "optimizer construction/reload or explicit precision-module registration only; UP owns hyperparameters and training steps"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_quantization",
+      "device_and_layout": "supplier parameter objects, groups/master tensors and backend enum representation remain unchanged",
+      "empty_input": "retain pinned supplier empty-module/parameter-group validation and exceptions",
+      "export": "host configuration/optimizer state, not a numeric ONNX graph operation",
+      "gradients": "not applicable",
+      "inputs": "register_float_modules(modules, initialize=False); exact optional supplier optimizer/precision/quantization configuration",
+      "legacy_reference_source": "up/accelerator/ops.py",
+      "legacy_signature": "register_float_modules(modules, initialize=False)",
+      "name": "register_float_modules",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "None; supplier FP16 registration side effects",
+      "scope": "training",
+      "signature": "register_float_modules(modules, initialize=False)",
+      "state_updates": "optimizer construction/reload or explicit precision-module registration only; UP owns hyperparameters and training steps"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "optional_optimizer",
+      "device_and_layout": "supplier parameter objects, groups/master tensors and backend enum representation remain unchanged",
+      "empty_input": "retain pinned supplier empty-module/parameter-group validation and exceptions",
+      "export": "host configuration/optimizer state, not a numeric ONNX graph operation",
+      "gradients": "not applicable",
+      "inputs": "reload_fused_optimizer(optimizer); exact optional supplier optimizer/precision/quantization configuration",
+      "legacy_reference_source": "up/accelerator/ops.py",
+      "legacy_signature": "reload_fused_optimizer(optimizer)",
+      "name": "reload_fused_optimizer",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/legacy.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:link"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "None; rebinds/promotes optimizer master parameters in place",
+      "scope": "training",
+      "signature": "reload_fused_optimizer(optimizer)",
+      "state_updates": "optimizer construction/reload or explicit precision-module registration only; UP owns hyperparameters and training steps"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same device; NCHW features and contiguous RoIs of the feature dtype",
+      "empty_input": "R=0 returns [0,C,pooled_h,pooled_w] and zero feature gradients",
+      "export": "legacy RoiAlign node and original attributes; CPU forward is export-only, not a numeric fallback",
+      "gradients": "features",
+      "inputs": "features[N,C,H,W]; rois[R,5]=batch,x1,y1,x2,y2; pooled_h/w; spatial_scale; sampling_ratio; AVG/MAX; aligned=False",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/roi_align.py",
+      "legacy_signature": "roi_align(features, rois, pooled_h, pooled_w, spatial_scale, sampling_ratio, pooled_mode)",
+      "name": "roi_align",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/roi_align.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": true,
+            "conventions": [
+              "aligned"
+            ],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,C,pooled_h,pooled_w]",
+      "scope": "common",
+      "signature": "roi_align(features, rois, pooled_h, pooled_w, spatial_scale, sampling_ratio, pooled_mode, aligned=False)",
+      "state_updates": "saves features/RoIs and the aligned convention for complete backward; does not read global flags"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; contiguous float32; output[R,X,Y,Z,C]",
+      "empty_input": "retain empty-voxel initialization and native empty-input restrictions",
+      "export": "no guaranteed symbolic",
+      "gradients": "pts_feature",
+      "inputs": "rois[R,7], pts[P,3], pts_feature[P,C], out_size int/tuple, max_pts_each_voxel, max/avg mode",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/roiaware_pool3d_utils.py",
+      "legacy_signature": "roiaware_pool3d(rois, pts, pts_feature, out_size, max_pts_each_voxel, pool_method)",
+      "name": "roiaware_pool3d",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[R,out_x,out_y,out_z,C]",
+      "scope": "common",
+      "signature": "roiaware_pool3d(rois, pts, pts_feature, out_size, max_pts_each_voxel, pool_method)",
+      "state_updates": "saves voxel point indices/argmax for pts_feature backward only"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; output[B,M,S,3+C] plus int32 empty flags[B,M]",
+      "empty_input": "retain empty-box flags and original sampling/padding rules; test zero dimensions separately",
+      "export": "no guaranteed symbolic",
+      "gradients": "none; upstream backward raises",
+      "inputs": "points[B,N,3], point_features[B,N,C], boxes3d[B,M,7], pool_extra_width, num_sampled_points S",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/roipoint_pool3d_utils.py",
+      "legacy_signature": "roipoint_pool3d(points, point_features, boxes3d, pool_extra_width, num_sampled_points=512)",
+      "name": "roipoint_pool3d",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/roipoint_pool3d_utils.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(Tensor[B,M,S,3+C], int32 Tensor[B,M] empty flags)",
+      "scope": "common",
+      "signature": "roipoint_pool3d(points, point_features, boxes3d, pool_extra_width, num_sampled_points=512)",
+      "state_updates": "forward-only upstream contract; backward raises, never invent gradients"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "NumPy inputs/output; complete Numba CUDA evaluation operation, not a public CUDA kernel handle",
+      "empty_input": "N=0 or K=0 returns NumPy zeros[N,K]",
+      "export": "evaluation-only; no ONNX symbolic",
+      "gradients": "none",
+      "inputs": "NumPy boxes[N,5], query_boxes[K,5]=x,y,dx,dy,angle; criterion=-1/0/1/other; device_id",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/rotate_iou.py",
+      "legacy_signature": "rotate_iou_eval(boxes, query_boxes, criterion=-1, device_id=0)",
+      "name": "rotate_iou_eval",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/rotate_iou.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "numba"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "numpy float32 ndarray[N,K]; complete evaluation boundary",
+      "scope": "common",
+      "signature": "rotate_iou_eval(boxes, query_boxes, criterion=-1, device_id=0)",
+      "state_updates": "no mutation or gradients; vendor implements whole operation"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; preserve native target dtype and background/ignore-label conventions",
+      "empty_input": "N=0 follows native reduction and normalizer rules; no invented zero-loss shortcut",
+      "export": "no guaranteed ONNX symbolic; export must fail explicitly if unsupported",
+      "gradients": "preds",
+      "inputs": "preds[N,C] logits; targets[N]; weight_pos normalizer; gamma; alpha; num_classes; reduction",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "legacy_signature": "sigmoid_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, reduction)",
+      "name": "sigmoid_focal_loss",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/ops/focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[N,C] for reduction=none, otherwise Tensor[1]",
+      "scope": "training",
+      "signature": "sigmoid_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes, reduction)",
+      "state_updates": "saves logits, targets and normalization for preds backward; none returns [N,C], reduced returns [1]"
+    },
+    {
+      "calling_convention": "original Python function",
+      "category": "native_semantic_operation",
+      "device_and_layout": "legacy explicit CPU internal phase; returns detections/indices to original device",
+      "empty_input": "preserve native N=0 behavior and invalid-method exceptions; no new empty shortcut",
+      "export": "no guaranteed export; existing CPU phase is not permission for other silent CPU fallbacks",
+      "gradients": "none",
+      "inputs": "dets[N,9] coordinates, variance and score columns; thresh/sigma/iou_thresh/iou_method/iou_sigma/method",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/nms.py",
+      "legacy_signature": "softer_nms(dets, thresh=0.0001, sigma=0.5, iou_thresh=0.3, iou_method='linear', iou_sigma=0.02, method='var_voting')",
+      "name": "softer_nms",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "backends/nvidia/ops/nms.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "(modified_dets[K,9], keep_indices); preserves the legacy variance/score columns",
+      "scope": "common",
+      "signature": "softer_nms(dets, thresh=0.0001, sigma=0.5, iou_thresh=0.3, iou_method='linear', iou_sigma=0.02, method='var_voting')",
+      "state_updates": "works on detached CPU detections and updates boxes/scores/variance by original rules"
+    },
+    {
+      "calling_convention": "positional .apply arguments",
+      "category": "native_semantic_operation",
+      "device_and_layout": "same accelerator; native contiguous logits and label layout",
+      "empty_input": "preserve native empty/reduction restrictions and normalization",
+      "export": "no guaranteed ONNX symbolic",
+      "gradients": "preds",
+      "inputs": "preds[N,C]; targets[N]; weight_pos; gamma; alpha; num_classes; original class and ignore conventions",
+      "legacy_reference_source": "up/accelerator/backends/nvidia_ops/focal_loss.py",
+      "legacy_signature": "softmax_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes)",
+      "name": "softmax_focal_loss",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "backends/nvidia/ops/focal_loss.py",
+      "registered_providers": {
+        "nvidia": {
+          "training": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "up_platform.backends.nvidia._C"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[1]",
+      "scope": "training",
+      "signature": "softmax_focal_loss(preds, targets, weight_pos, gamma, alpha, num_classes)",
+      "state_updates": "saves softmax intermediates and target state for preds backward; result stays [1]"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.SparseConv3d(*args, **kwargs); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.SparseConv3d(*args, **kwargs)",
+      "name": "sparse.SparseConv3d",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "scope": "common",
+      "signature": "sparse.SparseConv3d(*args, **kwargs)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.SparseConvTensor(*args, **kwargs); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.SparseConvTensor(*args, **kwargs)",
+      "name": "sparse.SparseConvTensor",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier sparse tensor; original constructor semantics",
+      "scope": "common",
+      "signature": "sparse.SparseConvTensor(*args, **kwargs)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.SparseInverseConv3d(*args, **kwargs); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.SparseInverseConv3d(*args, **kwargs)",
+      "name": "sparse.SparseInverseConv3d",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "scope": "common",
+      "signature": "sparse.SparseInverseConv3d(*args, **kwargs)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.SubMConv3d(*args, **kwargs); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.SubMConv3d(*args, **kwargs)",
+      "name": "sparse.SubMConv3d",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "supplier nn.Module; original constructor and checkpoint keys",
+      "scope": "common",
+      "signature": "sparse.SubMConv3d(*args, **kwargs)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.features(value); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.features(value)",
+      "name": "sparse.features",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor[active_sites,channels]",
+      "scope": "common",
+      "signature": "sparse.features(value)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.is_sparse_convolution(module); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.is_sparse_convolution(module)",
+      "name": "sparse.is_sparse_convolution",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "bool",
+      "scope": "common",
+      "signature": "sparse.is_sparse_convolution(module)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.replace_feature(value, new_features); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.replace_feature(value, new_features)",
+      "name": "sparse.replace_feature",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "sparse tensor with unchanged geometry and replaced features",
+      "scope": "common",
+      "signature": "sparse.replace_feature(value, new_features)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.sequential_forward(sequence, value); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.sequential_forward(sequence, value)",
+      "name": "sparse.sequential_forward",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "sparse or dense result after ordered module execution",
+      "scope": "common",
+      "signature": "sparse.sequential_forward(sequence, value)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "original supplier constructor or exact facade function",
+      "category": "sparse",
+      "device_and_layout": "same device; supplier sparse representation and parameter layout; no new wrapper parameter prefix",
+      "empty_input": "preserve supplier zero-active-site support/restrictions; test constructor, replacement, dense conversion and backward",
+      "export": "no generic sparse exporter promised; supplier must explicitly support required export path",
+      "gradients": "supplier autograd where applicable; preserve feature gradients",
+      "inputs": "sparse.to_dense(value); features[A,C], supplier indices/spatial_shape/batch_size; preserve geometry and ordering",
+      "legacy_reference_source": "up/accelerator/sparse.py",
+      "legacy_signature": "sparse.to_dense(value)",
+      "name": "sparse.to_dense",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/sparse.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": null,
+            "conventions": [],
+            "dependencies": [
+              "provider:sparse"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "dense Tensor in the original supplier layout",
+      "scope": "common",
+      "signature": "sparse.to_dense(value)",
+      "state_updates": "replace_feature preserves geometry; features/to_dense retain graph; layer factories preserve state_dict keys"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "normalization",
+      "device_and_layout": "input device/layout/dtype retained; group and local sample-count semantics follow supplier",
+      "empty_input": "preserve global/local empty-batch synchronization rules; never fake local gradients",
+      "export": "preserve eval normalization behavior; distributed training collectives are not export nodes",
+      "gradients": "input, weight, bias",
+      "inputs": "sync_batch_norm(input, weight, bias, running_mean, running_var, eps, momentum, process_group, world_size); input[N,C,...], affine[C], running statistics[C], eps/momentum/group as applicable",
+      "legacy_reference_source": "up/accelerator/layers.py",
+      "legacy_signature": "sync_batch_norm(input, weight, bias, running_mean, running_var, eps, momentum, process_group, world_size)",
+      "name": "sync_batch_norm",
+      "purposes": [
+        "training"
+      ],
+      "reference_source": "shared/layers.py",
+      "registered_providers": {
+        "portable": {
+          "training": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor with the input shape",
+      "scope": "training",
+      "signature": "sync_batch_norm(input, weight, bias, running_mean, running_var, eps, momentum, process_group, world_size)",
+      "state_updates": "training updates running mean/variance/count; eval reads statistics without updating them; complete declared affine/input backward"
+    },
+    {
+      "calling_convention": "complete supplier operation; keep positional/keyword compatibility",
+      "category": "normalization",
+      "device_and_layout": "input device/layout/dtype retained; group and local sample-count semantics follow supplier",
+      "empty_input": "preserve global/local empty-batch synchronization rules; never fake local gradients",
+      "export": "preserve eval normalization behavior; distributed training collectives are not export nodes",
+      "gradients": "input and module affine parameters",
+      "inputs": "sync_batch_norm_forward(module, value); input[N,C,...], affine[C], running statistics[C], eps/momentum/group as applicable",
+      "legacy_reference_source": "up/accelerator/layers.py",
+      "legacy_signature": "sync_batch_norm_forward(module, value)",
+      "name": "sync_batch_norm_forward",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/layers.py",
+      "registered_providers": {
+        "portable": {
+          "common": {
+            "backward": true,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "Tensor with the input shape",
+      "scope": "common",
+      "signature": "sync_batch_norm_forward(module, value)",
+      "state_updates": "training updates running mean/variance/count; eval reads statistics without updating them; complete declared affine/input backward"
+    },
+    {
+      "calling_convention": "three positional arguments; provider keyword names are not a portable contract",
+      "category": "vision",
+      "device_and_layout": "same device/dtype; scores sorted internally; output int64[K]",
+      "empty_input": "N=0 returns same-device int64[0]",
+      "export": "preserve existing exporter behavior; no new engine-specific rewrite",
+      "gradients": "none",
+      "inputs": "boxes[N,4], scores[N], iou_threshold; three positional arguments; exclusive coordinates",
+      "legacy_reference_source": "up/accelerator/ops.py",
+      "legacy_signature": "torchvision_nms(boxes, scores, iou_threshold)",
+      "name": "torchvision_nms",
+      "purposes": [
+        "training",
+        "inference"
+      ],
+      "reference_source": "shared/portable.py; backends/nvidia/ops/vision.py",
+      "registered_providers": {
+        "nvidia": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "torchvision.ops"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": null,
+            "variants": null
+          }
+        },
+        "portable_v1": {
+          "common": {
+            "backward": false,
+            "conventions": [],
+            "dependencies": [
+              "torch"
+            ],
+            "dtypes": [
+              "torch.float32"
+            ],
+            "variants": null
+          }
+        }
+      },
+      "requirement": "model_or_feature_dependent",
+      "returns": "same-device int64 Tensor[K]",
+      "scope": "common",
+      "signature": "torchvision_nms(boxes, scores, iou_threshold)",
+      "state_updates": "no mutation or backward contract; ties need not be bitwise identical"
+    }
+  ],
+  "runtime": [
+    {
+      "contract": "Accept device=None/string/torch.device; reject foreign namespaces; no allocation or health check on ordinary import.",
+      "kind": "method",
+      "name": "__init__",
+      "owner": "DeviceBackend",
+      "signature": "__init__(self, device=None)"
+    },
+    {
+      "contract": "Return the selected torch device namespace; CPU returns None; missing SDK raises.",
+      "kind": "property",
+      "name": "api",
+      "owner": "DeviceBackend",
+      "signature": "api"
+    },
+    {
+      "contract": "Return torch.device with current logical index and visible-device mapping, not a physical PCI index.",
+      "kind": "property",
+      "name": "device",
+      "owner": "DeviceBackend",
+      "signature": "device"
+    },
+    {
+      "contract": "Return actual runtime availability, not merely SDK importability.",
+      "kind": "method",
+      "name": "is_available",
+      "owner": "DeviceBackend",
+      "signature": "is_available(self)"
+    },
+    {
+      "contract": "Return visible logical device count; CPU test backend returns 1.",
+      "kind": "method",
+      "name": "device_count",
+      "owner": "DeviceBackend",
+      "signature": "device_count(self)"
+    },
+    {
+      "contract": "Return current logical index; CPU returns 0.",
+      "kind": "method",
+      "name": "current_device",
+      "owner": "DeviceBackend",
+      "signature": "current_device(self)"
+    },
+    {
+      "contract": "Resolve None/string/device/int without changing binding; reject foreign device types.",
+      "kind": "method",
+      "name": "resolve_device",
+      "owner": "DeviceBackend",
+      "signature": "resolve_device(self, device=None)"
+    },
+    {
+      "contract": "Bind this process to logical device/index; CPU no-op.",
+      "kind": "method",
+      "name": "set_device",
+      "owner": "DeviceBackend",
+      "signature": "set_device(self, device)"
+    },
+    {
+      "contract": "Return bool from tensor.device.type; CPU tensors are not accelerator tensors.",
+      "kind": "method",
+      "name": "is_accelerator_tensor",
+      "owner": "DeviceBackend",
+      "signature": "is_accelerator_tensor(self, tensor)"
+    },
+    {
+      "contract": "Check python/package specifiers; report installed versions; never install or replace vendor Torch.",
+      "kind": "method",
+      "name": "validate_environment",
+      "owner": "DeviceBackend",
+      "signature": "validate_environment(self, requirements)"
+    },
+    {
+      "contract": "Move Tensor/Module and recursive mapping/list/tuple/namedtuple; retain dtype, graph and parameter identity as PyTorch .to allows; honor non_blocking.",
+      "kind": "method",
+      "name": "to_device",
+      "owner": "DeviceBackend",
+      "signature": "to_device(self, value, device=None, non_blocking=False)"
+    },
+    {
+      "contract": "Legacy size/data constructors; torch.Size is a shape; current-device float32, preserve kwargs.",
+      "kind": "method",
+      "name": "float_tensor",
+      "owner": "DeviceBackend",
+      "signature": "float_tensor(self, *args, **kwargs)"
+    },
+    {
+      "contract": "Legacy size/data constructors; current-device int32, preserve kwargs.",
+      "kind": "method",
+      "name": "int_tensor",
+      "owner": "DeviceBackend",
+      "signature": "int_tensor(self, *args, **kwargs)"
+    },
+    {
+      "contract": "Seed the original device scope; do not silently expand to all devices; optional numerical RNG reseeds too.",
+      "kind": "method",
+      "name": "manual_seed",
+      "owner": "DeviceBackend",
+      "signature": "manual_seed(self, seed)"
+    },
+    {
+      "contract": "Return vendor RNG state or explicit experimental state envelope; not cross-vendor bitwise equivalence.",
+      "kind": "method",
+      "name": "get_rng_state",
+      "owner": "DeviceBackend",
+      "signature": "get_rng_state(self, *args, **kwargs)"
+    },
+    {
+      "contract": "Restore the matching state and optional numerical counter; invalid/foreign state must not be ignored.",
+      "kind": "method",
+      "name": "set_rng_state",
+      "owner": "DeviceBackend",
+      "signature": "set_rng_state(self, state, *args, **kwargs)"
+    },
+    {
+      "contract": "Report native/portable_v1, protocol, seed/counter and executed numerical operation counts; not an accuracy pass.",
+      "kind": "method",
+      "name": "numerics_state",
+      "owner": "DeviceBackend",
+      "signature": "numerics_state(self)"
+    },
+    {
+      "contract": "Wait for selected device/stream per vendor API; CPU no-op; preserve exceptions.",
+      "kind": "method",
+      "name": "synchronize",
+      "owner": "DeviceBackend",
+      "signature": "synchronize(self, *args, **kwargs)"
+    },
+    {
+      "contract": "Release unused allocator cache only, not live tensors; CPU no-op.",
+      "kind": "method",
+      "name": "empty_cache",
+      "owner": "DeviceBackend",
+      "signature": "empty_cache(self)"
+    },
+    {
+      "contract": "Reset allocator peak statistics for selected runtime; CPU no-op.",
+      "kind": "method",
+      "name": "reset_peak_memory_stats",
+      "owner": "DeviceBackend",
+      "signature": "reset_peak_memory_stats(self)"
+    },
+    {
+      "contract": "Allocated bytes on requested/current device; CPU returns 0.",
+      "kind": "method",
+      "name": "memory_allocated",
+      "owner": "DeviceBackend",
+      "signature": "memory_allocated(self, device=None)"
+    },
+    {
+      "contract": "Peak allocated bytes; CPU returns 0.",
+      "kind": "method",
+      "name": "max_memory_allocated",
+      "owner": "DeviceBackend",
+      "signature": "max_memory_allocated(self, device=None)"
+    },
+    {
+      "contract": "Return vendor properties including total_memory where required; CPU raises explicit capability error.",
+      "kind": "method",
+      "name": "get_device_properties",
+      "owner": "DeviceBackend",
+      "signature": "get_device_properties(self, device=None)"
+    },
+    {
+      "contract": "Context manager with enabled/dtype; reject unavailable device or unsupported dtype; training and inference choose separate overrides.",
+      "kind": "method",
+      "name": "autocast",
+      "owner": "execution.autocast (training or inference)",
+      "signature": "autocast(self, enabled=True, **kwargs)"
+    },
+    {
+      "contract": "Training-only compatible scale/step/update/state_dict/load_state_dict; validation must not step/update it.",
+      "kind": "method",
+      "name": "grad_scaler",
+      "owner": "TrainingBackend",
+      "signature": "grad_scaler(self, **kwargs)"
+    },
+    {
+      "contract": "Set vendor convolution-library policy; compatible CUDA-shaped controls are explicitly shared.",
+      "kind": "method",
+      "name": "configure_convolution",
+      "owner": "DeviceBackend",
+      "signature": "configure_convolution(self, enabled=True)"
+    },
+    {
+      "contract": "Allocate, compute and synchronize on target hardware; return True or raise, never CPU fallback.",
+      "kind": "method",
+      "name": "health_check",
+      "owner": "DeviceBackend",
+      "signature": "health_check(self)"
+    },
+    {
+      "contract": "Temporary convolution policy context restoring prior state even on exception.",
+      "kind": "method",
+      "name": "convolution_flags",
+      "owner": "DeviceBackend",
+      "signature": "convolution_flags(self, enabled=True)"
+    },
+    {
+      "contract": "Dispatch a complete semantic operation through the initialized purpose's frozen registry; preserve outputs/autograd.",
+      "kind": "method",
+      "name": "call",
+      "owner": "PlatformContext",
+      "signature": "call(self, name, *args, _conventions=None, **kwargs)"
+    },
+    {
+      "contract": "Lazily load the named sparse/link/quantization/pruning provider or fail with backend and reason.",
+      "kind": "method",
+      "name": "dependency",
+      "owner": "DeviceBackend",
+      "signature": "dependency(self, name)"
+    },
+    {
+      "contract": "Report registration, declared dependency checks, successful execution count and hardware validation separately.",
+      "kind": "method",
+      "name": "capabilities",
+      "owner": "PlatformContext",
+      "signature": "capabilities(self)"
+    }
+  ],
+  "runtime_attributes": [
+    "name",
+    "device_type",
+    "communication_backend",
+    "op_fallbacks",
+    "extension_modules",
+    "numerical_profiles"
+  ],
+  "runtime_class": "DeviceBackend + purpose execution + PlatformContext",
+  "status": "structural migration contract, not a new hardware validation result"
+}

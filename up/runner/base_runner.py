@@ -1,4 +1,5 @@
 from up.accelerator import get_accelerator
+from up_platform.training.evaluation import preserve_evaluation_state
 import torch.optim
 import time
 import os
@@ -68,6 +69,10 @@ class BaseRunner(object):
 
     def prepare_fp16(self):
         if self.config['runtime'].get('fp16', False):
+            if get_accelerator().purpose == 'inference':
+                self.fp16 = True
+                FP16_FLAG.fp16 = True
+                return
             if self.backend == 'dist':
                 self.scaler = get_accelerator().grad_scaler(enabled=True)
             else:
@@ -336,7 +341,7 @@ class BaseRunner(object):
         logger.info(f"is_eval: {self.is_eval}")
 
     def prepare_dist_model(self):
-        if env.distributed:
+        if env.distributed and get_accelerator().purpose == 'training':
             if self.backend == 'dist':
                 logger.info('using ddp')
                 self.model = DDP(self.model, device_ids=[env.local_rank], broadcast_buffers=False)
@@ -385,7 +390,6 @@ class BaseRunner(object):
                     if self.ema is not None:
                         all_reduce_norm(self.ema.model)
                 self.evaluate()
-                self.model.train()
             if self.only_save_latest:
                 self.save_epoch_ckpt(iter_idx)
             else:
@@ -493,6 +497,7 @@ class BaseRunner(object):
                     f.write('[Done] writing all results to {} done. \n'.format(res_file))
         return res_file, all_device_results_list
 
+    @preserve_evaluation_state
     @torch.no_grad()
     def evaluate(self):
         res_file, all_device_results_list = self.inference()

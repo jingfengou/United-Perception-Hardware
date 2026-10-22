@@ -1,5 +1,7 @@
 # 硬件隔离与后端路由
 
+当前实现已迁到独立 [up-platform](../platform/README.md)，训练/推理按用途分离。新接入请使用[新接口](../platform/INTERFACES.md)和[厂商指南](../platform/ADDING_VENDOR.md)。本目录保留旧 API 兼容说明及冻结真机报告；它们不等于新包源码已完成真机验收。此前 GPU 精度复测仍暂停。
+
 需要逐项核对硬件适配接口时，先读[完整接口定义](INTERFACE.md)，再查[全部函数签名](API_INDEX.md)或[机器可读清单](interface_contract.json)。这些清单与实际注册项通过自动检查保持一致。
 
 NVIDIA 原版/路由版训练对照见[五模型多随机种子报告](MULTISEED_ACCURACY.md)。它与能力注册、合成输入功能检查及国产设备真机验收是不同层面的证据。

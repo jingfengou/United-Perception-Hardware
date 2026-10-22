@@ -1,0 +1,94 @@
+{
+  "artifacts": {
+    "up-0.3.0-py3-none-any.whl": {
+      "bytes": 615577,
+      "sha256": "1d8653cf6e69a7f91a1ea28a1301c0e3800818156e375bcc03b2368a030c1775"
+    },
+    "up-0.3.0.tar.gz": {
+      "bytes": 605222,
+      "sha256": "268ecb16a0478bfdc4f746192473efa0888a79298175bdd6c740db3573c3c230"
+    },
+    "up_platform-0.1.0-py3-none-any.whl": {
+      "bytes": 130650,
+      "sha256": "5f5cb2bccc9a068dc537758363f34bf0e244f8bf6e7fd8bebe9a34eae3a4d2c1"
+    },
+    "up_platform-0.1.0.tar.gz": {
+      "bytes": 92676,
+      "sha256": "339d8bfea5fab893894934c52b9bbbd973d47553dd2d30249473abe02bedbbb2"
+    }
+  },
+  "contract_counts": {
+    "operations": 73,
+    "runtime_migrated": 31
+  },
+  "date": "2026-10-22",
+  "documentation": {
+    "local_links_checked": 77,
+    "python_snippets_parsed": 11
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26100-SP0",
+    "packages": {
+      "numpy": "2.5.4",
+      "onnx": "1.23.2",
+      "packaging": "26.3",
+      "pycocotools": "2.0.10",
+      "pytest": "9.1.1",
+      "scipy": "1.18.1",
+      "setuptools": "78.1.0",
+      "torch": "2.10.0+cpu"
+    },
+    "python": "3.13.11"
+  },
+  "gpu_training_started": false,
+  "hardware_boundary_violations": 0,
+  "independent_no_torch_no_up_import": "passed using installed platform wheel with python -I outside repository",
+  "native_source_files_unchanged_after_line_ending_normalization": 43,
+  "new_hardware_acceptance": {
+    "ascend": {
+      "inference": "not_validated",
+      "training": "not_validated"
+    },
+    "cambricon": {
+      "inference": "not_validated",
+      "training": "not_validated"
+    },
+    "metax": {
+      "inference": "not_retested",
+      "training": "not_retested"
+    },
+    "nvidia": {
+      "inference": "not_retested",
+      "training": "not_retested"
+    }
+  },
+  "no_torch_python_public_build": {
+    "python": "3.13.11",
+    "torch_installed": false,
+    "wheel_and_sdist": [
+      "up-platform",
+      "UP"
+    ]
+  },
+  "nvidia_cuda_build_executed": false,
+  "pre_migration_commit": "0c9a43c7493563f837ad9dd27761cb00bf5fa1ce",
+  "scope": "structural CPU contracts and packaging; NOT new GPU acceptance",
+  "source_manifest_canonical_sha256": "746dafbaec3484ffaa5acb5f47a5cab6096da23ed8a62ddf9f67b3f09262b27e",
+  "source_manifest_file": "source_manifest.json",
+  "tests": {
+    "installed_wheel_outside_repository_without_up": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 19
+    },
+    "source_cpu": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 248
+    }
+  },
+  "upper_model_algorithms_and_historical_validation_unmodified": true,
+  "vendor_example": "passed; CPU example overrides only naive_nms; gpu_iou_overlap provider remains portable"
+}

@@ -38,7 +38,7 @@ def _main(args):
 
     cfg = load_yaml(args.config, 'up')
     from up.accelerator import configure_accelerator
-    configure_accelerator(cfg)
+    configure_accelerator(cfg, purpose="inference")
     cfg['args'] = {
         'video_file': args.video_file,
         'ckpt': args.ckpt,

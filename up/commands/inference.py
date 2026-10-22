@@ -91,7 +91,7 @@ class Inference(Subcommand):
 
 
 def main(args):
-    activate_args(args)
+    activate_args(args, purpose="inference")
     cfg = load_yaml(args.config, args.cfg_type)
     cfg['args'] = {
         'image_path': args.image_path,
@@ -117,7 +117,7 @@ def main(args):
 
 
 def _main(args):
-    prepare_args(args)
+    prepare_args(args, purpose="inference")
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)

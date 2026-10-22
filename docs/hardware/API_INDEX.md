@@ -9,13 +9,13 @@ Registration does not prove SDK availability or hardware validation. Null dtype/
 
 | API | Signature |
 | --- | --- |
-| `up.accelerator.configure_accelerator` | `configure_accelerator(config=None, backend=None, device=None, reset=False)` |
+| `up.accelerator.configure_accelerator` | `configure_accelerator(config=None, backend=None, device=None, reset=False, *, purpose=None)` |
 | `up.accelerator.get_accelerator` | `get_accelerator()` |
 | `up.accelerator.capabilities` | `capabilities()` |
-| `up.accelerator.prepare_args` | `prepare_args(args)` |
-| `up.accelerator.activate_args` | `activate_args(args)` |
+| `up.accelerator.prepare_args` | `prepare_args(args, *, purpose=None)` |
+| `up.accelerator.activate_args` | `activate_args(args, *, purpose=None)` |
 | `up.accelerator.register_backend` | `register_backend(name, factory=None, replace=False, probe=None)` |
-| `up.accelerator.register_op` | `register_op(backend, name, implementation=None, backward=None, replace=False, dtypes=None, variants=None)` |
+| `up.accelerator.register_op` | `register_op(backend, name, implementation=None, backward=None, replace=False, dtypes=None, variants=None, *, scope=None, conventions=(), dependencies=())` |
 | `up.accelerator.ops.call` | `call(name, *args, **kwargs)` |
 
 ## Runtime
@@ -47,13 +47,13 @@ Inherit `TorchAccelerator`; override incompatible methods only.
 | `memory_allocated` | method | `memory_allocated(self, device=None)` |
 | `max_memory_allocated` | method | `max_memory_allocated(self, device=None)` |
 | `get_device_properties` | method | `get_device_properties(self, device=None)` |
-| `autocast` | method | `autocast(self, enabled=True, **kwargs)` |
-| `grad_scaler` | method | `grad_scaler(self, **kwargs)` |
 | `configure_convolution` | method | `configure_convolution(self, enabled=True)` |
 | `health_check` | method | `health_check(self)` |
 | `convolution_flags` | method | `convolution_flags(self, enabled=True)` |
-| `call` | method | `call(self, name, *args, **kwargs)` |
 | `dependency` | method | `dependency(self, name)` |
+| `autocast` | method | `autocast(self, enabled=True, **kwargs)` |
+| `grad_scaler` | method | `grad_scaler(self, **kwargs)` |
+| `call` | method | `call(self, name, *args, **kwargs)` |
 | `capabilities` | method | `capabilities(self)` |
 
 ## Routed Operations

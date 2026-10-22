@@ -127,7 +127,10 @@ def run(args):
               "steps": []}
     report["initial_metrics"] = dict(runner.evaluate())
     roi = RoiTrace(output, args.replay_roi)
-    native_roi = importlib.import_module("up.extensions._C").roi_align
+    if (source / "packages/up-platform").exists():
+        native_roi = importlib.import_module("up.accelerator.native").load_extension().roi_align
+    else:
+        native_roi = importlib.import_module("up.extensions._C").roi_align
     original_backward = native_roi.backward_avg_cuda
     native_roi.backward_avg_cuda = roi.wrap(original_backward)
     stage = {}

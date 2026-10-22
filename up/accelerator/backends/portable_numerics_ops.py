@@ -1,19 +1,5 @@
-"""Same semantic NMS/overlap, with a common widened path for portable_v1."""
-from . import portable
+"""Compatibility alias; implementation lives in the independent platform package."""
+import importlib
+import sys
 
-
-def naive_nms(dets, thresh):
-    from up.flags import ALIGNED_FLAG
-    import torch
-    boxes = dets.double()
-    return portable._ordered_nms(boxes, torch.arange(len(boxes), device=boxes.device),
-                                 thresh, ALIGNED_FLAG.offset)
-
-
-def torchvision_nms(boxes, scores, threshold):
-    order = scores.argsort(descending=True, stable=True)
-    return portable._ordered_nms(boxes.double(), order, threshold, 0)
-
-
-def gpu_iou_overlap(b1, b2, mode="IoU"):
-    return portable.gpu_iou_overlap(b1.double(), b2.double(), mode).to(b1.dtype)
+sys.modules[__name__] = importlib.import_module("up_platform.experimental.numerics.portable_numerics_ops")

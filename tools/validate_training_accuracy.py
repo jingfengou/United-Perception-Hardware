@@ -380,7 +380,8 @@ def run(args):
                         "convolution_library_enabled": torch.backends.cudnn.enabled,
                         "numerical_profile": get_accelerator().numerics_state()["profile"] if get_accelerator else "native",
                         "default_tasks": os.environ["DEFAULT_TASKS"]},
-        "nvidia_extension_loaded": "up.extensions._C" in sys.modules,
+        "nvidia_extension_loaded": any(name in sys.modules for name in (
+            "up.extensions._C", "up_platform.backends.nvidia._C")),
         "compatibility_shims": compatibility_shims,
         "driver_sha256": file_hash(__file__),
         "adapter_sha256": file_hash(Path(__file__).with_name("accuracy_detr_adapter.py")) if args.model == "detr" else None,

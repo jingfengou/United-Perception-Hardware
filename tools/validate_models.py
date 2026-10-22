@@ -279,7 +279,8 @@ def run(args):
             report["errors"][name] = traceback.format_exc()
             print(name, report["errors"][name], flush=True)
     report["passed"] = not report["errors"]
-    report["nvidia_extension_loaded"] = "up.extensions._C" in sys.modules
+    report["nvidia_extension_loaded"] = any(name in sys.modules for name in (
+        "up.extensions._C", "up_platform.backends.nvidia._C"))
     Path(args.output).write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))
     raise SystemExit(bool(report["errors"]))

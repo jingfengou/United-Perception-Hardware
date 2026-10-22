@@ -25,7 +25,7 @@ class BaseInference(object):
         opts = self.args.get('opts', [])
         config = merge_opts_into_cfg(opts, config)
         from up.accelerator import configure_accelerator
-        configure_accelerator(config)
+        configure_accelerator(config, purpose="inference")
         self.config = config
         self.class_names = visualizer.get('class_names', None)
         self.work_dir = work_dir

@@ -1,4 +1,5 @@
-recursive-include up/extensions/csrc *.cpp *.cu *.h *.hpp *.cuh
+recursive-include docs/platform *.md *.json
+prune docs/platform/validation
 recursive-include docs/hardware *.md
 include docs/hardware/upstream_inventory.json
 prune docs/hardware/validation

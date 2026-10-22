@@ -1,5 +1,7 @@
 # 新增厂商
 
+**新开发请读[独立平台包厂商指南](../platform/ADDING_VENDOR.md)。** 本文中的 up.accelerator 插件协议继续由兼容层支持，但新协议要求显式 training/inference/common scope，并分别注册用途工厂。旧注册默认 common，已明确的训练专用操作则转成 training；新开发不能靠隐式默认来声明仅训练或仅推理的实现。
+
 开始实现前先查阅[完整接口定义](INTERFACE.md)、[全部函数签名](API_INDEX.md)和[机器可读清单](interface_contract.json)。共享运行时不兼容的方法需要覆盖，专用操作按目标模型需求补齐，不要求重新实现普通 PyTorch 或未启用的可选 SDK。
 
 基本接入默认使用 `native` 数值配置。需要共同 GPU 随机流和选定宽精度实现时，另见[可选数值配置](PORTABLE_NUMERICS.md)；仅声明设备可用或接口兼容，不能替代该配置的 dtype、SDK 和精度验收。
