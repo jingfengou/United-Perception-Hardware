@@ -4,3 +4,4 @@ recursive-include docs/hardware *.md
 include docs/hardware/upstream_inventory.json
 prune docs/hardware/validation
 recursive-include requirements *.txt
+recursive-include assets/readme *.svg

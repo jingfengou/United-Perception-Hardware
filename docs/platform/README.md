@@ -1,6 +1,6 @@
 # UP 平台包
 
-`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。它管理硬件边界，不增加新模型算法或推理引擎。当前厂商入口见[简化记录](../reports/VENDOR_SIMPLIFICATION_20261022.md)，前次目录整理见[收敛记录](../reports/CONSOLIDATION_20261022.md)；[历史短程真机对照](../reports/platform/REAL_HARDWARE.md)分别记录 NVIDIA/沐曦的范围与未通过项，不自动转记为新版本已复测。
+`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。它管理硬件边界，不增加新模型算法或推理引擎。当前厂商入口见[简化记录](../reports/VENDOR_SIMPLIFICATION_20261022.md)，前次目录整理见[收敛记录](../reports/CONSOLIDATION_20261022.md)；[当前真机与完整预算回归](../reports/CURRENT_VALIDATION_20261022.md)分别记录 NVIDIA/沐曦的实际范围及未通过项，[更早短程结果](../reports/platform/REAL_HARDWARE.md)不自动转记为新版本通过。
 
 ## 1. 调用关系
 
@@ -117,7 +117,8 @@ UP 原 YAML 保持不变：`runtime.accelerator.backend` 选择厂商，`runtime
 - [能力矩阵](CAPABILITIES.md)：注册不等于依赖可用、已执行或真机通过。
 - [环境要求](ENVIRONMENTS.md)：厂商版本组合、普通依赖与历史兼容前置。
 - [数值策略](NUMERICAL_POLICIES.md)：默认 native 与可选实验的隔离边界。
-- [本次验收](../reports/platform/VALIDATION.md)：CPU/构建结果与尚未复测的硬件范围。
+- [当前真机与完整预算回归](../reports/CURRENT_VALIDATION_20261022.md)：固定运行时、数据、种子、审计与未通过项。
+- [历史拆包验收](../reports/platform/VALIDATION.md)：原冻结阶段的 CPU/构建结果，不代替当前 GPU 验收。
 
 ```bash
 python tools/platform/check_hardware_boundaries.py

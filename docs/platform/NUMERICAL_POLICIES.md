@@ -7,7 +7,7 @@
 | 策略 | 实现归属 | 用途与限制 |
 | --- | --- | --- |
 | `native` | `common/policy.py` | 无操作策略，保留原生设备行为 |
-| `metax_deterministic_v1` | `backends/metax/` | 显式 C500 FP32 卷积权重一阶梯度替换；有临时显存/计算代价，见[报告](../reports/platform/METAX_DETERMINISM.md) |
+| `metax_deterministic_v1` | `backends/metax/` | 显式 C500 FP32 卷积权重一阶梯度替换；有临时显存/计算代价。只解决局部问题，不保证全流程确定性；[完整预算](../reports/CURRENT_VALIDATION_20261022.md)中 DETR 及其同版本重复均未通过 |
 | `portable_v1` | `experimental/numerics/policy.py` | 实验性固定 RNG、归约顺序及部分 GPU FP64 中间计算；默认关闭，不承诺跨厂商全量精度等价 |
 
 ## 隔离边界
@@ -26,4 +26,4 @@
 
 `portable_v1` 当前不支持 AMP，需要兼容的 CUDA-shaped 厂商运行时及厂商 Triton。其历史完整预算结果对应冻结源码，不应拿整理后的运行时续跑旧阶段或覆盖旧结果。见[历史数值协议](../reports/hardware/PORTABLE_NUMERICS.md)和[暂停阶段报告](../reports/hardware/CROSS_VENDOR_FIX.md)。
 
-结构整理只验证生命周期与 native 隔离，不提升任何真机支持等级。后续数学修复必须新建源码与结果阶段，保持原模型、容差及原失败记录。
+前次结构整理只验证生命周期与 native 隔离；[本轮单种子回归](../reports/CURRENT_VALIDATION_20261022.md)另行记录实际完整预算及未通过项，不能泛化为所有模型或跨厂商等价。后续数学修复必须新建源码与结果阶段，保持原模型、容差及原失败记录。

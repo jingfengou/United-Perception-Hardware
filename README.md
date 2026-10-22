@@ -1,17 +1,33 @@
 # United Perception Hardware
 
-基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception) 的多厂商硬件适配版。保留 UP 的模型、损失、数据和训练配方，将设备、专用算子与厂商 SDK 隔离到同仓独立包 [`up-platform`](packages/up-platform/)。
+[![CPU contracts and packaging](https://github.com/jingfengou/United-Perception-Hardware/actions/workflows/hardware-boundaries.yml/badge.svg)](https://github.com/jingfengou/United-Perception-Hardware/actions/workflows/hardware-boundaries.yml)
 
-```text
-UP 模型与业务 → up.accelerator 兼容门面 → up_platform
-                                        ├ training：训练与训练内 eval
-                                        ├ inference：独立推理与导出
-                                        └ common/shared + 厂商后端
-```
+**保留 UP 的算法与配方，只适配硬件差异。**
 
-普通 PyTorch 计算直接复用；新增厂商只实现不兼容部分。缺少能力时明确报错，不新增静默 CPU 模型代算。训练中的 `.eval()` 不切换部署后端。
+基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception)，将设备、专用算子和厂商 SDK 收入同仓独立包 [`up-platform`](packages/up-platform/)。训练与独立推理分开适配，公共能力只维护一份；原有 `up.accelerator`、算子导入和 `.apply()` 入口继续兼容。
 
-[平台手册](docs/platform/README.md) · [完整接口](docs/platform/INTERFACES.md) · [新增厂商](docs/platform/ADDING_VENDOR.md) · [能力矩阵](docs/platform/CAPABILITIES.md) · [验证与归档](docs/reports/README.md)
+[使用手册](docs/platform/README.md) · [接口定义](docs/platform/INTERFACES.md) · [新增厂商](docs/platform/ADDING_VENDOR.md) · [能力矩阵](docs/platform/CAPABILITIES.md) · [验证记录](docs/reports/README.md)
+
+## 验证状态
+
+验证运行时冻结于 `f78e27a`。本轮使用真实 CIFAR-10 / PennFudan 子集，四模型、单种子、完整固定预算；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。
+
+| 范围 | 实测结论 |
+| --- | --- |
+| NVIDIA RTX 4090 | 四模型与原版 UP 完整预算结果逐位一致；32 项算子与训练/eval/恢复/独立推理短程对照通过 |
+| C500 native | 同权重独立推理四模型逐位一致；训练短程数值对照仅 ViT 通过 |
+| C500 可选策略 | ResNet18、YOLO、ViT 完整预算逐位一致；DETR 未通过 |
+| 昇腾 / 寒武纪 | 有设备入口，专用操作与真机验收未齐全 |
+
+C500 完整预算两版均显式启用 `metax_deterministic_v1`，不代表默认 native 训练通过。失败与同版本重复对照均保留；旧多随机种子复测仍暂停，CPU CI 不代表 GPU 精度验收。[本轮协议与结果](docs/reports/CURRENT_VALIDATION_20261022.md) · [历史结果与证据](docs/reports/README.md)
+
+## 工作方式
+
+![UP 通过兼容门面进入平台包；训练及训练内 eval、独立推理分别路由，复用 common/shared 与已选厂商实现。](assets/readme/platform.svg)
+
+- **UP 管算法与业务。** 模型、损失、数据、学习率和训练步骤留在 UP；普通设备无关 PyTorch 计算不重复包装。
+- **平台管硬件差异。** 设备运行时、AMP、通信、专用操作和层按厂商路由；缺失能力明确报错，不新增静默 CPU 模型代算。
+- **用途由入口决定。** 训练内 eval 和 `train --evaluate` 保持 training 路径，退出后恢复模块状态；独立推理与导出走 inference，不依据 `.eval()` 猜测用途。
 
 ## 安装
 
@@ -32,8 +48,8 @@ python -m pip install --no-deps --no-build-isolation -e .
 需要 UP 原生检测/点云操作时，在匹配的 CUDA toolkit 和编译器环境中显式构建：
 
 ```bash
-# 8.0 对应 A800；其他设备请设置其真实编译架构。
-UP_BUILD_BACKEND=nvidia TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=2 \
+# 4090 为 8.9，A800 为 8.0；按实际 GPU 设置。
+UP_BUILD_BACKEND=nvidia TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=2 \
   python -m pip install --no-deps --no-build-isolation -e ./packages/up-platform
 ```
 
@@ -76,24 +92,15 @@ python -m up inference --config your_detection_model.yaml \
 
 ## 新增厂商
 
+**一个设备后端 + 实际训练/推理差异 + 缺失算子。** 不必先猜“支持哪些模型”，也不必重写全部 73 项操作。
+
 1. 准备厂商匹配的 PyTorch、SDK 和通信库，记录环境组合。
 2. 实现设备后端并 `register_backend(VendorDevice)`，训练/推理默认复用公共实现，不用写空类。
 3. 只在确有差异时增加训练/推理实现及缺失算子，交付所需反向、状态和测试，再做真机验收。
 
-无需先猜厂商“支持哪些模型”，也不必重写全部 73 项操作。按[接口定义](docs/platform/INTERFACES.md)、[逐项索引](docs/platform/API_INDEX.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)实现与验证即可；已有模型和配方保持不变。
+从[逐步指南](docs/platform/ADDING_VENDOR.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)开始。函数签名、布局、空输入、梯度和导出要求见[完整接口索引](docs/platform/API_INDEX.md)；已有模型与配方保持不变，注册成功不等于真机通过。
 
-## 验证范围
-
-以下是各自冻结版本的已有记录，不代表整理后的新版本已重新完成 GPU 验收：
-
-| 范围 | 已有证据 / 限制 |
-| --- | --- |
-| NVIDIA A800 | 独立包四模型短程训练、训练 eval、恢复、独立推理及 32 项操作对照通过 |
-| 沐曦 C500 native | 四模型可运行且同权重推理一致；严格训练数值对照仅 ViT 通过 |
-| 沐曦局部确定性选项 | ResNet/YOLO/DETR 同种子短程对照通过，不等于全量或跨厂商精度等价 |
-| 昇腾、寒武纪 | 有运行时入口，专用操作及真机验收未齐全 |
-
-默认 `native` 不变。`portable_v1` 等[数值策略](docs/platform/NUMERICAL_POLICIES.md)显式启用、单独验收，不是基本厂商接入要求；旧多随机种子复测仍暂停。当前 CPU/构建/CI 结果见[厂商入口简化记录](docs/reports/VENDOR_SIMPLIFICATION_20261022.md)，目录与证据归档见[前次整理](docs/reports/CONSOLIDATION_20261022.md)，历史结果见[报告索引](docs/reports/README.md)。
+默认 `native` 不变。`metax_deterministic_v1` 仅处理局部卷积权重梯度，**不能保证全流程确定性**；`portable_v1` 是另行隔离的实验选项，都不是基本接入要求。[数值策略边界](docs/platform/NUMERICAL_POLICIES.md)
 
 ## 开发与目录
 
@@ -117,7 +124,7 @@ python tools/platform/check_project.py
 python -m pytest -q
 ```
 
-CPU 测试、公共构建和 GPU 验收分别记录，不把注册成功当成硬件支持。目录迁移与旧命令对照见[工具入口](benchmark/hardware/README.md)。
+CPU 测试、公共构建和 GPU 验收分别记录。目录迁移与旧命令见[工具入口](benchmark/hardware/README.md)，历史整理与简化见[报告索引](docs/reports/README.md)。
 
 ## 来源与证据
 

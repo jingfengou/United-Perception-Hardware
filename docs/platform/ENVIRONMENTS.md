@@ -6,9 +6,10 @@
 
 | 用途 | 环境 | 记录 |
 | --- | --- | --- |
-| 当前结构 NVIDIA 短程对照 | Linux、Python 3.12.3、Torch 2.10.0+cu126、TorchVision 0.25.0+cu126 | [拆分真机报告](../reports/platform/REAL_HARDWARE.md) |
-| 当前结构 C500 短程对照 | 厂商容器、Python 3.12.11、Torch 2.10.0+metax3.8.1.0、TorchVision 0.25.0+metax3.8.1.0 | [拆分报告](../reports/platform/REAL_HARDWARE.md)、[局部修复报告](../reports/platform/METAX_DETERMINISM.md) |
-| CPU 本地回归 | Windows、Python 3.13.11、Torch 2.10.0+cpu | [本次整理验收](../reports/CONSOLIDATION_20261022.md)，不是 GPU 部署组合 |
+| 当前 NVIDIA 回归 | RTX 4090、Linux、Python 3.12.3、Torch 2.10.0+cu126、TorchVision 0.25.0+cu126 | [完整预算与严格回归](../reports/CURRENT_VALIDATION_20261022.md)，含实际 toolkit 小版本差异记录 |
+| 当前 C500 回归 | 厂商容器、Python 3.12.11、Torch 2.10.0+metax3.8.1.0、TorchVision 0.25.0+metax3.8.1.0 | [完整预算、native 与未通过项](../reports/CURRENT_VALIDATION_20261022.md)；不是 native 全流程精度通过 |
+| 前次平台拆包短程 | A800 / C500，各自冻结源码与厂商版本 | [历史拆分报告](../reports/platform/REAL_HARDWARE.md)、[局部修复报告](../reports/platform/METAX_DETERMINISM.md) |
+| CPU 本地回归 | Windows、Python 3.13.11、Torch 2.10.0+cpu | [当前回归](../reports/CURRENT_VALIDATION_20261022.md)，不是 GPU 部署组合 |
 | 首轮历史 NVIDIA | Python 3.12.3、Torch 2.8.0a0+5228986c39.nv25.06、TorchVision 0.22.0a0+95f10a4e、CUDA 12.9 | [历史报告](../reports/hardware/VALIDATION.md)，不与新组合混装 |
 | 昇腾 / 寒武纪 | 尚无本仓库真机确认的完整组合 | 需厂商 SDK、匹配 PyTorch 和目标模型验收 |
 

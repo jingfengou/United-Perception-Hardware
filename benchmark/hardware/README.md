@@ -7,6 +7,7 @@
 | 分组 | 入口 | 使用边界 |
 | --- | --- | --- |
 | 当前平台对照 | `validate_platform_equivalence.py`、`collect_platform_evidence.py` | 独立进程对比训练、训练 eval、恢复与独立推理；不当成完整数据集精度 |
+| 当前单种子完整预算 | `validate_current_accuracy.py` | 固定四模型配方与 seed=131，成对运行两个冻结版本；不是恢复旧多种子任务，见[本轮报告](../../docs/reports/CURRENT_VALIDATION_20261022.md) |
 | 基础真机回归 | `validate_vendor_runtime.py`、`validate_native_ops.py`、`validate_models.py`、`validate_distributed.py`、`validate_onnx.py` | 需要真实 SDK、工具链与适配依赖，分别记录结果 |
 | C500 局部诊断 | `diagnose_metax_determinism.py`、`run_metax_determinism_controls.py`、`collect_metax_determinism.py` | 固定操作数、原容差与失败记录，不能泛化为全形状确定性 |
 | 固定预算精度协议 | `prepare_*`、`validate_training_accuracy.py`、`run_multiseed_accuracy.py`、`run_cross_vendor_accuracy.py` | 必须显式给定计划/数据/输出；旧阶段按冻结版本复现，不恢复当前暂停任务 |

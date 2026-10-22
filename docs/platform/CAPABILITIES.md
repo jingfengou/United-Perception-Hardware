@@ -1,13 +1,13 @@
 # 能力矩阵
 
-以下记录注册边界及**整理前固定版本的有限真机结果**。73 项基础操作见[机器契约](interface_contract.json)。真机结果属于 `fcccc05` 及报告各自冻结快照，不能自动转记为整理后源码通过；本轮只有 CPU/构建/CI 检查，见[收敛记录](../reports/CONSOLIDATION_20261022.md)。
+以下记录注册边界及 **`f78e27a` 的有限真机回归**，完整协议和失败见[本轮报告](../reports/CURRENT_VALIDATION_20261022.md)。73 项基础操作见[机器契约](interface_contract.json)；四模型执行成功不代表全部操作、dtype、AMP 或多卡均已验证。更早证据只对各自冻结快照成立。
 
-| 厂商 / 设备 | 设备工厂 | 训练工厂 | 推理工厂 | 默认共享能力 | 整理前真机训练 | 整理前独立推理/导出 |
+| 厂商 / 设备 | 设备工厂 | 训练工厂 | 推理工厂 | 默认共享能力 | 本轮真机训练 | 本轮独立推理/导出 |
 | --- | --- | --- | --- | --- | --- | --- |
-| nvidia / cuda | 已迁移 | 已注册 | 已注册 | portable + NVIDIA 专用实现 | A800 四模型各 3 步，含训练内 eval/恢复，数值通过；32 项原生操作通过 | 四模型独立推理通过；GPU 导出未复测 |
+| nvidia / cuda | 已迁移 | 已注册 | 已注册 | portable + NVIDIA 专用实现 | RTX 4090 四模型单种子完整固定预算与原版 UP 一致；含训练内 eval/恢复；32 项原生操作通过 | 简化前后四模型独立推理通过；GPU 导出未复测 |
 | ascend / npu | 已迁移，按需加载 torch_npu | 共享入口 | 共享入口 | portable；缺失专用算子明确报错 | 未验证 | 未验证 |
 | cambricon / mlu | 已迁移，按需加载 torch_mlu | 共享入口 | 共享入口 | 同上 | 未验证 | 未验证 |
-| metax / cuda | 已迁移，不加载 NVIDIA 二进制 | 共享入口 | 共享入口 | portable；可显式选择既有 experimental numerics | C500 四模型功能通过；native 严格数值比较仅 ViT 通过，三模型有差异 | 四模型独立推理通过，同权重新旧输出逐位相同；导出未复测 |
+| metax / cuda | 已迁移，不加载 NVIDIA 二进制 | 共享入口 | 共享入口 | portable；数值选项必须显式选择 | C500 native 短程仅 ViT 数值通过；局部卷积策略完整预算 ResNet/YOLO/ViT 一致，DETR 未通过 | 四模型同权重 native 独立推理逐位一致；导出未复测 |
 | cpu / cpu | 可执行 | 可执行 | 可执行 | 公共运行时/通信入口、同设备共享操作 | CPU 契约通过，不是全部模型训练 | CPU 契约/有限 ONNX 检查，不是全部模型 |
 
 两侧共用 DeviceBackend 和明确 common 操作；AMP 的基础实现共享，GradScaler/DDP/训练优化器不可从 inference 获取。普通 PyTorch 层算力由厂商 Torch 提供，注册入口不证明所有普通算子、dtype 或第三方扩展都可用。
@@ -24,13 +24,13 @@
 | legacy_link / 融合优化器 / 工具库 | NVIDIA 可选 SDK | 延迟加载；未执行，不声称当前结构已验证 |
 | ONNX | InferenceBackend.export_onnx | 保留 legacy symbolic；未有 symbolic 的操作不承诺导出，无新引擎 |
 | portable_v1 | experimental/numerics | native 默认关闭；仅已有显式 CUDA-shaped 厂商声明，含 GPU FP64 和性能代价；不提升精度验收结论 |
-| metax_deterministic_v1 | backends/metax/determinism.py | 显式 C500 FP32 卷积权重梯度替换；原前向、输入/偏置梯度及 RNG 不变，无 FP64/CPU 代算；ResNet/YOLO/DETR 同种子三步新旧及重复检查通过，见[专项报告](../reports/platform/METAX_DETERMINISM.md)；不提升 native 或完整精度结论 |
+| metax_deterministic_v1 | backends/metax/determinism.py | 显式 C500 FP32 卷积权重梯度替换；原前向、输入/偏置梯度及 RNG 不变，无 FP64/CPU 代算；短程结果见[专项报告](../reports/platform/METAX_DETERMINISM.md)。[本轮完整预算](../reports/CURRENT_VALIDATION_20261022.md)三模型通过、DETR 同版本亦不稳定，不能保证全流程确定性或提升 native 支持等级 |
 
 ## 历史证据与本轮结论
 
 - 历史 NVIDIA 算子、AMP、双卡和代表模型结果见[原验证报告](../reports/hardware/VALIDATION.md)，多种子回归见[五模型报告](../reports/hardware/MULTISEED_ACCURACY.md)。
 - C500 旧快照的有限功能和真实数据对照见[沐曦报告](../reports/hardware/METAX_VALIDATION.md)及[跨厂商报告](../reports/hardware/CROSS_VENDOR_ACCURACY.md)。三模型精度差异和实验修复保留原结论。
 - 昇腾/寒武纪此前没有真机证据，本轮也没有。
-- 历史平台报告只做了所述短程真机回归；本次目录/策略整理不重跑 GPU，不恢复已暂停的多随机种子精度任务，不重写旧冻结 manifest，不把 CPU mock 当硬件验收。
+- 历史目录/策略整理没有重跑 GPU；本轮另建了单种子验证阶段，不恢复已暂停的多随机种子任务、不重写旧 manifest、不把 CPU mock 当硬件验收。训练内 eval 保持 training 用途，独立推理固定 inference 用途。
 
 capabilities 的 hardware_validated 默认 False；registered 是注册存在，dependencies_available 是按需检查的声明依赖可加载性，executed 是成功调用次数。只有明确记录硬件、版本、用途、变体、容差与证据后才能在文档中提升对应验证状态。

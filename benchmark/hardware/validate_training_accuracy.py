@@ -239,12 +239,17 @@ def run(args):
     os.environ["DEFAULT_TASKS"] = "cls:det"
     os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     sys.path.insert(0, str(root))
+    package = root / "packages/up-platform/src"
+    if package.is_dir():
+        sys.path.insert(0, str(package))
     import up
     backend = getattr(args, "backend", "nvidia")
+    numerical_profile = getattr(args, "numerical_profile", "native")
     get_accelerator = None
     if (root / "up/accelerator").is_dir():
         from up.accelerator import configure_accelerator, get_accelerator
-        configure_accelerator(backend=backend)
+        configure_accelerator({"runtime": {"accelerator": {
+            "backend": backend, "numerics": numerical_profile}}})
     elif backend != "nvidia":
         raise ValueError("The original upstream tree only supports the NVIDIA validation path")
     initialize = vars(up).get("initialize")
@@ -266,7 +271,6 @@ def run(args):
     torch.cuda.set_device(0)
     config, original_config = effective_config(root, data, args.model, args.seed, args.epochs, args.protocol)
     config["runtime"]["accelerator"]["backend"] = backend
-    numerical_profile = getattr(args, "numerical_profile", "native")
     if numerical_profile != "native":
         if get_accelerator is None:
             raise ValueError("Non-native numerical profiles require the hardware abstraction layer")
@@ -485,7 +489,7 @@ def main():
                         help="Hash every training input and pre-forward RNG without changing training")
     parser.add_argument("--disable-convolution-library", action="store_true",
                         help="Explicit same-device convolution-provider ablation via Runner's existing nocudnn option")
-    parser.add_argument("--numerical-profile", choices=("native", "portable_v1"), default="native")
+    parser.add_argument("--numerical-profile", choices=("native", "portable_v1", "metax_deterministic_v1"), default="native")
     parser.add_argument("--seed", type=int, default=131)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)
