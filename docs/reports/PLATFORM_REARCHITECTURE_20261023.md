@@ -48,8 +48,11 @@ UP 模型、损失、配置与业务编排未修改。原 1,505 项证据索引�
 | 无 Torch 普通导入 | 安装平台 wheel 后在仓库外 `-I` 导入平台和 ops，通过；不加载 UP、Torch、厂商 SDK 或另一用途 |
 | 厂商插件 | 安装按类别组织的单 NMS 覆盖示例，训练/推理均路由到插件，overlap 继续复用公共实现 |
 | README | Skill 审计通过；图示 900px/360px 渲染检查通过；242 项维护文档本地链接通过 |
+| 云端 CI | 实现提交 `ff3c5f8` 的三个 Python/Torch 组合及无 Torch 公共打包全部成功，[固定运行记录](https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39893231345) |
 
 两条测试 warning 为既有 legacy ONNX 弃用提示。公共打包保留既有 setuptools 许可元数据/classifiers 警告，未将不相关元数据整理混入平台重构。[机器可读记录](platform-rearchitecture-20261023.json)保留实际环境、范围和分发校验值；本地 JUnit、构建日志及分发包位于忽略目录 `dist/lightx2v-rearchitecture-20261023/`。
+
+云端 Python 3.10/Torch 2.6、Python 3.12/Torch 2.6、Python 3.12/Torch 2.10 三组 JUnit 已实际下载核对：每组全仓 412 case、安装后平台 81 case，全部零失败、错误和跳过。该处 412 包含 409 个测试及 3 个子测试，不重复计算成额外模型验收。后续验收记录提交仅补充本报告与 JSON，不修改已验证的运行时。
 
 ```bash
 python tools/platform/check_hardware_boundaries.py

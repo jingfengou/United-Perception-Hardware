@@ -70,7 +70,61 @@
     "Existing setuptools license metadata and classifiers warnings"
   ],
   "ci": {
-    "status": "not_checked_yet"
+    "status": "success",
+    "source_commit": "ff3c5f86e63790b75ec592bc105fabe55cf21c2c",
+    "run_id": 39893231345,
+    "url": "https://github.com/jingfengou/United-Perception-Hardware/actions/runs/39893231345",
+    "jobs": [
+      {
+        "name": "public-packaging",
+        "id": 120217594670,
+        "conclusion": "success"
+      },
+      {
+        "name": "cpu-contracts (3.12, 2.6.0)",
+        "id": 120217594734,
+        "conclusion": "success"
+      },
+      {
+        "name": "cpu-contracts (3.10, 2.6.0)",
+        "id": 120217594762,
+        "conclusion": "success"
+      },
+      {
+        "name": "cpu-contracts (3.12, 2.10.0)",
+        "id": 120217594907,
+        "conclusion": "success"
+      }
+    ],
+    "downloaded_junit_artifacts": [
+      {
+        "name": "cpu-python-3.12-torch-2.6.0",
+        "artifact_id": 12476110329,
+        "cpu_cases": 412,
+        "wheel_cases": 81,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "name": "cpu-python-3.12-torch-2.10.0",
+        "artifact_id": 12475263001,
+        "cpu_cases": 412,
+        "wheel_cases": 81,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "name": "cpu-python-3.10-torch-2.6.0",
+        "artifact_id": 12474978747,
+        "cpu_cases": 412,
+        "wheel_cases": 81,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
   },
   "intermediate_artifacts": {
     "directory": "dist/lightx2v-rearchitecture-20261023/platform",
