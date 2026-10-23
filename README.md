@@ -4,13 +4,15 @@
 
 **保留 UP 的算法与配方，只适配硬件差异。**
 
-基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception)，将设备、专用算子和厂商 SDK 收入同仓独立包 [`up-platform`](packages/up-platform/)。训练与独立推理分开适配，公共能力只维护一份；原有 `up.accelerator`、算子导入和 `.apply()` 入口继续兼容。
+基于 [ModelTC/United-Perception](https://github.com/ModelTC/United-Perception)，将设备、专用算子和厂商 SDK 收入同仓独立包 [`up-platform`](packages/up-platform/)。采用 LightX2V 风格的设备后端、算子注册与工厂：**算子按“类别 → 厂商”组织**，训练与独立推理分开适配，公共能力只维护一份；原有 `up.accelerator`、算子导入和 `.apply()` 入口继续兼容。
 
 [使用手册](docs/platform/README.md) · [接口定义](docs/platform/INTERFACES.md) · [新增厂商](docs/platform/ADDING_VENDOR.md) · [能力矩阵](docs/platform/CAPABILITIES.md) · [验证记录](docs/reports/README.md)
 
 ## 验证状态
 
 四模型基线冻结于 `f78e27a`，后续 GEMM 修复另有独立快照和验收。使用真实 CIFAR-10 / PennFudan 子集、单种子、完整固定预算；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。
+
+以下为各报告冻结版本的 GPU 结果。本次架构重构单独核查计算定义、路由、兼容与打包，不把历史结果自动记作新版本真机通过。[当前整体设计](docs/architecture/PLATFORM.md)
 
 | 范围 | 实测结论 |
 | --- | --- |
@@ -28,10 +30,10 @@ DETR 的原生 FP32 GEMM 非确定性已在无 UP 的控制中复现。新增显
 
 ## 工作方式
 
-![UP 通过兼容门面进入平台包；训练及训练内 eval、独立推理分别路由，复用 common/shared 与已选厂商实现。](assets/readme/platform.svg)
+![UP 通过兼容门面进入平台包；训练和独立推理由各自工厂创建，复用设备基类与按类别组织的算子，缺失实现明确报错。](assets/readme/platform.svg)
 
 - **UP 管算法与业务。** 模型、损失、数据、学习率和训练步骤留在 UP；普通设备无关 PyTorch 计算不重复包装。
-- **平台管硬件差异。** 设备运行时、AMP、通信、专用操作和层按厂商路由；缺失能力明确报错，不新增静默 CPU 模型代算。
+- **平台管硬件差异。** `base/` 管设备，`ops/<类别>/<厂商>/` 管专用操作，公共实现放该类别的 `common.py`；缺失能力明确报错，不新增静默 CPU 模型代算。
 - **用途由入口决定。** 训练内 eval 和 `train --evaluate` 保持 training 路径，退出后恢复模块状态；独立推理与导出走 inference，不依据 `.eval()` 猜测用途。
 
 ## 安装
@@ -103,7 +105,7 @@ python -m up inference --config your_detection_model.yaml \
 
 1. 准备厂商匹配的 PyTorch、SDK 和通信库，记录环境组合。
 2. 实现设备后端并 `register_backend(VendorDevice)`，训练/推理默认复用公共实现，不用写空类。
-3. 只在确有差异时增加训练/推理实现及缺失算子，交付所需反向、状态和测试，再做真机验收。
+3. 缺失算子增加到对应类别的厂商目录；确有训练/推理差异再覆盖相应后端，交付所需反向、状态和测试，再做真机验收。
 
 从[逐步指南](docs/platform/ADDING_VENDOR.md)和[可安装插件示例](packages/up-platform/examples/vendor_plugin/)开始。函数签名、布局、空输入、梯度和导出要求见[完整接口索引](docs/platform/API_INDEX.md)；已有模型与配方保持不变，注册成功不等于真机通过。
 
@@ -114,6 +116,13 @@ python -m up inference --config your_detection_model.yaml \
 ```text
 up/                     UP 业务与旧接口兼容
 packages/up-platform/   独立平台包、厂商实现和契约测试
+  src/up_platform/
+    base/              设备基类、厂商设备与设备选择工厂
+    ops/               算子类别 → 厂商；类别内 common.py 复用
+    training/runtime/  训练后端工厂、AMP、DDP 与梯度同步
+    inference/         独立推理后端工厂及导出
+    registry_factory.py  后端及算子注册
+    set_ai_device.py   显式初始化，不在导入时绑定 GPU
 configs/                原有模型配方
 benchmark/hardware/     真机验证、精度协议与诊断工具
 tools/platform/         边界、契约、归档与发布检查
@@ -135,4 +144,4 @@ CPU 测试、公共构建和 GPU 验收分别记录。目录迁移与旧命令�
 
 ## 来源与证据
 
-保留上游 Git 历史与 [Apache-2.0 LICENSE](LICENSE)，UP 基线为 `52aaeb9`。[总设计与逐文件台账](docs/architecture/PROJECT_REVIEW.md)记录相对原版的改动和原因。整理前 1,505 份原始证据已保存到[固定标签与 Release](https://github.com/jingfengou/United-Perception-Hardware/releases/tag/evidence-pre-consolidation-20261022)，主分支保留逐文件哈希、复现入口与失败结论，不改写历史。
+保留上游 Git 历史与 [Apache-2.0 LICENSE](LICENSE)，UP 基线为 `52aaeb9`。[当前总设计](docs/architecture/PLATFORM.md)、[迁移清单](docs/architecture/platform-layout.json)与[原版 UP 差异台账](docs/architecture/PROJECT_REVIEW.md)记录边界和改动原因。整理前 1,505 份原始证据已保存到[固定标签与 Release](https://github.com/jingfengou/United-Perception-Hardware/releases/tag/evidence-pre-consolidation-20261022)，主分支保留逐文件哈希、复现入口与失败结论，不改写历史。

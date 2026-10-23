@@ -1,5 +1,6 @@
 """Check consolidation invariants, archived fixtures and maintained Markdown links."""
 import argparse
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -11,6 +12,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "a3e2752f454c72d6b46e0b64d0debeef0d7105a3"
 MANIFEST = ROOT / "docs/architecture/consolidation-protected.json"
+LAYOUT = Path("docs/architecture/platform-layout.json")
 PREFIXES = ("up/", "configs/", "packages/up-platform/src/up_platform/backends/nvidia/csrc/",
             "packages/up-platform/src/up_platform/experimental/numerics/")
 SINGLE = "packages/up-platform/src/up_platform/backends/metax/determinism.py"
@@ -52,14 +54,63 @@ def write_manifest():
 
 def check_protected(root=ROOT):
     expected = json.loads((root / MANIFEST.relative_to(ROOT)).read_text(encoding="utf-8"))["files"]
+    moves = json.loads((root / LAYOUT).read_text(encoding="utf-8"))["relocations"] if (root / LAYOUT).exists() else {}
     changed = [name for name, value in expected.items()
-               if not (root / name).is_file() or digest(name, (root / name).read_bytes()) != value]
+               if not (root / moves.get(name, name)).is_file()
+               or digest(name, (root / moves.get(name, name)).read_bytes()) != value]
     # New business recipes/algorithms also require an explicit decision, not a hidden cleanup change.
     extra = [p.relative_to(root).as_posix() for folder in ("up", "configs") for p in (root / folder).rglob("*")
              if p.is_file() and p.suffix in TEXT and p.relative_to(root).as_posix() not in expected]
     if changed or extra:
         raise ValueError("Protected algorithm/config changes: " + repr(changed + extra))
     return len(expected)
+
+
+def definition_digest(text, names=None):
+    """Ignore imports only; executable definitions retain their exact AST."""
+    class WithoutImports(ast.NodeTransformer):
+        def visit_Import(self, node):
+            return None
+
+        visit_ImportFrom = visit_Import
+
+    tree = ast.parse(text)
+    tree.body = [node for node in tree.body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+                 and (names is None or node.name in names)]
+
+    def canonical(value):
+        if isinstance(value, ast.AST):
+            # Python 3.12 adds empty type_params; ast.dump formatting also varies.
+            return {"node": type(value).__name__, "fields": {
+                name: canonical(item) for name, item in ast.iter_fields(value)
+                if item is not None and item != []}}
+        if isinstance(value, list):
+            return [canonical(item) for item in value]
+        if value is Ellipsis or isinstance(value, (bytes, complex)):
+            return {"literal": type(value).__name__, "value": repr(value)}
+        return value
+
+    payload = json.dumps(canonical(WithoutImports().visit(tree)), sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode()).hexdigest()
+
+
+def check_layout(root=ROOT):
+    layout = json.loads((root / LAYOUT).read_text(encoding="utf-8"))
+    moves = layout["relocations"]
+    if len(set(moves.values())) != len(moves):
+        raise ValueError("Duplicate relocation target")
+    for target, record in layout["implementations"].items():
+        path = Path(target)
+        if path.is_absolute() or ".." in path.parts or not target.startswith("packages/up-platform/src/up_platform/"):
+            raise ValueError("Invalid implementation path: " + target)
+        content = (root / target).read_bytes()
+        actual = (definition_digest(content.decode("utf-8"), record.get("definitions"))
+                  if record["check"] == "definitions" else digest(target, content))
+        if actual != record["sha256"]:
+            raise ValueError("Relocated implementation changed: " + target)
+    if set(moves.values()) - layout["implementations"].keys():
+        raise ValueError("Missing relocated implementation digest")
+    return len(layout["implementations"])
 
 
 def check_fixtures(root=ROOT):
@@ -101,7 +152,8 @@ def main():
     args = parser.parse_args()
     if args.write_protected:
         write_manifest()
-    print(json.dumps({"protected_files": check_protected(), "archived_fixtures": check_fixtures(),
+    print(json.dumps({"protected_files": check_protected(), "layout_implementations": check_layout(),
+                      "archived_fixtures": check_fixtures(),
                       "local_markdown_links": check_links()}, indent=2))
 
 

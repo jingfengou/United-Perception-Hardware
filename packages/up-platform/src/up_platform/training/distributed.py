@@ -1,9 +1,5 @@
-"""DDP construction belongs to training, not to common communication."""
-import torch
+"""Compatibility alias for the platform implementation."""
+import importlib
+import sys
 
-
-def wrap_model(model, device_ids=None, **kwargs):
-    from up_platform import get_platform
-    if get_platform().runtime.device_type == "cpu":
-        device_ids = None
-    return torch.nn.parallel.DistributedDataParallel(model, device_ids=device_ids, **kwargs)
+sys.modules[__name__] = importlib.import_module("up_platform.training.runtime.distributed")

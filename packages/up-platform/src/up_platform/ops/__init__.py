@@ -1,9 +1,9 @@
 """Complete-operation facades for the active, explicit execution purpose."""
-from .catalog import NATIVE_OPERATIONS
+from ..catalog import NATIVE_OPERATIONS
 
 
 def call(name, *args, **kwargs):
-    from . import get_platform
+    from up_platform import get_platform
     return get_platform().call(name, *args, **kwargs)
 
 

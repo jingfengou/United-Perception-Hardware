@@ -60,7 +60,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -95,7 +95,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -130,7 +130,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -164,7 +164,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -198,7 +198,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/ops/cross_focal_loss.py",
+      "reference_source": "ops/focal_loss/nvidia/cross_focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -233,7 +233,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/deformable_conv.py",
+      "reference_source": "ops/deform_conv/nvidia/deformable_conv.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -967,7 +967,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "training/distributed.py",
+      "reference_source": "training/runtime/distributed.py",
       "registered_providers": {
         "portable": {
           "training": {
@@ -1002,7 +1002,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou_overlap.py",
+      "reference_source": "ops/iou/nvidia/iou_overlap.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1048,7 +1048,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1083,7 +1083,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1118,7 +1118,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1153,7 +1153,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1188,7 +1188,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1223,7 +1223,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1258,7 +1258,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1293,7 +1293,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1328,7 +1328,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1363,7 +1363,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1398,7 +1398,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1433,7 +1433,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1468,7 +1468,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1503,7 +1503,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1538,7 +1538,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1572,7 +1572,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "shared/layers.py",
+      "reference_source": "ops/normalization/common.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -1607,7 +1607,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/nms.py",
+      "reference_source": "ops/nms/nvidia/nms.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1657,7 +1657,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1692,7 +1692,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1727,7 +1727,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1762,7 +1762,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1797,7 +1797,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/psroi_align.py",
+      "reference_source": "ops/roi/nvidia/psroi_align.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1832,7 +1832,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/psroi_pool.py",
+      "reference_source": "ops/roi/nvidia/psroi_pool.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1867,7 +1867,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -1901,7 +1901,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -1935,7 +1935,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/legacy.py",
+      "reference_source": "base/nvidia_legacy.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -1970,7 +1970,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/roi_align.py",
+      "reference_source": "ops/roi/nvidia/roi_align.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -2007,7 +2007,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -2042,7 +2042,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/roipoint_pool3d_utils.py",
+      "reference_source": "ops/pointcloud/nvidia/roipoint_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -2077,7 +2077,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/rotate_iou.py",
+      "reference_source": "ops/iou/nvidia/rotate_iou.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -2111,7 +2111,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/ops/focal_loss.py",
+      "reference_source": "ops/focal_loss/nvidia/focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -2146,7 +2146,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "backends/nvidia/ops/nms.py",
+      "reference_source": "ops/nms/nvidia/nms.py",
       "registered_providers": {
         "nvidia": {
           "common": {
@@ -2180,7 +2180,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "backends/nvidia/ops/focal_loss.py",
+      "reference_source": "ops/focal_loss/nvidia/focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "training": {
@@ -2215,7 +2215,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2250,7 +2250,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2285,7 +2285,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2320,7 +2320,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2355,7 +2355,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2390,7 +2390,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2425,7 +2425,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2460,7 +2460,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2495,7 +2495,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/sparse.py",
+      "reference_source": "ops/sparse/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2529,7 +2529,7 @@
       "purposes": [
         "training"
       ],
-      "reference_source": "shared/layers.py",
+      "reference_source": "ops/normalization/common.py",
       "registered_providers": {
         "portable": {
           "training": {
@@ -2564,7 +2564,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/layers.py",
+      "reference_source": "ops/normalization/common.py",
       "registered_providers": {
         "portable": {
           "common": {
@@ -2599,7 +2599,7 @@
         "training",
         "inference"
       ],
-      "reference_source": "shared/portable.py; backends/nvidia/ops/vision.py",
+      "reference_source": "ops/nms/common.py; ops/nms/nvidia/vision.py",
       "registered_providers": {
         "nvidia": {
           "common": {

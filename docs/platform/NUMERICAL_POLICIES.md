@@ -2,20 +2,20 @@
 
 基本厂商接入不依赖数值实验。默认 `numerics: native` 不进入实验 PyTorch 模式、不改变厂商 RNG，也不注册实验操作供应者。
 
-`shared/portable.py` 的 portable 表示普通同设备共享实现；它与实验策略 portable_v1 不同，使用公共 NMS/overlap 不会自动启用 FP64 或替换 RNG。
+`ops/nms/common.py` 和 `ops/iou/common.py` 是普通同设备共享实现，供应者名仍为 portable；旧 shared/portable.py 只兼容转发。它与实验策略 portable_v1 不同，使用公共 NMS/overlap 不会自动启用 FP64 或替换 RNG。
 
 | 策略 | 实现归属 | 用途与限制 |
 | --- | --- | --- |
 | `native` | `common/policy.py` | 无操作策略，保留原生设备行为 |
-| `metax_deterministic_v1` | `backends/metax/` | 显式 C500 FP32 卷积权重一阶梯度替换；有临时显存/计算代价。只解决局部问题，不保证全流程确定性；[完整预算](../reports/CURRENT_VALIDATION_20261022.md)中 DETR 及其同版本重复均未通过 |
-| `metax_deterministic_v2` | `backends/metax/` | 保留 v1 卷积实现，另用固定 K 顺序、单写入者的 GPU IEEE FP32 内核替换 `aten.mm.default`；需要厂商 Triton，默认关闭。范围、代价与完整训练验收见[专项记录](../reports/METAX_GEMM_FIX_20261022.md) |
+| `metax_deterministic_v1` | `ops/convolution/metax/` | 显式 C500 FP32 卷积权重一阶梯度替换；有临时显存/计算代价。只解决局部问题，不保证全流程确定性；[完整预算](../reports/CURRENT_VALIDATION_20261022.md)中 DETR 及其同版本重复均未通过 |
+| `metax_deterministic_v2` | `ops/mm/metax/` | 保留 v1 卷积实现，另用固定 K 顺序、单写入者的 GPU IEEE FP32 内核替换 `aten.mm.default`；需要厂商 Triton，默认关闭。范围、代价与完整训练验收见[专项记录](../reports/METAX_GEMM_FIX_20261022.md) |
 | `portable_v1` | `experimental/numerics/policy.py` | 实验性固定 RNG、归约顺序及部分 GPU FP64 中间计算；默认关闭，不承诺跨厂商全量精度等价 |
 
 ## 隔离边界
 
 公共运行时只认识策略生命周期：启动/关闭、RNG 保存恢复、操作供应者/局部注册表、autocast 校验、卷积开关约束和状态查询。它不导入实验实现，不包含 portable_v1 的算法、计数器或 PyTorch 模式管理。
 
-策略通过 `up_platform.registry.register_numerical_policy(name, factory)` 注册懒加载工厂。内置工厂地址集中在后端元数据模块；只有明确选择该策略才导入实现。实验操作只合并到该上下文的注册快照，不污染 native 全局注册表。
+策略通过 `up_platform.registry_factory.register_numerical_policy(name, factory)` 注册懒加载工厂，旧 registry 地址保持兼容。内置工厂地址集中在设备元数据模块；只有明确选择该策略才导入实现。实验操作只合并到该上下文的注册快照，不污染 native 全局注册表。
 
 `PortablePolicy` 自己管理 TorchFunction/TorchDispatch 模式、MHA/DNN 开关、RNG envelope 与操作计数；关闭时检查线程及模式栈，激活失败时恢复已改变的模式和全局开关。公共 AMP 与卷积实现只调用通用策略钩子。静态检查阻止 common/shared/context 再次导入 experimental。
 

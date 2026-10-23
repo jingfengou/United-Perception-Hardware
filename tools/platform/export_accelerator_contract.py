@@ -106,6 +106,7 @@ def build_contract(root=ROOT):
     import up.accelerator as accelerator
     from up.accelerator import ops
     from up.accelerator.registry import OPERATIONS
+    from up_platform.catalog import NVIDIA_MODULES
 
     if Path(accelerator.__file__).resolve().parent != root.resolve() / "up" / "accelerator":
         raise RuntimeError("Contract exporter imported a different source tree")
@@ -124,7 +125,7 @@ def build_contract(root=ROOT):
     for name in sorted({name for _, name in OPERATIONS}):
         if name in ops.NATIVE_OPERATIONS:
             module, attribute, _ = ops.NATIVE_OPERATIONS[name]
-            source = "packages/up-platform/src/up_platform/backends/nvidia/ops/" + module + ".py"
+            source = "packages/up-platform/src/up_platform/ops/" + NVIDIA_MODULES[module].replace(".", "/") + ".py"
             signature = ast_signature(root / source, attribute)
             if name == "roi_align":
                 signature = signature.removesuffix(", aligned=False")
@@ -135,7 +136,7 @@ def build_contract(root=ROOT):
             convention = "positional .apply arguments" if attribute.endswith(".apply") else "original Python function"
         elif name in EXTRA:
             signature, category, returns, gradients = EXTRA[name]
-            source = "packages/up-platform/src/up_platform/shared/layers.py" if "batch_norm" in name else "up/accelerator/ops.py"
+            source = "packages/up-platform/src/up_platform/ops/normalization/common.py" if "batch_norm" in name else "up/accelerator/ops.py"
             convention = "complete supplier operation; keep positional/keyword compatibility"
         elif name.startswith("distributed."):
             short = name.split(".", 1)[1]

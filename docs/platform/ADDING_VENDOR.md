@@ -2,6 +2,19 @@
 
 **一个设备后端 + 可选的训练/推理差异 + 缺失算子。** 已兼容的部分直接继承，不用写空的 `TrainingBackend` / `InferenceBackend`。模型、损失、训练配方均不改。
 
+采用 LightX2V 风格：[设备后端](../../packages/up-platform/src/up_platform/base/)与[算子类别](../../packages/up-platform/src/up_platform/ops/)分开。内置实现的目录为：
+
+```text
+up_platform/
+  base/vendor_x.py                         设备与 SDK 差异
+  ops/nms/vendor_x/                        需要适配的 NMS
+  ops/roi/vendor_x/                        需要适配的 RoI
+  training/runtime/backend/vendor_x.py     可选：实际训练差异
+  inference/vendor_x.py                    可选：实际推理差异
+```
+
+只创建实际需要的文件。不要将全部算子放到设备目录，也不要复制另一厂商整套实现。公共实现位于各类别的 common.py。旧 backends/<vendor>/ops 只是兼容地址，不再用于新增实现。
+
 ## 1. 最小接入：只实现设备
 
 先准备真实设备、驱动、SDK、通信库和匹配的 Python / PyTorch / TorchVision，运行厂商自己的 PyTorch 示例。记录环境版本，不安装 NVIDIA wheel 覆盖厂商发行版。
@@ -10,7 +23,9 @@
 vendor_x_adapter/
   __init__.py       注册设备与需要覆盖的算子
   device.py         设备后端、SDK 差异
-  ops.py            可选：缺失或不兼容算子
+  ops/
+    nms/vendor_x.py 可选：该类别内的厂商实现
+    roi/vendor_x.py 可选：该类别内的厂商实现
 ```
 
 `device.py`（占位 SDK 和设备名替换成厂商实际值）：
@@ -54,7 +69,7 @@ register_backend(VendorDevice)
 例如厂商只需不同的 GradScaler，再新增 `training.py`：
 
 ```python
-from up_platform.training.backend import TrainingBackend
+from up_platform.training.runtime.backend.base import TrainingBackend
 
 
 class Backend(TrainingBackend):
@@ -90,7 +105,7 @@ register_backend(VendorDevice, training="vendor_x_adapter.training:Backend")
 from up_platform import register_op
 
 register_op(
-    "vendor_x", "roi_align", "vendor_x_adapter.ops:roi_align",
+    "vendor_x", "roi_align", "vendor_x_adapter.ops.roi.vendor_x:roi_align",
     scope="training", backward=True,
     dtypes=("torch.float32",),
     variants={"pooled_mode": ("AVG", "MAX"), "aligned": (False, True)},
@@ -102,11 +117,13 @@ register_op(
 
 明确两侧可共用时使用 `scope="common"`；只有一侧可用时填写 `training` 或 `inference`。路由只查当前用途和 common，不跨用另一用途。共同实现只有一份；不要复制整套厂商后端。专用扩展和可选 `ops/`、`csrc/` 只在确有实现时增加，由对应厂商工具链构建。
 
+内置算子推荐 `ops/<类别>/<厂商>/implementation.py`，C++/GPU 源码放同目录的 csrc/；独立插件也可以像上例使用 `ops/<类别>/<厂商>.py`。两种形式都按类别查找差异，不要求为一个操作额外增加一套注册框架。设备工厂、训练工厂、推理工厂分别使用 base/factory.py、training/runtime/backend/factory.py 和 inference/factory.py，注册接口不依赖 UP。
+
 稀疏层保持参数名称、身份及 feature 图；融合优化器保持参数组和 master 状态。缺失能力明确报错，不返回常量、不伪造梯度、不新增静默 CPU 代算。数值实验 profile 不是基本接入义务。
 
 ## 3. 运行示例与配置
 
-[可安装示例](../../packages/up-platform/examples/vendor_plugin/)仅含三个 Python 文件：设备、注册、一个 NMS 覆盖。其他操作和两侧执行接口均复用公共实现。它使用 CPU 演示，不是真实厂商验收。
+[可安装示例](../../packages/up-platform/examples/vendor_plugin/)包含设备、注册、`ops/nms/example_vendor.py` 一个 NMS 覆盖及必要的包入口。其他操作和两侧执行接口均复用公共实现。它使用 CPU 演示，不是真实厂商验收。
 
 ```bash
 python -m pip install --no-deps --no-build-isolation -e ./packages/up-platform/examples/vendor_plugin

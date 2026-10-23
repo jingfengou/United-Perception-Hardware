@@ -1,5 +1,9 @@
 # Preserve the exact archived protocol bytes; normalize maintained tools only.
 tests/fixtures/protocols/** -text
+
+# Operator relocation preserves the original compiled source bytes, including EOF.
+packages/up-platform/src/up_platform/ops/**/csrc/** -text
+packages/up-platform/src/up_platform/base/csrc/** -text
 docs/reports/evidence.manifest.json text eol=lf
 tools/platform/*.py text eol=lf
 benchmark/hardware/*.py text eol=lf

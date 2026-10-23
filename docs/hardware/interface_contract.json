@@ -41,7 +41,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "boxes_bev_iou_cpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -58,7 +58,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "boxes_iou3d_gpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -75,7 +75,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "boxes_iou_bev",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -109,7 +109,7 @@
       "category": "native_semantic_operation",
       "gradients": "preds",
       "name": "cross_focal_loss",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/cross_focal_loss.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/cross_focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -126,7 +126,7 @@
       "category": "native_semantic_operation",
       "gradients": "input, offset, weight",
       "name": "deformable_conv",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/deformable_conv.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/deformable_conv.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -500,7 +500,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "gpu_iou_overlap",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou_overlap.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou_overlap.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -777,7 +777,7 @@
       "category": "optional_linklink",
       "gradients": "supplier-owned complete autograd",
       "name": "link_sync_batch_norm",
-      "reference_source": "packages/up-platform/src/up_platform/shared/layers.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/normalization/common.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -794,7 +794,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "naive_nms",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/nms.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/nms/nvidia/nms.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -816,7 +816,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "nms_gpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -833,7 +833,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "nms_normal_gpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -850,7 +850,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "points_in_boxes_cpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -867,7 +867,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "points_in_boxes_gpu",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -884,7 +884,7 @@
       "category": "native_semantic_operation",
       "gradients": "features",
       "name": "psroi_align",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_align.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_align.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -901,7 +901,7 @@
       "category": "native_semantic_operation",
       "gradients": "features",
       "name": "psroi_pool",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_pool.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_pool.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -969,7 +969,7 @@
       "category": "native_semantic_operation",
       "gradients": "features",
       "name": "roi_align",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roi_align.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/roi/nvidia/roi_align.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -986,7 +986,7 @@
       "category": "native_semantic_operation",
       "gradients": "pts_feature",
       "name": "roiaware_pool3d",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -1003,7 +1003,7 @@
       "category": "native_semantic_operation",
       "gradients": "none; upstream backward raises",
       "name": "roipoint_pool3d",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roipoint_pool3d_utils.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roipoint_pool3d_utils.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -1020,7 +1020,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "rotate_iou_eval",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/rotate_iou.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/iou/nvidia/rotate_iou.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -1037,7 +1037,7 @@
       "category": "native_semantic_operation",
       "gradients": "preds",
       "name": "sigmoid_focal_loss",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/focal_loss.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -1054,7 +1054,7 @@
       "category": "native_semantic_operation",
       "gradients": "none",
       "name": "softer_nms",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/nms.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/nms/nvidia/nms.py",
       "registered_providers": {
         "nvidia": {
           "backward": false,
@@ -1071,7 +1071,7 @@
       "category": "native_semantic_operation",
       "gradients": "preds",
       "name": "softmax_focal_loss",
-      "reference_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/focal_loss.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/focal_loss.py",
       "registered_providers": {
         "nvidia": {
           "backward": true,
@@ -1241,7 +1241,7 @@
       "category": "normalization",
       "gradients": "input, weight, bias",
       "name": "sync_batch_norm",
-      "reference_source": "packages/up-platform/src/up_platform/shared/layers.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/normalization/common.py",
       "registered_providers": {
         "portable": {
           "backward": true,
@@ -1258,7 +1258,7 @@
       "category": "normalization",
       "gradients": "input and module affine parameters",
       "name": "sync_batch_norm_forward",
-      "reference_source": "packages/up-platform/src/up_platform/shared/layers.py",
+      "reference_source": "packages/up-platform/src/up_platform/ops/normalization/common.py",
       "registered_providers": {
         "portable": {
           "backward": true,

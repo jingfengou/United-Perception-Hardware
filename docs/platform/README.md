@@ -1,6 +1,6 @@
 # UP 平台包
 
-`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。它管理硬件边界，不增加新模型算法或推理引擎。当前厂商入口见[简化记录](../reports/VENDOR_SIMPLIFICATION_20261022.md)，前次目录整理见[收敛记录](../reports/CONSOLIDATION_20261022.md)；[当前真机与完整预算回归](../reports/CURRENT_VALIDATION_20261022.md)分别记录 NVIDIA/沐曦的实际范围及未通过项，[更早短程结果](../reports/platform/REAL_HARDWARE.md)不自动转记为新版本通过。
+`up-platform` 与 UP 在同一仓库，独立安装、独立测试，Python 导入名为 `up_platform`。按 LightX2V 风格组织设备后端、算子注册与分用途工厂，硬件算子统一按“类别 → 厂商”放置，不增加新模型算法或推理引擎。[当前总设计](../architecture/PLATFORM.md)与[逐文件迁移清单](../architecture/platform-layout.json)是现行架构；历史 GPU 结果仍只对各报告的冻结版本成立。
 
 ## 1. 调用关系
 
@@ -16,9 +16,9 @@ UP 模型 / loss / 数据 / 配方 / Runner / CLI
    AMP / scaler / DDP     autocast / ONNX 导出
    训练操作与层            推理操作与层
           \                  /
-           common + shared
-        设备 / RNG / 内存 / 通信
-         明确可共用的完整操作
+       registry_factory + context
+        base 设备 / common 通信
+       ops/<类别>/<厂商> 或 common.py
                     |
           已选厂商设备与 SDK
 ```
@@ -42,33 +42,41 @@ UP 模型 / loss / 数据 / 配方 / Runner / CLI
 packages/up-platform/
   pyproject.toml, setup.py      独立分发，默认无 GPU 编译
   src/up_platform/
-    __init__.py                配置、上下文、能力查询
-    registry.py                后端规格、显式作用域、固定路由
+    __init__.py                薄公共 API
+    set_ai_device.py           显式初始化、用途固定
+    context.py                 操作调用与能力查询
+    registry_factory.py        后端规格、显式作用域、固定路由
     catalog.py                 73 项已有操作的延迟注册
     contracts.py               逐项语义定义和完整性检查
     common/
-      runtime.py               DeviceBackend
       policy.py                原生无操作策略与通用生命周期钩子
       precision.py             可共用的 autocast 实现
       collectives.py           传输、进程组和集合通信
       legacy_contract.json     31 个运行时成员 / 73 操作的迁移 ABI 基线
     training/
-      backend.py               TrainingBackend：AMP、scaler、优化器入口
-      distributed.py           DDP 实现
-      legacy.py                旧 linklink 参数广播/梯度同步
+      runtime/backend/base.py  TrainingBackend：AMP、scaler、优化器入口
+      runtime/backend/factory.py  所选训练实现的加载与获取
+      runtime/distributed.py   DDP 实现
+      runtime/legacy.py        旧 linklink 参数广播/梯度同步
       evaluation.py            训练内验证状态保护
-    inference/backend.py       InferenceBackend：autocast、普通 ONNX 导出
-    shared/
-      execution.py             共用操作门面，不导入任何另一用途后端
-      portable.py              同设备 NMS、overlap 等
-      layers.py, sparse.py     层工厂、参数与稀疏表示契约
-      cuda_runtime.py          CUDA-shaped 运行时明确共享的卷积开关
-    backends/<vendor>/
-      device.py                SDK 与设备运行时
-      training.py              可选：实际训练差异；现有同名文件仅为旧地址别名
-      inference.py             可选：实际推理差异；现有同名文件仅为旧地址别名
-    backends/nvidia/
-      ops/, native.py, csrc/   完整原生算子、二进制加载和编译源码
+    inference/
+      backend.py, factory.py   InferenceBackend 与独立选择工厂
+    base/
+      base.py, factory.py      DeviceBackend 与厂商选择
+      <vendor>.py              SDK 与设备运行时差异
+      cuda.py                  CUDA-shaped 运行时共享开关
+      nvidia_extension.py      选择 NVIDIA 时才允许加载二进制
+      csrc/nvidia/pybind.cpp    聚合绑定，扩展名不变
+    ops/
+      __init__.py, base.py     统一门面与共用操作入口
+      nms/common.py           同设备公共实现
+      nms/nvidia/             厂商实现、可选 csrc/
+      roi/nvidia/             RoIAlign、PSRoI 及 csrc/
+      iou/, pointcloud/       IoU、点云，内部按厂商分组
+      deform_conv/, focal_loss/  内部按厂商分组
+      normalization/common.py, sparse/common.py  公共层与稀疏接口
+      convolution/metax/, mm/metax/  显式 v1/v2，不改变 native
+    backends/, shared/        旧导入兼容，不是新实现入口
     experimental/numerics/     portable_v1 算法及 policy.py 生命周期；默认不加载
   tests/                       不安装 UP 也可运行
   examples/vendor_plugin/      独立可安装、仅覆盖一项的 CPU 示例
@@ -77,9 +85,9 @@ docs/platform/                当前平台架构、接口、指南、矩阵
 docs/reports/                 冻结报告、证据归档索引和整理验收
 ```
 
-shared 不是第二套后端：同一函数仅一份实现，由各用途/厂商显式复用。common 通信不拥有 DDP、梯度同步策略或训练状态；这些在 training，UP 仍负责编排。
+同一操作的公共实现放在该类别的 common.py，由各用途/厂商显式复用。common 通信不拥有 DDP、梯度同步策略或训练状态；这些在 training/runtime，UP 仍负责编排。
 
-新增厂商最小只有 device.py 和注册入口；`register_backend(VendorDevice)` 默认选择公共执行类，缺失算子再补。没有差异就不创建 training.py / inference.py。现有五个内置厂商不再经过这两类兼容文件；保留旧地址只是为了已有导入和插件配置不失效，不需要新厂商仿写。
+新增厂商只需设备后端和注册入口；`register_backend(VendorDevice)` 默认选择公共执行类，缺失算子再补到对应类别。没有差异就不创建训练/推理子类。旧 backends/shared 地址只是兼容转发，不需要新厂商仿写。
 
 数值实验通过懒加载策略接入，native 不导入 experimental。公共运行时只调用策略钩子，实验自己负责模式、RNG、局部操作注册与开关恢复，见[数值策略](NUMERICAL_POLICIES.md)。这不是新增厂商必须实现的另一套接口。
 

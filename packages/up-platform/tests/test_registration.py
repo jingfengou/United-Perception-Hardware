@@ -188,14 +188,15 @@ class Guard:
             raise AssertionError('unexpected opposite purpose: ' + fullname)
 sys.meta_path.insert(0, Guard())
 ctx = up_platform.configure_platform({{'backend': '{vendor}'}}, purpose='{purpose}')
-assert ctx.execution.__class__.__module__ == 'up_platform.{purpose}.backend'
+assert ctx.execution.__class__.__module__ == {module!r}
 assert ctx.purpose == '{purpose}'
-""".format(vendor=vendor, purpose=purpose, other=other)
+""".format(vendor=vendor, purpose=purpose, other=other,
+           module="up_platform.training.runtime.backend.base" if purpose == "training" else "up_platform.inference.backend")
     subprocess.run([sys.executable, "-c", code], cwd=tmp_path, check=True)
 
 
 @pytest.mark.parametrize("purpose", ("training", "inference"))
-def test_three_file_vendor_example(purpose, tmp_path):
+def test_category_vendor_example(purpose, tmp_path):
     example = Path(__file__).resolve().parents[1] / "examples/vendor_plugin"
     code = """
 import sys

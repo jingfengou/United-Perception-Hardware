@@ -32,7 +32,8 @@ jobs:
       - run: python tools/platform/check_hardware_boundaries.py
       - run: python tools/platform/export_accelerator_contract.py --check
       - run: python tools/platform/export_platform_contract.py --check
-      - run: python tools/platform/check_project.py
+      - name: Verify protected algorithms, category-first implementations and evidence
+        run: python tools/platform/check_project.py
       - name: Discover every CPU, compatibility and maintenance regression
         run: python -m pytest -q --junitxml=dist/cpu-contracts.xml
       - name: Test installed platform wheel without UP, outside checkout

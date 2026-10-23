@@ -152,7 +152,7 @@ def test_unrestricted_dtype_does_not_walk_inputs(monkeypatch):
     context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)
     def unexpected_walk(value):
         raise AssertionError("An unrestricted operation does not need tensor traversal")
-    monkeypatch.setattr(platform, "_tensor_values", unexpected_walk)
+    monkeypatch.setattr(sys.modules[platform.PlatformContext.__module__], "_tensor_values", unexpected_walk)
     value = {"nested": [torch.ones(2, dtype=torch.float64)]}
     assert context.call("unrestricted", value) is value
 
@@ -168,11 +168,12 @@ def test_declared_dtype_checks_nested_inputs():
 def test_variant_signature_is_resolved_once(monkeypatch):
     register_op("cpu", "variant", lambda x, **kwargs: x, scope="common", variants={"mode": ("x",)})
     context = configure_platform({"backend": "cpu"}, purpose="training", reset=True)
-    original, calls = platform.inspect.signature, []
+    routing = sys.modules[platform.PlatformContext.__module__]
+    original, calls = routing.inspect.signature, []
     def signature(function):
         calls.append(function)
         return original(function)
-    monkeypatch.setattr(platform.inspect, "signature", signature)
+    monkeypatch.setattr(routing.inspect, "signature", signature)
     assert context.call("variant", 1, mode="x") == 1
     assert len(calls) == 1
     with pytest.raises(CapabilityError, match="unsupported variant"):

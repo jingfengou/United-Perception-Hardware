@@ -9,8 +9,8 @@ import inspect
 import json
 from pathlib import Path
 
-from .catalog import NATIVE_OPERATIONS, TRAINING_ONLY
-from .registry import OPERATIONS
+from .catalog import NATIVE_OPERATIONS, NVIDIA_MODULES, TRAINING_ONLY
+from .registry_factory import OPERATIONS
 
 ROOT = Path(__file__).parent
 
@@ -193,8 +193,8 @@ def _signature(path, attribute):
 
 def build_contract():
     from . import PlatformContext, configure_platform, get_platform, register_backend, register_op, capabilities, require
-    from .common.runtime import DeviceBackend
-    from .training.backend import TrainingBackend
+    from .base.base import DeviceBackend
+    from .training.runtime.backend.base import TrainingBackend
     from .inference.backend import InferenceBackend
 
     contract = json.loads((ROOT / "common/legacy_contract.json").read_text(encoding="utf-8"))
@@ -215,19 +215,19 @@ def build_contract():
         item["legacy_signature"] = item["signature"]
         if name in NATIVE_OPERATIONS:
             module, attribute, _ = NATIVE_OPERATIONS[name]
-            path = ROOT / "backends/nvidia/ops" / (module + ".py")
+            path = ROOT / "ops" / (NVIDIA_MODULES[module].replace(".", "/") + ".py")
             item["signature"] = name + "(" + _signature(path, attribute) + ")"
             item["reference_source"] = path.relative_to(ROOT).as_posix()
         elif name.startswith("sparse."):
-            item["reference_source"] = "shared/sparse.py"
+            item["reference_source"] = "ops/sparse/common.py"
         elif name.startswith("distributed."):
-            item["reference_source"] = "training/distributed.py" if name == "distributed.wrap_model" else "common/collectives.py"
+            item["reference_source"] = "training/runtime/distributed.py" if name == "distributed.wrap_model" else "common/collectives.py"
         elif "batch_norm" in name:
-            item["reference_source"] = "shared/layers.py"
+            item["reference_source"] = "ops/normalization/common.py"
         elif name == "torchvision_nms":
-            item["reference_source"] = "shared/portable.py; backends/nvidia/ops/vision.py"
+            item["reference_source"] = "ops/nms/common.py; ops/nms/nvidia/vision.py"
         else:
-            item["reference_source"] = "backends/nvidia/legacy.py"
+            item["reference_source"] = "base/nvidia_legacy.py"
         if name in NATIVE_SEMANTICS:
             inputs, layout, empty, state, export = NATIVE_SEMANTICS[name]
         elif item["category"] == "distributed":

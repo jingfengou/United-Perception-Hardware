@@ -1,0 +1,578 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "ad36d7728b19ae6229e22923d2918feeb6b9ad0d",
+  "normalization": "CRLF to LF for source text; relocated Python definitions ignore import statements only",
+  "relocations": {
+    "packages/up-platform/src/up_platform/backends/__init__.py": "packages/up-platform/src/up_platform/base/metadata.py",
+    "packages/up-platform/src/up_platform/backends/ascend/device.py": "packages/up-platform/src/up_platform/base/ascend.py",
+    "packages/up-platform/src/up_platform/backends/cambricon/device.py": "packages/up-platform/src/up_platform/base/cambricon.py",
+    "packages/up-platform/src/up_platform/backends/metax/determinism.py": "packages/up-platform/src/up_platform/ops/convolution/metax/weight_gradient.py",
+    "packages/up-platform/src/up_platform/backends/metax/determinism_v2.py": "packages/up-platform/src/up_platform/ops/mm/metax/determinism.py",
+    "packages/up-platform/src/up_platform/backends/metax/device.py": "packages/up-platform/src/up_platform/base/metax.py",
+    "packages/up-platform/src/up_platform/backends/metax/fixed_gemm.py": "packages/up-platform/src/up_platform/ops/mm/metax/fixed_gemm.py",
+    "packages/up-platform/src/up_platform/backends/metax/fixed_gemm_kernel.py": "packages/up-platform/src/up_platform/ops/mm/metax/fixed_gemm_kernel.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss.h": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv.cpp": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv_cuda.cpp": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv_cuda_kernel.cu": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv_cuda_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deformable_conv.h": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deformable_conv.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss.h": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_cuda.cpp": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_sigmoid_kernel.cu": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_sigmoid_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_softmax_kernel.cu": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_softmax_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_cpu.cpp": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_cpu.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_cpu.h": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_cpu.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms.cpp": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms.h": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms_api.cpp": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms_api.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms_kernel.cu": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap.cpp": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap.h": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap_kernel.cu": "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms.h": "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms_cuda.cpp": "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms_kernel.cu": "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align.h": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align_cuda.cpp": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align_kernel.cu": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling.cpp": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling.h": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling_cuda.cpp": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling_kernel.cu": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/pybind.cpp": "packages/up-platform/src/up_platform/base/csrc/nvidia/pybind.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align.cpp": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align.h": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align_cuda.cpp": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align_cuda.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align_kernel.cu": "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.cpp": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.h": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.cpp": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.h": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/softer_nms/softer_nms.cpp": "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/softer_nms/softer_nms.cpp",
+    "packages/up-platform/src/up_platform/backends/nvidia/csrc/softer_nms/softer_nms.h": "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/softer_nms/softer_nms.h",
+    "packages/up-platform/src/up_platform/backends/nvidia/device.py": "packages/up-platform/src/up_platform/base/nvidia.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/legacy.py": "packages/up-platform/src/up_platform/base/nvidia_legacy.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/native.py": "packages/up-platform/src/up_platform/base/nvidia_extension.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/cross_focal_loss.py": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/cross_focal_loss.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/deformable_conv.py": "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/deformable_conv.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/focal_loss.py": "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/focal_loss.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/iou_overlap.py": "packages/up-platform/src/up_platform/ops/iou/nvidia/iou_overlap.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/nms.py": "packages/up-platform/src/up_platform/ops/nms/nvidia/nms.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_align.py": "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_align.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_pool.py": "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_pool.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/roi_align.py": "packages/up-platform/src/up_platform/ops/roi/nvidia/roi_align.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/roiaware_pool3d_utils.py": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roiaware_pool3d_utils.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/roipoint_pool3d_utils.py": "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roipoint_pool3d_utils.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/rotate_iou.py": "packages/up-platform/src/up_platform/ops/iou/nvidia/rotate_iou.py",
+    "packages/up-platform/src/up_platform/backends/nvidia/ops/vision.py": "packages/up-platform/src/up_platform/ops/nms/nvidia/vision.py",
+    "packages/up-platform/src/up_platform/common/runtime.py": "packages/up-platform/src/up_platform/base/base.py",
+    "packages/up-platform/src/up_platform/ops.py": "packages/up-platform/src/up_platform/ops/__init__.py",
+    "packages/up-platform/src/up_platform/registry.py": "packages/up-platform/src/up_platform/registry_factory.py",
+    "packages/up-platform/src/up_platform/shared/cuda_runtime.py": "packages/up-platform/src/up_platform/base/cuda.py",
+    "packages/up-platform/src/up_platform/shared/execution.py": "packages/up-platform/src/up_platform/ops/base.py",
+    "packages/up-platform/src/up_platform/shared/layers.py": "packages/up-platform/src/up_platform/ops/normalization/common.py",
+    "packages/up-platform/src/up_platform/shared/sparse.py": "packages/up-platform/src/up_platform/ops/sparse/common.py",
+    "packages/up-platform/src/up_platform/training/backend.py": "packages/up-platform/src/up_platform/training/runtime/backend/base.py",
+    "packages/up-platform/src/up_platform/training/distributed.py": "packages/up-platform/src/up_platform/training/runtime/distributed.py",
+    "packages/up-platform/src/up_platform/training/legacy.py": "packages/up-platform/src/up_platform/training/runtime/legacy.py"
+  },
+  "implementations": {
+    "packages/up-platform/src/up_platform/base/ascend.py": {
+      "baseline_sha256": "a298653ee6a0855d61b0e99ec8e388c8fbeca174e5293f833f27d20a881852a1",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/ascend/device.py",
+      "check": "definitions",
+      "sha256": "45a865036c549a5c34b8a10ea00b749ba93e88c5cecdfd77f28234da6868a610"
+    },
+    "packages/up-platform/src/up_platform/base/base.py": {
+      "baseline_sha256": "6cd00ec03fa32fd74f4d5216e573f34c7058ee129d871082bac59ba8dac36afe",
+      "baseline_source": "packages/up-platform/src/up_platform/common/runtime.py",
+      "check": "definitions",
+      "sha256": "a9329f711b44ed0971271724a4334fb78654bd4b32870b958e64810f62e5fcc1"
+    },
+    "packages/up-platform/src/up_platform/base/cambricon.py": {
+      "baseline_sha256": "3b3e7e5cf9a87f99505ff6c51674a46f1e985a8dc45da55255a0a931a40fecfc",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/cambricon/device.py",
+      "check": "definitions",
+      "sha256": "132a20e6f373c9b3c7f72b58b328c21f28bd7698060553afa4ecbeada1909f8f"
+    },
+    "packages/up-platform/src/up_platform/base/csrc/nvidia/pybind.cpp": {
+      "baseline_sha256": "062fab77b63e9dd56bec7cb2a307453483d97332d63e4baea64dd5d87d635732",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/pybind.cpp",
+      "check": "source",
+      "sha256": "062fab77b63e9dd56bec7cb2a307453483d97332d63e4baea64dd5d87d635732"
+    },
+    "packages/up-platform/src/up_platform/base/cuda.py": {
+      "baseline_sha256": "cfa34b98ba827e3b354ca2f987ef7f5964fc80d64405b54756a6cc6f7dc717c1",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/cuda_runtime.py",
+      "check": "definitions",
+      "sha256": "926bfdbe1331e2cf54904c5d51007e24d4c1e5f83dc241a13921e440fe6d0846"
+    },
+    "packages/up-platform/src/up_platform/base/metadata.py": {
+      "baseline_sha256": "bfc60123f2bab04988a72025204d031925fa3d1b5ec5e3d995b47cfe2762d187",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/__init__.py",
+      "check": "definitions",
+      "sha256": "4da5b5d5c6fe3755f406afc334638fc0a62a96cb9985410d82c1eabfe19510ea"
+    },
+    "packages/up-platform/src/up_platform/base/metax.py": {
+      "baseline_sha256": "eaf9a8e91ec70e7cb45b90ee3c2ca12003b755ebf684e9fdefb2647033609165",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/metax/device.py",
+      "check": "definitions",
+      "sha256": "b05150f3edf68b5889aef2bea089f841cacc6512381bd19b613551e254b8b2ea"
+    },
+    "packages/up-platform/src/up_platform/base/nvidia.py": {
+      "baseline_sha256": "a7d21e1fd51d6449b0c47c5ff9fc0ceda1fc4b250e7c6cfed217eb3df7e9367a",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/device.py",
+      "check": "definitions",
+      "sha256": "443bbf0c5951046f6bf517cb26d605bddb3302d282c00dee6927470438d4230c"
+    },
+    "packages/up-platform/src/up_platform/base/nvidia_extension.py": {
+      "baseline_sha256": "27ec3a62d9c62c928e346f7062a23a817d9cb8fc5d0520ced664a70a5369aecf",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/native.py",
+      "check": "definitions",
+      "sha256": "69890f5da4753fe17ebdb4a46f5d87e662b9b39f42c7235508d8785fe0e9a9a2"
+    },
+    "packages/up-platform/src/up_platform/base/nvidia_legacy.py": {
+      "baseline_sha256": "1b9fc54eff0d765c262497d57049ea36401a1c6d68b56e696c53ba710a98ac4a",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/legacy.py",
+      "check": "definitions",
+      "sha256": "bc9b5d5b3e30c67ecc4995d360227877a9d67183a5dec74f2086cc61b3493309"
+    },
+    "packages/up-platform/src/up_platform/context.py": {
+      "baseline_sha256": "6a0d7636b3077376d3a97029d5f9e9eb4cf0779700db9f95b3d374a536144fc1",
+      "baseline_source": "packages/up-platform/src/up_platform/__init__.py",
+      "check": "definitions",
+      "definitions": [
+        "_tensor_values",
+        "PlatformContext"
+      ],
+      "sha256": "b40d47a99c98343177ba4b11eedf353299a94306f35c7219efd07cd96fbe36da"
+    },
+    "packages/up-platform/src/up_platform/ops/__init__.py": {
+      "baseline_sha256": "11a81125a10bab26b59e2698cc311212143780ad9ea6b8a95279da22b517427e",
+      "baseline_source": "packages/up-platform/src/up_platform/ops.py",
+      "check": "definitions",
+      "sha256": "eb7cb1ae09a356416e6d5bbfc5446cfca482bb5daab55933bc84201a3e4eec31"
+    },
+    "packages/up-platform/src/up_platform/ops/base.py": {
+      "baseline_sha256": "d25e995bad76c789d0ee7e901d2d06c93b367e7d11ac3e7cb96473ad88909fd0",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/execution.py",
+      "check": "definitions",
+      "sha256": "a5b0f20deb9a5f9a64c85036e210c8d40b04bd6827982c9b06e4bbb23b5b4356"
+    },
+    "packages/up-platform/src/up_platform/ops/convolution/metax/weight_gradient.py": {
+      "baseline_sha256": "12f06864e2d2ca61f9606701e36fce852192c38e276d13fd85bd519407855225",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/metax/determinism.py",
+      "check": "definitions",
+      "sha256": "a62d282fb1cb5cb09999000ead7ef409517a737b6cf0e210ca3648d7c2715700"
+    },
+    "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv.cpp": {
+      "baseline_sha256": "dfbc24e9ba896dc83a22c0a573d50d1639fdc687b4d2193a5effd9a2a044b98e",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv.cpp",
+      "check": "source",
+      "sha256": "dfbc24e9ba896dc83a22c0a573d50d1639fdc687b4d2193a5effd9a2a044b98e"
+    },
+    "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv_cuda.cpp": {
+      "baseline_sha256": "920303bde9172cf3909c8be9276ac371137a7d1d31d8262a16222743bdebc317",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv_cuda.cpp",
+      "check": "source",
+      "sha256": "920303bde9172cf3909c8be9276ac371137a7d1d31d8262a16222743bdebc317"
+    },
+    "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deform_conv_cuda_kernel.cu": {
+      "baseline_sha256": "5d51eb0fb14633ada749db0711944184d286261fc749a83514eed741c99edc15",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deform_conv_cuda_kernel.cu",
+      "check": "source",
+      "sha256": "5d51eb0fb14633ada749db0711944184d286261fc749a83514eed741c99edc15"
+    },
+    "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/csrc/deform_conv/deformable_conv.h": {
+      "baseline_sha256": "e2ea208f9bdbb882465fc0d80151d78d766d23f66ccbc253f9f654b30a3b39bd",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/deform_conv/deformable_conv.h",
+      "check": "source",
+      "sha256": "e2ea208f9bdbb882465fc0d80151d78d766d23f66ccbc253f9f654b30a3b39bd"
+    },
+    "packages/up-platform/src/up_platform/ops/deform_conv/nvidia/deformable_conv.py": {
+      "baseline_sha256": "4f8b89eca027bc8084369933ab65e81918ac3f253c0f1ac255ae7ddbde80835a",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/deformable_conv.py",
+      "check": "definitions",
+      "sha256": "3186e2ba812e1e621f93edfb5674a83637de95753fc422997398857f53839fdd"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/cross_focal_loss.py": {
+      "baseline_sha256": "950e037c3ae48c32b58a8ab01813daa4a988e9fbec72ca1d0ab5c47bd1501907",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/cross_focal_loss.py",
+      "check": "definitions",
+      "sha256": "77d803387a03517b3b0c67c841aad8c98ab12c10110fcf00da67d2dbc9b5e2f5"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss.h": {
+      "baseline_sha256": "7268353be609d7959bb135a94358b32e71d17940c8c42283f4342cb9aa36dfe9",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss.h",
+      "check": "source",
+      "sha256": "7268353be609d7959bb135a94358b32e71d17940c8c42283f4342cb9aa36dfe9"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp": {
+      "baseline_sha256": "8ab14ca7a496e5b78aad870b041be9e5855002306cca2147f502511a285485c5",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss_cuda.cpp",
+      "check": "source",
+      "sha256": "8ab14ca7a496e5b78aad870b041be9e5855002306cca2147f502511a285485c5"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu": {
+      "baseline_sha256": "6e2131716df5b8acf7292ade7477c7b15784f1ea6ab6f7d0fb1c3617bfda9f52",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/cross_focal_loss/cross_focal_loss_sigmoid_kernel.cu",
+      "check": "source",
+      "sha256": "6e2131716df5b8acf7292ade7477c7b15784f1ea6ab6f7d0fb1c3617bfda9f52"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss.h": {
+      "baseline_sha256": "027b0f83a0357e7b79f3e3a66dd384bc6356829dd85474b8772d05aceb2c70b3",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss.h",
+      "check": "source",
+      "sha256": "027b0f83a0357e7b79f3e3a66dd384bc6356829dd85474b8772d05aceb2c70b3"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_cuda.cpp": {
+      "baseline_sha256": "09d29e186581cc696419b200749e1795f64c7223cf459f965117fc3107edc850",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_cuda.cpp",
+      "check": "source",
+      "sha256": "09d29e186581cc696419b200749e1795f64c7223cf459f965117fc3107edc850"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_sigmoid_kernel.cu": {
+      "baseline_sha256": "9fa4c90de6ff6114df888f2a819a7d88c33793aa902ccb775aba69f06a37a205",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_sigmoid_kernel.cu",
+      "check": "source",
+      "sha256": "9fa4c90de6ff6114df888f2a819a7d88c33793aa902ccb775aba69f06a37a205"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/csrc/focal_loss/focal_loss_softmax_kernel.cu": {
+      "baseline_sha256": "1fc753d08f3424325e099bb11212d987c738d51b449df2ca2d51c361cd8279c8",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/focal_loss/focal_loss_softmax_kernel.cu",
+      "check": "source",
+      "sha256": "1fc753d08f3424325e099bb11212d987c738d51b449df2ca2d51c361cd8279c8"
+    },
+    "packages/up-platform/src/up_platform/ops/focal_loss/nvidia/focal_loss.py": {
+      "baseline_sha256": "72d64f09df700c7c9aeafa93dcfeb9eb0baa466695e668b1b4261db3078af7d0",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/focal_loss.py",
+      "check": "definitions",
+      "sha256": "9ed333472c2926ae7bf0ac48fe842d07a8f21369cc0f3fd49aa7d8d653929f3d"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/common.py": {
+      "baseline_sha256": "4dc3d8bd427170d6909609a89333c92bb1a8383b2c409d8baa3bc4b419ff895e",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/portable.py",
+      "check": "definitions",
+      "definitions": [
+        "gpu_iou_overlap"
+      ],
+      "sha256": "e675256c220b9a5162656884cac5d7cb1c4270fd27d01d51268901fe27a3c85f"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_cpu.cpp": {
+      "baseline_sha256": "2c2aff44c1c73eacc26f897fdc32263e898432a7f8f4fee2563991e32421d6ef",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_cpu.cpp",
+      "check": "source",
+      "sha256": "2c2aff44c1c73eacc26f897fdc32263e898432a7f8f4fee2563991e32421d6ef"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_cpu.h": {
+      "baseline_sha256": "2a0c9325ef7e61035adedb67a4629ac0792750a4cbc292acdca48ff4e1d8b526",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_cpu.h",
+      "check": "source",
+      "sha256": "2a0c9325ef7e61035adedb67a4629ac0792750a4cbc292acdca48ff4e1d8b526"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms.cpp": {
+      "baseline_sha256": "72face378aa8d84cac0cd174130de7f397bffdecbc7f586ebf6897e71f03faa3",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms.cpp",
+      "check": "source",
+      "sha256": "72face378aa8d84cac0cd174130de7f397bffdecbc7f586ebf6897e71f03faa3"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms.h": {
+      "baseline_sha256": "cf2eaea479c84206923272e5451b1d705db6e824198849a26004906e3cef5ebf",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms.h",
+      "check": "source",
+      "sha256": "cf2eaea479c84206923272e5451b1d705db6e824198849a26004906e3cef5ebf"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms_api.cpp": {
+      "baseline_sha256": "db86ea3c0319a57436b406f9b1973f5290a45b4d98221327f8a743f51909b197",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms_api.cpp",
+      "check": "source",
+      "sha256": "db86ea3c0319a57436b406f9b1973f5290a45b4d98221327f8a743f51909b197"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou3d_nms/iou3d_nms_kernel.cu": {
+      "baseline_sha256": "6815b8ef6935a1e75bc0972635d9eb5dcc83c305dc6745fb9ce6018323d168a0",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou3d_nms/iou3d_nms_kernel.cu",
+      "check": "source",
+      "sha256": "6815b8ef6935a1e75bc0972635d9eb5dcc83c305dc6745fb9ce6018323d168a0"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap.cpp": {
+      "baseline_sha256": "958bc8bee4129a0f71cdf9b91ccfb92ba3b92830cabd8b29adb0dbc00a612a1e",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap.cpp",
+      "check": "source",
+      "sha256": "958bc8bee4129a0f71cdf9b91ccfb92ba3b92830cabd8b29adb0dbc00a612a1e"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap.h": {
+      "baseline_sha256": "1328ebdf3a0ea5274b505135c43e5fea27dfb6ccc4e279c19148199d0fbc0087",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap.h",
+      "check": "source",
+      "sha256": "1328ebdf3a0ea5274b505135c43e5fea27dfb6ccc4e279c19148199d0fbc0087"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/csrc/iou_overlap/iou_overlap_kernel.cu": {
+      "baseline_sha256": "3190116d60e3940db48985aff9514a4d509573b252f4b7d07368b8b4b9f580c1",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/iou_overlap/iou_overlap_kernel.cu",
+      "check": "source",
+      "sha256": "3190116d60e3940db48985aff9514a4d509573b252f4b7d07368b8b4b9f580c1"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/iou3d_nms_utils.py": {
+      "baseline_sha256": "72ae01598f85035ad7fbd4d54e7f571c4f7840f50fc137d7a8f544f6d04a5569",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou3d_nms_utils.py",
+      "check": "definitions",
+      "sha256": "60ff9d2fe0933bd5dd2a439994910eb9b55539fa8babfc505500b0ba766239d9"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/iou_overlap.py": {
+      "baseline_sha256": "d3cc742f3b9dd5b8f3339f6a048bf03312a91404cf884e847c80a357490bcf4e",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/iou_overlap.py",
+      "check": "definitions",
+      "sha256": "a5094b7fb849974f8cc69c48414b9aef6dade603b80d8aa191584063eff01675"
+    },
+    "packages/up-platform/src/up_platform/ops/iou/nvidia/rotate_iou.py": {
+      "baseline_sha256": "91390922bbde8e670d979e3ec44f7742e1471462529b02dedb1f1d04a055a4a8",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/rotate_iou.py",
+      "check": "definitions",
+      "sha256": "5673b268d076c6e21db6a5532a2ed4d4b5514d093220cd9370a3e028488e22d3"
+    },
+    "packages/up-platform/src/up_platform/ops/mm/metax/determinism.py": {
+      "baseline_sha256": "3f996e71aceac2028961b3256a109bd3f12649c68b59c76061570244e576c14e",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/metax/determinism_v2.py",
+      "check": "definitions",
+      "sha256": "e58f0850f81199cc626dbdabb5b6312f3fb4a889a9e26e961d2499ce064f0961"
+    },
+    "packages/up-platform/src/up_platform/ops/mm/metax/fixed_gemm.py": {
+      "baseline_sha256": "17f41f23799f8a60d406b023f64a5f1b832120b8ac665a480b7a62995043a2dc",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/metax/fixed_gemm.py",
+      "check": "definitions",
+      "sha256": "43eae94750effa25842b49ab57e1b9357c0e4c510271afd6eadd90a5d0df7bef"
+    },
+    "packages/up-platform/src/up_platform/ops/mm/metax/fixed_gemm_kernel.py": {
+      "baseline_sha256": "4b79c0ef8efd3a5049b15e2f5d130cf26eb688ea723a423c2510f309bb0bc921",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/metax/fixed_gemm_kernel.py",
+      "check": "definitions",
+      "sha256": "f9ceca5500dd090f39c0b407f071e23aea7f1c265b9fada1b239b7a2694a6616"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/common.py": {
+      "baseline_sha256": "4dc3d8bd427170d6909609a89333c92bb1a8383b2c409d8baa3bc4b419ff895e",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/portable.py",
+      "check": "definitions",
+      "definitions": [
+        "naive_nms",
+        "torchvision_nms",
+        "_ordered_nms"
+      ],
+      "sha256": "b0ec7e396889ff3df96e667c8ab1557e811b201345f3ee193f98a814fdf11ea8"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms.h": {
+      "baseline_sha256": "2bdaa9e68e6e6c08ca6096ca9bdf7e730180727fba12d6e77e03148492b7d31c",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms.h",
+      "check": "source",
+      "sha256": "2bdaa9e68e6e6c08ca6096ca9bdf7e730180727fba12d6e77e03148492b7d31c"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms_cuda.cpp": {
+      "baseline_sha256": "4692f65a0acb176f1bc1c70f105b756b903b98c46ac569f484db5afdcadac997",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms_cuda.cpp",
+      "check": "source",
+      "sha256": "4692f65a0acb176f1bc1c70f105b756b903b98c46ac569f484db5afdcadac997"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/nms/nms_kernel.cu": {
+      "baseline_sha256": "5bf439469c7b565cb90ce00c7a57d5b9b24bc836f454459c5cebd6cb479aed42",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/nms/nms_kernel.cu",
+      "check": "source",
+      "sha256": "5bf439469c7b565cb90ce00c7a57d5b9b24bc836f454459c5cebd6cb479aed42"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/softer_nms/softer_nms.cpp": {
+      "baseline_sha256": "a59f7f8cbe2123223db0d47f8865cd8c2623a120a2f6620391d0712314445fb8",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/softer_nms/softer_nms.cpp",
+      "check": "source",
+      "sha256": "a59f7f8cbe2123223db0d47f8865cd8c2623a120a2f6620391d0712314445fb8"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/csrc/softer_nms/softer_nms.h": {
+      "baseline_sha256": "f9ec0b2c8ac0a6c8c713272ea637382844e18630a104cfe6cd928183c8356fc1",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/softer_nms/softer_nms.h",
+      "check": "source",
+      "sha256": "f9ec0b2c8ac0a6c8c713272ea637382844e18630a104cfe6cd928183c8356fc1"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/nms.py": {
+      "baseline_sha256": "b5a2e34b855e5d5e6799b5a7a5a7e44ff60e74f25f9194c3999f3e5445d9e086",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/nms.py",
+      "check": "definitions",
+      "sha256": "137377d9faf322334f6a45004749393ac926028fd48ecd08f1dd671e8de354bb"
+    },
+    "packages/up-platform/src/up_platform/ops/nms/nvidia/vision.py": {
+      "baseline_sha256": "9c8c62b5a401765fd67866684e72014b0cae978683fde1153c2970e79492df45",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/vision.py",
+      "check": "definitions",
+      "sha256": "4e720b05a700cc04abbb56a2dccc244f525d2366af6fb923f96dd0c864bcbd7b"
+    },
+    "packages/up-platform/src/up_platform/ops/normalization/common.py": {
+      "baseline_sha256": "0ed5837ea769f82ea9f388097f8b1c5add034c0fa87e5e4040deeb5f6a7e18eb",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/layers.py",
+      "check": "definitions",
+      "sha256": "708aa623e2a49f6e87b1e463382e6e63ed7da559ecf3515de72407861669ce81"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.cpp": {
+      "baseline_sha256": "b4f21b545791d12626a4dce8de4d87e5afcb52cf186017bd5d81de7173fd84db",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.cpp",
+      "check": "source",
+      "sha256": "b4f21b545791d12626a4dce8de4d87e5afcb52cf186017bd5d81de7173fd84db"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.h": {
+      "baseline_sha256": "2501ad2dcc32d4b0b91d9699b8d2260c53c9fc210e0de935925517f5a376348b",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d.h",
+      "check": "source",
+      "sha256": "2501ad2dcc32d4b0b91d9699b8d2260c53c9fc210e0de935925517f5a376348b"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu": {
+      "baseline_sha256": "d34013f84a0094dd9ae814e0cf1e5bceb7d808bfcc1248a1832f334a96a1808e",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roiaware_pool3d/roiaware_pool3d_kernel.cu",
+      "check": "source",
+      "sha256": "d34013f84a0094dd9ae814e0cf1e5bceb7d808bfcc1248a1832f334a96a1808e"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.cpp": {
+      "baseline_sha256": "22058149888e8b126f7dd4652ccdc393ff1de96f428fa8938ffaa17747d4a4a7",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.cpp",
+      "check": "source",
+      "sha256": "22058149888e8b126f7dd4652ccdc393ff1de96f428fa8938ffaa17747d4a4a7"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.h": {
+      "baseline_sha256": "31246078fc7f6b4979d0fa87bc20d2e2427b67652e20bcc6825714ba78b252df",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d.h",
+      "check": "source",
+      "sha256": "31246078fc7f6b4979d0fa87bc20d2e2427b67652e20bcc6825714ba78b252df"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu": {
+      "baseline_sha256": "a8b0b99d4140ba3e14c979f8f4debd0265caa8ed0cece50b83c481398d0a7e54",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roipoint_pool3d/roipoint_pool3d_kernel.cu",
+      "check": "source",
+      "sha256": "a8b0b99d4140ba3e14c979f8f4debd0265caa8ed0cece50b83c481398d0a7e54"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roiaware_pool3d_utils.py": {
+      "baseline_sha256": "ed562b0544f4a34879915339551fdd3353f827b4f4e95ac6d9de9bb43a5101e0",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roiaware_pool3d_utils.py",
+      "check": "definitions",
+      "sha256": "439b41efb514a65200550366f04b8f28044a71f54e544586471a6b46b90d4b51"
+    },
+    "packages/up-platform/src/up_platform/ops/pointcloud/nvidia/roipoint_pool3d_utils.py": {
+      "baseline_sha256": "b4770d674eed98eca551fae59ce306dd9bcfb69371d1e2ad25917bf42ab06510",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roipoint_pool3d_utils.py",
+      "check": "definitions",
+      "sha256": "1061e39bf011c6dd9ea6f64b1b39f8cb015411dc97f5e470bfed97b18a9d444f"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align.h": {
+      "baseline_sha256": "57ad5810914c644e767207e027b7db79dd0e3dc8b98066bc56f1656d25ff6df6",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align.h",
+      "check": "source",
+      "sha256": "57ad5810914c644e767207e027b7db79dd0e3dc8b98066bc56f1656d25ff6df6"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align_cuda.cpp": {
+      "baseline_sha256": "7d56c185f9fe992d68f5dc674c80c76a4c4e0b85c6cf392ea6da18539046c810",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align_cuda.cpp",
+      "check": "source",
+      "sha256": "7d56c185f9fe992d68f5dc674c80c76a4c4e0b85c6cf392ea6da18539046c810"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_align/psroi_align_kernel.cu": {
+      "baseline_sha256": "8cccdfe4bb0750bcea7386ea5764e9feeffca1cda7a981ff3d908d3b604d1191",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_align/psroi_align_kernel.cu",
+      "check": "source",
+      "sha256": "8cccdfe4bb0750bcea7386ea5764e9feeffca1cda7a981ff3d908d3b604d1191"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling.cpp": {
+      "baseline_sha256": "b384176b67605291ad9439c6f05ddbefb905a3c730809588ba9ea5019d389669",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling.cpp",
+      "check": "source",
+      "sha256": "b384176b67605291ad9439c6f05ddbefb905a3c730809588ba9ea5019d389669"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling.h": {
+      "baseline_sha256": "546fe2c57b90d833b9f16a3dc49fc62610eab463906c8365e960e45bc846a261",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling.h",
+      "check": "source",
+      "sha256": "546fe2c57b90d833b9f16a3dc49fc62610eab463906c8365e960e45bc846a261"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling_cuda.cpp": {
+      "baseline_sha256": "a29da79af9932ec6be270c1122c84c63c5ad534ccf03d5f447520f78b5417785",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling_cuda.cpp",
+      "check": "source",
+      "sha256": "a29da79af9932ec6be270c1122c84c63c5ad534ccf03d5f447520f78b5417785"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/psroi_pooling/psroi_pooling_kernel.cu": {
+      "baseline_sha256": "a956d490e01d258f95f2e133c39ce7870b80da45e4c98f74bda6a34d9edc27ad",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/psroi_pooling/psroi_pooling_kernel.cu",
+      "check": "source",
+      "sha256": "a956d490e01d258f95f2e133c39ce7870b80da45e4c98f74bda6a34d9edc27ad"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align.cpp": {
+      "baseline_sha256": "568aba5fdd24117b28b5272646075f9b8f0dd06045fd4640a9db886d5f5f494d",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align.cpp",
+      "check": "source",
+      "sha256": "568aba5fdd24117b28b5272646075f9b8f0dd06045fd4640a9db886d5f5f494d"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align.h": {
+      "baseline_sha256": "191f538765d74adc838df3ed520da5f95a242437a7c267f729e0928ab42a9d74",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align.h",
+      "check": "source",
+      "sha256": "191f538765d74adc838df3ed520da5f95a242437a7c267f729e0928ab42a9d74"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align_cuda.cpp": {
+      "baseline_sha256": "cb29a15b237cee5fdf7c0ba702c6bf0ee04a1762ac6290cf2696785193a93b5f",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align_cuda.cpp",
+      "check": "source",
+      "sha256": "cb29a15b237cee5fdf7c0ba702c6bf0ee04a1762ac6290cf2696785193a93b5f"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/csrc/roi_align/roi_align_kernel.cu": {
+      "baseline_sha256": "149144959790bcf0a33cb28e67f42f43fed86bc00cf5fef9fa43cb245c35f592",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/csrc/roi_align/roi_align_kernel.cu",
+      "check": "source",
+      "sha256": "149144959790bcf0a33cb28e67f42f43fed86bc00cf5fef9fa43cb245c35f592"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_align.py": {
+      "baseline_sha256": "0e40839f39087f73cb49e9f4b3a42409fe01697d4efd1ff4a1b56c199e98d3df",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_align.py",
+      "check": "definitions",
+      "sha256": "aa41adfc88058ca284e3dfdde0bb0e89fb43bd521eebaab8a0dca92ecb3a2e99"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/psroi_pool.py": {
+      "baseline_sha256": "4381186efac715877c83cde79b875f882a8a8bae4e7daf3b312280152e06c868",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/psroi_pool.py",
+      "check": "definitions",
+      "sha256": "8cd17aee579590f8fd0ff14f5369c319e991a85ec4cfe724467c78802d61ca62"
+    },
+    "packages/up-platform/src/up_platform/ops/roi/nvidia/roi_align.py": {
+      "baseline_sha256": "76e795c845202193cfccaf383fe0ce03b8c161f0acdfa5c5cd5c0a95ffa008bd",
+      "baseline_source": "packages/up-platform/src/up_platform/backends/nvidia/ops/roi_align.py",
+      "check": "definitions",
+      "sha256": "a4c0ecb6cd4116124231d08f218fe7c75c9106d65969190ecc1c89cfb4b90ced"
+    },
+    "packages/up-platform/src/up_platform/ops/sparse/common.py": {
+      "baseline_sha256": "465279470146d7b3a280646cb78d71261aa68f85790b2e202dc3b41499bd54c9",
+      "baseline_source": "packages/up-platform/src/up_platform/shared/sparse.py",
+      "check": "definitions",
+      "sha256": "e4b1fea0cd779726055491930d540a4158c4adf0c851ebda31fc65077fefeb7c"
+    },
+    "packages/up-platform/src/up_platform/registry_factory.py": {
+      "baseline_sha256": "3044a18aa791c0530365bcd36dd166906eb2c77788b094bd3964e83d02b7a730",
+      "baseline_source": "packages/up-platform/src/up_platform/registry.py",
+      "check": "definitions",
+      "sha256": "e8c3b1d68c3a6b01186aca7eb62716946c85cfec22cc411188cef45f1282477f"
+    },
+    "packages/up-platform/src/up_platform/training/runtime/backend/base.py": {
+      "baseline_sha256": "12ae9c2ba3aa742cc4721be31e4320dfa4138675f1e82d75e76be6a7de36813e",
+      "baseline_source": "packages/up-platform/src/up_platform/training/backend.py",
+      "check": "definitions",
+      "sha256": "ea1c2a7b232911044abeb25e3bc8d0d88d086389a8c1e94a667f98647d0854ea"
+    },
+    "packages/up-platform/src/up_platform/training/runtime/distributed.py": {
+      "baseline_sha256": "55e23cf88ac376c4b4fc14865547027c9964dd7a986ba7182d14114328b8ed0c",
+      "baseline_source": "packages/up-platform/src/up_platform/training/distributed.py",
+      "check": "definitions",
+      "sha256": "b4b5696f00bd2bdde7a34e1e11c02cfaa488c250126c4272a6fa191113ba8664"
+    },
+    "packages/up-platform/src/up_platform/training/runtime/legacy.py": {
+      "baseline_sha256": "023f6eb445f8cb7f67d651aebff7c2dc118db198a4e57b2a0cd9578c377e1490",
+      "baseline_source": "packages/up-platform/src/up_platform/training/legacy.py",
+      "check": "definitions",
+      "sha256": "220decd8ac20524282b83b851e0f6c88a2a373e89dad4b379f1c4ccf035b9d2d"
+    }
+  }
+}

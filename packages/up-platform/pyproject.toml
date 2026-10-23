@@ -14,7 +14,7 @@ license = {text = "Apache-2.0"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-up_platform = ["common/*.json", "backends/nvidia/csrc/**/*.cpp", "backends/nvidia/csrc/**/*.cu", "backends/nvidia/csrc/**/*.h", "backends/nvidia/csrc/**/*.hpp", "backends/nvidia/csrc/**/*.cuh"]
+up_platform = ["common/*.json", "base/csrc/nvidia/*.cpp", "ops/*/nvidia/csrc/**/*.cpp", "ops/*/nvidia/csrc/**/*.cu", "ops/*/nvidia/csrc/**/*.h", "ops/*/nvidia/csrc/**/*.hpp", "ops/*/nvidia/csrc/**/*.cuh"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

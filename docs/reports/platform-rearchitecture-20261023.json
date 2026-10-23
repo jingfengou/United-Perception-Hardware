@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-23",
+  "baseline_commit": "ad36d7728b19ae6229e22923d2918feeb6b9ad0d",
+  "lightx2v_reference_commit": "19c19614b067f1746ac24350dfd097e1c0b48591",
+  "scope": "Device base and factory, operator-category/vendor layout, purpose-specific execution factories, legacy compatibility; no model or mathematical algorithm changes",
+  "environment": {
+    "os": "Windows",
+    "python": "3.13.11",
+    "torch": "2.10.0+cpu",
+    "public_build_has_torch": false,
+    "build": "1.6.1",
+    "setuptools": "84.2.1",
+    "wheel": "0.48.0",
+    "packaging": "26.3"
+  },
+  "validation": {
+    "cpu": {
+      "tests": 409,
+      "subtests": 3,
+      "junit_cases": 412,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "installed_wheel": {
+      "tests": 81,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "up_installed": false,
+      "outside_checkout": true
+    },
+    "new_regressions": 29,
+    "protected_sources": 665,
+    "relocations": 77,
+    "implementation_checks": 80,
+    "archived_protocol_fixtures": 6,
+    "hardware_boundary_violations": 0,
+    "legacy_runtime_members": 31,
+    "routed_operations": 73,
+    "public_no_torch_import": true,
+    "plugin_training_and_inference": true,
+    "readme_skill_audit": true,
+    "readme_preview_widths": [
+      900,
+      360
+    ],
+    "native_git_blobs_identical": 43
+  },
+  "artifacts": {
+    "up_platform-0.1.0-py3-none-any.whl": {
+      "bytes": 155695,
+      "package_files": 180,
+      "sha256": "522fb30271982fce16f15403e1e6087fefa10239114fca5c6e76f109d556c768"
+    },
+    "up_platform-0.1.0.tar.gz": {
+      "bytes": 109352,
+      "package_files": 180,
+      "sha256": "f3f52d720f30fa2366cd1f7891a78c49f897a3381eb9426747877b79c72ca4b6"
+    }
+  },
+  "hardware": {
+    "new_gpu_execution": false,
+    "new_nvcc_compilation": false,
+    "historical_results_revalidated": false,
+    "old_multiseed_task_resumed": false
+  },
+  "warnings": [
+    "Existing legacy ONNX deprecations",
+    "Existing setuptools license metadata and classifiers warnings"
+  ],
+  "ci": {
+    "status": "not_checked_yet"
+  },
+  "intermediate_artifacts": {
+    "directory": "dist/lightx2v-rearchitecture-20261023/platform",
+    "status": "retained; superseded by platform-final after preserving exact native Git blob bytes",
+    "artifacts": {
+      "up_platform-0.1.0-py3-none-any.whl": {
+        "bytes": 156078,
+        "package_files": 180,
+        "sha256": "59c031e72cb821483df6dedc56905acb937ba9a61407af04725eb88060f4f5a4"
+      },
+      "up_platform-0.1.0.tar.gz": {
+        "bytes": 109586,
+        "package_files": 180,
+        "sha256": "a96b151eebd3c73e754a1f31791392705fec78ad140025c8ec1807ae769c2b6f"
+      }
+    }
+  },
+  "artifact_directory": "dist/lightx2v-rearchitecture-20261023/platform-final"
+}

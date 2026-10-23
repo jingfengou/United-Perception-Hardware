@@ -41,7 +41,7 @@ def cpu_group(provider="dist"):
 
 def _cpu_group(provider="dist"):
     if provider == "linklink":
-        from up_platform.shared.layers import link
+        from up_platform.ops.normalization.common import link
         return link.new_group(backend="gloo") if link.get_backend() != "gloo" else link.group.WORLD
     return _dist.new_group(backend="gloo") if str(_dist.get_backend()) != "gloo" else _dist.group.WORLD
 

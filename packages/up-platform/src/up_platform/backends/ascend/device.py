@@ -1,13 +1,5 @@
+"""Compatibility alias for the platform implementation."""
 import importlib
+import sys
 
-from up_platform.common.runtime import DeviceBackend
-
-
-class AscendDevice(DeviceBackend):
-    name = "ascend"
-    device_type = "npu"
-    communication_backend = "hccl"
-
-    def __init__(self, device=None):
-        importlib.import_module("torch_npu")
-        super().__init__(device)
+sys.modules[__name__] = importlib.import_module("up_platform.base.ascend")

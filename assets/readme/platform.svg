@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
   <title id="title">UP platform: two paths, shared capabilities</title>
-  <desc id="desc">UP models and business logic enter through the compatible up.accelerator facade. Explicit training and inference paths reuse common hardware capabilities and the selected vendor backend. Evaluation inside training stays on the training path.</desc>
+  <desc id="desc">UP models enter through the compatible up.accelerator facade. Explicit training and inference factories reuse base device backends and operators grouped by category then vendor. Evaluation inside training stays on the training path.</desc>
   <rect width="1200" height="620" rx="8" fill="#ffffff"/>
   <g fill="none" stroke="#0f766e" stroke-width="3">
     <path d="M600 140V180H310V220M600 180H890V220"/>
@@ -22,10 +22,10 @@
     </g>
     <g id="shared-capabilities">
       <rect x="80" y="410" width="1040" height="80" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
-      <text x="600" y="467" font-size="52" font-weight="600">Common + shared</text>
+      <text x="600" y="467" font-size="52" font-weight="600">Base + common operators</text>
     </g>
     <g id="selected-vendor">
-      <text x="600" y="580" font-size="52" font-weight="600">Selected vendor</text>
+      <text x="600" y="580" font-size="52" font-weight="600">Operator category / vendor</text>
     </g>
   </g>
 </svg>

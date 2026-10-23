@@ -29,6 +29,8 @@ PlatformContext 提供只读 purpose、runtime、当前 execution、ops、layers
 
 DeviceBackend 保留原查询、绑定、迁移、同步、RNG、内存、环境校验、卷积开关及可选库加载语义。继承共享实现，仅覆盖厂商 API 不一致的方法。逐项参数/返回义务见[31 成员迁移表](API_INDEX.md#runtime-migration-31-members)。其中 autocast/GradScaler/call/capabilities 已分别归执行层和上下文，旧门面仍提供原名字。
 
+现行设备基类为 `up_platform.base.base.DeviceBackend`，注册实现位于 `registry_factory.py`，初始化位于 `set_ai_device.py`；完整操作按 `ops/<类别>/<厂商>/` 放置，类别内 `common.py` 供明确兼容的厂商复用。旧模块路径继续作为别名，不产生第二份实现。整体关系见[当前总设计](../architecture/PLATFORM.md)。
+
 设备迁移不改 dtype 和训练图；Module.to 的参数身份遵循对应 PyTorch 版本。RNG 保持原设备作用域，不扩大成所有设备；同 seed 不保证跨厂商相同随机张量。内存数值单位为字节；CPU 统计为 0。health_check 必须真实在所选设备计算。版本检查只校验显式约束，不替换用户环境。
 
 ## 3. 两侧执行接口
@@ -45,7 +47,7 @@ DeviceBackend 保留原查询、绑定、迁移、同步、RNG、内存、环境
 | inference | `ops` / `layers` / `sparse` / `call(name, ...)` | 仅本用途和 common 能力；默认普通 PyTorch 模型，不自动打包、量化、换模块 |
 | inference | `export_onnx(model, args, destination, **kwargs)` | 已有 ONNX 导出适配；默认保留 autograd symbolic 的 legacy 路径，支持新版时默认 dynamo=False；不替换节点、domain、属性 |
 
-TrainingBackend 与 InferenceBackend 都不隐式导入另一侧实现。兼容的 autocast/语义操作显式共用；厂商可单独覆盖训练或推理。内置厂商直接使用这两个公共类；原 backends/<vendor>/training.py、inference.py 地址仅保留一行兼容导出，不再增加空子类或参与默认加载。推理 context 不能获取 GradScaler、融合优化器或 DDP 操作。
+TrainingBackend 位于 `training/runtime/backend/base.py`，由同目录 factory.py 加载；InferenceBackend 位于 `inference/backend.py`，由 inference/factory.py 加载。两者不隐式导入另一侧实现。兼容的 autocast/语义操作显式共用；厂商可单独覆盖训练或推理。内置厂商直接使用公共类；原 backends/<vendor>/training.py、inference.py 仅为兼容地址。推理 context 不能获取 GradScaler、融合优化器或 DDP 操作。
 
 底层集合通信放 common，语义与固定 PyTorch 版本一致，包含原地修改、进程组、异步 Work；DDP 及梯度同步策略属于训练。原有 Gloo 对象通信、显式 CPU BEV/点云接口和 SofterNMS CPU 内部阶段保留，不授权新增静默 CPU 模型计算。
 

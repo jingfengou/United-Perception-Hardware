@@ -13,7 +13,7 @@ RUNTIME_PREFIXES = ("torch.cuda", "torch.npu", "torch.mlu", "torch.backends")
 IMPLEMENTATIONS = ("up.accelerator.backends", "up.accelerator.native",
                    "up.extensions._C", "up_extensions", "up.extensions.ext",
                    "up_platform.backends", "up_platform.experimental", "up_platform.shared",
-                   "up_platform.common.runtime")
+                   "up_platform.common.runtime", "up_platform.base", "up_platform.ops.")
 COMPATIBILITY_IMPORTS = {"up/extensions/ext.py"}
 LEGACY_BRIDGES = {"up/accelerator/" + name for name in (
     "runtime.py", "errors.py", "layers.py", "sparse.py", "distributed.py", "native.py", "numerics.py",
@@ -169,7 +169,8 @@ def check_platform_source(text, path):
                 names = [str(node.args[0].value)]
         for name in names:
             core = ("/common/" in path or "/shared/" in path
-                    or path.endswith(("src/up_platform/__init__.py", "src/up_platform/catalog.py")))
+                    or path.endswith(("/common.py", "src/up_platform/base/base.py", "src/up_platform/context.py",
+                                      "src/up_platform/__init__.py", "src/up_platform/catalog.py")))
             if core and name.startswith("up_platform.experimental"):
                 findings.append({"path": path, "line": node.lineno, "rule": "experimental_dependency"})
             if name == "up" or name.startswith("up."):

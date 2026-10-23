@@ -1,4 +1,4 @@
-from up_platform.shared.execution import OperationBackend
+from up_platform.ops.base import OperationBackend
 
 
 class InferenceBackend(OperationBackend):
