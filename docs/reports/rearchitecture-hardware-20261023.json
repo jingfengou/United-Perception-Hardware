@@ -1,0 +1,1057 @@
+{
+  "baseline_commit": "ad36d7728b19ae6229e22923d2918feeb6b9ad0d",
+  "created_at_utc": "2026-10-23T06:35:12.775438+00:00",
+  "date": "2026-10-23",
+  "evidence": {
+    "metax": {
+      "archive": {
+        "bytes": 7193171,
+        "filename": "metax-rearchitecture-evidence.tar.gz",
+        "sha256": "2e9a4c15ed18bfb1387f2e8233c58a47d78d6247cc663ef3315161f4883cd390"
+      },
+      "index_sha256": "b9af4026b9d17f006ae9bdca1439518f1018e85498d41b589b5cad36f8fc4ac6",
+      "indexed_retained_binaries": 498,
+      "passed": true,
+      "verified_included_files": 451
+    },
+    "nvidia": {
+      "archive": {
+        "bytes": 6831998,
+        "filename": "nvidia-rearchitecture-evidence.tar.gz",
+        "sha256": "06c3e4e47e5be82dd29add4f7a4bc1820af23ebd53b6e5472f41c9624a3c7e5b"
+      },
+      "index_sha256": "e5258c0ad0d1292225c087e275ed81dcbc515757dc66f3e3691030f638849c5d",
+      "indexed_retained_binaries": 344,
+      "passed": true,
+      "verified_included_files": 341
+    }
+  },
+  "hardware": {
+    "metax": {
+      "dependencies_unchanged_at_collection": true,
+      "executed_tools": {
+        "accuracy_detr_adapter.py": {
+          "executed_sha256": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+          "normalized_sha256": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "audit_cross_vendor_accuracy.py": {
+          "executed_sha256": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+          "normalized_sha256": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "audit_rearchitecture_checkpoints.py": {
+          "executed_sha256": "ec703c9b9a6b169c1aacc2cca9149c3c2ea3875e060accdddb5269031e56c6db",
+          "normalized_sha256": "ec703c9b9a6b169c1aacc2cca9149c3c2ea3875e060accdddb5269031e56c6db",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "prepare_cross_vendor_data.py": {
+          "executed_sha256": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+          "normalized_sha256": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "recompute_cross_vendor_metrics.py": {
+          "executed_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+          "normalized_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_current_accuracy.py": {
+          "executed_sha256": "369f08c1b9ee547411a9f7765c6f9b9a29b3f9d5c63664a17a7ca18f27e1aa5a",
+          "normalized_sha256": "369f08c1b9ee547411a9f7765c6f9b9a29b3f9d5c63664a17a7ca18f27e1aa5a",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_native_ops.py": {
+          "executed_sha256": "88accf2627dfb6c21c02789270305fbcbd90e4b0450e9b88ea40c2b116e4b5c9",
+          "normalized_sha256": "88accf2627dfb6c21c02789270305fbcbd90e4b0450e9b88ea40c2b116e4b5c9",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_platform_equivalence.py": {
+          "executed_sha256": "0ab2504f1d9f2b13dd9022dcdc3a765d6f2df3c347ef3a5a04342d5af5351e17",
+          "normalized_sha256": "0ab2504f1d9f2b13dd9022dcdc3a765d6f2df3c347ef3a5a04342d5af5351e17",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_training_accuracy.py": {
+          "executed_sha256": "505a1acb2c3d61b8b80c40cfd81c0c4e725976f6c728aba7a9e8d1beb95a5bd7",
+          "normalized_sha256": "505a1acb2c3d61b8b80c40cfd81c0c4e725976f6c728aba7a9e8d1beb95a5bd7",
+          "published_content_equal_after_crlf_normalization": true
+        }
+      },
+      "models": {
+        "detr": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "changed_metrics": {
+            "bbox.AP": 0.7706035844596513,
+            "bbox.AP.5": 0.9749259715083918,
+            "bbox.AP.75": 0.9005956455964739,
+            "bbox.AP_L": 0.802008879037267,
+            "bbox.AP_M": 0.41088504454841085,
+            "bbox.AP_S": 0.2295010794312513,
+            "bbox.AR": 0.8315789473684209,
+            "bbox.AR_1": 0.3360902255639098,
+            "bbox.AR_10": 0.8248120300751879,
+            "bbox.AR_L": 0.8570247933884299,
+            "bbox.AR_M": 0.6222222222222222,
+            "bbox.AR_S": 0.4333333333333333
+          },
+          "epochs": 12,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 51,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 51
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 25,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "050264c94e084ab7c869a300562cdaa8ef2c2cfffd578521a413c6a7eea983c9",
+            "changed_sha256": "911e9583a0fb9a8b03bc52bd0f953fc17ed01063e2443c63e9822a91df0a213f"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "11.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "metax_deterministic_v2",
+            "python": "3.12.11",
+            "tf32": false,
+            "torch": "2.10.0+metax3.8.1.0",
+            "visible_devices": "2"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 705,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 705
+          },
+          "steps_per_revision": 720,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "resnet18": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "top1": 65.0999984741211,
+            "top5": 96.45000457763672
+          },
+          "changed_metrics": {
+            "top1": 65.0999984741211,
+            "top5": 96.45000457763672
+          },
+          "epochs": 20,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 195,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 195
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 32,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "4be872fa7ee877cf67d61fd2ed6624e8ee7485befc3ef52779826c1da35d44ff",
+            "changed_sha256": "e4d398bee83f4022043322d30b414ba445f78d7e08864f66a9c23d09d23f1257"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "11.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "metax_deterministic_v2",
+            "python": "3.12.11",
+            "tf32": false,
+            "torch": "2.10.0+metax3.8.1.0",
+            "visible_devices": "2"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 186,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 186
+          },
+          "steps_per_revision": 3140,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "vit_b16": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "top1": 21.649999618530273,
+            "top5": 72.80000305175781
+          },
+          "changed_metrics": {
+            "top1": 21.649999618530273,
+            "top5": 72.80000305175781
+          },
+          "epochs": 20,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 195,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 195
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 32,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "15861d557b36194e7159444738ced8d58abd39c8d83b5c48e3ac1f5be059b8d5",
+            "changed_sha256": "52ab6cb6b913f2dce8ad6288cb813e59fea41b67a71962f26de7bc31fa411be2"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "11.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "metax_deterministic_v2",
+            "python": "3.12.11",
+            "tf32": false,
+            "torch": "2.10.0+metax3.8.1.0",
+            "visible_devices": "2"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 456,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 456
+          },
+          "steps_per_revision": 3140,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "yolov5s": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "bbox.AP": 0.3253444958463308,
+            "bbox.AP.5": 0.686359448096782,
+            "bbox.AP.75": 0.20346989553193148,
+            "bbox.AP_L": 0.39474365479984086,
+            "bbox.AP_M": 0.13839022129539272,
+            "bbox.AP_S": 0.014427157001414424,
+            "bbox.AR": 0.5639097744360902,
+            "bbox.AR_1": 0.18345864661654132,
+            "bbox.AR_10": 0.47518796992481205,
+            "bbox.AR_L": 0.5942148760330579,
+            "bbox.AR_M": 0.3111111111111111,
+            "bbox.AR_S": 0.1
+          },
+          "changed_metrics": {
+            "bbox.AP": 0.3253444958463308,
+            "bbox.AP.5": 0.686359448096782,
+            "bbox.AP.75": 0.20346989553193148,
+            "bbox.AP_L": 0.39474365479984086,
+            "bbox.AP_M": 0.13839022129539272,
+            "bbox.AP_S": 0.014427157001414424,
+            "bbox.AR": 0.5639097744360902,
+            "bbox.AR_1": 0.18345864661654132,
+            "bbox.AR_10": 0.47518796992481205,
+            "bbox.AR_L": 0.5942148760330579,
+            "bbox.AR_M": 0.3111111111111111,
+            "bbox.AR_S": 0.1
+          },
+          "epochs": 300,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 3,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 3
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 1,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "dd063f3ffef460f4ddde590122833e7af76670dfedd6f399e0fa8bc008173cba",
+            "changed_sha256": "f119f9efc16055da5562bae0571b712a0ef19f34f4b35ea25bacbbcceeaa6084"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "11.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "MetaX C500",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "metax_deterministic_v2",
+            "python": "3.12.11",
+            "tf32": false,
+            "torch": "2.10.0+metax3.8.1.0",
+            "visible_devices": "2"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 591,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 591
+          },
+          "steps_per_revision": 600,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        }
+      },
+      "native_control_evaluations": {
+        "at_utc": "2026-10-23T06:34:57.480338+00:00",
+        "atol": 1e-05,
+        "command": [
+          "/workspace/up-run/rearchitecture-validation-20261023/native_repeat_evaluation_audit.py"
+        ],
+        "driver_sha256": "e866a22733a04ef20d8bb57aff955ecd47497cdae567c3afd97beb75c8863ff0",
+        "models": {
+          "detr": {
+            "comparisons": {
+              "eval-1.pt": {
+                "error": "root/0/dt_bboxes: Tensor-likes are not close!\n\nMismatched elements: 2 / 1400 (0.1%)\nGreatest absolute difference: 0.0010073184967041016 at index (37, 1) (up to 1e-05 allowed)\nGreatest relative difference: 0.0009714285260997713 at index (37, 1) (up to 0.0001 allowed)",
+                "passed": false
+              },
+              "eval-2.pt": {
+                "error": "root/0/dt_bboxes: Tensor-likes are not close!\n\nMismatched elements: 1 / 1400 (0.1%)\nGreatest absolute difference: 0.0006628036499023438 at index (37, 1) (up to 1e-05 allowed)\nGreatest relative difference: 0.0015614775475114584 at index (37, 1) (up to 0.0001 allowed)",
+                "passed": false
+              },
+              "losses": {
+                "exact_tensor_count": 0,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "passed": true,
+                "tensor_count": 0
+              },
+              "restored-output.pt": {
+                "error": "root/dt_bboxes: Tensor-likes are not close!\n\nMismatched elements: 1 / 1400 (0.1%)\nGreatest absolute difference: 0.0006628036499023438 at index (37, 1) (up to 1e-05 allowed)\nGreatest relative difference: 0.0015614775475114584 at index (37, 1) (up to 0.0001 allowed)",
+                "passed": false
+              }
+            },
+            "evaluation_and_losses_passed": false,
+            "gradients_and_checkpoint_passed": true,
+            "preconditions_equal": true,
+            "repeated": true,
+            "reports_sha256": [
+              "d27465392a8115f99f05f8676fde1ae3b5c5ca7b8172edacd43569bebf1b3d37",
+              "23ca41b51910361c901b0e6e3fb3878d46eba20966f4fe0716c7b53bd6b72af3"
+            ],
+            "source_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+          },
+          "resnet18": {
+            "comparisons": {
+              "eval-1.pt": {
+                "exact_tensor_count": 2,
+                "max_abs": 8.392333984375e-05,
+                "max_rel": 6.342582709040201e-06,
+                "passed": true,
+                "tensor_count": 6
+              },
+              "eval-2.pt": {
+                "exact_tensor_count": 2,
+                "max_abs": 6.103515625e-05,
+                "max_rel": 2.2475652334901436e-05,
+                "passed": true,
+                "tensor_count": 6
+              },
+              "losses": {
+                "exact_tensor_count": 0,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "passed": true,
+                "tensor_count": 0
+              },
+              "restored-output.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 6.103515625e-05,
+                "max_rel": 4.564055144739881e-06,
+                "passed": true,
+                "tensor_count": 3
+              }
+            },
+            "evaluation_and_losses_passed": true,
+            "gradients_and_checkpoint_passed": false,
+            "preconditions_equal": true,
+            "repeated": true,
+            "reports_sha256": [
+              "96422626487c98251419aa180daf1669a72b7458521c737ae2bafbf1633fc001",
+              "1eed0d823ee760bdae0fd7517f9850ea490f27a38b6c138a27fffb477bd5fd33"
+            ],
+            "source_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+          },
+          "vit_b16": {
+            "reason": "original native pair passed; no repeat was scheduled",
+            "repeated": false
+          },
+          "yolov5s": {
+            "comparisons": {
+              "eval-1.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 3.814697265625e-06,
+                "max_rel": 1.0599935128397014e-07,
+                "passed": true,
+                "tensor_count": 2
+              },
+              "eval-2.pt": {
+                "exact_tensor_count": 0,
+                "max_abs": 7.62939453125e-06,
+                "max_rel": 5.050091861170954e-07,
+                "passed": true,
+                "tensor_count": 2
+              },
+              "losses": {
+                "exact_tensor_count": 0,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "passed": true,
+                "tensor_count": 0
+              },
+              "restored-output.pt": {
+                "exact_tensor_count": 0,
+                "max_abs": 3.814697265625e-06,
+                "max_rel": 1.7252033928540005e-07,
+                "passed": true,
+                "tensor_count": 1
+              }
+            },
+            "evaluation_and_losses_passed": true,
+            "gradients_and_checkpoint_passed": false,
+            "preconditions_equal": true,
+            "repeated": true,
+            "reports_sha256": [
+              "644b27d6efa2c023171fa74d24b85f7014a4370674095dad9ed6769a24e264eb",
+              "47023fe1224008b5d80277b2943d244c49b44c01eacae12e7eb622bdf111e79a"
+            ],
+            "source_sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+          }
+        },
+        "rtol": 0.0001,
+        "scope": "one retained native baseline repeat; CPU saved-output audit",
+        "training_rerun_by_this_audit": false
+      },
+      "native_controls": {
+        "detr": {
+          "original_pair_passed": false,
+          "same_source_repeat": {
+            "passed": true,
+            "preconditions_equal": true
+          },
+          "same_weights_inference": {
+            "comparisons": {
+              "batch-predictions.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 1
+              },
+              "image-predictions.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 1
+              }
+            },
+            "passed": true
+          }
+        },
+        "resnet18": {
+          "original_pair_passed": false,
+          "same_source_repeat": {
+            "passed": false,
+            "preconditions_equal": true
+          },
+          "same_weights_inference": {
+            "comparisons": {
+              "batch-predictions.pt": {
+                "exact_tensor_count": 3,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 3
+              },
+              "image-predictions.pt": {
+                "exact_tensor_count": 3,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 3
+              }
+            },
+            "passed": true
+          }
+        },
+        "vit_b16": {
+          "original_pair_passed": true,
+          "same_source_repeat": null,
+          "same_weights_inference": {
+            "comparisons": {
+              "batch-predictions.pt": {
+                "exact_tensor_count": 3,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 3
+              },
+              "image-predictions.pt": {
+                "exact_tensor_count": 3,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 3
+              }
+            },
+            "passed": true
+          }
+        },
+        "yolov5s": {
+          "original_pair_passed": false,
+          "same_source_repeat": {
+            "passed": false,
+            "preconditions_equal": true
+          },
+          "same_weights_inference": {
+            "comparisons": {
+              "batch-predictions.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 1
+              },
+              "image-predictions.pt": {
+                "exact_tensor_count": 1,
+                "max_abs": 0.0,
+                "max_rel": 0.0,
+                "tensor_count": 1
+              }
+            },
+            "passed": true
+          }
+        }
+      },
+      "native_short_pair_passed": false,
+      "profile": "metax_deterministic_v2",
+      "sources": {
+        "baseline": {
+          "files": 730,
+          "sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+        },
+        "changed": {
+          "files": 791,
+          "sha256": "3b796cdf2d5b4c6044904e6e91d0e4c7edebab9cb4b7eb34bae087a4bbce9e3c"
+        }
+      }
+    },
+    "nvidia": {
+      "dependencies_unchanged_at_collection": true,
+      "executed_tools": {
+        "accuracy_detr_adapter.py": {
+          "executed_sha256": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+          "normalized_sha256": "fcc37b65af5091d65b0a98af20d2224a759084de692c84ae449c52d8d0b2625f",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "audit_cross_vendor_accuracy.py": {
+          "executed_sha256": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+          "normalized_sha256": "d6ce0678a37d646b9bb1416a1858ef5b740628730fa8c5a233adba77b99d3df2",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "audit_rearchitecture_checkpoints.py": {
+          "executed_sha256": "ec703c9b9a6b169c1aacc2cca9149c3c2ea3875e060accdddb5269031e56c6db",
+          "normalized_sha256": "ec703c9b9a6b169c1aacc2cca9149c3c2ea3875e060accdddb5269031e56c6db",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "prepare_cross_vendor_data.py": {
+          "executed_sha256": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+          "normalized_sha256": "60f49db03887b2484b557842a066d67a8175f96508bece19715c121a39a18995",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "recompute_cross_vendor_metrics.py": {
+          "executed_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+          "normalized_sha256": "fe836efaabb2fa8e1b442003a1230fc5cb2bffc6e9dd9b983425caf642656250",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_current_accuracy.py": {
+          "executed_sha256": "369f08c1b9ee547411a9f7765c6f9b9a29b3f9d5c63664a17a7ca18f27e1aa5a",
+          "normalized_sha256": "369f08c1b9ee547411a9f7765c6f9b9a29b3f9d5c63664a17a7ca18f27e1aa5a",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_native_ops.py": {
+          "executed_sha256": "88accf2627dfb6c21c02789270305fbcbd90e4b0450e9b88ea40c2b116e4b5c9",
+          "normalized_sha256": "88accf2627dfb6c21c02789270305fbcbd90e4b0450e9b88ea40c2b116e4b5c9",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_platform_equivalence.py": {
+          "executed_sha256": "0ab2504f1d9f2b13dd9022dcdc3a765d6f2df3c347ef3a5a04342d5af5351e17",
+          "normalized_sha256": "0ab2504f1d9f2b13dd9022dcdc3a765d6f2df3c347ef3a5a04342d5af5351e17",
+          "published_content_equal_after_crlf_normalization": true
+        },
+        "validate_training_accuracy.py": {
+          "executed_sha256": "505a1acb2c3d61b8b80c40cfd81c0c4e725976f6c728aba7a9e8d1beb95a5bd7",
+          "normalized_sha256": "505a1acb2c3d61b8b80c40cfd81c0c4e725976f6c728aba7a9e8d1beb95a5bd7",
+          "published_content_equal_after_crlf_normalization": true
+        }
+      },
+      "models": {
+        "detr": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "bbox.AP": 0.7805736186945724,
+            "bbox.AP.5": 0.9760232201511443,
+            "bbox.AP.75": 0.9039068278717043,
+            "bbox.AP_L": 0.8199855305526702,
+            "bbox.AP_M": 0.32586764573291144,
+            "bbox.AP_S": 0.28118471874659995,
+            "bbox.AR": 0.8345864661654134,
+            "bbox.AR_1": 0.34661654135338343,
+            "bbox.AR_10": 0.8308270676691729,
+            "bbox.AR_L": 0.8636363636363636,
+            "bbox.AR_M": 0.6,
+            "bbox.AR_S": 0.3666666666666666
+          },
+          "changed_metrics": {
+            "bbox.AP": 0.7805736186945724,
+            "bbox.AP.5": 0.9760232201511443,
+            "bbox.AP.75": 0.9039068278717043,
+            "bbox.AP_L": 0.8199855305526702,
+            "bbox.AP_M": 0.32586764573291144,
+            "bbox.AP_S": 0.28118471874659995,
+            "bbox.AR": 0.8345864661654134,
+            "bbox.AR_1": 0.34661654135338343,
+            "bbox.AR_10": 0.8308270676691729,
+            "bbox.AR_L": 0.8636363636363636,
+            "bbox.AR_M": 0.6,
+            "bbox.AR_S": 0.3666666666666666
+          },
+          "epochs": 12,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 51,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 51
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 25,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "831bfe46d27bb552931b966951775a2f2f450c9daccd25b2d422f850dcdaf828",
+            "changed_sha256": "51662396ba7bc602fdf80066bf57b8253c0055936962ac7fad27c3b1424d60da"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "12.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "NVIDIA GeForce RTX 4090",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "native",
+            "python": "3.12.3",
+            "tf32": false,
+            "torch": "2.10.0+cu126",
+            "visible_devices": "1"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 705,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 705
+          },
+          "steps_per_revision": 720,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "resnet18": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "top1": 65.9000015258789,
+            "top5": 97.0999984741211
+          },
+          "changed_metrics": {
+            "top1": 65.9000015258789,
+            "top5": 97.0999984741211
+          },
+          "epochs": 20,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 195,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 195
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 32,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "919497febfcbb82189b462755666bb092dfc68c589a67bf169ad1277ac60021b",
+            "changed_sha256": "f5e91a113ff29f0a788c3b40b3247ac6d91c0ab552e8d099c938a9106fe00e0e"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "12.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "NVIDIA GeForce RTX 4090",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "native",
+            "python": "3.12.3",
+            "tf32": false,
+            "torch": "2.10.0+cu126",
+            "visible_devices": "1"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 186,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 186
+          },
+          "steps_per_revision": 3140,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "vit_b16": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "top1": 25.75,
+            "top5": 79.25
+          },
+          "changed_metrics": {
+            "top1": 25.75,
+            "top5": 79.25
+          },
+          "epochs": 20,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 195,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 195
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 32,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "c9db96857afbc7189bbf120e5a237105a032269abd4562cfdb79c55195e12340",
+            "changed_sha256": "b2601244535e6408501da3e205bdca6e882a1a4bffe79e947bf09a182d61f99a"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "12.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "NVIDIA GeForce RTX 4090",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "native",
+            "python": "3.12.3",
+            "tf32": false,
+            "torch": "2.10.0+cu126",
+            "visible_devices": "1"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 456,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 456
+          },
+          "steps_per_revision": 3140,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        },
+        "yolov5s": {
+          "all_batches_and_rng_equal": true,
+          "baseline_metrics": {
+            "bbox.AP": 0.27423611431992984,
+            "bbox.AP.5": 0.5565714753726084,
+            "bbox.AP.75": 0.2304570393892731,
+            "bbox.AP_L": 0.3268274472374338,
+            "bbox.AP_M": 0.132140198961841,
+            "bbox.AP_S": 0.13465346534653463,
+            "bbox.AR": 0.5676691729323308,
+            "bbox.AR_1": 0.11353383458646615,
+            "bbox.AR_10": 0.5353383458646617,
+            "bbox.AR_L": 0.5975206611570247,
+            "bbox.AR_M": 0.3111111111111111,
+            "bbox.AR_S": 0.13333333333333333
+          },
+          "changed_metrics": {
+            "bbox.AP": 0.27423611431992984,
+            "bbox.AP.5": 0.5565714753726084,
+            "bbox.AP.75": 0.2304570393892731,
+            "bbox.AP_L": 0.3268274472374338,
+            "bbox.AP_M": 0.132140198961841,
+            "bbox.AP_S": 0.13465346534653463,
+            "bbox.AR": 0.5676691729323308,
+            "bbox.AR_1": 0.11353383458646615,
+            "bbox.AR_10": 0.5353383458646617,
+            "bbox.AR_L": 0.5975206611570247,
+            "bbox.AR_M": 0.3111111111111111,
+            "bbox.AR_S": 0.13333333333333333
+          },
+          "epochs": 300,
+          "final_checkpoint_prediction_comparison": {
+            "exact_tensor_count": 3,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 3
+          },
+          "final_states_exact": true,
+          "full_training_state_hashes_exact": {
+            "gradients": true,
+            "model": true,
+            "optimizer": true,
+            "routing": true,
+            "scaler": true,
+            "scheduler": true
+          },
+          "full_validation_inference_exact": true,
+          "inference_validation_batches": 1,
+          "initial_states_equal": true,
+          "losses_exact": true,
+          "max_loss_abs": 0.0,
+          "model_and_optimizer_scheduler_restored": {
+            "model": true,
+            "optimizer": true,
+            "scaler": "not used in the fixed FP32 protocol",
+            "scheduler": true
+          },
+          "original_training_reports": {
+            "baseline_sha256": "d570c7da028222dc9abb8b6dfd662f6e3bb61170d168a681de42e7e3d4ca89c3",
+            "changed_sha256": "71d2d95b67c00c71a04ff67e924f697572f9af7dc62316dd6a1fdcb1165b584e"
+          },
+          "passed": true,
+          "runtime_environment": {
+            "convolution_library_enabled": true,
+            "cuda": "12.6",
+            "cudnn_allow_tf32": false,
+            "default_tasks": "cls:det",
+            "deterministic_algorithms": true,
+            "gpu": "NVIDIA GeForce RTX 4090",
+            "matmul_allow_tf32": false,
+            "matmul_precision": "highest",
+            "numerical_profile": "native",
+            "python": "3.12.3",
+            "tf32": false,
+            "torch": "2.10.0+cu126",
+            "visible_devices": "1"
+          },
+          "short_gradient_comparison": {
+            "exact_tensor_count": 591,
+            "max_abs": 0.0,
+            "max_rel": 0.0,
+            "tensor_count": 591
+          },
+          "steps_per_revision": 600,
+          "training_eval_state_audit": true,
+          "weight_max_abs": 0.0
+        }
+      },
+      "native_operations": {
+        "compared_cases": 32,
+        "passed": true,
+        "regressions": {},
+        "upstream_gaps": {}
+      },
+      "orchestration_recovery": {
+        "all_gpu_training_jobs_completed_successfully": true,
+        "at_utc": "2026-10-23T05:25:47.890881+00:00",
+        "next_action": "same original audit controller, fresh output, stdout redirected to a file",
+        "original_queue_status_sha256": "dec6c16c300d9374c8d4a1ad8b9a41d5c049999a05e6e1fdb03d9f2902c98124",
+        "original_waiter_status_sha256": "7e53b96779d67462be346ad59a7aa66700d307881fb7e63d857d7fdfff60f86b",
+        "reason": "stdout BrokenPipe after the last successful training/comparison subprocess",
+        "training_rerun": false
+      },
+      "profile": "native",
+      "sources": {
+        "baseline": {
+          "files": 730,
+          "sha256": "18e4171327dd0de6da77db99ebe0085c09150c3a008b09b014282bf55fe997c9"
+        },
+        "changed": {
+          "files": 791,
+          "sha256": "3b796cdf2d5b4c6044904e6e91d0e4c7edebab9cb4b7eb34bae087a4bbce9e3c"
+        }
+      }
+    }
+  },
+  "old_multiseed_cohort_resumed": false,
+  "protocol": {
+    "atol": 1e-05,
+    "checkpoint_scope": "state_dict, optimizer/scheduler and evaluation restoration; not complete interrupted data iterator/RNG resume",
+    "default_numerics": "native",
+    "metax_primary_numerics": "explicit metax_deterministic_v2",
+    "metric_atol": 1e-06,
+    "primary_optimizer_updates": 30400,
+    "primary_training_runs": 16,
+    "rtol": 0.0001,
+    "seed": 131,
+    "steps_per_revision": {
+      "detr": 720,
+      "resnet18": 3140,
+      "vit_b16": 3140,
+      "yolov5s": 600
+    }
+  },
+  "runtime_commit": "71d98124ec6cebf66b08ff2cf2333c059108773f",
+  "runtime_model_and_numerical_implementations_changed_by_this_validation": false,
+  "scope": "same-platform refactor regression; one fixed seed; complete existing small-data budgets; not cross-vendor/statistical equivalence",
+  "validation": {
+    "all_operation_variants_validated": false,
+    "all_primary_strict_comparisons_passed": true,
+    "archived_protocol_fixtures": 6,
+    "ascend_hardware_validated": false,
+    "cambricon_hardware_validated": false,
+    "cpu": {
+      "errors": 0,
+      "failures": 0,
+      "junit_sha256": "92b617e3bc896c213dce08779aa0fb74ef98051cacb4835bbe0075fd73d0b907",
+      "pytest_tests": 432,
+      "skipped": 0,
+      "subtests": 3,
+      "tests": 435
+    },
+    "hardware_boundary_violations": 0,
+    "migrated_implementation_checks": 80,
+    "operation_contracts": 73,
+    "protected_source_files": 665,
+    "runtime_members": 31
+  }
+}

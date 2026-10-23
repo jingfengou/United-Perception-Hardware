@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import hashlib
 import json
+from argparse import Namespace
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,29 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("platform_equivalence", ROOT / "benchmark/hardware/validate_platform_equivalence.py")
 tool = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(tool)
+
+
+def test_native_is_the_unchanged_default_profile():
+    assert tool.numerical_profile(Namespace(backend="nvidia")) == "native"
+    assert (tool.SEED, tool.STEPS, tool.RTOL, tool.ATOL) == (131, 3, 1e-4, 1e-5)
+
+
+@pytest.mark.parametrize("profile", tool.PROFILES)
+def test_metax_profile_is_explicit_and_not_substituted(profile):
+    assert tool.numerical_profile(Namespace(backend="metax", numerical_profile=profile)) == profile
+
+
+@pytest.mark.parametrize("profile", tool.PROFILES[1:])
+def test_no_metax_profile_on_nvidia_or_created_failure_directory(tmp_path, profile):
+    output = tmp_path / "attempt"
+    with pytest.raises(ValueError, match="another vendor"):
+        tool.suite(Namespace(backend="nvidia", numerical_profile=profile, output=output))
+    assert not output.exists()
+
+
+def test_unknown_numerical_profile_cannot_silently_become_native():
+    with pytest.raises(ValueError, match="Unknown numerical profile"):
+        tool.numerical_profile(Namespace(backend="metax", numerical_profile="unknown"))
 
 
 def test_nested_exact_comparison_and_empty_tensors():

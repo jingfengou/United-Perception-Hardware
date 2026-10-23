@@ -19,6 +19,16 @@ MODELS = ("resnet18", "yolov5s", "detr", "vit_b16")
 SEED = 131
 STEPS = 3
 RTOL, ATOL = 1e-4, 1e-5
+PROFILES = ("native", "metax_deterministic_v1", "metax_deterministic_v2")
+
+
+def numerical_profile(args):
+    profile = getattr(args, "numerical_profile", "native")
+    if profile not in PROFILES:
+        raise ValueError("Unknown numerical profile: " + str(profile))
+    if profile != "native" and args.backend != "metax":
+        raise ValueError("MetaX numerical profiles cannot be used on another vendor")
+    return profile
 
 
 def file_hash(path):
@@ -136,6 +146,7 @@ def prepare_subset(manifest, output):
 
 
 def initialize(args, purpose):
+    profile = numerical_profile(args)
     root = args.source.resolve()
     sys.path.insert(0, str(root))
     package = root / "packages/up-platform/src"
@@ -149,7 +160,8 @@ def initialize(args, purpose):
     options = {"backend": args.backend, "reset": True}
     if split:
         options["purpose"] = purpose
-    accelerator = configure_accelerator(**options)
+    accelerator = configure_accelerator(
+        {"runtime": {"accelerator": {"numerics": profile}}}, **options)
     accelerator.set_device(0)
     torch.set_num_threads(2)
     torch.set_float32_matmul_precision("highest")
@@ -180,7 +192,7 @@ def initialize(args, purpose):
                                  "convolution_tf32": torch.backends.cudnn.allow_tf32,
                                  "convolution_library": torch.backends.cudnn.enabled,
                                  "deterministic": torch.are_deterministic_algorithms_enabled()}}
-    assert environment["precision"]["profile"] == "native"
+    assert environment["precision"]["profile"] == profile
     if split:
         assert get_accelerator().purpose == purpose
     return accelerator, split, environment
@@ -191,7 +203,8 @@ def config_for(args):
     data = json.loads(args.data.read_text())
     protocol = "multiseed_v1" if args.model == "resnet18" else "multiseed_v2"
     config, original = effective_config(args.source, data, args.model, SEED, 3, protocol)
-    config["runtime"].update(iter_base=True, accelerator={"backend": args.backend, "numerics": "native"})
+    config["runtime"].update(iter_base=True, accelerator={
+        "backend": args.backend, "numerics": numerical_profile(args)})
     config["trainer"].update(max_iter=STEPS, test_start=0, test_freq=2, save_freq=1000)
     config["saver"].update(save_dir=str(args.output / "checkpoints"), results_dir=str(args.output / "predictions"))
     for split in ("train", "test"):
@@ -318,6 +331,7 @@ def train(args):
     torch.save(restored_output, args.output / "restored-output.pt")
     close_trees(eval_outputs[0], restored_output)
     report.update(final_state_sha256=tree_hash(state["model"]), checkpoint_restore=True,
+                  numerics=accelerator.numerics_state(),
                   environment=environment, original_config=original, routing=routing(accelerator, split))
     return report
 
@@ -366,13 +380,15 @@ def infer(args):
         assert accelerator.purpose == "inference"
         assert "up_platform.backends.{}.training".format(args.backend) not in sys.modules
         assert "up_platform.training.backend" not in sys.modules
+        assert "up_platform.training.runtime.backend.base" not in sys.modules
     return {"environment": environment, "routing": routing(accelerator, split), "predict_called": True,
             "image_predictions": len(images), "training_eval_vs_inference": consistency,
             "training_objects_created": False, "checkpoint_state_sha256": tree_hash(checkpoint["model"]),
             "weights_only_sha256": file_hash(weights),
             "original_training_checkpoint_sha256": file_hash(training / "checkpoint.pt"),
             "coordinate_convention": {"aligned": ALIGNED_FLAG.aligned, "offset": ALIGNED_FLAG.offset},
-            "nvidia_binary_loaded": "up_platform.backends.nvidia._C" in sys.modules}
+            "nvidia_binary_loaded": "up_platform.backends.nvidia._C" in sys.modules,
+            "numerics": accelerator.numerics_state()}
 
 
 def close_trees(first, second, path="root"):
@@ -414,6 +430,8 @@ def compare_model(root, model):
     a, b = reports
     assert a["environment"] == b["environment"], "Before/after environment mismatch"
     assert a["initial_state_sha256"] == b["initial_state_sha256"], "Initial weights differ"
+    assert len(a["steps"]) == len(b["steps"]) == STEPS, "Incomplete training budget"
+    assert len(a["evaluations"]) == len(b["evaluations"]) == 2, "Incomplete evaluation audit"
     close_trees([row["losses"] for row in a["steps"]], [row["losses"] for row in b["steps"]])
     for first, second in zip(a["steps"], b["steps"]):
         assert first["batch_sha256"] == second["batch_sha256"], "Training batch differs"
@@ -447,19 +465,23 @@ def compare_model(root, model):
 
 
 def suite(args):
+    profile = numerical_profile(args)
     args.output.mkdir(parents=True, exist_ok=False)
     data = prepare_subset(args.data, args.output / "data")
     report = {"scope": "single-seed, 3 updates on 8 real training / 4 validation images per dataset; not accuracy convergence",
-              "backend": args.backend, "seed": SEED, "steps": STEPS, "rtol": RTOL, "atol": ATOL,
+              "backend": args.backend, "numerical_profile": profile,
+              "seed": SEED, "steps": STEPS, "rtol": RTOL, "atol": ATOL,
               "models": {}, "failures": {}, "driver_sha256": file_hash(__file__),
               "sources": {name: source_manifest(path) for name, path in (("baseline", args.baseline), ("changed", args.changed))}}
-    write_json(args.output / "protocol.json", {key: report[key] for key in ("scope", "backend", "seed", "steps", "rtol", "atol", "driver_sha256")})
+    write_json(args.output / "protocol.json", {key: report[key] for key in (
+        "scope", "backend", "numerical_profile", "seed", "steps", "rtol", "atol", "driver_sha256")})
     for model in MODELS:
         for label, source in (("baseline", args.baseline), ("changed", args.changed)):
             for phase in ("training", "inference"):
                 output = args.output / label / model / phase
                 command = [sys.executable, str(Path(__file__).resolve()), phase, "--source", str(source),
-                           "--data", str(data), "--output", str(output), "--backend", args.backend, "--model", model]
+                           "--data", str(data), "--output", str(output), "--backend", args.backend,
+                           "--model", model, "--numerical-profile", profile]
                 if phase == "inference":
                     command += ["--training", str(output.parent / "training")]
                 output.parent.mkdir(parents=True, exist_ok=True)
@@ -491,7 +513,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--backend", choices=("nvidia", "metax"), required=True)
     parser.add_argument("--model", choices=MODELS)
+    parser.add_argument("--numerical-profile", choices=PROFILES, default="native")
     args = parser.parse_args()
+    numerical_profile(args)
     args.output = args.output.resolve()
     args.data = args.data.resolve()
     if args.action == "suite":

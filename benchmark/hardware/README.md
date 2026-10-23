@@ -6,8 +6,9 @@
 
 | 分组 | 入口 | 使用边界 |
 | --- | --- | --- |
-| 当前平台对照 | `validate_platform_equivalence.py`、`collect_platform_evidence.py` | 独立进程对比训练、训练 eval、恢复与独立推理；不当成完整数据集精度 |
+| 当前平台短程对照 | `validate_platform_equivalence.py` | 独立进程对比训练、训练 eval、恢复与独立推理；显式选择 native/v1/v2，同一对照不可混用数值策略；不当成完整数据集精度 |
 | 当前单种子完整预算 | `validate_current_accuracy.py` | 固定四模型配方与 seed=131，成对运行两个冻结版本；不是恢复旧多种子任务，见[本轮报告](../../docs/reports/CURRENT_VALIDATION_20261022.md) |
+| 完整预算后的恢复与推理 | `audit_rearchitecture_checkpoints.py` | 新进程恢复模型/优化器/调度器，保护 eval 前后状态；独立 `BaseInference` 重放全部实际留出批次，见[重构真机协议](../../docs/reports/REARCHITECTURE_HARDWARE_20261023.md)；不冒充完整中断续训或 AMP 验收 |
 | 基础真机回归 | `validate_vendor_runtime.py`、`validate_native_ops.py`、`validate_models.py`、`validate_distributed.py`、`validate_onnx.py` | 需要真实 SDK、工具链与适配依赖，分别记录结果 |
 | C500 局部诊断 | `diagnose_metax_determinism.py`、`run_metax_determinism_controls.py`、`collect_metax_determinism.py` | 固定操作数、原容差与失败记录，不能泛化为全形状确定性 |
 | DETR 归因 | `diagnose_detr_origin.py` | UP tensor tape、独立官方网络、逐步梯度/ATen 追踪与纯 PyTorch 重放，见[归因报告](../../docs/reports/DETR_ORIGIN_20261022.md)；不修改模型或恢复旧多种子任务 |
@@ -17,7 +18,7 @@
 | 数值实验诊断 | `probe_*`、`trace_gpu_dispatch.py`、`validate_portable_*`、`run_portable_probes.py` | 默认关闭，仅显式实验；不是新增厂商接入步骤 |
 | 证据与统计 | `audit_*`、`collect_*`、`package_*`、`summarize_*`、`recompute_*` | 校验执行版本/计划/数据，保留失败与未验证；CPU 指标复算不是模型代算 |
 
-`collect_hardware_validation.py` 属于拆包前的历史协议，不能用于当前平台出具通过报告；当前结构用 `collect_platform_evidence.py`。历史统计器中 `tools/...` 的源码索引键故意保留，必须配套历史 source snapshot / `--repository`，不能随目录迁移改掉原哈希约定。
+`collect_hardware_validation.py` 属于拆包前历史协议；`collect_platform_evidence.py` 对应早期拆包的 run-01/run-03 协议，不是任意新阶段的通用收集器。本轮重构的控制器、收集器及实际执行字节随独立证据包保存，入口见[重构真机协议](../../docs/reports/REARCHITECTURE_HARDWARE_20261023.md)。历史统计器中 `tools/...` 的源码索引键故意保留，必须配套历史 source snapshot / `--repository`，不能随目录迁移改掉原哈希约定。
 
 查看参数不会启动训练：
 

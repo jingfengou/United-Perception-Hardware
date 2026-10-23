@@ -10,23 +10,18 @@
 
 ## 验证状态
 
-四模型基线冻结于 `f78e27a`，后续 GEMM 修复另有独立快照和验收。使用真实 CIFAR-10 / PennFudan 子集、单种子、完整固定预算；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。
-
-以下为各报告冻结版本的 GPU 结果。本次架构重构单独核查计算定义、路由、兼容与打包，不把历史结果自动记作新版本真机通过。[当前整体设计](docs/architecture/PLATFORM.md)
+当前 LightX2V 风格重构已在 RTX 4090 / C500 做真实回归：比较 `ad36d77 → 71d9812`，同平台保持相同配置、权重、seed=131 和数值策略。四模型共 16 次完整固定预算、30,400 次更新；**不是完整 ImageNet/COCO 收敛，也不是跨厂商精度等价证明**。[结果、环境与复现](docs/reports/REARCHITECTURE_HARDWARE_20261023.md)
 
 | 范围 | 实测结论 |
 | --- | --- |
-| NVIDIA RTX 4090 | 四模型与原版 UP 完整预算结果逐位一致；32 项算子与训练/eval/恢复/独立推理短程对照通过 |
-| C500 native | 同权重独立推理四模型逐位一致；训练短程数值对照仅 ViT 通过 |
-| C500 v1 策略 | ResNet18、YOLO、ViT 完整预算逐位一致；DETR 未通过 |
-| C500 v2 策略 | DETR 四份 720 步控制的梯度、权重与 AP 一致；训练内 eval、恢复及独立推理通过 |
+| NVIDIA native | 四模型重构前后全部 loss、最终权重、指标与最终预测逐位一致；独立编译扩展，32 项原生操作对照通过 |
+| C500 显式 v2 | 四模型同策略重构前后完整预算逐位一致；两平台均通过训练内 eval、模型/优化器/调度器恢复及全部留出批次独立推理 |
+| C500 native | 短程严格对照仅 ViT 通过；ResNet、YOLO、DETR 在同版本重复中也有差异。固定同一权重后的四模型短程跨版本独立推理逐位一致 |
 | 昇腾 / 寒武纪 | 有设备入口，专用操作与真机验收未齐全 |
 
-四模型基线的 C500 两版均显式启用 `metax_deterministic_v1`，不代表默认 native 训练通过。失败与同版本重复对照均保留；旧多随机种子复测仍暂停，CPU CI 不代表 GPU 精度验收。[四模型协议与结果](docs/reports/CURRENT_VALIDATION_20261022.md) · [历史结果与证据](docs/reports/README.md)
+默认仍为 native，v2 需显式开启，且有[性能代价](docs/reports/METAX_NATIVE_V2_20261022.md)。本轮没有改数值实现、放宽容差或恢复旧多种子任务；v2 通过不能覆盖 native 失败。GPU 导出、AMP/多卡及所有专用算子并未因此得到验收。
 
-DETR 的原生 FP32 GEMM 非确定性已在无 UP 的控制中复现。新增显式 `metax_deterministic_v2`，仅在沐曦平台层用固定 GPU FP32 计算绕开该问题；同策略下的整理前后、同种子重复及官方核心控制均一致，最终 AP 为 `0.7706035845`。不宣称与旧 v1 随机轨迹等价。[归因](docs/reports/DETR_ORIGIN_20261022.md) · [修复、结果与复现](docs/reports/METAX_GEMM_FIX_20261022.md)
-
-默认仍为 native，v2 需显式开启。同卡、同种子 DETR 的 native/v2 完整预算对照，分别记录冷/热缓存的精度、训练速度和峰值显存，见[实际代价与复现](docs/reports/METAX_NATIVE_V2_20261022.md)。
+与原版 UP 的前轮对照、v1 的 DETR 失败、无 UP 的 GEMM 归因和 v2 专项均保留在[历史报告](docs/reports/README.md)，不与本轮重构前后对照混用。**四模型可运行，不代表所有 UP 专用算子已适配国产显卡**；普通厂商 PyTorch、公共实现和缺失专用操作的区别见[能力说明](docs/platform/CAPABILITIES.md#沐曦如何运行模型)。
 
 ## 工作方式
 

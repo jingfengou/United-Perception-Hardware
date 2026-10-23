@@ -65,3 +65,5 @@ python -m pytest -q
 安装后测试还需在仓库外分别使用平台 wheel 和最小厂商插件；无 Torch/UP 环境测试普通导入。NVIDIA 构建配方的源码集合、所有本地头文件与 include 路径通过 CPU 构建契约核查；实际 nvcc 编译与 GPU 运行未在本轮执行。
 
 现行开发入口见[总设计](../architecture/PLATFORM.md)、[接口定义](../platform/INTERFACES.md)、[新增厂商](../platform/ADDING_VENDOR.md)。历史结果仍按各报告的冻结提交、配置和设备解读。
+
+后续另建的 [RTX 4090 / C500 真机阶段](REARCHITECTURE_HARDWARE_20261023.md)比较 `ad36d77 → 71d9812` 的四模型完整固定预算、训练内 eval、恢复和独立推理；其策略、native 失败和原始证据单独记录，不改写上面的结构迁移阶段结论。
