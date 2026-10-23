@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 from collections import OrderedDict
 
 import torch.nn as nn # noqa
@@ -58,10 +60,10 @@ class LinearBlock(nn.Module):
         self.dropout_rate = dropout_rate
 
         if self.dropout_rate > 0:
-            self.dropout = nn.Dropout(self.dropout_rate, inplace=True)
+            self.dropout = platform_layers.Dropout(self.dropout_rate, inplace=True)
         else:
             self.dropout = None
-        self.linear = nn.Linear(
+        self.linear = platform_layers.Linear(
             in_features=self.in_features, out_features=self.out_features, bias=self.bias
         )
         self.act_func = act_func
@@ -93,14 +95,14 @@ class SEBlock(nn.Module):
         num_mid = make_divisible(self.channel // self.reduction, divisor=self.divisor)
 
         self.fc = nn.Sequential(OrderedDict([
-            ('reduce', nn.Conv2d(self.channel, num_mid, 1, 1, 0, bias=bias)),
+            ('reduce', platform_layers.Conv2d(self.channel, num_mid, 1, 1, 0, bias=bias)),
             ('act1', build_activation(self.act_func1, inplace=False)),
-            ('expand', nn.Conv2d(num_mid, self.channel, 1, 1, 0, bias=bias)),
+            ('expand', platform_layers.Conv2d(num_mid, self.channel, 1, 1, 0, bias=bias)),
             ('act2', build_activation(self.act_func2, inplace=False)),
         ]))
 
     def forward(self, x):
-        y = F.adaptive_avg_pool2d(x, output_size=1)
+        y = get_platform().category('pooling').adaptive_avg_pool2d(x, output_size=1)
         y = self.fc(y)
         return x * y
 
@@ -108,7 +110,7 @@ class SEBlock(nn.Module):
 class ConvBlock(nn.Module):
 
     def __init__(self, in_channel, out_channel, kernel_size=3, stride=1, dilation=1,
-                 use_bn=True, act_func='relu', NormLayer=nn.BatchNorm2d, shortcut=False, bias=False,
+                 use_bn=True, act_func='relu', NormLayer=platform_layers.BatchNorm2d, shortcut=False, bias=False,
                  same_pad=True, padding=0):
         super(ConvBlock, self).__init__()
 
@@ -125,7 +127,7 @@ class ConvBlock(nn.Module):
             padding = get_same_padding(self.kernel_size)
         else:
             padding = padding
-        self.conv = nn.Conv2d(in_channels=self.in_channel, out_channels=self.out_channel,
+        self.conv = platform_layers.Conv2d(in_channels=self.in_channel, out_channels=self.out_channel,
                               kernel_size=self.kernel_size, padding=padding, groups=1,
                               stride=self.stride, dilation=self.dilation, bias=bias)
         if self.use_bn:
@@ -149,7 +151,7 @@ class BasicBlock(nn.Module):
 
     def __init__(self, in_channel, out_channel,
                  kernel_size=3, expand_ratio=1, stride=1, act_func='relu', divisor=8,
-                 use_se=False, NormLayer=nn.BatchNorm2d, reduction=4):
+                 use_se=False, NormLayer=platform_layers.BatchNorm2d, reduction=4):
         super(BasicBlock, self).__init__()
 
         self.in_channel = in_channel
@@ -166,14 +168,14 @@ class BasicBlock(nn.Module):
         middle_channel = make_divisible(self.out_channel * self.expand_ratio, divisor)
         padding = get_same_padding(self.kernel_size)
         self.normal_conv1 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(self.in_channel, middle_channel, self.kernel_size,
+            ('conv', platform_layers.Conv2d(self.in_channel, middle_channel, self.kernel_size,
                                stride=self.stride, groups=1, padding=padding, bias=False)),
             ('bn', NormLayer(middle_channel)),
             ('act', build_activation(self.act_func, inplace=False))
         ]))
 
         self.normal_conv2 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(middle_channel, self.out_channel, self.kernel_size, groups=1,
+            ('conv', platform_layers.Conv2d(middle_channel, self.out_channel, self.kernel_size, groups=1,
                                padding=padding, bias=False)),
             ('bn', NormLayer(self.out_channel)),
         ]))
@@ -185,7 +187,7 @@ class BasicBlock(nn.Module):
             self.shortcut = None
         else:
             self.shortcut = nn.Sequential(OrderedDict([
-                ('conv', nn.Conv2d(self.in_channel, self.out_channel, kernel_size=1, groups=1,
+                ('conv', platform_layers.Conv2d(self.in_channel, self.out_channel, kernel_size=1, groups=1,
                                    stride=stride, bias=False)),
                 ('bn', NormLayer(self.out_channel)),
             ]))
@@ -209,7 +211,7 @@ class StemBlock(nn.Module):
 
     def __init__(self, in_channel, out_channel,
                  kernel_size=3, expand_ratio=0.5, stride=1, act_func='relu',
-                 NormLayer=nn.BatchNorm2d):
+                 NormLayer=platform_layers.BatchNorm2d):
         super(StemBlock, self).__init__()
 
         self.in_channel = in_channel
@@ -224,7 +226,7 @@ class StemBlock(nn.Module):
         middle_channel = make_divisible(self.out_channel * self.expand_ratio, 8)
         padding = get_same_padding(self.kernel_size)
         self.point_conv1 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(self.in_channel,
+            ('conv', platform_layers.Conv2d(self.in_channel,
                                middle_channel,
                                kernel_size=self.kernel_size,
                                stride=self.stride,
@@ -235,14 +237,14 @@ class StemBlock(nn.Module):
         ]))
 
         self.normal_conv = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(middle_channel, middle_channel, self.kernel_size,
+            ('conv', platform_layers.Conv2d(middle_channel, middle_channel, self.kernel_size,
                                padding=padding, bias=False)),
             ('bn', NormLayer(middle_channel)),
             ('act', build_activation(self.act_func, inplace=False))
         ]))
 
         self.point_conv2 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(middle_channel,
+            ('conv', platform_layers.Conv2d(middle_channel,
                                self.out_channel,
                                kernel_size=self.kernel_size,
                                groups=1,
@@ -263,7 +265,7 @@ class RegBottleneckBlock(nn.Module):
 
     def __init__(self, in_channel, out_channel, kernel_size=3, expand_ratio=0.25, group_width=1, stride=1,
                  act_func='relu', use_se=False, act_func1='relu', act_func2='sigmoid', divisor=8, expand_input=False,
-                 NormLayer=nn.BatchNorm2d):
+                 NormLayer=platform_layers.BatchNorm2d):
         super(RegBottleneckBlock, self).__init__()
 
         self.stride = stride
@@ -277,14 +279,14 @@ class RegBottleneckBlock(nn.Module):
             middle_channel = make_divisible(out_channel * expand_ratio, self.divisor)
         group_num = middle_channel // group_width
         self.point_conv1 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(in_channel, middle_channel, kernel_size=1, groups=1, bias=False)),
+            ('conv', platform_layers.Conv2d(in_channel, middle_channel, kernel_size=1, groups=1, bias=False)),
             ('bn', NormLayer(middle_channel)),
             ('act', build_activation(self.act_func, inplace=False)),
         ]))
 
         padding = get_same_padding(kernel_size)
         self.group_conv = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(middle_channel, middle_channel, kernel_size, stride=self.stride,
+            ('conv', platform_layers.Conv2d(middle_channel, middle_channel, kernel_size, stride=self.stride,
                                groups=group_num, bias=False, padding=padding)),
             ('bn', NormLayer(middle_channel)),
             ('act', build_activation(self.act_func, inplace=False))
@@ -293,7 +295,7 @@ class RegBottleneckBlock(nn.Module):
             self.group_conv.add_module('se', SEBlock(middle_channel, act_func1=act_func1, act_func2=act_func2))
 
         self.point_conv2 = nn.Sequential(OrderedDict([
-            ('conv', nn.Conv2d(middle_channel, out_channel, kernel_size=1, groups=1, bias=False)),
+            ('conv', platform_layers.Conv2d(middle_channel, out_channel, kernel_size=1, groups=1, bias=False)),
             ('bn', NormLayer(out_channel)),
         ]))
         self.act3 = build_activation(self.act_func, inplace=False)
@@ -302,7 +304,7 @@ class RegBottleneckBlock(nn.Module):
             self.shortcut = None
         else:
             self.shortcut = nn.Sequential(OrderedDict([
-                ('conv', nn.Conv2d(in_channel, out_channel, kernel_size=1, groups=1,
+                ('conv', platform_layers.Conv2d(in_channel, out_channel, kernel_size=1, groups=1,
                                    stride=stride, bias=False)),
                 ('bn', NormLayer(out_channel)),
             ]))

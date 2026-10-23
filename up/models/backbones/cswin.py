@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,14 +10,14 @@ from up.utils.model.initializer import trunc_normal_
 
 
 class Mlp(nn.Module):
-    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
+    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=platform_layers.GELU, drop=0.):
         super().__init__()
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
-        self.fc1 = nn.Linear(in_features, hidden_features)
+        self.fc1 = platform_layers.Linear(in_features, hidden_features)
         self.act = act_layer()
-        self.fc2 = nn.Linear(hidden_features, out_features)
-        self.drop = nn.Dropout(drop)
+        self.fc2 = platform_layers.Linear(hidden_features, out_features)
+        self.drop = platform_layers.Dropout(drop)
 
     def forward(self, x):
         x = self.fc1(x)
@@ -38,9 +40,9 @@ class LePEAttention(nn.Module):
         self.idx = idx
         # NOTE scale factor was wrong in my original version, can set manually to be compat with prev weights
         self.scale = qk_scale or head_dim ** -0.5
-        self.get_v = nn.Conv2d(dim, dim, kernel_size=3, stride=1, padding=1, groups=dim)
+        self.get_v = platform_layers.Conv2d(dim, dim, kernel_size=3, stride=1, padding=1, groups=dim)
 
-        self.attn_drop = nn.Dropout(attn_drop)
+        self.attn_drop = platform_layers.Dropout(attn_drop)
 
     def im2cswin(self, x, H, W):
         B, N, C = x.shape
@@ -90,11 +92,11 @@ class LePEAttention(nn.Module):
         v, lepe = self.get_lepe(v, self.get_v, H, W)
 
         q = q * self.scale
-        attn = (q @ k.transpose(-2, -1))  # B head N C @ B head C N --> B head N N
-        attn = nn.functional.softmax(attn, dim=-1, dtype=attn.dtype)
+        attn = (get_platform().category('matrix').matmul(q, k.transpose(-2, -1)))  # B head N C @ B head C N --> B head N N
+        attn = get_platform().category('activation').softmax(attn, dim=-1, dtype=attn.dtype)
         attn = self.attn_drop(attn)
 
-        x = (attn @ v) + lepe
+        x = (get_platform().category('matrix').matmul(attn, v)) + lepe
         x = x.transpose(1, 2).reshape(-1, self.H_sp * self.W_sp, C)  # B head N N @ B head N C
 
         ### Window2Img
@@ -108,7 +110,7 @@ class CSWinBlock(nn.Module):
     def __init__(self, dim, reso, num_heads,
                  split_size=7, mlp_ratio=4., qkv_bias=False, qk_scale=None,
                  drop=0., attn_drop=0., drop_path=0.,
-                 act_layer=nn.GELU, norm_layer=nn.LayerNorm,
+                 act_layer=platform_layers.GELU, norm_layer=platform_layers.LayerNorm,
                  last_stage=False):
         super().__init__()
         self.dim = dim
@@ -116,7 +118,7 @@ class CSWinBlock(nn.Module):
         self.patches_resolution = reso
         self.split_size = split_size
         self.mlp_ratio = mlp_ratio
-        self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
+        self.qkv = platform_layers.Linear(dim, dim * 3, bias=qkv_bias)
         self.norm1 = norm_layer(dim)
 
         if self.patches_resolution == split_size:
@@ -125,8 +127,8 @@ class CSWinBlock(nn.Module):
             self.branch_num = 1
         else:
             self.branch_num = 2
-        self.proj = nn.Linear(dim, dim)
-        self.proj_drop = nn.Dropout(drop)
+        self.proj = platform_layers.Linear(dim, dim)
+        self.proj_drop = platform_layers.Dropout(drop)
 
         if last_stage:
             self.attns = nn.ModuleList([
@@ -161,7 +163,7 @@ class CSWinBlock(nn.Module):
         img = img.view(B, H, W, C)
         pad_r = (self.split_size - W % self.split_size) % self.split_size
         pad_b = (self.split_size - H % self.split_size) % self.split_size
-        img = F.pad(img, (0, 0, pad_l, pad_r, pad_t, pad_b))
+        img = get_platform().category('pooling').pad(img, (0, 0, pad_l, pad_r, pad_t, pad_b))
         _, Hp, Wp, _ = img.shape
         img = img.view(B, Hp * Wp, -1)
 
@@ -206,9 +208,9 @@ def windows2img(img_splits_hw, H_sp, W_sp, H, W):
 
 
 class Merge_Block(nn.Module):
-    def __init__(self, dim, dim_out, norm_layer=nn.LayerNorm):
+    def __init__(self, dim, dim_out, norm_layer=platform_layers.LayerNorm):
         super().__init__()
-        self.conv = nn.Conv2d(dim, dim_out, 3, 2, 1)
+        self.conv = platform_layers.Conv2d(dim, dim_out, 3, 2, 1)
         self.norm = norm_layer(dim_out)
 
     def forward(self, x, H, W):
@@ -230,7 +232,7 @@ class CSWinTransformer(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=96, depth=[2, 2, 6, 2],
                  split_size=[3, 5, 7], out_indices=(0, 1, 2, 3),
                  num_heads=12, mlp_ratio=4., qkv_bias=True, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
-                 drop_path_rate=0., hybrid_backbone=None, norm_layer=nn.LayerNorm, use_chk=False,
+                 drop_path_rate=0., hybrid_backbone=None, norm_layer=platform_layers.LayerNorm, use_chk=False,
                  out_strides=[4, 8, 16, 32]):
         super().__init__()
         self.use_chk = use_chk
@@ -242,8 +244,8 @@ class CSWinTransformer(nn.Module):
         self.out_indices = out_indices
         heads = num_heads
 
-        self.stage1_conv = nn.Conv2d(in_chans, embed_dim, 7, 4, 2)
-        self.stage1_norm = nn.LayerNorm(embed_dim)
+        self.stage1_conv = platform_layers.Conv2d(in_chans, embed_dim, 7, 4, 2)
+        self.stage1_norm = platform_layers.LayerNorm(embed_dim)
 
         curr_dim = embed_dim
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, np.sum(depth))]  # stochastic depth decay rule

@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import math
 import torch.nn as nn
 
@@ -152,7 +153,7 @@ class BigRegNet(BignasSearchSpace):
 
         self.blocks = nn.ModuleList(blocks)
         if self.task == 'classification':
-            self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+            self.avg_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
             self.classifier = DynamicLinearBlock(input_channel, num_classes, bias=True, dropout_rate=dropout_rate)
 
         # self.gen_dynamic_module_list(dynamic_types=[DynamicConvBlock, DynamicRegBottleneckBlock, DynamicLinearBlock])
@@ -396,7 +397,7 @@ class BignasRegNet(nn.Module):
 
         self.blocks = nn.ModuleList(blocks)
         if self.task == 'classification':
-            self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+            self.avg_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
             self.classifier = LinearBlock(input_channel, num_classes, bias=True, dropout_rate=dropout_rate)
 
         if initializer is not None:

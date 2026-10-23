@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Standard Library
 from functools import reduce
 
@@ -12,7 +14,7 @@ def binary_accuracy(output, target, thresh=0.5, ignore_index=-1):
     target = target.view(-1)
     keep = torch.nonzero(target != ignore_index).squeeze()
     if keep.dim() <= 0:
-        return [torch.cuda.FloatTensor([1]).zero_()]
+        return [torch.zeros(1, dtype=torch.float32, device=get_platform().device.device())]
     assert (keep.dim() == 1)
     target = target[keep]
     output = output[keep]
@@ -24,7 +26,7 @@ def binary_accuracy(output, target, thresh=0.5, ignore_index=-1):
 def multilabel_accuracy(output, target, thresh=0.5):
     batch_size = target.size(0)
 
-    output = torch.nn.Sigmoid()(output)
+    output = platform_layers.Sigmoid()(output)
     output[output >= thresh] = 1
     output[output < thresh] = 0
 
@@ -44,7 +46,7 @@ def accuracy(output, target, topk=(1, ), ignore_indices=[-1]):
     mask = reduce(lambda x, y: x & y, masks)
     keep = torch.nonzero(mask).squeeze()
     if keep.numel() <= 0:
-        return [torch.cuda.FloatTensor([1]).zero_()]
+        return [torch.zeros(1, dtype=torch.float32, device=get_platform().device.device())]
     if keep.dim() == 0:
         keep = keep.view(-1)
     assert keep.dim() == 1, keep.dim()

@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Import from third library
 import torch.nn as nn
 from torch.nn import functional as F
@@ -20,15 +22,15 @@ def aligned_bilinear(tensor, factor):
         return tensor
 
     h, w = tensor.size()[2:]
-    tensor = F.pad(tensor, pad=(0, 1, 0, 1), mode="replicate")
+    tensor = get_platform().category('pooling').pad(tensor, pad=(0, 1, 0, 1), mode="replicate")
     oh = factor * h + 1
     ow = factor * w + 1
-    tensor = F.interpolate(
+    tensor = get_platform().category('pooling').interpolate(
         tensor, size=(oh, ow),
         mode='bilinear',
         align_corners=True
     )
-    tensor = F.pad(
+    tensor = get_platform().category('pooling').pad(
         tensor, pad=(factor // 2, 0, factor // 2, 0),
         mode="replicate"
     )
@@ -51,7 +53,7 @@ class CondinstHead(nn.Module):
             normalize=None,
             initializer=None):
         super(CondinstHead, self).__init__()
-        self.controller_pred = nn.Conv2d(feat_planes, dense_points * mask_gen_params,
+        self.controller_pred = platform_layers.Conv2d(feat_planes, dense_points * mask_gen_params,
                                          kernel_size=3, stride=1, padding=1)
         self.mask_branch = MaskBranch(inplanes, feat_layers, branch_num_convs, branch_channels,
                                       branch_num_outputs, normalize, initializer)
@@ -85,7 +87,7 @@ class MaskBranch(nn.Module):
                 build_conv_norm(
                     channels, channels, kernel_size=3, stride=1, padding=1, normalize=normalize, activation=True))
         self.tower.add_module(
-            f'{num_convs}', nn.Conv2d(
+            f'{num_convs}', platform_layers.Conv2d(
                 channels, max(
                     num_outputs, 1), kernel_size=3, stride=1, padding=1))
         initialize_from_cfg(self, initializer)

@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 from up.tasks.nas.bignas.models.heads.big_roi_head import big_roi_head, bignas_roi_head
 from up.tasks.nas.bignas.models.ops.dynamic_blocks import DynamicConvBlock
@@ -139,10 +140,10 @@ class BignasRetinaHeadWithBN(nn.Module):
                                               normalize=normalize,
                                               kernel_size=kernel_size, depth=depth_box, out_channel=out_channel_box)
 
-        self.cls_subnet_pred = nn.Conv2d(
+        self.cls_subnet_pred = platform_layers.Conv2d(
             out_channel_cls[-1], self.num_anchors * class_channel,
             kernel_size=pred_conv_kernel_size, stride=1, padding=1, bias=True)
-        self.box_subnet_pred = nn.Conv2d(
+        self.box_subnet_pred = platform_layers.Conv2d(
             out_channel_box[-1], self.num_anchors * 4,
             kernel_size=pred_conv_kernel_size, stride=1, padding=1, bias=True)
 

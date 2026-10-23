@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 import torch.nn.functional as F
@@ -73,7 +74,7 @@ class OTASupervisor(object):
                            CPU mode is applied in this batch. If you want to avoid this issue, \
                            try to reduce the batch size or image size."
                     )
-                    torch.cuda.empty_cache()
+                    get_platform().device.empty_cache()
                     num_fg, gt_matched_classes, pred_ious_this_matching, matched_gt_inds, fg_mask, expanded_strides = \
                         self.matcher.match(gts, preds, points, num_points_per_level, strides,
                                            img_size=img_size, mode='cpu')
@@ -155,7 +156,7 @@ class OTAMatcher(object):
             y2 = preds[:, 1] + preds[:, 3] / 2
             return torch.stack([x1, y1, x2, y2], -1)
 
-        with torch.cuda.amp.autocast(enabled=False):
+        with get_platform().execution.autocast(enabled=False):
             decoded_preds_box = decode_ota_box(preds_box.float())
 
             pair_wise_ious = bbox_iou_overlaps(
@@ -170,7 +171,7 @@ class OTAMatcher(object):
                 preds_cls.float().unsqueeze(0).repeat(G, 1, 1).sigmoid_()
                 * preds_obj.float().unsqueeze(0).repeat(G, 1, 1).sigmoid_()
             )
-            pair_wise_cls_loss = F.binary_cross_entropy(
+            pair_wise_cls_loss = get_platform().category('loss').binary_cross_entropy(
                 cls_preds_.sqrt_(),
                 gt_cls_per_image,
                 reduction="none").sum(-1)
@@ -187,11 +188,11 @@ class OTAMatcher(object):
         del pair_wise_cls_loss, cost, pair_wise_ious, pair_wise_ious_loss
 
         if mode == "cpu":
-            gt_matched_classes = gt_matched_classes.cuda()
-            fg_mask = fg_mask.cuda()
-            pred_ious_this_matching = pred_ious_this_matching.cuda()
-            matched_gt_inds = matched_gt_inds.cuda()
-            expanded_strides = expanded_strides.cuda()
+            gt_matched_classes = get_platform().device.move(gt_matched_classes)
+            fg_mask = get_platform().device.move(fg_mask)
+            pred_ious_this_matching = get_platform().device.move(pred_ious_this_matching)
+            matched_gt_inds = get_platform().device.move(matched_gt_inds)
+            expanded_strides = get_platform().device.move(expanded_strides)
 
         return num_fg, gt_matched_classes, pred_ious_this_matching, matched_gt_inds, fg_mask, expanded_strides
 

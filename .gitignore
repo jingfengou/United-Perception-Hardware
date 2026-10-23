@@ -20,6 +20,13 @@ datasets/pycocotools
 build
 **/build
 
+dist/
+*.egg-info/
+*.whl
+.pytest_cache/
+.venv/
+*.pem
+
 .vscode/
 *_build
 .env

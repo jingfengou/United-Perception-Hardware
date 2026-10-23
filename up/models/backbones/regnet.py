@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 try:
     from spring import linklink
 except:  # noqa
@@ -43,11 +44,11 @@ class SimpleStemIN(nn.Module):
 
     def _construct(self, in_w, out_w, normalize):
         # 3x3, BN, ReLU
-        self.conv = nn.Conv2d(
+        self.conv = platform_layers.Conv2d(
             in_w, out_w, kernel_size=3, stride=2, padding=1, bias=False
         )
         _, self.bn = build_norm_layer(out_w, normalize)
-        self.relu = nn.ReLU(True)
+        self.relu = platform_layers.ReLU(True)
 
     def forward(self, x):
         for layer in self.children():
@@ -64,13 +65,13 @@ class SE(nn.Module):
 
     def _construct(self, w_in, w_se):
         # AvgPool
-        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
+        self.avg_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
         # FC, Activation, FC, Sigmoid
         self.f_ex = nn.Sequential(
-            nn.Conv2d(w_in, w_se, kernel_size=1, bias=True),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(w_se, w_in, kernel_size=1, bias=True),
-            nn.Sigmoid(),
+            platform_layers.Conv2d(w_in, w_se, kernel_size=1, bias=True),
+            platform_layers.ReLU(inplace=True),
+            platform_layers.Conv2d(w_se, w_in, kernel_size=1, bias=True),
+            platform_layers.Sigmoid(),
         )
 
     def forward(self, x):
@@ -90,21 +91,21 @@ class BottleneckTransform(nn.Module):
         # Compute the number of groups
         num_gs = w_b // gw
         # 1x1, BN, ReLU
-        self.a = nn.Conv2d(w_in, w_b, kernel_size=1, stride=1, padding=0, bias=False)
+        self.a = platform_layers.Conv2d(w_in, w_b, kernel_size=1, stride=1, padding=0, bias=False)
         _, self.a_bn = build_norm_layer(w_b, normalize)
-        self.a_relu = nn.ReLU(True)
+        self.a_relu = platform_layers.ReLU(True)
         # 3x3, BN, ReLU
-        self.b = nn.Conv2d(
+        self.b = platform_layers.Conv2d(
             w_b, w_b, kernel_size=3, stride=stride, padding=1, groups=num_gs, bias=False
         )
         _, self.b_bn = build_norm_layer(w_b, normalize)
-        self.b_relu = nn.ReLU(True)
+        self.b_relu = platform_layers.ReLU(True)
         # Squeeze-and-Excitation (SE)
         if se_r:
             w_se = int(round(w_in * se_r))
             self.se = SE(w_b, w_se)
         # 1x1, BN
-        self.c = nn.Conv2d(w_b, w_out, kernel_size=1, stride=1, padding=0, bias=False)
+        self.c = platform_layers.Conv2d(w_b, w_out, kernel_size=1, stride=1, padding=0, bias=False)
         _, self.c_bn = build_norm_layer(w_out, normalize)
         self.c_bn.final_bn = True
 
@@ -122,7 +123,7 @@ class ResBottleneckBlock(nn.Module):
         self._construct(w_in, w_out, stride, bm, gw, se_r, normalize)
 
     def _add_skip_proj(self, w_in, w_out, stride, normalize):
-        self.proj = nn.Conv2d(
+        self.proj = platform_layers.Conv2d(
             w_in, w_out, kernel_size=1, stride=stride, padding=0, bias=False
         )
         _, self.bn = build_norm_layer(w_out, normalize)
@@ -133,7 +134,7 @@ class ResBottleneckBlock(nn.Module):
         if self.proj_block:
             self._add_skip_proj(w_in, w_out, stride, normalize)
         self.f = BottleneckTransform(w_in, w_out, stride, bm, gw, se_r, normalize)
-        self.relu = nn.ReLU(True)
+        self.relu = platform_layers.ReLU(True)
 
     def forward(self, x):
         if self.proj_block:
@@ -149,8 +150,8 @@ class AnyHead(nn.Module):
 
     def __init__(self, w_in, nc):
         super(AnyHead, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(w_in, nc, bias=True)
+        self.avg_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
+        self.fc = platform_layers.Linear(w_in, nc, bias=True)
 
     def forward(self, x):
         x = self.avg_pool(x)

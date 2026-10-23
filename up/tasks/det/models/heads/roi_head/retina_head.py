@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 
 from up.utils.model.normalize import build_conv_norm, build_norm_layer
@@ -75,12 +76,12 @@ class NaiveRPN(BaseNet):
         inplanes = self.inplanes
         num_level = self.num_level
         self.class_activation = class_activation
-        self.conv3x3 = nn.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1)
-        self.relu3x3 = nn.ReLU(inplace=True)
+        self.conv3x3 = platform_layers.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1)
+        self.relu3x3 = platform_layers.ReLU(inplace=True)
 
         class_channel = {'sigmoid': 1, 'softmax': 2}[self.class_activation]
-        self.conv_cls = nn.Conv2d(feat_planes, num_anchors * class_channel, kernel_size=1, stride=1)
-        self.conv_loc = nn.Conv2d(feat_planes, num_anchors * 4, kernel_size=1, stride=1)
+        self.conv_cls = platform_layers.Conv2d(feat_planes, num_anchors * class_channel, kernel_size=1, stride=1)
+        self.conv_loc = platform_layers.Conv2d(feat_planes, num_anchors * 4, kernel_size=1, stride=1)
 
         initialize_from_cfg(self, initializer)
 
@@ -131,9 +132,9 @@ class RetinaSubNet(BaseNet):
         self.num_loc = 1
         if not self.share_location:
             self.num_loc = self.class_channel
-        self.cls_subnet_pred = nn.Conv2d(
+        self.cls_subnet_pred = platform_layers.Conv2d(
             feat_planes, self.num_anchors * class_channel, kernel_size=3, stride=1, padding=1)
-        self.box_subnet_pred = nn.Conv2d(
+        self.box_subnet_pred = platform_layers.Conv2d(
             feat_planes, self.num_anchors * 4 * self.num_loc, kernel_size=3, stride=1, padding=1)
 
         initialize_from_cfg(self, initializer)
@@ -143,8 +144,8 @@ class RetinaSubNet(BaseNet):
         layers = []
         if normalize is None:
             for i in range(num_conv):
-                layers.append(nn.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1))
-                layers.append(nn.ReLU(inplace=True))
+                layers.append(platform_layers.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1))
+                layers.append(platform_layers.ReLU(inplace=True))
                 inplanes = feat_planes
         else:
             for i in range(num_conv):
@@ -209,7 +210,7 @@ class RetinaHeadWithIOU(RetinaSubNet):
                                                 share_subnet,
                                                 share_location)
         assert num_level is not None, "num_level must be provided !!!"
-        self.iou_pred = nn.Conv2d(feat_planes, self.num_anchors, kernel_size=3, stride=1, padding=1)
+        self.iou_pred = platform_layers.Conv2d(feat_planes, self.num_anchors, kernel_size=3, stride=1, padding=1)
         initialize_from_cfg(self, initializer)
         init_bias_focal(self.cls_subnet_pred, self.class_activation, init_prior, self.num_classes)
 
@@ -265,15 +266,15 @@ class RetinaHeadWithBN(RetinaSubNet):
             for conv_idx in range(num_conv):
                 if lvl == 0:
                     layers.append(nn.Sequential(
-                        nn.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
+                        platform_layers.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
                         build_norm_layer(feat_planes, normalize)[1],
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
                 else:
                     layers.append(nn.Sequential(
                         mlvl_heads[-1][conv_idx][0],
                         build_norm_layer(feat_planes, normalize)[1],
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
             mlvl_heads.append(nn.Sequential(*layers))
         return mlvl_heads
@@ -330,9 +331,9 @@ class RetinaHeadWithBNSep(RetinaSubNet):
             inplanes = input_planes
             for conv_idx in range(num_conv):
                 layers.append(nn.Sequential(
-                    nn.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
+                    platform_layers.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
                     build_norm_layer(feat_planes, normalize)[1],
-                    nn.ReLU(inplace=True)))
+                    platform_layers.ReLU(inplace=True)))
                 inplanes = feat_planes
             mlvl_heads.append(nn.Sequential(*layers))
         return mlvl_heads
@@ -381,7 +382,7 @@ class RetinaHeadWithBNIOU(RetinaHeadWithBN):
                                                   share_subnet,
                                                   share_location)
         assert num_level is not None, "num_level must be provided !!!"
-        self.iou_pred = nn.Conv2d(feat_planes, self.num_anchors, kernel_size=3, stride=1, padding=1)
+        self.iou_pred = platform_layers.Conv2d(feat_planes, self.num_anchors, kernel_size=3, stride=1, padding=1)
         initialize_from_cfg(self, initializer)
         init_bias_focal(self.cls_subnet_pred, self.class_activation, init_prior, self.num_classes)
 

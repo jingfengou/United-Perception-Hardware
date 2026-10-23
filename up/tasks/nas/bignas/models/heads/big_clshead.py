@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 
 from up.utils.model.initializer import trunc_normal_
@@ -16,7 +17,7 @@ class BigClsHead(nn.Module):
         self.build_classifier(in_plane)
         self._init_weights()
         if self.use_pool:
-            self.pool = nn.AdaptiveAvgPool2d((1, 1))
+            self.pool = platform_layers.AdaptiveAvgPool2d((1, 1))
 
     def _init_weights(self):
         for m in self.modules():

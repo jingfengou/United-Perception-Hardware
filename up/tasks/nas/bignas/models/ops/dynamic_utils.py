@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import math
 import copy
 import torch
@@ -68,22 +70,22 @@ def make_divisible(v, divisor, min_val=None):
 def build_activation(act_func, inplace=False):
     act_func = act_func.lower()
     if act_func == 'relu':
-        return nn.ReLU(inplace=inplace)
+        return platform_layers.ReLU(inplace=inplace)
     elif act_func == 'leaky_relu':
-        return nn.LeakyReLU()
+        return platform_layers.LeakyReLU()
     elif act_func == 'relu6':
-        return nn.ReLU6(inplace=inplace)
+        return platform_layers.ReLU6(inplace=inplace)
     elif act_func == 'tanh':
-        return nn.Tanh()
+        return platform_layers.Tanh()
     elif act_func == 'sigmoid':
-        return nn.Sigmoid()
+        return platform_layers.Sigmoid()
     elif act_func == 'h_swish' or act_func == 'hard_swish' or act_func == 'hswish':
         return Hswish(inplace=inplace)
     elif act_func == 'h_sigmoid' or act_func == 'hard_sigmoid' or act_func == 'hsigmoid':
         return Hsigmoid(inplace=inplace)
     elif act_func == 'silu' or act_func == 'swish':
         if hasattr(nn, 'SiLU'):
-            return nn.SiLU()
+            return platform_layers.SiLU()
         else:
             return SiLU()
     elif act_func == 'memoryefficientswish':
@@ -116,7 +118,7 @@ class GELU(nn.Module):
 
     def forward(self, x):
         if self.approximate:
-            cdf = 0.5 * (1.0 + torch.tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
+            cdf = 0.5 * (1.0 + get_platform().category('activation').tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
             return x * cdf
         else:
             return x * (torch.erf(x / math.sqrt(2)) + 1) / 2
@@ -133,7 +135,7 @@ class QGELU(nn.Module):
         self.approximate = approximate
 
     def forward(self, x):
-        return x * torch.sigmoid(1.702 * x)
+        return x * get_platform().category('activation').sigmoid(1.702 * x)
 
 
 class Hswish(nn.Module):
@@ -143,7 +145,7 @@ class Hswish(nn.Module):
         self.inplace = inplace
 
     def forward(self, x):
-        return x * F.relu6(x + 3., inplace=self.inplace) / 6.
+        return x * get_platform().category('activation').relu6(x + 3., inplace=self.inplace) / 6.
 
 
 class Hsigmoid(nn.Module):
@@ -153,13 +155,13 @@ class Hsigmoid(nn.Module):
         self.inplace = inplace
 
     def forward(self, x):
-        return F.relu6(x + 3., inplace=self.inplace) / 6.
+        return get_platform().category('activation').relu6(x + 3., inplace=self.inplace) / 6.
 
 
 class SiLU(nn.Module):
     @staticmethod
     def forward(x):
-        return x * torch.sigmoid(x)
+        return x * get_platform().category('activation').sigmoid(x)
 
 
 class MemoryEfficientSwish(nn.Module):
@@ -167,12 +169,12 @@ class MemoryEfficientSwish(nn.Module):
         @staticmethod
         def forward(ctx, x):
             ctx.save_for_backward(x)
-            return x * torch.sigmoid(x)
+            return x * get_platform().category('activation').sigmoid(x)
 
         @staticmethod
         def backward(ctx, grad_output):
             x = ctx.saved_tensors[0]
-            sx = torch.sigmoid(x)
+            sx = get_platform().category('activation').sigmoid(x)
             return grad_output * (sx * (1 + x * (1 - sx)))
 
     def forward(self, x):
@@ -183,7 +185,7 @@ class MemoryEfficientSwish(nn.Module):
 class Mish(nn.Module):
     @staticmethod
     def forward(x):
-        return x * F.softplus(x).tanh()
+        return x * get_platform().category('activation').tanh(get_platform().category('activation').softplus(x))
 
 
 class MemoryEfficientMish(nn.Module):
@@ -191,13 +193,13 @@ class MemoryEfficientMish(nn.Module):
         @staticmethod
         def forward(ctx, x):
             ctx.save_for_backward(x)
-            return x.mul(torch.tanh(F.softplus(x)))  # x * tanh(ln(1 + exp(x)))
+            return x.mul(get_platform().category('activation').tanh(get_platform().category('activation').softplus(x)))  # x * tanh(ln(1 + exp(x)))
 
         @staticmethod
         def backward(ctx, grad_output):
             x = ctx.saved_tensors[0]
-            sx = torch.sigmoid(x)
-            fx = F.softplus(x).tanh()
+            sx = get_platform().category('activation').sigmoid(x)
+            fx = get_platform().category('activation').tanh(get_platform().category('activation').softplus(x))
             return grad_output * (fx + x * sx * (1 - fx * fx))
 
     def forward(self, x):
@@ -237,8 +239,8 @@ class DropPath(nn.Module):
 class FReLU(nn.Module):
     def __init__(self, c1, k=3):  # ch_in, kernel
         super().__init__()
-        self.conv = nn.Conv2d(c1, c1, k, 1, 1, groups=c1)
-        self.bn = nn.BatchNorm2d(c1)
+        self.conv = platform_layers.Conv2d(c1, c1, k, 1, 1, groups=c1)
+        self.bn = platform_layers.BatchNorm2d(c1)
 
     def forward(self, x):
         return torch.max(x, self.bn(self.conv(x)))
@@ -256,9 +258,9 @@ class SEModule(nn.Module):
         num_mid = make_divisible(self.channel // self.reduction, divisor=divisor)
 
         self.fc = nn.Sequential(OrderedDict([
-            ('reduce', nn.Conv2d(self.channel, num_mid, 1, 1, 0, bias=True)),
-            ('relu', nn.ReLU(inplace=False)),
-            ('expand', nn.Conv2d(num_mid, self.channel, 1, 1, 0, bias=True)),
+            ('reduce', platform_layers.Conv2d(self.channel, num_mid, 1, 1, 0, bias=True)),
+            ('relu', platform_layers.ReLU(inplace=False)),
+            ('expand', platform_layers.Conv2d(num_mid, self.channel, 1, 1, 0, bias=True)),
             ('h_sigmoid', Hsigmoid(inplace=False)),
         ]))
 
@@ -284,7 +286,7 @@ def signpass(x):
 
 
 def clippass(x, Qn, Qp):
-    yOut = F.hardtanh(x, Qn, Qp)
+    yOut = get_platform().category('activation').hardtanh(x, Qn, Qp)
     yGrad = x
     y = (yOut - yGrad).detach() + yGrad
     return y
@@ -317,7 +319,7 @@ def quantize(v, s, p, isActivation):
 
     s = gradscale(s, gradScaleFactor)
     v = v / s.abs()
-    v = F.hardtanh(v, Qn, Qp)
+    v = get_platform().category('activation').hardtanh(v, Qn, Qp)
     if not isActivation and p == 1:
         vbar = signpass(v)
     else:

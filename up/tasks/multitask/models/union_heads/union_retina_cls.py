@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 
 from up.tasks.det.models.heads.roi_head.retina_head import RetinaHeadWithBN
@@ -39,7 +40,7 @@ class UnionRetinaHeadWithBN(RetinaHeadWithBN):
                                                     num_anchors=num_anchors,
                                                     share_subnet=share_subnet)
         self.input_feature_idx = input_feature_idx
-        self.classification_pool = nn.AdaptiveAvgPool2d((1, 1))
+        self.classification_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
         self.share_cls_subnet = share_cls_subnet
         if self.share_cls_subnet:
             classification_inplanes = feat_planes  # subnet channel
@@ -51,10 +52,10 @@ class UnionRetinaHeadWithBN(RetinaHeadWithBN):
         self.classification_inplanes = classification_inplanes
         if classification_feat_planes is None:
             classification_feat_planes = feat_planes
-        self.classification_fc_embeding = nn.Linear(self.classification_inplanes, classification_feat_planes)
+        self.classification_fc_embeding = platform_layers.Linear(self.classification_inplanes, classification_feat_planes)
         self.classification_num_classes = classification_num_classes
-        self.relu = nn.ReLU(inplace=True)
-        self.classification_cls_fc = nn.Linear(classification_feat_planes, self.classification_num_classes)
+        self.relu = platform_layers.ReLU(inplace=True)
+        self.classification_cls_fc = platform_layers.Linear(classification_feat_planes, self.classification_num_classes)
         self.sum_feature = sum_feature
 
     def forward(self, input):

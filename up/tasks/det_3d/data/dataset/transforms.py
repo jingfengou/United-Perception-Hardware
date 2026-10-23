@@ -8,11 +8,7 @@ from up.tasks.det_3d.data.box_utils import boxes3d_kitti_fakelidar_to_lidar, enl
 from up.tasks.det_3d.data.box_utils import mask_boxes_outside_range_numpy
 from up.tasks.det_3d.data.data_utils import rotate_points_along_z, limit_period, keep_arrays_by_name
 from up.utils.general.petrel_helper import PetrelHelper
-tv = None
-try:
-    import cumm.tensorview as tv
-except BaseException:
-    pass
+from up_platform import get_platform
 
 
 @AUGMENTATION_REGISTRY.register('point_sampling')
@@ -493,11 +489,5 @@ class VoxelGeneratorWrapper():
             else:
                 voxels, coordinates, num_points = voxel_output
         else:
-            assert tv is not None, "Unexpected error, library: 'cumm' wasn't imported properly."
-            voxel_output = self._voxel_generator.point_to_voxel(tv.from_numpy(points))
-            tv_voxels, tv_coordinates, tv_num_points = voxel_output
-            # make copy with numpy(), since numpy_view() will disappear as soon as the generator is deleted
-            voxels = tv_voxels.numpy()
-            coordinates = tv_coordinates.numpy()
-            num_points = tv_num_points.numpy()
+            voxels, coordinates, num_points = get_platform().category('sparse').voxelize_cpu(self._voxel_generator, points)
         return voxels, coordinates, num_points

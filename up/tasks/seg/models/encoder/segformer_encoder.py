@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 from up.utils.model.normalize import build_norm_layer
@@ -36,7 +37,7 @@ class MultiheadAttention(nn.Module):
                  num_heads,
                  attn_drop=0.,
                  proj_drop=0.,
-                 dropout_layer=nn.Dropout(p=0.),
+                 dropout_layer=platform_layers.defer_default(platform_layers.Dropout, p=0.),
                  batch_first=False,
                  **kwargs):
         super(MultiheadAttention, self).__init__()
@@ -53,11 +54,11 @@ class MultiheadAttention(nn.Module):
         self.num_heads = num_heads
         self.batch_first = batch_first
 
-        self.attn = nn.MultiheadAttention(embed_dims, num_heads, attn_drop,
+        self.attn = platform_layers.MultiheadAttention(embed_dims, num_heads, attn_drop,
                                           **kwargs)
 
-        self.proj_drop = nn.Dropout(proj_drop)
-        self.dropout_layer = dropout_layer if dropout_layer else nn.Identity()
+        self.proj_drop = platform_layers.Dropout(proj_drop)
+        self.dropout_layer = platform_layers.resolve_default(dropout_layer) if dropout_layer else nn.Identity()
 
     def forward(self,
                 query,
@@ -185,14 +186,14 @@ class MixFFN(nn.Module):
         self.activate = build_act_fn(act_cfg)[1]
 
         in_channels = embed_dims
-        fc1 = nn.Conv2d(
+        fc1 = platform_layers.Conv2d(
             in_channels=in_channels,
             out_channels=feedforward_channels,
             kernel_size=1,
             stride=1,
             bias=True)
         # 3x3 depth wise conv to provide positional encode information
-        pe_conv = nn.Conv2d(
+        pe_conv = platform_layers.Conv2d(
             in_channels=feedforward_channels,
             out_channels=feedforward_channels,
             kernel_size=3,
@@ -200,13 +201,13 @@ class MixFFN(nn.Module):
             padding=(3 - 1) // 2,
             bias=True,
             groups=feedforward_channels)
-        fc2 = nn.Conv2d(
+        fc2 = platform_layers.Conv2d(
             in_channels=feedforward_channels,
             out_channels=in_channels,
             kernel_size=1,
             stride=1,
             bias=True)
-        drop = nn.Dropout(ffn_drop)
+        drop = platform_layers.Dropout(ffn_drop)
         layers = [fc1, pe_conv, self.activate, drop, fc2, drop]
         self.layers = nn.Sequential(*layers)
         self.dropout_layer = dropout_layer if dropout_layer else torch.nn.Identity()
@@ -265,7 +266,7 @@ class EfficientMultiheadAttention(MultiheadAttention):
 
         self.sr_ratio = sr_ratio
         if sr_ratio > 1:
-            self.sr = nn.Conv2d(
+            self.sr = platform_layers.Conv2d(
                 in_channels=embed_dims,
                 out_channels=embed_dims,
                 kernel_size=sr_ratio,

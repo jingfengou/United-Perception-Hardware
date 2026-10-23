@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 import os
 import sys
@@ -6,7 +7,6 @@ import functools
 
 # Import from third library
 import torch
-import torch.distributed as dist
 import torch.nn as nn
 import pickle
 import numpy as np
@@ -27,7 +27,7 @@ def allreduce(*args, **kwargs):
     if DIST_BACKEND.backend == 'linklink':
         return link.allreduce(*args, **kwargs)
     elif DIST_BACKEND.backend == 'dist':
-        return dist.all_reduce(*args, **kwargs)
+        return get_platform().category('communication').all_reduce(*args, **kwargs)
     else:
         raise NotImplementedError
 
@@ -38,7 +38,7 @@ def broadcast(*args, **kwargs):
     if DIST_BACKEND.backend == 'linklink':
         return link.broadcast(*args, **kwargs)
     elif DIST_BACKEND.backend == 'dist':
-        return dist.broadcast(*args, **kwargs)
+        return get_platform().category('communication').broadcast(*args, **kwargs)
     else:
         raise NotImplementedError
 
@@ -49,7 +49,7 @@ def allgather(*args, **kwargs):
     if DIST_BACKEND.backend == 'linklink':
         return link.allgather(*args, **kwargs)
     elif DIST_BACKEND.backend == 'dist':
-        return dist.all_gather(*args, **kwargs)
+        return get_platform().category('communication').all_gather(*args, **kwargs)
     else:
         raise NotImplementedError
 
@@ -60,17 +60,20 @@ def gather(*args, **kwargs):
     if DIST_BACKEND.backend == 'linklink':
         return link.gather(*args, **kwargs)
     elif DIST_BACKEND.backend == 'dist':
-        return dist.gather(*args, **kwargs)
+        return get_platform().category('communication').gather(*args, **kwargs)
     else:
         raise NotImplementedError
 
 
 def get_dist_rank(*args, **kwargs):
-    if not dist.is_available():
+    from up_platform.factory import is_configured
+    if not is_configured():
         return 0
-    if not dist.is_initialized():
+    if not get_platform().category('communication').is_available():
         return 0
-    return dist.get_rank(*args, **kwargs)
+    if not get_platform().category('communication').is_initialized():
+        return 0
+    return get_platform().category('communication').get_rank(*args, **kwargs)
 
 
 def get_link_rank(*args, **kwargs):
@@ -82,11 +85,14 @@ def get_link_rank(*args, **kwargs):
 
 
 def get_dist_world_size(*args, **kwargs):
-    if not dist.is_available():
+    from up_platform.factory import is_configured
+    if not is_configured():
         return 1
-    if not dist.is_initialized():
+    if not get_platform().category('communication').is_available():
         return 1
-    return dist.get_world_size(*args, **kwargs)
+    if not get_platform().category('communication').is_initialized():
+        return 1
+    return get_platform().category('communication').get_world_size(*args, **kwargs)
 
 
 def get_link_world_size(*args, **kwargs):
@@ -114,14 +120,14 @@ def get_world_size_from_env():
 
 
 def dist_barrier(*args, **kwargs):
-    if not dist.is_available():
+    if not get_platform().category('communication').is_available():
         return
-    if not dist.is_initialized():
+    if not get_platform().category('communication').is_initialized():
         return
-    world_size = dist.get_world_size()
+    world_size = get_platform().category('communication').get_world_size()
     if world_size == 1:
         return
-    dist.barrier(*args, **kwargs)
+    get_platform().category('communication').barrier(*args, **kwargs)
 
 
 def link_barrier(*args, **kwargs):
@@ -167,14 +173,14 @@ def get_world_size(*args, **kwargs):
 
 def get_local_rank(*args, **kwargs):
     rank = get_rank(*args, **kwargs)
-    return rank % torch.cuda.device_count()
+    return rank % get_platform().device.device_count()
 
 
 def all_reduce(*args, **kwargs):
     if DIST_BACKEND.backend == 'linklink':
         return link.allreduce(*args, **kwargs)
     elif DIST_BACKEND.backend == 'dist':
-        return dist.all_reduce(*args, **kwargs)
+        return get_platform().category('communication').all_reduce(*args, **kwargs)
     else:
         raise NotImplementedError
 
@@ -291,12 +297,12 @@ def dist_init_slurm(backend='nccl', port='13333'):
     os.environ['WORLD_SIZE'] = str(ntasks)
     os.environ['RANK'] = str(proc_id)
     if backend == 'nccl':
-        dist.init_process_group(backend='nccl')
+        get_platform().category('communication').init_process_group(backend='nccl')
     else:
-        dist.init_process_group(backend='gloo', rank=proc_id, world_size=ntasks)
-    rank = dist.get_rank()
-    device = rank % torch.cuda.device_count()
-    torch.cuda.set_device(device)
+        get_platform().category('communication').init_process_group(backend='gloo', rank=proc_id, world_size=ntasks)
+    rank = get_platform().category('communication').get_rank()
+    device = rank % get_platform().device.device_count()
+    get_platform().device.set_device(device)
 
 
 def dist_init_mpi(backend='nccl',
@@ -325,26 +331,28 @@ def dist_init_mpi(backend='nccl',
         else:
             world_size = int(ntasks)
 
-    dist.init_process_group(backend=backend, rank=rank, world_size=world_size)
-    rank = dist.get_rank()
-    device = rank % torch.cuda.device_count()
-    torch.cuda.set_device(device)
+    get_platform().category('communication').init_process_group(backend=backend, rank=rank, world_size=world_size)
+    rank = get_platform().category('communication').get_rank()
+    device = rank % get_platform().device.device_count()
+    get_platform().device.set_device(device)
 
 
 def setup_distributed_dist(port, launch):
     if launch == 'slurm':
-        device = get_rank() % torch.cuda.device_count()
-        torch.cuda.set_device(device)
+        device = get_rank() % get_platform().device.device_count()
+        get_platform().device.set_device(device)
         dist_init_slurm(port=port)
     else:
         dist_init_mpi(port=port)
-        device = get_rank() % torch.cuda.device_count()
-        torch.cuda.set_device(device)
+        device = get_rank() % get_platform().device.device_count()
+        get_platform().device.set_device(device)
 
 
 def setup_distributed_link(port, launch):
+    if link is None:
+        raise RuntimeError('spring.linklink SDK is not installed; see docs/platform/LINKLINK.md. dist is a separate backend, not a linklink replacement.')
     link.initialize()
-    torch.cuda.set_device(link.get_local_rank())
+    get_platform().device.set_device(link.get_local_rank())
 
 
 def setup_distributed(port=33334, launch='slurm', backend='dist'):
@@ -366,10 +374,10 @@ def _get_global_gloo_group():
     The result is cached.
     """
     if DIST_BACKEND.backend == 'dist':
-        if dist.get_backend() == "nccl":
-            return dist.new_group(backend="gloo")
+        if get_platform().category('communication').get_backend() == "nccl":
+            return get_platform().category('communication').new_group(backend="gloo")
         else:
-            return dist.group.WORLD
+            return get_platform().category('communication').world_group()
     elif DIST_BACKEND.backend == 'linklink':
         if link.get_backend() == "nccl":
             return link.new_group(backend="gloo")
@@ -381,9 +389,9 @@ def _get_global_gloo_group():
 
 def _serialize_to_tensor(data, group):
     if DIST_BACKEND.backend == 'dist':
-        backend = dist.get_backend(group)
+        backend = get_platform().category('communication').get_backend(group)
         assert backend in ["gloo", "nccl"]
-        device = torch.device("cpu" if backend == "gloo" else "cuda")
+        device = torch.device("cpu") if backend == "gloo" else get_platform().device.device()
     else:
         device = torch.device("cpu")
 
@@ -532,7 +540,7 @@ def finalize():
     try:
         if DIST_BACKEND.backend == 'dist':
             if get_world_size() > 1:
-                dist.destroy_process_group()
+                get_platform().category('communication').destroy_process_group()
         elif DIST_BACKEND.backend == 'linklink':
             link.finalize()
         else:
@@ -541,10 +549,10 @@ def finalize():
         pass
 
 
-def pyobj2tensor(pyobj, device="cuda"):
+def pyobj2tensor(pyobj, device=None):
     """serialize picklable python object to tensor"""
     storage = torch.ByteStorage.from_buffer(pickle.dumps(pyobj))
-    return torch.ByteTensor(storage).to(device=device)
+    return get_platform().device.move(torch.ByteTensor(storage), device=device)
 
 
 def tensor2pyobj(tensor):
@@ -662,8 +670,8 @@ def broadcast_object(obj, group=None):
     if get_world_size() <= 1:
         return obj
 
-    serialized_tensor = _serialize_to_tensor(obj, group=None).cuda()
-    numel = torch.IntTensor([serialized_tensor.numel()]).cuda()
+    serialized_tensor = get_platform().device.move(_serialize_to_tensor(obj, group=None))
+    numel = get_platform().device.move(torch.IntTensor([serialized_tensor.numel()]))
     broadcast(numel, MASTER_RANK)
     # serialized_tensor from storage is not resizable
     serialized_tensor = serialized_tensor.clone()

@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import math
 import torch.nn as nn
 
@@ -122,7 +123,7 @@ class BigResNetBasic(BignasSearchSpace):
                 normalize=normalize)
 
         if self.use_maxpool:
-            self.max_pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
+            self.max_pool = platform_layers.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
             self.stride_stages[1] = 1
         else:
             self.stride_stages[1] = 2
@@ -155,7 +156,7 @@ class BigResNetBasic(BignasSearchSpace):
 
         self.blocks = nn.ModuleList(blocks)
         if self.task == 'classification':
-            self.avg_pool = nn.AdaptiveAvgPool2d(output_size=1)
+            self.avg_pool = platform_layers.AdaptiveAvgPool2d(output_size=1)
             self.classifier = DynamicLinearBlock(
                 in_features_list=input_channel, out_features_list=num_classes, bias=True,
                 dropout_rate=dropout_rate)
@@ -384,7 +385,7 @@ class BignasResNetBasic(nn.Module):
         input_channel = self.out_channel[0]
 
         if self.use_maxpool:
-            self.max_pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
+            self.max_pool = platform_layers.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
             self.stride_stages[1] = 1
         else:
             self.stride_stages[1] = 2
@@ -412,7 +413,7 @@ class BignasResNetBasic(nn.Module):
         self.blocks = nn.ModuleList(blocks)
 
         if self.task == 'classification':
-            self.avg_pool = nn.AdaptiveAvgPool2d(output_size=1)
+            self.avg_pool = platform_layers.AdaptiveAvgPool2d(output_size=1)
             self.classifier = LinearBlock(
                 in_features=self.out_channel[-1], out_features=num_classes, bias=True, dropout_rate=dropout_rate)
 

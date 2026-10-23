@@ -1,8 +1,9 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from torch.nn.modules._functions import SyncBatchNorm as sync_batch_norm
 
 from ..env.dist_helper import env
 from up.utils.general.log_helper import default_logger as logger
@@ -14,6 +15,9 @@ except:  # noqa
 
 
 class FrozenBatchNorm2d(torch.nn.BatchNorm2d):
+    def forward(self, input):
+        return get_platform().category('normalization').batch_norm_module_forward(self, input)
+
     def __init__(self, *args, **kwargs):
         super(FrozenBatchNorm2d, self).__init__(*args, **kwargs)
         self.training = False
@@ -49,12 +53,18 @@ class CaffeFrozenBatchNorm2d(torch.nn.Module):
 
 
 class GroupNorm(torch.nn.GroupNorm):
+    def forward(self, input):
+        return get_platform().category('normalization').group_norm(input, self.num_groups, self.weight, self.bias, self.eps)
+
     def __init__(self, num_channels, **kwargs):
         kwargs['num_channels'] = num_channels
         super(GroupNorm, self).__init__(**kwargs)
 
 
 class PyTorchSyncBN(torch.nn.SyncBatchNorm):
+    def forward(self, input):
+        return get_platform().category('normalization').sync_batch_norm_forward(self, input)
+
     def __init__(self, num_features, group_size=None, **kwargs):
         super(PyTorchSyncBN, self).__init__(
             num_features,
@@ -76,7 +86,7 @@ class PyTorchSyncBN(torch.nn.SyncBatchNorm):
         rank_list = np.split(np.arange(world_size), num_groups)
         rank_list = [list(map(int, x)) for x in rank_list]
         for i in range(num_groups):
-            groups.append(torch.distributed.new_group(rank_list[i]))
+            groups.append(get_platform().category('communication').new_group(rank_list[i]))
         group_size = world_size // num_groups
         return groups[rank // group_size]
 
@@ -143,7 +153,7 @@ class TaskBatchNorm2d(nn.BatchNorm2d):
                  task_idx=0):
         super(TaskBatchNorm2d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
         self.bn = nn.ModuleList([
-            nn.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
+            platform_layers.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
         self.task_idx = task_idx
         self.task_num = task_num
 
@@ -160,7 +170,7 @@ class TaskBatchNorm2d(nn.BatchNorm2d):
             self.bn[idx].running_var.copy_(self.running_var)
 
     def forward(self, x):
-        y = nn.functional.batch_norm(
+        y = get_platform().category('normalization').batch_norm(
             x,
             self.bn[0].running_mean,
             self.bn[0].running_var,
@@ -187,7 +197,7 @@ class TorchSyncTaskBatchNorm2d(PyTorchSyncBN):
                  skip_multi_task_init: bool = False):
         super(TorchSyncTaskBatchNorm2d, self).__init__(num_features, group_size)
         self.bn = nn.ModuleList([
-            nn.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
+            platform_layers.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
         self.bn[0] = None
         self.momentum = momentum
         self.task_idx = task_idx
@@ -224,15 +234,15 @@ class TorchSyncTaskBatchNorm2d(PyTorchSyncBN):
         # Don't sync batchnorm stats in inference mode (model.eval()).
         need_sync = (bn_training and self.training)
         if need_sync:
-            process_group = torch.distributed.group.WORLD
+            process_group = get_platform().category('communication').world_group()
             if self.process_group:
                 process_group = self.process_group
-            world_size = torch.distributed.get_world_size(process_group)
+            world_size = get_platform().category('communication').get_world_size(process_group)
             need_sync = world_size > 1
 
         # fallback to framework BN when synchronization is not necessary
         if not need_sync:
-            y = F.batch_norm(
+            y = get_platform().category('normalization').batch_norm(
                 x,
                 self.task_bn[0].running_mean,
                 self.task_bn[0].running_var,
@@ -244,7 +254,7 @@ class TorchSyncTaskBatchNorm2d(PyTorchSyncBN):
             )
         else:
             assert bn_training
-            y = sync_batch_norm.apply(x,
+            y = get_platform().category('normalization').sync_batch_norm(x,
                                       self.weight,
                                       self.bias,
                                       self.task_bn[0].running_mean,
@@ -273,7 +283,7 @@ class SyncTaskBatchNorm2d(GroupSyncBatchNorm):
                  skip_multi_task_init: bool = False):
         super(SyncTaskBatchNorm2d, self).__init__(num_features, group_size, momentum, sync_stats, var_mode)
         self.bn = nn.ModuleList([
-            nn.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
+            platform_layers.BatchNorm2d(num_features, affine=False) for _ in range(task_num)])
         self.bn[0] = None
         self.task_idx = task_idx
         self.task_num = task_num

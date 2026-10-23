@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import math
 import torch
 import torch.nn as nn
@@ -29,7 +31,7 @@ class GELU(nn.Module):
 
     def forward(self, x):
         if self.approximate:
-            cdf = 0.5 * (1.0 + torch.tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
+            cdf = 0.5 * (1.0 + get_platform().category('activation').tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
             return x * cdf
         else:
             return x * (torch.erf(x / math.sqrt(2)) + 1) / 2
@@ -40,10 +42,10 @@ class FeedForward(nn.Module):
     def __init__(self, dim, hidden_dim, dropout=0.1, activation=GELU):
         super(FeedForward, self).__init__()
 
-        self.mlp1 = nn.Linear(dim, hidden_dim)
+        self.mlp1 = platform_layers.Linear(dim, hidden_dim)
         self.act = activation()
-        self.mlp2 = nn.Linear(hidden_dim, dim)
-        self.dropout = nn.Dropout(dropout)
+        self.mlp2 = platform_layers.Linear(hidden_dim, dim)
+        self.dropout = platform_layers.Dropout(dropout)
 
     def forward(self, x):
         x = self.mlp1(x)
@@ -68,21 +70,21 @@ class MultiHeadAttention(nn.Module):
         self.heads = heads
         self.scale = (dim // heads) ** -0.5  # 1/ sqrt(d_k)
 
-        self.to_qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
-        self.to_out = nn.Linear(dim, dim, bias=True)
-        self.dropout = nn.Dropout(dropout)
-        self.attention_dropout = nn.Dropout(attention_dropout)
+        self.to_qkv = platform_layers.Linear(dim, dim * 3, bias=qkv_bias)
+        self.to_out = platform_layers.Linear(dim, dim, bias=True)
+        self.dropout = platform_layers.Dropout(dropout)
+        self.attention_dropout = platform_layers.Dropout(attention_dropout)
 
     def forward(self, x):
         B, N, C = x.shape
         qkv = self.to_qkv(x).reshape(B, N, 3, self.heads, C // self.heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]
 
-        attn = (q @ k.transpose(-2, -1)) * self.scale
-        attn = attn.softmax(dim=-1)
+        attn = (get_platform().category('matrix').matmul(q, k.transpose(-2, -1))) * self.scale
+        attn = get_platform().category('activation').softmax(attn, dim=-1)
         attn = self.attention_dropout(attn)
 
-        x = (attn @ v).transpose(1, 2).reshape(B, N, C)
+        x = (get_platform().category('matrix').matmul(attn, v)).transpose(1, 2).reshape(B, N, C)
         x = self.to_out(x)
         x = self.dropout(x)
         return x
@@ -90,7 +92,7 @@ class MultiHeadAttention(nn.Module):
 
 class Encoder1DBlock(nn.Module):
     def __init__(self, hidden_dim, mlp_dim, heads,
-                 dropout, attention_dropout, drop_path, qkv_bias, activation, norm_layer=nn.LayerNorm):
+                 dropout, attention_dropout, drop_path, qkv_bias, activation, norm_layer=platform_layers.LayerNorm):
         super(Encoder1DBlock, self).__init__()
         self.norm1 = norm_layer(hidden_dim)
         self.attention = MultiHeadAttention(hidden_dim, heads, dropout, attention_dropout, qkv_bias)
@@ -133,7 +135,7 @@ class Encoder(nn.Module):
             encoder_layer['encoder_{}'.format(d)] = \
                 Encoder1DBlock(hidden_dim, mlp_dim, heads, dropout, attention_dropout, drop_path, qkv_bias, activation)
         self.encoders = nn.Sequential(encoder_layer)
-        self.encoder_norm = nn.LayerNorm(hidden_dim)
+        self.encoder_norm = platform_layers.LayerNorm(hidden_dim)
 
     def forward(self, x):
         x = self.encoders(x)
@@ -190,7 +192,7 @@ class VisionTransformer(nn.Module):
         self.num_classes = num_classes
         self.num_layers = depth
         self.classifier = classifier
-        self.embedding = nn.Conv2d(in_channel, hidden_dim, kernel_size=patch_size, stride=patch_size, padding=0)
+        self.embedding = platform_layers.Conv2d(in_channel, hidden_dim, kernel_size=patch_size, stride=patch_size, padding=0)
         self.last_norm = last_norm
 
         if classifier == 'token':
@@ -204,7 +206,7 @@ class VisionTransformer(nn.Module):
         if activation == 'gelu':
             activation = GELU
         elif activation == 'relu':
-            activation = nn.ReLU
+            activation = platform_layers.ReLU
         if isinstance(out_indices, int):
             out_indices = [out_indices]
         assert isinstance(out_indices, Sequence), \
@@ -222,8 +224,8 @@ class VisionTransformer(nn.Module):
         self.layers = nn.Sequential(self.layers)
         # self.transformer = Encoder(
         #     hidden_dim, depth, mlp_dim, heads, dropout, attention_dropout, drop_path, qkv_bias, activation)
-        self.encoder_norm = nn.LayerNorm(hidden_dim)
-        self.dropout = nn.Dropout(dropout)
+        self.encoder_norm = platform_layers.LayerNorm(hidden_dim)
+        self.dropout = platform_layers.Dropout(dropout)
         self._init_weights()
 
     def _init_weights(self):

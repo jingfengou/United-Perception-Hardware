@@ -1,4 +1,5 @@
-from collections import Iterable
+from up_platform import get_platform
+from collections.abc import Iterable
 import json
 import numpy as np
 
@@ -82,9 +83,9 @@ def count_dynamic_flops_and_params(model, input, depth=None):
 
     _HOOK_FACTORY = {
         DynamicConv2d: dynamic_conv2d_hook,
-        torch.nn.Conv2d: conv2d_hook,
+        nn.Conv2d: conv2d_hook,
         DynamicLinear: dynamic_linear_hook,
-        torch.nn.Linear: linear_hook,
+        nn.Linear: linear_hook,
         # DynamicMultiHeadAttention: dynamic_multiheadattention_hook
     }
 
@@ -297,7 +298,7 @@ def reset_model_bn_forward(model, bn_mean, bn_var):
 
                     # bn forward using calculated mean & var
                     _feature_dim = batch_mean.size(0)
-                    return F.batch_norm(
+                    return get_platform().category('normalization').batch_norm(
                         x,
                         batch_mean,
                         batch_var,

@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import numpy as np
 
 import torch
@@ -30,10 +32,10 @@ class RepConv(nn.Module):
 
         padding_11 = autopad(kernel_size, padding) - kernel_size // 2
 
-        self.act = nn.ReLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())
+        self.act = platform_layers.ReLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())
 
         if deploy:
-            self.rbr_reparam = nn.Conv2d(inplanes,
+            self.rbr_reparam = platform_layers.Conv2d(inplanes,
                                          outplanes,
                                          kernel_size,
                                          stride,
@@ -42,28 +44,28 @@ class RepConv(nn.Module):
                                          bias=True)
         else:
             identity = (inplanes == outplanes and stride == 1 and ide)
-            self.rbr_identity = (nn.BatchNorm2d(num_features=inplanes) if identity else None)
+            self.rbr_identity = (platform_layers.BatchNorm2d(num_features=inplanes) if identity else None)
 
             self.rbr_dense = nn.Sequential(
-                nn.Conv2d(inplanes,
+                platform_layers.Conv2d(inplanes,
                           outplanes,
                           kernel_size,
                           stride,
                           1,
                           groups=groups,
                           bias=False),
-                nn.BatchNorm2d(num_features=outplanes),
+                platform_layers.BatchNorm2d(num_features=outplanes),
             )
 
             self.rbr_1x1 = nn.Sequential(
-                nn.Conv2d(inplanes,
+                platform_layers.Conv2d(inplanes,
                           outplanes,
                           1,
                           stride,
                           padding_11,
                           groups=groups,
                           bias=False),
-                nn.BatchNorm2d(num_features=outplanes),
+                platform_layers.BatchNorm2d(num_features=outplanes),
             )
 
     def forward(self, inputs):
@@ -90,7 +92,7 @@ class RepConv(nn.Module):
         if kernel1x1 is None:
             return 0
         else:
-            return nn.functional.pad(kernel1x1, [1, 1, 1, 1])
+            return get_platform().category('pooling').pad(kernel1x1, [1, 1, 1, 1])
 
     def _fuse_bn_tensor(self, branch):
         if branch is None:
@@ -138,7 +140,7 @@ class RepConv(nn.Module):
         weights = conv.weight * t
 
         bn = nn.Identity()
-        conv = nn.Conv2d(in_channels=conv.in_channels,
+        conv = platform_layers.Conv2d(in_channels=conv.in_channels,
                          out_channels=conv.out_channels,
                          kernel_size=conv.kernel_size,
                          stride=conv.stride,
@@ -161,13 +163,13 @@ class RepConv(nn.Module):
 
         self.rbr_1x1 = self.fuse_conv_bn(self.rbr_1x1[0], self.rbr_1x1[1])
         rbr_1x1_bias = self.rbr_1x1.bias
-        weight_1x1_expanded = torch.nn.functional.pad(self.rbr_1x1.weight, [1, 1, 1, 1])
+        weight_1x1_expanded = get_platform().category('pooling').pad(self.rbr_1x1.weight, [1, 1, 1, 1])
 
         # Fuse self.rbr_identity
         if (isinstance(self.rbr_identity, nn.BatchNorm2d)
            or isinstance(self.rbr_identity, nn.modules.batchnorm.SyncBatchNorm)):
 
-            identity_conv_1x1 = nn.Conv2d(
+            identity_conv_1x1 = platform_layers.Conv2d(
                 in_channels=self.in_channels,
                 out_channels=self.out_channels,
                 kernel_size=1,
@@ -184,7 +186,7 @@ class RepConv(nn.Module):
 
             identity_conv_1x1 = self.fuse_conv_bn(identity_conv_1x1, self.rbr_identity)
             bias_identity_expanded = identity_conv_1x1.bias
-            weight_identity_expanded = torch.nn.functional.pad(identity_conv_1x1.weight, [1, 1, 1, 1])
+            weight_identity_expanded = get_platform().category('pooling').pad(identity_conv_1x1.weight, [1, 1, 1, 1])
         else:
             bias_identity_expanded = torch.nn.Parameter(torch.zeros_like(rbr_1x1_bias))
             weight_identity_expanded = torch.nn.Parameter(torch.zeros_like(weight_1x1_expanded))

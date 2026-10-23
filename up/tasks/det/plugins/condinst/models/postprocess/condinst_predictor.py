@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 from torch.nn import functional as F
 from up.utils.general.registry_factory import MASK_PREDICTOR_REGISTRY
@@ -22,7 +23,7 @@ class MaskPredictorCondinst(object):
             input, controller, mask_gen_params)
         mask_logits = mask_head.mask_heads_forward_with_coords(
             mask_feats, locations, mask_head_params, fpn_levels, instance_locations, im_inds)
-        pred_global_masks = mask_logits.sigmoid()
+        pred_global_masks = get_platform().category('activation').sigmoid(mask_logits)
 
         dt_bboxes = []
         dt_masks = []
@@ -83,7 +84,7 @@ class MaskPredictorCondinst(object):
                 pred_global_masks, factor
             )
             pred_global_masks = pred_global_masks[:, :, :resized_im_h, :resized_im_w]
-            pred_global_masks = F.interpolate(
+            pred_global_masks = get_platform().category('pooling').interpolate(
                 pred_global_masks,
                 size=(output_height, output_width),
                 mode="bilinear", align_corners=False

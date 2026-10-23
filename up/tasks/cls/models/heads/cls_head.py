@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -16,7 +18,7 @@ class NormedLinear(nn.Module):
         self.weight.data.uniform_(-1, 1).renorm_(2, 1, 1e-5).mul_(1e5)
 
     def forward(self, x):
-        out = F.normalize(x, dim=1).mm(F.normalize(self.weight, dim=0))
+        out = get_platform().category('matrix').mm(get_platform().category('normalization').normalize(x, dim=1), get_platform().category('normalization').normalize(self.weight, dim=0))
         return out * self.tempearture
 
 
@@ -33,9 +35,9 @@ class BaseClsHead(nn.Module):
         self.build_classifier(in_plane, classifier_cfg)
         self._init_weights()
         if self.use_pool:
-            self.pool = nn.AdaptiveAvgPool2d((1, 1))
+            self.pool = platform_layers.AdaptiveAvgPool2d((1, 1))
         if self.dropout is not None:
-            self.drop = nn.Dropout(p=dropout)
+            self.drop = platform_layers.Dropout(p=dropout)
 
     def _init_weights(self):
         for m in self.modules():
@@ -46,14 +48,14 @@ class BaseClsHead(nn.Module):
 
     def build_single_classifier(self, in_plane, out_plane, cfg):
         if cfg is None:
-            return nn.Linear(in_plane, out_plane)
+            return platform_layers.Linear(in_plane, out_plane)
         else:
             if 'in_features' not in cfg['kwargs']:
                 cfg['kwargs'].update({'in_features': in_plane})
             if 'out_features' not in cfg['kwargs']:
                 cfg['kwargs'].update({'out_features': out_plane})
             if cfg['type'] == 'linear':
-                return nn.Linear(**cfg['kwargs'])
+                return platform_layers.Linear(**cfg['kwargs'])
             else:
                 linear_ins = MODULE_ZOO_REGISTRY[cfg['type']]
                 return linear_ins(**cfg['kwargs'])
@@ -120,9 +122,9 @@ class FPNClsHead(BaseClsHead):
         super().__init__(num_classes, self.classification_inplanes, input_feature_idx, use_pool, dropout)
         self.sum_feature = sum_feature
         self.classification_pool = self.pool
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
         self.build_classifier(feat_planes)
-        self.classification_fc_embeding = nn.Linear(self.classification_inplanes, feat_planes)
+        self.classification_fc_embeding = platform_layers.Linear(self.classification_inplanes, feat_planes)
 
     def forward_classification_feature(self, features):
         if isinstance(features, list):
@@ -174,7 +176,7 @@ class ConvNeXtHead(BaseClsHead):
         else:
             self.classifier.weight.data.mul_(head_init_scale)
             self.classifier.bias.data.mul_(head_init_scale)
-        self.layer_norm = nn.LayerNorm(in_plane, eps=1e-6)
+        self.layer_norm = platform_layers.LayerNorm(in_plane, eps=1e-6)
 
     def forward_net(self, x):
         if isinstance(x, dict):
@@ -205,14 +207,14 @@ class ViTHead(BaseClsHead):
         self.representation_size = representation_size
         self.bn = bn
         if self.bn is not None:
-            self.bn = torch.nn.BatchNorm1d(in_plane, affine=False, eps=1e-6)
+            self.bn = platform_layers.BatchNorm1d(in_plane, affine=False, eps=1e-6)
         # if representation_size is not None
         # a pre-logits layer is inserted before classification head
         # it means transformer will be trained from scratch
         # otherwise the model is finetuned on new task
         if representation_size is not None:
-            self.pre_logits = nn.Linear(in_plane, representation_size)
-            self.tanh = nn.Tanh()
+            self.pre_logits = platform_layers.Linear(in_plane, representation_size)
+            self.tanh = platform_layers.Tanh()
             self.build_classifier(representation_size)
         self._init_weights()
 

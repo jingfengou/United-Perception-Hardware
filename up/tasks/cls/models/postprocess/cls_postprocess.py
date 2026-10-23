@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch.nn as nn
 import torch.nn.functional as F
 from up.utils.general.registry_factory import MODULE_PROCESS_REGISTRY
@@ -46,7 +47,7 @@ class BaseClsPostProcess(nn.Module):
         return loss_info
 
     def get_single_pred(self, logit):
-        score = F.softmax(logit, dim=1)
+        score = get_platform().category('activation').softmax(logit, dim=1)
         _, pred = logit.data.topk(k=1, dim=1)
         pred = pred.view(-1)
         return score, pred

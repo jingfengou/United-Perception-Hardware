@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch.nn as nn
 from up.utils.model.normalize import build_norm_layer
 import math
@@ -66,9 +68,9 @@ class AdaptivePadding(nn.Module):
         pad_h, pad_w = self.get_pad_shape(x.size()[-2:])
         if pad_h > 0 or pad_w > 0:
             if self.padding == 'corner':
-                x = F.pad(x, [0, pad_w, 0, pad_h])
+                x = get_platform().category('pooling').pad(x, [0, pad_w, 0, pad_h])
             elif self.padding == 'same':
-                x = F.pad(x, [
+                x = get_platform().category('pooling').pad(x, [
                     pad_w // 2, pad_w - pad_w // 2, pad_h // 2,
                     pad_h - pad_h // 2
                 ])
@@ -133,7 +135,7 @@ class PatchEmbed(nn.Module):
             self.adap_padding = None
         padding = (padding, padding)
 
-        self.projection = nn.Conv2d(
+        self.projection = platform_layers.Conv2d(
             in_channels=in_channels,
             out_channels=embed_dims,
             kernel_size=kernel_size,

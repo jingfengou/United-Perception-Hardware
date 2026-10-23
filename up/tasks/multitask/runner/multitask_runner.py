@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up.utils.env.platform import training_validation
 import os
 import torch
 import json
@@ -134,6 +136,7 @@ class MultiTaskRunner(BaseRunner):
         self.set_cur_eval_iter()
         return metrics
 
+    @training_validation
     def evaluate(self):
         total_results_dir = self.results_dir
         metrics = None
@@ -192,7 +195,7 @@ class MultiTaskRunner(BaseRunner):
         return metrics
 
     def train(self):
-        self.model.cuda().train()
+        get_platform().device.move(self.model).train()
 
         for iter_idx in range(self.start_iter, self.max_iter):
             batches = self._get_train_batches()

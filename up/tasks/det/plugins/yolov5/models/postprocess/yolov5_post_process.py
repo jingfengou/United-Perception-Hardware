@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import torch.nn as nn
 
@@ -104,8 +105,8 @@ class YoloV5PostProcess(nn.Module):
             loc_pred, cls_pred, obj_pred = preds
             b, l, h, w, pl = loc_pred.shape
 
-            xy_pred = loc_pred[..., :2].sigmoid() * 2. - 0.5
-            wh_pred = (loc_pred[..., 2:].sigmoid() * 2) ** 2
+            xy_pred = get_platform().category('activation').sigmoid(loc_pred[..., :2]) * 2. - 0.5
+            wh_pred = (get_platform().category('activation').sigmoid(loc_pred[..., 2:]) * 2) ** 2
 
             anchors = self.anchor_shapes[lvl_id] / self.strides[lvl_id]
             multi_op = torch.tensor(anchors).type_as(loc_pred).reshape(1, anchors.shape[0], 1, 1, 2)

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 from up.utils.general.fp16_helper import to_float32
 import time
@@ -40,14 +41,14 @@ def filter_by_size(boxes, min_size, start_index=0):
 @allow_empty_tensor(2)
 @to_float32
 def bbox_iou_overlaps(b1, b2, aligned=False):
-    if not b1.is_cuda or aligned:
+    if not get_platform().device.is_accelerator(b1) or aligned:
         return vanilla_bbox_iou_overlaps(b1, b2, aligned)
 
     global GPU_MEMORY
     gbytes = 1024.0**3
     if GPU_MEMORY is None:
-        GPU_MEMORY = torch.cuda.get_device_properties(b1.device.index).total_memory
-    alloated_memory = torch.cuda.memory_allocated()
+        GPU_MEMORY = get_platform().device.properties(b1.device.index).total_memory
+    alloated_memory = get_platform().device.memory_allocated()
     spare_memory = 0.5 * gbytes
     available_memory = GPU_MEMORY - alloated_memory - spare_memory
     size = b1.shape[0] * b2.shape[0]
@@ -128,13 +129,13 @@ def generalized_box_iou(boxes1, boxes2):
 
 @allow_empty_tensor(2)
 def bbox_iof_overlaps(b1, b2):
-    if not b1.is_cuda:
+    if not get_platform().device.is_accelerator(b1):
         return vanilla_bbox_iof_overlaps(b1, b2)
     global GPU_MEMORY
     gbytes = 1024.0**3
     if GPU_MEMORY is None:
-        GPU_MEMORY = torch.cuda.get_device_properties(b1.device.index).total_memory
-    alloated_memory = torch.cuda.memory_allocated()
+        GPU_MEMORY = get_platform().device.properties(b1.device.index).total_memory
+    alloated_memory = get_platform().device.memory_allocated()
     spare_memory = 0.5 * gbytes
     available_memory = GPU_MEMORY - alloated_memory - spare_memory
     size = b1.shape[0] * b2.shape[0]
@@ -467,15 +468,15 @@ def test_iou(iou_fn, a, b):
     for i in range(n):
         iou = iou_fn(a, b)
     del iou
-    torch.cuda.synchronize()
+    get_platform().device.synchronize()
     e = time.time()
     t = e - s
-    memory = torch.cuda.max_memory_allocated() / 1024.0 / 1024.0 / 1024
+    memory = get_platform().device.max_memory_allocated() / 1024.0 / 1024.0 / 1024
     return t, memory
 
 
 def rand_bbox(n):
-    box = torch.randn(n, 4).cuda() * 10
+    box = get_platform().device.move(torch.randn(n, 4)) * 10
     x1 = torch.min(box[:, 0], box[:, 2])
     x2 = torch.max(box[:, 0], box[:, 2])
     y1 = torch.min(box[:, 1], box[:, 3])

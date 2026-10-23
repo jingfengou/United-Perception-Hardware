@@ -1,4 +1,5 @@
 from __future__ import division
+from up_platform import get_platform
 
 # Standard Library
 import copy
@@ -435,7 +436,7 @@ class BatchPad(object):
             assert image.dim() == 3
             src_h, src_w = image.size()[-2:]
             pad_size = (0, target_w - src_w, 0, target_h - src_h)
-            padded_images.append(F.pad(image, pad_size, 'constant', self.pad_value).data)
+            padded_images.append(get_platform().category('pooling').pad(image, pad_size, 'constant', self.pad_value).data)
         data['image'] = torch.stack(padded_images)
         return data
 

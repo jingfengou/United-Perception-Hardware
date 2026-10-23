@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Import from third library
 import torch
 import torch.nn as nn
@@ -43,7 +44,7 @@ class DarkNetv5(nn.Module):
         elif focus_type == 'stem_focus':
             self.focus = nn.Sequential(ConvBnAct(input_channels, plane // 2, 3, 2, normalize=normalize, act_fn=act_fn),
                                        ConvBnAct(plane // 2, plane // 2, 3, normalize=normalize, act_fn=act_fn),
-                                       nn.Conv2d(plane // 2, plane, kernel_size=3, stride=1, padding=1, bias=False))
+                                       platform_layers.Conv2d(plane // 2, plane, kernel_size=3, stride=1, padding=1, bias=False))
         else:
             raise NotImplementedError
         self.out_planes.append(plane)

@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -19,17 +21,17 @@ class KDLoss(nn.Module):
     def single_kl(self, s_preds, t_preds, mask=None):
         if mask is not None:
             if mask.sum() > 0:
-                p = F.log_softmax(s_preds / self.t, dim=1)[mask]
-                q = F.softmax(t_preds / self.t, dim=1)[mask]
-                l_kl = F.kl_div(p, q, reduce=False)
+                p = get_platform().category('activation').log_softmax(s_preds / self.t, dim=1)[mask]
+                q = get_platform().category('activation').softmax(t_preds / self.t, dim=1)[mask]
+                l_kl = get_platform().category('loss').kl_div(p, q, reduce=False)
                 loss = torch.sum(l_kl)
                 loss = loss / mask.sum()
             else:
-                loss = torch.Tensor([0]).cuda()
+                loss = get_platform().device.move(torch.Tensor([0]))
         else:
-            p = F.log_softmax(s_preds / self.t, dim=1)
-            q = F.softmax(t_preds / self.t, dim=1)
-            l_kl = F.kl_div(p, q, reduce=False)
+            p = get_platform().category('activation').log_softmax(s_preds / self.t, dim=1)
+            q = get_platform().category('activation').softmax(t_preds / self.t, dim=1)
+            l_kl = get_platform().category('loss').kl_div(p, q, reduce=False)
             loss = l_kl.sum() / l_kl.size(0)
         return loss * (self.t**2)
 
@@ -61,8 +63,8 @@ class GKDLoss(nn.Module):
         label = kwargs['label']
         loss = 0
         for s_pred, t_pred in zip(s_preds, t_preds):
-            s = F.log_softmax(s_pred / self.t, dim=1)
-            t = F.softmax(t_pred / self.t, dim=1)
+            s = get_platform().category('activation').log_softmax(s_pred / self.t, dim=1)
+            t = get_platform().category('activation').softmax(t_pred / self.t, dim=1)
             t_argmax = torch.argmax(t, dim=1)
             mask = torch.eq(label, t_argmax).float()
             count = (mask[mask == 1]).size(0)
@@ -71,7 +73,7 @@ class GKDLoss(nn.Module):
             correct_t = t.mul(mask)
             correct_t[correct_t == 0.0] = 1.0
 
-            loss += F.kl_div(correct_s, correct_t, reduction='sum') * (self.t**2) / count
+            loss += get_platform().category('loss').kl_div(correct_s, correct_t, reduction='sum') * (self.t**2) / count
         return loss * self.loss_weight
 
 
@@ -92,13 +94,13 @@ class KLLoss(nn.Module):
         return loss * self.loss_weight
 
     def kl(self, pred_feas, target_feas):
-        crit = nn.KLDivLoss(reduction='batchmean')
-        relu = nn.ReLU()
+        crit = platform_layers.KLDivLoss(reduction='batchmean')
+        relu = platform_layers.ReLU()
         s = relu(pred_feas)
         t = relu(target_feas)
         if self.norm == 'softmax':
-            s = F.log_softmax(s, dim=1)
-            t = F.softmax(t, dim=1)
+            s = get_platform().category('activation').log_softmax(s, dim=1)
+            t = get_platform().category('activation').softmax(t, dim=1)
             t.detach_()
             # sum(y*(logy-logx))
             loss = crit(s, t)

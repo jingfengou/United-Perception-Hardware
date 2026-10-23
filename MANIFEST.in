@@ -1,0 +1,2 @@
+recursive-include up_platform/ops/_native/csrc *.h *.cpp *.cu
+include LICENSE

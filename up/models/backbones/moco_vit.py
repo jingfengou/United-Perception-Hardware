@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import math
 import torch
 import torch.nn as nn
@@ -90,8 +92,8 @@ class VisionTransformer(nn.Module):
         self.num_classes = num_classes
         self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
         self.num_tokens = 2 if distilled else 1
-        norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
-        act_layer = act_layer or nn.GELU
+        norm_layer = norm_layer or partial(platform_layers.LayerNorm, eps=1e-6)
+        act_layer = act_layer or platform_layers.GELU
 
         self.patch_embed = embed_layer(
             img_size=img_size, patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
@@ -100,7 +102,7 @@ class VisionTransformer(nn.Module):
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
         self.dist_token = nn.Parameter(torch.zeros(1, 1, embed_dim)) if distilled else None
         self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + self.num_tokens, embed_dim))
-        self.pos_drop = nn.Dropout(p=drop_rate)
+        self.pos_drop = platform_layers.Dropout(p=drop_rate)
 
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
         self.blocks = nn.Sequential(*[
@@ -114,17 +116,17 @@ class VisionTransformer(nn.Module):
         if representation_size and not distilled:
             self.num_features = representation_size
             self.pre_logits = nn.Sequential(OrderedDict([
-                ('fc', nn.Linear(embed_dim, representation_size)),
-                ('act', nn.Tanh())
+                ('fc', platform_layers.Linear(embed_dim, representation_size)),
+                ('act', platform_layers.Tanh())
             ]))
         else:
             self.pre_logits = nn.Identity()
 
         # Classifier head(s)
-        self.head = nn.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
+        self.head = platform_layers.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
         self.head_dist = None
         if distilled:
-            self.head_dist = nn.Linear(self.embed_dim, self.num_classes) if num_classes > 0 else nn.Identity()
+            self.head_dist = platform_layers.Linear(self.embed_dim, self.num_classes) if num_classes > 0 else nn.Identity()
 
         # Weight init
         assert weight_init in ('jax', 'jax_nlhb', 'nlhb', '')
@@ -156,9 +158,9 @@ class VisionTransformer(nn.Module):
 
     def reset_classifier(self, num_classes, global_pool=''):
         self.num_classes = num_classes
-        self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
+        self.head = platform_layers.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
         if self.num_tokens == 2:
-            self.head_dist = nn.Linear(self.embed_dim, self.num_classes) if num_classes > 0 else nn.Identity()
+            self.head_dist = platform_layers.Linear(self.embed_dim, self.num_classes) if num_classes > 0 else nn.Identity()
 
     def forward_features(self, x):
         x = self.patch_embed(x)
@@ -226,8 +228,8 @@ class VisionTransformerMoCo(VisionTransformer):
         pos_dim = self.embed_dim // 4
         omega = torch.arange(pos_dim, dtype=torch.float32) / pos_dim
         omega = 1. / (temperature**omega)
-        out_w = torch.einsum('m,d->md', [grid_w.flatten(), omega])
-        out_h = torch.einsum('m,d->md', [grid_h.flatten(), omega])
+        out_w = get_platform().category('matrix').einsum('m,d->md', [grid_w.flatten(), omega])
+        out_h = get_platform().category('matrix').einsum('m,d->md', [grid_h.flatten(), omega])
         pos_emb = torch.cat([torch.sin(out_w), torch.cos(out_w), torch.sin(out_h), torch.cos(out_h)], dim=1)[None, :, :]
 
         assert self.num_tokens == 1, 'Assuming one and only one token, [cls]'
@@ -258,12 +260,12 @@ class ConvStem(nn.Module):
         stem = []
         input_dim, output_dim = 3, embed_dim // 8
         for _ in range(4):
-            stem.append(nn.Conv2d(input_dim, output_dim, kernel_size=3, stride=2, padding=1, bias=False))
-            stem.append(nn.BatchNorm2d(output_dim))
-            stem.append(nn.ReLU(inplace=True))
+            stem.append(platform_layers.Conv2d(input_dim, output_dim, kernel_size=3, stride=2, padding=1, bias=False))
+            stem.append(platform_layers.BatchNorm2d(output_dim))
+            stem.append(platform_layers.ReLU(inplace=True))
             input_dim = output_dim
             output_dim *= 2
-        stem.append(nn.Conv2d(input_dim, embed_dim, kernel_size=1))
+        stem.append(platform_layers.Conv2d(input_dim, embed_dim, kernel_size=1))
         self.proj = nn.Sequential(*stem)
 
         self.norm = norm_layer(embed_dim) if norm_layer else nn.Identity()
@@ -282,14 +284,14 @@ class ConvStem(nn.Module):
 def moco_vit_small(**kwargs):
     model = VisionTransformerMoCo(
         patch_size=16, embed_dim=384, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 
 def moco_vit_base(**kwargs):
     model = VisionTransformerMoCo(
         patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4, qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 
@@ -297,7 +299,7 @@ def moco_vit_conv_small(**kwargs):
     # minus one ViT block
     model = VisionTransformerMoCo(
         patch_size=16, embed_dim=384, depth=11, num_heads=12, mlp_ratio=4, qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), embed_layer=ConvStem, **kwargs)
+        norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), embed_layer=ConvStem, **kwargs)
     return model
 
 
@@ -305,5 +307,5 @@ def moco_vit_conv_base(**kwargs):
     # minus one ViT block
     model = VisionTransformerMoCo(
         patch_size=16, embed_dim=768, depth=11, num_heads=12, mlp_ratio=4, qkv_bias=True,
-        norm_layer=partial(nn.LayerNorm, eps=1e-6), embed_layer=ConvStem, **kwargs)
+        norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), embed_layer=ConvStem, **kwargs)
     return model

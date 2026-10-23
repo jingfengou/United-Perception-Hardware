@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up.utils.env.platform import training_validation
 import os
 import json
 import random
@@ -68,10 +70,10 @@ class BignasRunner(BaseRunner):
                     self.teacher_models.update({key: self.model})
         logger.info(f"The student model mimics from {str(self.teacher_nums)} teacher networks \
             which are {','.join(self.teacher_models.keys())}.")
-        if self.device == 'cuda':
+        if get_platform().device.device_type != 'cpu':
             for tmk in self.teacher_models.keys():
                 if self.config['bignas']['distiller'][tmk]:
-                    self.teacher_models[tmk] = self.teacher_models[tmk].cuda()
+                    self.teacher_models[tmk] = get_platform().device.move(self.teacher_models[tmk])
         if self.fp16 and self.backend == 'linklink':
             for tmk in self.teacher_models.keys():
                 if self.config['bignas']['distiller'][tmk]:
@@ -126,7 +128,7 @@ class BignasRunner(BaseRunner):
             self.evaluate_specific_subnets()
         self.display = self.config['bignas'].get('display', 10)
 
-        self.model.cuda().train()
+        get_platform().device.move(self.model).train()
         self.start_iter = self.start_iter - self.start_iter % 4
         for iter_idx in range(self.start_iter, self.max_iter):
             batch = self.get_batch('train')
@@ -367,6 +369,7 @@ class BignasRunner(BaseRunner):
         logger.info('--------------------------------------------')
 
     @torch.no_grad()
+    @training_validation
     def evaluate(self):
         res_file, all_device_results_list = self.inference()
         if env.is_master():

@@ -1,4 +1,5 @@
 from __future__ import division
+from up_platform import get_platform
 
 # Standard Library
 import os
@@ -64,7 +65,7 @@ def main(args):
     model_helper_type = cfg['runtime']['model_helper']['type']
     model_helper_kwargs = cfg['runtime']['model_helper']['kwargs']
     model_helper_ins = MODEL_HELPER_REGISTRY[model_helper_type]
-    model = model_helper_ins(cfg['net'], **model_helper_kwargs).cuda()
+    model = get_platform().device.move(model_helper_ins(cfg['net'], **model_helper_kwargs))
     logger.info('build model done')
 
     input_shape = [int(x) for x in args.input_size.split(',')]
@@ -85,4 +86,6 @@ def main(args):
 
 
 def _main(args):
+    from up.utils.env.platform import configure_command
+    configure_command(args, purpose='inference')
     main(args)

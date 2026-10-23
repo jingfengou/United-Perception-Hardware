@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 import math
 import copy
@@ -415,7 +416,7 @@ class CenterPad(object):
             left, right = int(round(dw - 0.1)), int(round(dw + 0.1))
 
             pad_size = (left, right, top, bottom)
-            padded_images.append(F.pad(image, pad_size, 'constant', self.pad_value).data)
+            padded_images.append(get_platform().category('pooling').pad(image, pad_size, 'constant', self.pad_value).data)
 
             # pad_w is left, pad_h is top
             data['image_info'][i][6] = left

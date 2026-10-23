@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 from up.tasks.det.models.utils.box_sampler import build_roi_sampler
 from up.tasks.det.models.utils.matcher import build_matcher
@@ -445,7 +446,7 @@ class RetinaOTASupervisor(object):
                            CPU mode is applied in this batch. If you want to avoid this issue, \
                            try to reduce the batch size or image size."
                     )
-                    torch.cuda.empty_cache()
+                    get_platform().device.empty_cache()
                     num_fg, gt_matched_classes, matched_gt_inds, fg_mask = \
                         self.matcher.match(gts, preds, anchor_points, all_anchors,
                                            num_anchors_per_level, strides, img_size=img_size, mode='cpu',

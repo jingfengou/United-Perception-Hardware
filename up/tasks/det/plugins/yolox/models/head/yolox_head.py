@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import math
@@ -100,7 +101,7 @@ class YoloXHead(nn.Module):
                 )
             )
             self.cls_preds.append(
-                nn.Conv2d(
+                platform_layers.Conv2d(
                     in_channels=outplane,
                     out_channels=self.num_point * class_channel,
                     kernel_size=1,
@@ -109,7 +110,7 @@ class YoloXHead(nn.Module):
                 )
             )
             self.reg_preds.append(
-                nn.Conv2d(
+                platform_layers.Conv2d(
                     in_channels=outplane,
                     out_channels=self.num_point * 4,
                     kernel_size=1,
@@ -118,7 +119,7 @@ class YoloXHead(nn.Module):
                 )
             )
             self.obj_preds.append(
-                nn.Conv2d(
+                platform_layers.Conv2d(
                     in_channels=outplane,
                     out_channels=self.num_point,
                     kernel_size=1,
@@ -202,17 +203,17 @@ class YoloXHeadShare(nn.Module):
             )
         self.cls_convs = self.build(num_conv, outplane, outplane, normalize, act_fn)
         self.reg_convs = self.build(num_conv, outplane, outplane, normalize, act_fn)
-        self.cls_pred = nn.Conv2d(in_channels=outplane,
+        self.cls_pred = platform_layers.Conv2d(in_channels=outplane,
                                   out_channels=self.num_point * class_channel,
                                   kernel_size=1,
                                   stride=1,
                                   padding=0)
-        self.reg_pred = nn.Conv2d(in_channels=outplane,
+        self.reg_pred = platform_layers.Conv2d(in_channels=outplane,
                                   out_channels=self.num_point * 4,
                                   kernel_size=1,
                                   stride=1,
                                   padding=0)
-        self.obj_pred = nn.Conv2d(in_channels=outplane,
+        self.obj_pred = platform_layers.Conv2d(in_channels=outplane,
                                   out_channels=self.num_point,
                                   kernel_size=1,
                                   stride=1,
@@ -239,7 +240,7 @@ class YoloXHeadShare(nn.Module):
             for conv_idx in range(num_conv):
                 if lvl == 0:
                     layers.append(nn.Sequential(
-                        nn.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
+                        platform_layers.Conv2d(inplanes, feat_planes, kernel_size=3, stride=1, padding=1, bias=False),
                         build_norm_layer(feat_planes, normalize)[1],
                         build_act_fn(act_fn)[1]))
                     inplanes = feat_planes

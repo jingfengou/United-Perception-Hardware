@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import numpy as np
 import torch.nn as nn
@@ -49,7 +50,7 @@ class AnchorHeadSingle(nn.Module):
             input['gt_boxes'], input['voxel_infos']['grid_size'], input['batch_size'], input['num_anchors']
 
         anchors, num_anchors_per_location = self.anchor_generator.get_anchors(grid_size)
-        self.anchors = [x.cuda() for x in anchors]
+        self.anchors = [get_platform().device.move(x) for x in anchors]
         output = {}
         if self.training:
             targets = self.supervisor.get_targets(self.class_names, self.anchors, gt_boxes, self.box_coder)

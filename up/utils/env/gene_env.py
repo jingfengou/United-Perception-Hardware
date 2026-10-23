@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import random
 import numpy as np
 import uuid
@@ -30,16 +31,16 @@ def set_random_seed(seed, rank_init=False):
         random.seed(seed)
         np.random.seed(seed ** 2)
         torch.manual_seed(seed ** 3)
-        torch.cuda.manual_seed(seed ** 4)
+        get_platform().device.manual_seed(seed ** 4)
     else:
         seed_add = env.rank
         random.seed(seed + seed_add)
         np.random.seed(seed + seed_add)
         torch.manual_seed(seed + seed_add)
-        torch.cuda.manual_seed(seed + seed_add)
+        get_platform().device.manual_seed(seed + seed_add)
 
 
-def to_device(input, device="cuda", dtype=None):
+def to_device(input, device=None, dtype=None):
     """Transfer data between devidces"""
 
     if 'image' in input:
@@ -47,7 +48,7 @@ def to_device(input, device="cuda", dtype=None):
 
     def transfer(x):
         if torch.is_tensor(x):
-            return x.to(device=device)
+            return get_platform().device.move(x, device=device)
         elif isinstance(x, list):
             return [transfer(_) for _ in x]
         elif isinstance(x, Mapping):

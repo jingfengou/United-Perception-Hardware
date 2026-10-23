@@ -13,7 +13,10 @@
 #include "iou3d_nms/iou3d_nms.h"
 #include <torch/torch.h>
 
+torch::Tensor kitti_rotate_iou(torch::Tensor boxes, torch::Tensor queries, int64_t criterion);
+
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+    m.def("kitti_rotate_iou", &kitti_rotate_iou, "Original KITTI rotated IoU algorithm on GPU");
     // pybind deform conv v1
     pybind11::module dc_v1 = m.def_submodule("deform_conv_v1",
                                            "deformable convolution v1");

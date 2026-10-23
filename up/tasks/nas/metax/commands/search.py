@@ -1,4 +1,5 @@
 from __future__ import division
+from up_platform import layers as platform_layers
 
 # Standard Library
 import argparse
@@ -32,7 +33,7 @@ class ClsWrapper(nn.Module):
         self.detector = detector
         self.add_softmax = add_softmax
         if self.add_softmax:
-            self.softmax = nn.Softmax(dim=1)
+            self.softmax = platform_layers.Softmax(dim=1)
 
     def forward(self, image):
         b, c, height, width = map(int, image.size())
@@ -193,6 +194,8 @@ def main(args):
 
 
 def _main(args):
+    from up.utils.env.platform import configure_command
+    configure_command(args, purpose='training')
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)

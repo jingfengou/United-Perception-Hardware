@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -18,12 +20,12 @@ class SimCLR(nn.Module):
 
         if mlp:
             if num_mlp_layer == 1:
-                self.encoder_fc = nn.Sequential(nn.Linear(dim, output_dim))
+                self.encoder_fc = nn.Sequential(platform_layers.Linear(dim, output_dim))
             elif num_mlp_layer > 1:
                 layers = []
                 for _ in range(num_mlp_layer - 1):
-                    layers += [nn.Linear(dim, dim), nn.ReLU()]
-                layers.append(nn.Linear(dim, output_dim))
+                    layers += [platform_layers.Linear(dim, dim), platform_layers.ReLU()]
+                layers.append(platform_layers.Linear(dim, output_dim))
                 self.encoder_fc = nn.Sequential(*layers)
 
     def forward(self, input):
@@ -31,7 +33,7 @@ class SimCLR(nn.Module):
             input = input['image']
         input = torch.cat((input[:, 0], input[:, 1]), dim=0)
         features = self.encoder({'image' : input})['features'][-1].mean(dim=[2, 3])
-        features = nn.functional.normalize(features, dim=1)
+        features = get_platform().category('normalization').normalize(features, dim=1)
         if self.mlp:
             features = self.encoder_fc(features)
 
@@ -40,9 +42,9 @@ class SimCLR(nn.Module):
         labels = torch.cat([torch.arange(features.shape[0] // 2), torch.arange(features.shape[0] // 2)], dim=0)
         labels = (labels.unsqueeze(0) == labels.unsqueeze(1)).float()
 
-        features = F.normalize(features, dim=1)
+        features = get_platform().category('normalization').normalize(features, dim=1)
 
-        similarity_matrix = torch.matmul(features, features.T)
+        similarity_matrix = get_platform().category('matrix').matmul(features, features.T)
         mask = torch.eye(labels.shape[0], dtype=torch.bool)
 
         labels = labels[~mask].view(labels.shape[0], -1)

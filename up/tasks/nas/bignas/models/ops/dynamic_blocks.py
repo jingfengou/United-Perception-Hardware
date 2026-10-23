@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -27,7 +29,7 @@ class DynamicLinearBlock(nn.Module):
         self.act_func = act_func
 
         if self.dropout_rate > 0:
-            self.dropout = nn.Dropout(self.dropout_rate, inplace=True)
+            self.dropout = platform_layers.Dropout(self.dropout_rate, inplace=True)
         else:
             self.dropout = None
         self.linear = DynamicLinear(
@@ -476,9 +478,9 @@ class DynamicSEBlock(nn.Module):
         num_mid = make_divisible(self.channel // self.reduction, divisor=self.divisor)
 
         self.fc = nn.Sequential(OrderedDict([
-            ('reduce', nn.Conv2d(self.channel, num_mid, 1, 1, 0, bias=bias)),
+            ('reduce', platform_layers.Conv2d(self.channel, num_mid, 1, 1, 0, bias=bias)),
             ('act1', build_activation(self.act_func1, inplace=False)),
-            ('expand', nn.Conv2d(num_mid, self.channel, 1, 1, 0, bias=bias)),
+            ('expand', platform_layers.Conv2d(num_mid, self.channel, 1, 1, 0, bias=bias)),
             ('act2', build_activation(self.act_func2, inplace=False)),
         ]))
 
@@ -486,19 +488,19 @@ class DynamicSEBlock(nn.Module):
         in_channel = x.size(1)
         num_mid = make_divisible(in_channel // self.reduction, divisor=self.divisor)
 
-        y = F.adaptive_avg_pool2d(x, output_size=1)
+        y = get_platform().category('pooling').adaptive_avg_pool2d(x, output_size=1)
         # reduce
         reduce_conv = self.fc.reduce
         reduce_filter = reduce_conv.weight[:num_mid, :in_channel, :, :].contiguous()
         reduce_bias = reduce_conv.bias[:num_mid] if reduce_conv.bias is not None else None
-        y = F.conv2d(y, reduce_filter, reduce_bias, 1, 0, 1, 1)
+        y = get_platform().category('convolution').conv2d(y, reduce_filter, reduce_bias, 1, 0, 1, 1)
         # relu
         y = self.fc.act1(y)
         # expand
         expand_conv = self.fc.expand
         expand_filter = expand_conv.weight[:in_channel, :num_mid, :, :].contiguous()
         expand_bias = expand_conv.bias[:in_channel] if expand_conv.bias is not None else None
-        y = F.conv2d(y, expand_filter, expand_bias, 1, 0, 1, 1)
+        y = get_platform().category('convolution').conv2d(y, expand_filter, expand_bias, 1, 0, 1, 1)
         # hard sigmoid
         y = self.fc.act2(y)
 

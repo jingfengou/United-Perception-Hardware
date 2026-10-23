@@ -2,7 +2,6 @@ import copy
 import numpy as np
 import os
 from skimage import io
-import open3d as o3d
 
 from up.utils.general.registry_factory import IMAGE_READER_REGISTRY
 from up.data.image_reader import ImageReader
@@ -74,6 +73,7 @@ class KittiReader(ImageReader):
         return res
 
     def get_lidar_pcd(self, path):
+        import open3d as o3d
         base_path = path.split('/')[-1]
         lidar_file = os.path.join(self.root_dir, base_path)
         pcd = o3d.io.read_point_cloud(lidar_file)

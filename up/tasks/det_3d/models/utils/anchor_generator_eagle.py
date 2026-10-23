@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import numpy as np
 import json
@@ -41,12 +42,12 @@ class AnchorGeneratorRoad(object):
                     y_stride = (self.anchor_range[4] - self.anchor_range[1]) / (grid_size[1] - 1)
                     x_offset, y_offset = 0, 0
 
-                x_shifts = torch.arange(
+                x_shifts = get_platform().device.move(torch.arange(
                     self.anchor_range[0] + x_offset, self.anchor_range[3] + 1e-5, step=x_stride, dtype=torch.float32,
-                ).cuda()
-                y_shifts = torch.arange(
+                ))
+                y_shifts = get_platform().device.move(torch.arange(
                     self.anchor_range[1] + y_offset, self.anchor_range[4] + 1e-5, step=y_stride, dtype=torch.float32,
-                ).cuda()
+                ))
                 z_shifts = x_shifts.new_tensor(anchor_height)
 
             else:   # for road data

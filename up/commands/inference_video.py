@@ -30,6 +30,8 @@ class Inference_video(Subcommand):
 
 
 def _main(args):
+    from up.utils.env.platform import configure_command
+    configure_command(args, purpose='inference')
     video_file = args.video_file
     logger.info("video file: {}".format(video_file))
     if (video_file == ''):

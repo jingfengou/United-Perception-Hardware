@@ -1,8 +1,9 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import copy
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.distributed as dist
 from up.utils.model import accuracy as A  # noqa F401
 from up.tasks.det.models.utils.anchor_generator import build_anchor_generator
 from up.models.losses import build_loss
@@ -40,7 +41,7 @@ class YoloxPostProcess(nn.Module):
         self.cls_loss = build_loss(cfg['cls_loss'])
         self.loc_loss = build_loss(cfg['loc_loss'])
         self.obj_loss = build_loss(cfg['obj_loss'])
-        self.l1_loss = nn.L1Loss(reduction="none")
+        self.l1_loss = platform_layers.L1Loss(reduction="none")
         self.use_l1 = use_l1
 
         # config
@@ -59,8 +60,8 @@ class YoloxPostProcess(nn.Module):
         """
         mlvl_activated_preds = []
         for lvl_idx, preds in enumerate(mlvl_preds):
-            cls_pred = preds[0].sigmoid()
-            obj_pred = preds[2].sigmoid()
+            cls_pred = get_platform().category('activation').sigmoid(preds[0])
+            obj_pred = get_platform().category('activation').sigmoid(preds[2])
             cls_pred *= obj_pred
             mlvl_activated_preds.append((cls_pred, *preds[1:]))
         return mlvl_activated_preds
@@ -98,7 +99,7 @@ class YoloxPostProcess(nn.Module):
             mlvl_preds[l_ix][1][..., :2] *= strides[l_ix]
             mlvl_preds[l_ix][1][..., :2] += mlvl_locations[l_ix]
             if self.norm_on_bbox:
-                mlvl_preds[l_ix][1][..., 2:4] = F.relu(mlvl_preds[l_ix][1][..., 2:4])  # , inplace=True)
+                mlvl_preds[l_ix][1][..., 2:4] = get_platform().category('activation').relu(mlvl_preds[l_ix][1][..., 2:4])  # , inplace=True)
                 mlvl_preds[l_ix][1][..., 2:4] *= strides[l_ix]
             else:
                 mlvl_preds[l_ix][1][..., 2:4] = torch.exp(mlvl_preds[l_ix][1][..., 2:4]) * strides[l_ix]
@@ -140,7 +141,7 @@ class YoloxPostProcess(nn.Module):
         if self.use_l1:
             ori_reg_targets = torch.cat(ori_reg_targets, 0)
         fg_masks = torch.cat(fg_masks, 0)
-        if self.all_reduce_norm and dist.is_initialized():
+        if self.all_reduce_norm and get_platform().category('communication').is_initialized():
             num_fgs = self.get_ave_normalizer(fg_masks)
         else:
             num_fgs = fg_masks.sum().item()
@@ -172,7 +173,7 @@ class YoloxPostProcess(nn.Module):
             else:
                 l1_loss = ori_loc_preds.sum()
         else:
-            l1_loss = torch.tensor(0.0).cuda()
+            l1_loss = get_platform().device.move(torch.tensor(0.0))
         return {
             self.prefix + '.cls_loss': cls_loss,
             self.prefix + '.loc_loss': loc_loss,

@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Import from third library
 import torch
 import torch.nn as nn
@@ -17,7 +19,7 @@ from up.utils.model.bn_helper import (
 )
 
 _norm_cfg = {
-    'solo_bn': ('bn', torch.nn.BatchNorm2d),
+    'solo_bn': ('bn', platform_layers.BatchNorm2d),
     'freeze_bn': ('bn', FrozenBatchNorm2d),
     'caffe_freeze_bn': ('bn', CaffeFrozenBatchNorm2d),
     'gn': ('gn', GroupNorm),
@@ -27,22 +29,19 @@ _norm_cfg = {
     'sync_bn': ('bn', GroupSyncBatchNorm),
     'task_sync_bn': ('bn', SyncTaskBatchNorm2d),
     'torch_task_sync_bn': ('bn', TorchSyncTaskBatchNorm2d),
-    'ln': ('ln', torch.nn.LayerNorm)
+    'ln': ('ln', platform_layers.LayerNorm)
 }
 
-try:
-    from mqbench.nn.modules import FrozenBatchNorm2d as MqbenchFrozenBatchNorm2d
-    _norm_cfg.update({'mqbench_freeze_bn': ('bn', MqbenchFrozenBatchNorm2d)})
-except Exception as err:
-    logger.warning(f"import error {err}; If you need Mqbench to quantize model, \
-     you should add Mqbench to this project. Or just ignore this error.")
+def MqbenchFrozenBatchNorm2d(*args, **kwargs):
+    return get_platform().category('quantization').module_type('FrozenBatchNorm2d')(*args, **kwargs)
 
-try:
-    from msbench.nn.modules import FrozenBatchNorm2d as MsbenchFrozenBatchNorm2d
-    _norm_cfg.update({'msbench_freeze_bn': ('bn', MsbenchFrozenBatchNorm2d)})
-except Exception as err:
-    logger.warning(f"import error {err}; If you need Msbench to prune model, \
-    you should add Msbench to this project. Or just ignore this error.")
+
+def MsbenchFrozenBatchNorm2d(*args, **kwargs):
+    return get_platform().category('pruning').module_type('FrozenBatchNorm2d')(*args, **kwargs)
+
+
+_norm_cfg.update({'mqbench_freeze_bn': ('bn', MqbenchFrozenBatchNorm2d),
+                  'msbench_freeze_bn': ('bn', MsbenchFrozenBatchNorm2d)})
 
 
 def is_bn(m):
@@ -113,7 +112,7 @@ def build_conv_norm(in_channels,
                     activation=False,
                     relu_first=False):
 
-    conv = nn.Conv2d(
+    conv = platform_layers.Conv2d(
         in_channels, out_channels, kernel_size=kernel_size,
         stride=stride, padding=padding, dilation=dilation,
         groups=groups, bias=(normalize is None))
@@ -124,14 +123,14 @@ def build_conv_norm(in_channels,
 
     seq = nn.Sequential()
     if relu_first and activation:
-        seq.add_module('relu', nn.ReLU(inplace=True))
+        seq.add_module('relu', platform_layers.ReLU(inplace=True))
     seq.add_module('conv', conv)
     if normalize is not None:
         norm_name, norm = build_norm_layer(out_channels, normalize)
         seq.add_module(norm_name, norm)
     if activation:
         if not relu_first:
-            seq.add_module('relu', nn.ReLU(inplace=True))
+            seq.add_module('relu', platform_layers.ReLU(inplace=True))
     return seq
 
 
@@ -154,7 +153,7 @@ class LayerNorm(nn.Module):
 
     def forward(self, x):
         if self.data_format == "channels_last":
-            return F.layer_norm(x, self.normalized_shape, self.weight, self.bias, self.eps)
+            return get_platform().category('normalization').layer_norm(x, self.normalized_shape, self.weight, self.bias, self.eps)
         elif self.data_format == "channels_first":
             u = x.mean(1, keepdim=True)
             s = (x - u).pow(2).mean(1, keepdim=True)

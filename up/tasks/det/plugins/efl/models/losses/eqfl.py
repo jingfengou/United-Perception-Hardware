@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 import torch.nn.functional as F
@@ -99,7 +100,7 @@ class EqualizedQualityFocalLoss(GeneralizedCrossEntropyLoss):
         if self.dynamic_normalizer:
             normalizer = dynamic_normalizer(inputs, self.target[sample_mask], 0.5, self.focal_gamma)
 
-        pred = torch.sigmoid(inputs)
+        pred = get_platform().category('activation').sigmoid(inputs)
         map_val = 1 - self.pos_neg.detach()
         dy_gamma = self.focal_gamma + self.scale_factor * map_val
         # focusing factor
@@ -108,14 +109,14 @@ class EqualizedQualityFocalLoss(GeneralizedCrossEntropyLoss):
         wf = ff / self.focal_gamma
 
         # loss of negative samples
-        loss = F.binary_cross_entropy_with_logits(inputs,
+        loss = get_platform().category('loss').binary_cross_entropy_with_logits(inputs,
                                                   inputs.new_zeros(inputs.shape),
                                                   reduction='none') * pred.pow(ff.detach())
         # loss of positive samples
         pos_inds = torch.where(self.target[sample_mask] != 0)[0]
         pos_target = self.target[sample_mask][pos_inds].long() - 1
         quality_factor = scores[pos_inds] - pred[pos_inds, pos_target]
-        loss[pos_inds, pos_target] = F.binary_cross_entropy_with_logits(inputs[pos_inds, pos_target],
+        loss[pos_inds, pos_target] = get_platform().category('loss').binary_cross_entropy_with_logits(inputs[pos_inds, pos_target],
                                                                         scores[pos_inds],
                                                                         reduction='none') * quality_factor.abs().pow(ff.detach()[pos_inds, pos_target]) # noqa
         loss = loss * wf.detach()

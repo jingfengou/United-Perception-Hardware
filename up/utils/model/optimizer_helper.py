@@ -1,3 +1,4 @@
+from up_platform import get_platform
 """
   These functions are mainly used in train_val.py
 """
@@ -144,7 +145,7 @@ class BaseOptimizer(object):
         elif optim_type == 'LARS' or optim_type == 'LAMB':
             optimizer = build_cls_instance(optim, cfg_optim)
         else:
-            optimizer = build_cls_instance(torch.optim, cfg_optim)
+            optimizer = get_platform().execution.optimizer(optim_type, **cfg_optim['kwargs'])
         logger.info('build optimizer done')
         return optimizer
 

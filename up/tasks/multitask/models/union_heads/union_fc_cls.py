@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
@@ -31,7 +32,7 @@ class UnionFC(FC):
                          initializer,
                          with_drp=with_drp)
         self.input_feature_idx = input_feature_idx
-        self.classification_pool = nn.AdaptiveAvgPool2d((1, 1))
+        self.classification_pool = platform_layers.AdaptiveAvgPool2d((1, 1))
         self.share_fc = share_fc
         self.share_classifier = share_classifier
         self.sum_feature = sum_feature
@@ -51,13 +52,13 @@ class UnionFC(FC):
                 classification_inplanes = get_inplane(inplanes,
                                                       input_feature_idx)
 
-            self.classification_fc_embeding = nn.Linear(
+            self.classification_fc_embeding = platform_layers.Linear(
                 classification_inplanes, classification_feat_planes)
 
         self.classification_feat_planes = classification_feat_planes
 
         if not share_classifier:
-            self.classification_classifier = nn.Linear(
+            self.classification_classifier = platform_layers.Linear(
                 classification_feat_planes, classification_num_classes)
         else:
             assert num_classes == classification_num_classes, \

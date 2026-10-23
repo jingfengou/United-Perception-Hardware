@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 from torch.nn.modules.loss import _Loss
 from up.utils.env.dist_helper import env
@@ -12,14 +14,14 @@ class MoCoLoss(_Loss):
     def __init__(self, loss_weight=1.0):
         super(MoCoLoss, self).__init__()
         self.loss_weight = loss_weight
-        self.ce_loss = torch.nn.CrossEntropyLoss()
+        self.ce_loss = platform_layers.CrossEntropyLoss()
 
     def forward(self, input):
         logits = input['logits']
         if 'gt' in input:
             label = input['gt']
         else:
-            label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()
+            label = get_platform().device.move(torch.zeros(logits.shape[0], dtype=torch.long))
         loss = self.ce_loss(logits, label)
         return loss * self.loss_weight
 
@@ -28,7 +30,7 @@ class MoCoLoss(_Loss):
 class ContrastiveLoss(_Loss):
     def __init__(self, tau, loss_weight=1.0):
         super().__init__()
-        self.ce_loss = torch.nn.CrossEntropyLoss()
+        self.ce_loss = platform_layers.CrossEntropyLoss()
         self.loss_weight = loss_weight
         self.tau = tau
 
@@ -36,8 +38,8 @@ class ContrastiveLoss(_Loss):
         rank = env.rank
         logits = input['logits']
         N = logits.shape[1]
-        label_1 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()
-        label_2 = (torch.arange(N, dtype=torch.long) + N * rank).cuda()
+        label_1 = get_platform().device.move(torch.arange(N, dtype=torch.long) + N * rank)
+        label_2 = get_platform().device.move(torch.arange(N, dtype=torch.long) + N * rank)
 
         logit_1, logit_2 = logits[0, :], logits[1, :]
 
@@ -52,12 +54,12 @@ class ContrastiveLoss(_Loss):
 class SimCLRLoss(_Loss):
     def __init__(self, loss_weight=1.0):
         super().__init__()
-        self.ce_loss = torch.nn.CrossEntropyLoss()
+        self.ce_loss = platform_layers.CrossEntropyLoss()
         self.loss_weight = loss_weight
 
     def forward(self, input):
         logits = input['logits']
-        label = torch.zeros(logits.shape[0], dtype=torch.long).cuda()
+        label = get_platform().device.move(torch.zeros(logits.shape[0], dtype=torch.long))
         loss = self.ce_loss(logits, label)
         return loss * self.loss_weight
 
@@ -67,7 +69,7 @@ class SimSiamLoss(_Loss):
     def __init__(self, loss_weight=1.0):
         super(SimSiamLoss, self).__init__()
         self.loss_weight = loss_weight
-        self.cos_loss = torch.nn.CosineSimilarity(dim=1)
+        self.cos_loss = platform_layers.CosineSimilarity(dim=1)
 
     def forward(self, input):
         p1, p2 = input['p1'], input['p2']

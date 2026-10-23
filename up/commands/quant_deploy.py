@@ -58,4 +58,6 @@ def main(args):
 
 
 def _main(args):
+    from up.utils.env.platform import configure_command
+    configure_command(args, purpose='inference')
     main(args)

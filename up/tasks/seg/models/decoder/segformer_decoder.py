@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
@@ -35,9 +37,9 @@ class SegFormerHead(nn.Module):
         self.loss = build_loss(loss)
         self.align_corners = align_corners
 
-        self.conv_seg = nn.Conv2d(channels, num_classes, kernel_size=1)
+        self.conv_seg = platform_layers.Conv2d(channels, num_classes, kernel_size=1)
         if dropout_ratio > 0:
-            self.dropout = nn.Dropout2d(dropout_ratio)
+            self.dropout = platform_layers.Dropout2d(dropout_ratio)
         else:
             self.dropout = None
         self.fp16_enabled = False
@@ -73,7 +75,7 @@ class SegFormerHead(nn.Module):
             x_single = x[idx]
             conv = self.convs[idx]
             outs.append(
-                F.interpolate(
+                get_platform().category('pooling').interpolate(
                     input=conv(x_single),
                     size=x[0].shape[2:],
                     mode=self.interpolate_mode,
@@ -85,7 +87,7 @@ class SegFormerHead(nn.Module):
             out = self.dropout(out)
         out = self.conv_seg(out)
 
-        out = F.interpolate(out, size=size, mode='bilinear', align_corners=self.align_corners)
+        out = get_platform().category('pooling').interpolate(out, size=size, mode='bilinear', align_corners=self.align_corners)
 
         if self.training:
             loss = self.loss(out, inputs['gt_semantic_seg'])

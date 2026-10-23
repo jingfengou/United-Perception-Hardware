@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Import from third library
 import torch
 import torch.nn as nn
@@ -67,7 +69,7 @@ class FPN(nn.Module):
         assert num_level == len(out_strides)
 
         if upsample == 'deconv':
-            self.deconv = nn.ConvTranspose2d(self.outplanes,
+            self.deconv = platform_layers.ConvTranspose2d(self.outplanes,
                                              self.outplanes,
                                              kernel_size=4,
                                              stride=2,
@@ -87,11 +89,11 @@ class FPN(nn.Module):
                 if self.downsample == 'pool':
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
-                        nn.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
+                        platform_layers.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
                 else:
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
-                        nn.Conv2d(outplanes, outplanes, kernel_size=3, stride=2, padding=1))
+                        platform_layers.Conv2d(outplanes, outplanes, kernel_size=3, stride=2, padding=1))
         initialize_from_cfg(self, initializer)
 
     def get_lateral_name(self, idx):
@@ -152,7 +154,7 @@ class FPN(nn.Module):
                     # nart_tools may not support to interpolate to the size of other feature
                     # you may need to modify upsample or interp layer in prototxt manually.
                     upsize = laterals[lvl_idx].shape[-2:]
-                    laterals[lvl_idx] += F.interpolate(laterals[lvl_idx + 1],
+                    laterals[lvl_idx] += get_platform().category('pooling').interpolate(laterals[lvl_idx + 1],
                                                        size=upsize,
                                                        mode=self.upsample,
                                                        align_corners=self.align_corners)

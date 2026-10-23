@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import copy
 import time
 import json
@@ -181,7 +182,7 @@ class BaseController(object):
             image_size = self.sample_image_size(sample_mode=sample_mode)
 
         # if the size is already the same with the target size, the interpolate will skip
-        input = F.interpolate(input,
+        input = get_platform().category('pooling').interpolate(input,
                               size=(image_size[2], image_size[3]),
                               mode=self.interpolation_type,
                               align_corners=False)
@@ -327,7 +328,7 @@ class BaseController(object):
         bn_mean = {}
         bn_var = {}
         forward_model = copy.deepcopy(model)
-        forward_model.cuda()
+        get_platform().device.move(forward_model)
         forward_model = DistModule(forward_model, True)
         reset_model_bn_forward(forward_model, bn_mean, bn_var)
 
@@ -339,8 +340,8 @@ class BaseController(object):
         with torch.no_grad():
             for count in range(max_iter):
                 batch = next(iterator)
-                if batch['image'].device != torch.device('cuda') or batch['image'].dtype != model_dtype:
-                    batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)
+                if batch['image'].device != get_platform().device.device() or batch['image'].dtype != model_dtype:
+                    batch = to_device(batch, device=get_platform().device.device(), dtype=model_dtype)
 
                 forward_model(batch)
 

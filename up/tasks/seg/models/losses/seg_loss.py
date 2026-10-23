@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
@@ -49,11 +51,11 @@ class OhemCrossEntropy2dTensor(nn.Module):
                 [0.8373, 0.918, 0.866, 1.0345, 1.0166, 0.9969, 0.9754, 1.0489,
                  0.8786, 1.0023, 0.9539, 0.9843, 1.1116, 0.9037, 1.0865, 1.0955,
                  1.0865, 1.1529, 1.0507])
-            self.criterion = torch.nn.CrossEntropyLoss(reduction="elementwise_mean",
+            self.criterion = platform_layers.CrossEntropyLoss(reduction="elementwise_mean",
                                                        weight=weight,
                                                        ignore_index=ignore_index)
         else:
-            self.criterion = torch.nn.CrossEntropyLoss(reduction="elementwise_mean",
+            self.criterion = platform_layers.CrossEntropyLoss(reduction="elementwise_mean",
                                                        ignore_index=ignore_index)
 
     def forward(self, pred, target):
@@ -62,7 +64,7 @@ class OhemCrossEntropy2dTensor(nn.Module):
         valid_mask = target.ne(self.ignore_index)
         target = (target * valid_mask).long()
         num_valid = valid_mask.sum()
-        prob = F.softmax(pred, dim=1)
+        prob = get_platform().category('activation').softmax(pred, dim=1)
         prob = (prob.transpose(0, 1)).reshape(c, -1)
         if self.min_kept > num_valid:
             logger.info('Labels: {}'.format(num_valid))
@@ -135,7 +137,7 @@ def cross_entropy(pred,
     """The wrapper function for :func:`F.cross_entropy`"""
     # class_weight is a manual rescaling weight given to each class.
     # If given, has to be a Tensor of size C element-wise losses
-    loss = F.cross_entropy(
+    loss = get_platform().category('loss').cross_entropy(
         pred,
         label,
         weight=class_weight,

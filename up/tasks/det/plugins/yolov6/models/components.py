@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
@@ -42,7 +44,7 @@ class Conv(nn.Module):
                  act_fn={'type': 'Silu'}):
         super().__init__()
         padding = kernel_size // 2
-        self.conv = nn.Conv2d(
+        self.conv = platform_layers.Conv2d(
             in_channels,
             out_channels,
             kernel_size=kernel_size,
@@ -72,7 +74,7 @@ class SimConv(nn.Module):
                  act_fn={'type': 'ReLU'}):
         super().__init__()
         padding = kernel_size // 2
-        self.conv = nn.Conv2d(
+        self.conv = platform_layers.Conv2d(
             in_channels,
             out_channels,
             kernel_size=kernel_size,
@@ -104,7 +106,7 @@ class SimSPPF(nn.Module):
         c_ = in_channels // 2  # hidden channels
         self.cv1 = SimConv(in_channels, c_, 1, 1, normalize=normalize, act_fn=act_fn)
         self.cv2 = SimConv(c_ * 4, out_channels, 1, 1, normalize=normalize, act_fn=act_fn)
-        self.m = nn.MaxPool2d(kernel_size=kernel_size, stride=1, padding=kernel_size // 2)
+        self.m = platform_layers.MaxPool2d(kernel_size=kernel_size, stride=1, padding=kernel_size // 2)
 
     def forward(self, x):
         x = self.cv1(x)
@@ -120,7 +122,7 @@ class Transpose(nn.Module):
 
     def __init__(self, in_channels, out_channels, kernel_size=2, stride=2):
         super().__init__()
-        self.upsample_transpose = torch.nn.ConvTranspose2d(
+        self.upsample_transpose = platform_layers.ConvTranspose2d(
             in_channels=in_channels,
             out_channels=out_channels,
             kernel_size=kernel_size,
@@ -150,7 +152,7 @@ def conv_bn(in_channels,
             normalize={'type': 'solo_bn'}):
     '''Basic cell for rep-style block, including conv and bn'''
     result = nn.Sequential()
-    result.add_module('conv', nn.Conv2d(in_channels=in_channels,
+    result.add_module('conv', platform_layers.Conv2d(in_channels=in_channels,
                                         out_channels=out_channels,
                                         kernel_size=kernel_size,
                                         stride=stride,
@@ -265,7 +267,7 @@ class RepVGGBlock(nn.Module):
         if hasattr(self, 'rbr_reparam'):
             self.__delattr__('rbr_reparam')
         kernel, bias = self.get_equivalent_kernel_bias()
-        self.rbr_reparam = nn.Conv2d(in_channels=self.rbr_dense.conv.in_channels,
+        self.rbr_reparam = platform_layers.Conv2d(in_channels=self.rbr_dense.conv.in_channels,
                                      out_channels=self.rbr_dense.conv.out_channels,
                                      kernel_size=self.rbr_dense.conv.kernel_size,
                                      stride=self.rbr_dense.conv.stride,
@@ -295,7 +297,7 @@ class RepVGGBlock(nn.Module):
         if kernel1x1 is None:
             return 0
         else:
-            return torch.nn.functional.pad(kernel1x1, [1, 1, 1, 1])
+            return get_platform().category('pooling').pad(kernel1x1, [1, 1, 1, 1])
 
     def _fuse_bn_tensor(self, branch):
         if branch is None:

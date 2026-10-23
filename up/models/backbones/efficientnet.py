@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch.nn as nn
 import torch
 import math
@@ -218,7 +220,7 @@ class swish(nn.Module):
         super(swish, self).__init__()
 
     def forward(self, x):
-        x = x * torch.sigmoid(x)
+        x = x * get_platform().category('activation').sigmoid(x)
         return x
 
 
@@ -227,7 +229,7 @@ def activation(act_type='swish'):
         act = swish()
         return act
     else:
-        act = nn.ReLU(inplace=True)
+        act = platform_layers.ReLU(inplace=True)
         return act
 
 
@@ -258,12 +260,12 @@ class MBConvBlock(nn.Module):
         self.use_res_connect = all([s == 1 for s in stride]) and inp == oup
 
         if expand_ratio != 1:
-            module_lists.append(nn.Conv2d(inp, inp * expand_ratio, 1, 1, 0, bias=False))
+            module_lists.append(platform_layers.Conv2d(inp, inp * expand_ratio, 1, 1, 0, bias=False))
             module_lists.append(build_norm_layer(inp * expand_ratio, self.normalize)[1])
             module_lists.append(activation())
 
         module_lists.append(
-            nn.Conv2d(inp * expand_ratio,
+            platform_layers.Conv2d(inp * expand_ratio,
                       inp * expand_ratio,
                       kernel_size,
                       stride,
@@ -278,13 +280,13 @@ class MBConvBlock(nn.Module):
         if self.has_se:
             se_size = max(1, int(inp * self._block_args.se_ratio))
             s = OrderedDict()
-            s['conv1'] = nn.Conv2d(inp * expand_ratio, se_size, kernel_size=1, stride=1, padding=0)
+            s['conv1'] = platform_layers.Conv2d(inp * expand_ratio, se_size, kernel_size=1, stride=1, padding=0)
             s['act1'] = activation()
-            s['conv2'] = nn.Conv2d(se_size, inp * expand_ratio, kernel_size=1, stride=1, padding=0)
-            s['act2'] = nn.Sigmoid()
+            s['conv2'] = platform_layers.Conv2d(se_size, inp * expand_ratio, kernel_size=1, stride=1, padding=0)
+            s['act2'] = platform_layers.Sigmoid()
             self.se_block = nn.Sequential(s)
 
-        self.out_conv = nn.Sequential(nn.Conv2d(inp * expand_ratio, oup, 1, 1, 0, bias=False),
+        self.out_conv = nn.Sequential(platform_layers.Conv2d(inp * expand_ratio, oup, 1, 1, 0, bias=False),
                                       build_norm_layer(oup, self.normalize)[1])
 
     def forward(self, x, drop_connect_rate=None):
@@ -293,7 +295,7 @@ class MBConvBlock(nn.Module):
         else:
             out = self.in_conv(x)
         if self.has_se:
-            weight = F.adaptive_avg_pool2d(out, output_size=1)
+            weight = get_platform().category('pooling').adaptive_avg_pool2d(out, output_size=1)
             weight = self.se_block(weight)
             out = out * weight
 
@@ -390,7 +392,7 @@ class EfficientNet(nn.Module):
 
         c_in = round_filters(32, self._global_params)
         self.stem = nn.Sequential(
-            nn.Conv2d(3, c_in, kernel_size=3, stride=2, padding=1, bias=False),
+            platform_layers.Conv2d(3, c_in, kernel_size=3, stride=2, padding=1, bias=False),
             build_norm_layer(c_in, self.normalize)[1],
             activation(),
         )
@@ -399,7 +401,7 @@ class EfficientNet(nn.Module):
             c_in = round_filters(320, self._global_params)
             c_final = round_filters(1280, self._global_params)
             self.head = nn.Sequential(
-                nn.Conv2d(c_in, c_final, kernel_size=1, stride=1, padding=0, bias=False),
+                platform_layers.Conv2d(c_in, c_final, kernel_size=1, stride=1, padding=0, bias=False),
                 build_norm_layer(c_final, self.normalize)[1],
                 activation(),
             )

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import copy
 import numpy as np
@@ -15,7 +16,7 @@ from .condinst_predictor import build_mask_predictor
 def poly_to_mask(polygons, height, width):
     rles = mask_utils.frPyObjects(polygons, height, width)
     rle = mask_utils.merge(rles)
-    mask = mask_utils.decode(rle).astype(np.bool)
+    mask = mask_utils.decode(rle).astype(bool)
     mask = torch.from_numpy(mask)
     return mask
 
@@ -145,13 +146,13 @@ class DynamicMaskHead(nn.Module):
         n_layers = len(weights)
         x = features
         for i, (w, b) in enumerate(zip(weights, biases)):
-            x = F.conv2d(
+            x = get_platform().category('convolution').conv2d(
                 x, w, bias=b,
                 stride=1, padding=0,
                 groups=num_insts
             )
             if i < n_layers - 1:
-                x = F.relu(x)
+                x = get_platform().category('activation').relu(x)
         return x
 
 
@@ -237,7 +238,7 @@ class CondinstPostProcess(nn.Module):
         else:
             mask_logits = self.mask_head.mask_heads_forward_with_coords(
                 mask_feats, locations, mask_head_params, fpn_levels, instance_locations, im_inds)
-            mask_scores = mask_logits.sigmoid()
+            mask_scores = get_platform().category('activation').sigmoid(mask_logits)
             gt_bitmasks = torch.cat([gt_bitmask for gt_bitmask in gt_bitmasks])
             gt_bitmasks = gt_bitmasks[gt_inds].unsqueeze(dim=1).to(dtype=mask_logits.dtype)
             mask_losses = self.dice_coefficient(mask_scores, gt_bitmasks)

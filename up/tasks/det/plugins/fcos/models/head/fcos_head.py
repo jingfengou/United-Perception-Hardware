@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Import from third library
 import torch
 import torch.nn as nn
@@ -71,11 +72,11 @@ class FcosHead(nn.Module):
 
         C = {'sigmoid': -1, 'softmax': 0}[self.cls_loss_type] + self.num_classes
 
-        self.cls_subnet_pred = nn.Conv2d(feat_planes[-1], self.dense_points * C, kernel_size=3, stride=1, padding=1)
-        self.box_subnet_pred = nn.Conv2d(feat_planes[-1], self.dense_points * 4, kernel_size=3, stride=1, padding=1)
-        self.centerness = nn.Conv2d(feat_planes[-1], self.dense_points, kernel_size=3, stride=1, padding=1)
+        self.cls_subnet_pred = platform_layers.Conv2d(feat_planes[-1], self.dense_points * C, kernel_size=3, stride=1, padding=1)
+        self.box_subnet_pred = platform_layers.Conv2d(feat_planes[-1], self.dense_points * 4, kernel_size=3, stride=1, padding=1)
+        self.centerness = platform_layers.Conv2d(feat_planes[-1], self.dense_points, kernel_size=3, stride=1, padding=1)
         self.scales = nn.ModuleList([Scale(init_value=1.0) for _ in range(len(self.loc_ranges))])
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
         initialize_from_cfg(self, initializer)
         init_bias_focal(self.cls_subnet_pred, self.cls_loss_type, init_prior, self.num_classes)

@@ -1,6 +1,7 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch.nn.functional as F
 from torch.nn.parameter import Parameter
-from torch.nn.modules._functions import SyncBatchNorm as sync_batch_norm
 import torch.nn as nn
 import torch
 import copy
@@ -93,7 +94,7 @@ class DynamicConv2d(nn.Conv2d):
                 _input_filter = _input_filter.contiguous()
                 _input_filter = _input_filter.view(_input_filter.size(0), _input_filter.size(1), -1)
                 _input_filter = _input_filter.view(-1, _input_filter.size(2))
-                _input_filter = F.linear(
+                _input_filter = get_platform().category('matrix').linear(
                     _input_filter, self.__getattr__('%dto%d_matrix' % (src_ks, target_ks)),
                 )
                 _input_filter = _input_filter.view(filters.size(0), filters.size(1), target_ks ** 2)
@@ -128,7 +129,7 @@ class DynamicConv2d(nn.Conv2d):
             self.weight.data = filters
             self.bias.data = bias
 
-        y = F.conv2d(
+        y = get_platform().category('convolution').conv2d(
             x, filters, bias, self.stride, padding, self.dilation, groups,
         )
         return y
@@ -168,7 +169,7 @@ class DynamicLinear(nn.Linear):
             self.weight.data = weight
             self.bias = bias
 
-        y = F.linear(x, weight, bias)
+        y = get_platform().category('matrix').linear(x, weight, bias)
         return y
 
     @property
@@ -210,7 +211,7 @@ class DynamicBatchNorm2d(nn.BatchNorm2d):
                     exponential_average_factor = 1.0 / float(self.num_batches_tracked)
                 else:  # use exponential moving average
                     exponential_average_factor = self.momentum
-        return F.batch_norm(
+        return get_platform().category('normalization').batch_norm(
             x, active_running_mean, active_running_var, active_weight,
             active_bias, self.training or not self.track_running_stats,
             exponential_average_factor, self.eps, )
@@ -229,7 +230,7 @@ class DynamicLayerNorm(nn.LayerNorm):
 
     def forward(self, x):
         feature_dim = x.size(-1)
-        return F.layer_norm(x, (feature_dim, ), self.weight[:feature_dim], self.bias[:feature_dim])
+        return get_platform().category('normalization').layer_norm(x, (feature_dim, ), self.weight[:feature_dim], self.bias[:feature_dim])
 
     @property
     def module_str(self):
@@ -247,7 +248,7 @@ class SwitchableBatchNorm2d(DynamicBatchNorm2d):
         self.width_list.pop()
         # for tracking performance during training
         self.bn = nn.ModuleList([
-            nn.BatchNorm2d(i, affine=False) for i in self.width_list])
+            platform_layers.BatchNorm2d(i, affine=False) for i in self.width_list])
         self.sample_active_weights = False
 
     def forward(self, input):
@@ -257,7 +258,7 @@ class SwitchableBatchNorm2d(DynamicBatchNorm2d):
 
         if feature_dim in self.width_list:
             idx = self.width_list.index(feature_dim)
-            y = nn.functional.batch_norm(
+            y = get_platform().category('normalization').batch_norm(
                 input,
                 self.bn[idx].running_mean,
                 self.bn[idx].running_var,
@@ -456,7 +457,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
         else:
             exponential_average_factor = self.momentum
 
-        return F.batch_norm(
+        return get_platform().category('normalization').batch_norm(
             input,
             self.running_mean,
             self.running_var,
@@ -472,7 +473,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
             return self.deploy_forward(input)
 
         # currently only GPU input is supported
-        if not input.is_cuda:
+        if not get_platform().device.is_accelerator(input):
             raise ValueError('DynamicSyncBatchNorm expected \
                  input tensor to be on GPU')
         self._check_input_dim(input)
@@ -504,16 +505,16 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
         """
         need_sync = self.training or not self.track_running_stats
         if need_sync:
-            process_group = torch.distributed.group.WORLD
+            process_group = get_platform().category('communication').world_group()
             if self.process_group:
                 process_group = self.process_group
-            world_size = torch.distributed.get_world_size(process_group)
+            world_size = get_platform().category('communication').get_world_size(process_group)
             need_sync = world_size > 1
 
         # fallback to vanilla BN when synchronization is not necessary
         if not need_sync:
             if self.running_mean is not None and self.running_var is not None:
-                return F.batch_norm(
+                return get_platform().category('normalization').batch_norm(
                     input,
                     self.running_mean[:active_num_features],
                     self.running_var[:active_num_features],
@@ -524,7 +525,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
                     self.eps,
                 )
             else:
-                return F.batch_norm(
+                return get_platform().category('normalization').batch_norm(
                     input,
                     None,
                     None,
@@ -540,7 +541,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
                      torch.nn.parallel.DistributedDataParallel')
 
             if self.track_running_stats:
-                return sync_batch_norm.apply(
+                return get_platform().category('normalization').sync_batch_norm(
                     input,
                     self.weight[:active_num_features],
                     self.bias[:active_num_features],
@@ -551,7 +552,7 @@ class DynamicSyncBN_DDP(PyTorchSyncBN):
                     process_group,
                     world_size)
             else:
-                return sync_batch_norm.apply(
+                return get_platform().category('normalization').sync_batch_norm(
                     input,
                     self.weight[:active_num_features],
                     self.bias[:active_num_features],

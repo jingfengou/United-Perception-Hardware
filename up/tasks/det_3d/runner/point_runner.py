@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import torch.optim
 import numpy as np
@@ -24,10 +25,10 @@ class PointRunner(BaseRunner):
             elif key in ['frame_id', 'metadata', 'calib', 'voxel_infos', 'class_names', 'velodyne_path', 'image_meta']:
                 continue
             elif key in ['image_shape']:
-                batch[key] = torch.from_numpy(val).int().cuda()
+                batch[key] = get_platform().device.move(torch.from_numpy(val).int())
             else:
-                batch[key] = torch.from_numpy(val).float().cuda()
+                batch[key] = get_platform().device.move(torch.from_numpy(val).float())
 
-        if batch['points'].device != torch.device('cuda') or batch['points'].dtype != model_dtype:
-            batch = to_device(batch, device=torch.device('cuda'), dtype=model_dtype)
+        if batch['points'].device != get_platform().device.device() or batch['points'].dtype != model_dtype:
+            batch = to_device(batch, device=get_platform().device.device(), dtype=model_dtype)
         return batch

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 import torch.nn.functional as F
@@ -79,7 +80,7 @@ class QualityFocalLoss(GeneralizedCrossEntropyLoss):
             target = target[sample_mask]
 
         # loss of negative samples
-        input_sigmoid = input.sigmoid() if self.use_sigmoid else input
+        input_sigmoid = get_platform().category('activation').sigmoid(input) if self.use_sigmoid else input
         scale_factor = input_sigmoid
         loss = func(input, input.new_zeros(input.shape), reduction='none') * scale_factor.pow(self.gamma)
 
@@ -285,8 +286,8 @@ class TorchSigmoidFocalLoss(GeneralizedCrossEntropyLoss):
             input = input[sample_mask, :]
             target = target[sample_mask]
         target = self.generate_onehot_target(input, target)
-        p = torch.sigmoid(input)
-        ce_loss = F.binary_cross_entropy_with_logits(input, target, reduction="none")
+        p = get_platform().category('activation').sigmoid(input)
+        ce_loss = get_platform().category('loss').binary_cross_entropy_with_logits(input, target, reduction="none")
         p_t = p * target + (1 - p) * (1 - target)
         loss = ce_loss * ((1 - p_t) ** self.gamma)
 
@@ -357,7 +358,7 @@ class CrossSigmoidFocalLoss(SigmoidFocalLoss):
             data.append(cls + 1)
             data.extend(neg)
         data = np.require(data, dtype=np.int32)
-        data = torch.from_numpy(data).cuda()
+        data = get_platform().device.move(torch.from_numpy(data))
         return data
 
     def forward(self, input, target, reduction, normalizer=None):
@@ -384,7 +385,7 @@ def dynamic_normalizer(input, target, alpha, gamma):
     def reduce_(tensor, gamma):
         return tensor.pow(gamma).sum()
     target = target.reshape(-1).long()
-    input_p = input.detach().sigmoid()
+    input_p = get_platform().category('activation').sigmoid(input.detach())
     pos_mask = torch.nonzero(target >= 1).squeeze()
     valid_mask = torch.nonzero(target >= 0).squeeze()
     pos_normalizer = reduce_((1 - input_p[pos_mask, target[pos_mask] - 1]), gamma)
@@ -399,7 +400,7 @@ def cross_dynamic_normalizer(input, target, alpha, gamma, neg_target=None):
     def reduce_(tensor, gamma):
         return tensor.pow(gamma).sum()
     target = target.reshape(-1).long()
-    input_p = input.detach().sigmoid()
+    input_p = get_platform().category('activation').sigmoid(input.detach())
     cls_num = input_p.size(1)
     pos_mask = torch.nonzero((target >= 1) & (target <= cls_num)).squeeze()
     valid_mask = input.new_zeros(input.size()).bool()

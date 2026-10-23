@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Standard Library
 import math
 
@@ -37,17 +39,17 @@ def _make_divisible(v, divisor, min_value=None):
     return new_v
 
 
-def conv_bn(inp, oup, stride, activation=nn.ReLU, normalize={'type': 'solo_bn'}):
+def conv_bn(inp, oup, stride, activation=platform_layers.ReLU, normalize={'type': 'solo_bn'}):
     return nn.Sequential(
-        nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
+        platform_layers.Conv2d(inp, oup, 3, stride, 1, bias=False),
         build_norm_layer(oup, normalize)[1],
         activation(inplace=True)
     )
 
 
-def conv_1x1_bn(inp, oup, activation=nn.ReLU, dilation=1, normalize={'type': 'solo_bn'}):
+def conv_1x1_bn(inp, oup, activation=platform_layers.ReLU, dilation=1, normalize={'type': 'solo_bn'}):
     return nn.Sequential(
-        nn.Conv2d(inp, oup, 1, 1, 0, dilation=dilation, bias=False),
+        platform_layers.Conv2d(inp, oup, 1, 1, 0, dilation=dilation, bias=False),
         build_norm_layer(oup, normalize)[1],
         activation(inplace=True)
     )
@@ -59,7 +61,7 @@ class Hswish(nn.Module):
         self.inplace = inplace
 
     def forward(self, x):
-        return x * F.relu6(x + 3., inplace=self.inplace) / 6.
+        return x * get_platform().category('activation').relu6(x + 3., inplace=self.inplace) / 6.
 
 
 class Hsigmoid(nn.Module):
@@ -68,17 +70,17 @@ class Hsigmoid(nn.Module):
         self.inplace = inplace
 
     def forward(self, x):
-        return F.relu6(x + 3., inplace=self.inplace) / 6.
+        return get_platform().category('activation').relu6(x + 3., inplace=self.inplace) / 6.
 
 
 class SEModule(nn.Module):
     def __init__(self, channel, reduction=4):
         super(SEModule, self).__init__()
-        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.avg_pool = platform_layers.AdaptiveAvgPool2d(1)
         self.fc = nn.Sequential(
-            nn.Linear(channel, channel // reduction, bias=False),
-            nn.ReLU(inplace=True),
-            nn.Linear(channel // reduction, channel, bias=False),
+            platform_layers.Linear(channel, channel // reduction, bias=False),
+            platform_layers.ReLU(inplace=True),
+            platform_layers.Linear(channel // reduction, channel, bias=False),
             Hsigmoid()
         )
 
@@ -106,7 +108,7 @@ class InvertedResidual(nn.Module):
         self.use_res_connect = stride == 1 and inp == oup
 
         if nl == 'RE':
-            activation = nn.ReLU
+            activation = platform_layers.ReLU
         elif nl == 'HS':
             activation = Hswish
         else:
@@ -118,7 +120,7 @@ class InvertedResidual(nn.Module):
         if inp != exp:
             # pw
             layers.extend([
-                nn.Conv2d(inp, exp, 1, 1, 0, bias=False),
+                platform_layers.Conv2d(inp, exp, 1, 1, 0, bias=False),
                 build_norm_layer(exp, normalize)[1],
                 activation(inplace=True),
             ])
@@ -126,13 +128,13 @@ class InvertedResidual(nn.Module):
             print("no need!!!!!!!!!!1")
         layers.extend([
             # dw
-            nn.Conv2d(exp, exp, kernel, stride,
+            platform_layers.Conv2d(exp, exp, kernel, stride,
                       padding, groups=exp, bias=False, dilation=dilation),
             build_norm_layer(exp, normalize)[1],
             SELayer(exp),
             activation(inplace=True),
             # pw-linear
-            nn.Conv2d(exp, oup, 1, 1, 0, bias=False),
+            platform_layers.Conv2d(exp, oup, 1, 1, 0, bias=False),
             build_norm_layer(oup, normalize)[1],
         ])
         self.conv = nn.Sequential(*layers)
@@ -245,8 +247,8 @@ class MobileNetV3(nn.Module):
             last_conv = _make_divisible(960 * width_mult, round_nearest)
             self.features.append(conv_1x1_bn(
                 input_channel, last_conv, activation=Hswish, normalize=normalize))
-            self.features.append(nn.AdaptiveAvgPool2d(1))
-            self.features.append(nn.Conv2d(last_conv, last_channel, 1, 1, 0))
+            self.features.append(platform_layers.AdaptiveAvgPool2d(1))
+            self.features.append(platform_layers.Conv2d(last_conv, last_channel, 1, 1, 0))
             self.features.append(Hswish(inplace=True))
             output_channels.append(last_channel)
             layer_index.append(len(self.features) - 1)
@@ -254,8 +256,8 @@ class MobileNetV3(nn.Module):
             last_conv = _make_divisible(576 * width_mult, round_nearest)
             self.features.append(conv_1x1_bn(
                 input_channel, last_conv, activation=Hswish, normalize=normalize))
-            self.features.append(nn.AdaptiveAvgPool2d(1))
-            self.features.append(nn.Conv2d(last_conv, last_channel, 1, 1, 0))
+            self.features.append(platform_layers.AdaptiveAvgPool2d(1))
+            self.features.append(platform_layers.Conv2d(last_conv, last_channel, 1, 1, 0))
             self.features.append(Hswish(inplace=True))
             output_channels.append(last_channel)
             layer_index.append(len(self.features) - 1)

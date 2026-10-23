@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 import math
 
@@ -40,11 +41,11 @@ class YoloV5Head(nn.Module):
         self.obj_subnet = nn.ModuleList()
         for inp in inplanes:
             if self.single_cls:
-                self.cls_subnet.append(nn.Conv2d(inp, num_anchors_per_level * 1, 1))
+                self.cls_subnet.append(platform_layers.Conv2d(inp, num_anchors_per_level * 1, 1))
             else:
-                self.cls_subnet.append(nn.Conv2d(inp, num_anchors_per_level * self.num_classes, 1))
-            self.loc_subnet.append(nn.Conv2d(inp, num_anchors_per_level * 4, 1))
-            self.obj_subnet.append(nn.Conv2d(inp, num_anchors_per_level * 1, 1))
+                self.cls_subnet.append(platform_layers.Conv2d(inp, num_anchors_per_level * self.num_classes, 1))
+            self.loc_subnet.append(platform_layers.Conv2d(inp, num_anchors_per_level * 4, 1))
+            self.obj_subnet.append(platform_layers.Conv2d(inp, num_anchors_per_level * 1, 1))
 
         if initializer is not None:
             initialize_from_cfg(self, initializer)

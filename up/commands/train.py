@@ -156,6 +156,8 @@ def main(args):
 
 
 def _main(args):
+    from up.utils.env.platform import configure_command
+    configure_command(args, purpose='training')
     DIST_BACKEND.backend = args.backend
     if args.launch == 'pytorch':
         launch(main, args.num_gpus_per_machine, args.num_machines, args=args, start_method=args.fork_method)

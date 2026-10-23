@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 
 from up.tasks.det.models.utils.nms_wrapper import nms
@@ -119,9 +120,9 @@ class YoloV5Predictor(object):
         yv, xv = torch.meshgrid([torch.arange(h), torch.arange(w)])
         grids = torch.stack((xv, yv), 2).to(loc_pred.device).view((1, 1, h, w, 2)).float()
 
-        loc_pred = loc_pred.sigmoid()
-        cls_pred = cls_pred.sigmoid()
-        obj_pred = obj_pred.sigmoid()
+        loc_pred = get_platform().category('activation').sigmoid(loc_pred)
+        cls_pred = get_platform().category('activation').sigmoid(cls_pred)
+        obj_pred = get_platform().category('activation').sigmoid(obj_pred)
         loc_pred[..., :2] = (loc_pred[..., :2] * 2. - 0.5 + grids) * stride  # xy
         loc_pred[..., 2:] = (loc_pred[..., 2:] * 2) ** 2 * anchors
 

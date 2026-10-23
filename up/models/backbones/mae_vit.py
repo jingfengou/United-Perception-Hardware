@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 
 
 import torch
@@ -25,7 +27,7 @@ class PatchEmbed(nn.Module):
         self.num_patches = self.grid_size[0] * self.grid_size[1]
         self.flatten = flatten
 
-        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)
+        self.proj = platform_layers.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)
         self.norm = norm_layer(embed_dim) if norm_layer else nn.Identity()
 
     def forward(self, x):
@@ -45,7 +47,7 @@ class MaskedAutoencoderViT(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3,
                  embed_dim=1024, depth=24, num_heads=16,
                  decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-                 mlp_ratio=4., norm_layer=partial(nn.LayerNorm, eps=1e-6), mask_ratio=0.75):
+                 mlp_ratio=4., norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), mask_ratio=0.75):
         super().__init__()
 
         # --------------------------------------------------------------------------
@@ -59,14 +61,14 @@ class MaskedAutoencoderViT(nn.Module):
 
         self.blocks = nn.ModuleList([
             Block(embed_dim, mlp_ratio * embed_dim, num_heads, qkv_bias=True, norm_layer=norm_layer, dropout=0.,
-                  attention_dropout=0., drop_path=0., activation=nn.GELU)
+                  attention_dropout=0., drop_path=0., activation=platform_layers.GELU)
             for i in range(depth)])
         self.norm = norm_layer(embed_dim)
         # --------------------------------------------------------------------------
 
         # --------------------------------------------------------------------------
         # MAE decoder specifics
-        self.decoder_embed = nn.Linear(embed_dim, decoder_embed_dim, bias=True)
+        self.decoder_embed = platform_layers.Linear(embed_dim, decoder_embed_dim, bias=True)
 
         self.mask_token = nn.Parameter(torch.zeros(1, 1, decoder_embed_dim))
 
@@ -75,11 +77,11 @@ class MaskedAutoencoderViT(nn.Module):
 
         self.decoder_blocks = nn.ModuleList([
             Block(decoder_embed_dim, mlp_ratio * decoder_embed_dim, decoder_num_heads, qkv_bias=True,
-                  norm_layer=norm_layer, dropout=0., attention_dropout=0., drop_path=0., activation=nn.GELU)
+                  norm_layer=norm_layer, dropout=0., attention_dropout=0., drop_path=0., activation=platform_layers.GELU)
             for i in range(decoder_depth)])
 
         self.decoder_norm = norm_layer(decoder_embed_dim)
-        self.decoder_pred = nn.Linear(decoder_embed_dim, patch_size ** 2 * in_chans, bias=True)  # decoder to patch
+        self.decoder_pred = platform_layers.Linear(decoder_embed_dim, patch_size ** 2 * in_chans, bias=True)  # decoder to patch
         # --------------------------------------------------------------------------
 
         self.mask_ratio = mask_ratio
@@ -127,7 +129,7 @@ class MaskedAutoencoderViT(nn.Module):
 
         h = w = imgs.shape[2] // p
         x = imgs.reshape(shape=(imgs.shape[0], 3, h, p, w, p))
-        x = torch.einsum('nchpwq->nhwpqc', x)
+        x = get_platform().category('matrix').einsum('nchpwq->nhwpqc', x)
         x = x.reshape(shape=(imgs.shape[0], h * w, p**2 * 3))
         return x
 
@@ -140,7 +142,7 @@ class MaskedAutoencoderViT(nn.Module):
         h = w = int(x.shape[1]**.5)
         assert h * w == x.shape[1]
         x = x.reshape(shape=(x.shape[0], h, w, p, p, 3))
-        x = torch.einsum('nhwpqc->nchpwq', x)
+        x = get_platform().category('matrix').einsum('nhwpqc->nchpwq', x)
         imgs = x.reshape(shape=(x.shape[0], 3, h * p, h * p))
         return imgs
 
@@ -229,7 +231,7 @@ def mae_vit_base_patch16_dec512d8b(**kwargs):
     model = MaskedAutoencoderViT(
         patch_size=16, embed_dim=768, depth=12, num_heads=12,
         decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-        mlp_ratio=4, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        mlp_ratio=4, norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 
@@ -237,7 +239,7 @@ def mae_vit_large_patch16_dec512d8b(**kwargs):
     model = MaskedAutoencoderViT(
         patch_size=16, embed_dim=1024, depth=24, num_heads=16,
         decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-        mlp_ratio=4, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        mlp_ratio=4, norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 
@@ -245,7 +247,7 @@ def mae_vit_huge_patch14_dec512d8b(**kwargs):
     model = MaskedAutoencoderViT(
         patch_size=14, embed_dim=1280, depth=32, num_heads=16,
         decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16,
-        mlp_ratio=4, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        mlp_ratio=4, norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 
@@ -253,7 +255,7 @@ def mae_vit_base_patch16_dec512d2b(**kwargs):
     model = MaskedAutoencoderViT(
         patch_size=16, embed_dim=768, depth=12, num_heads=12,
         decoder_embed_dim=512, decoder_depth=2, decoder_num_heads=16,
-        mlp_ratio=4, norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+        mlp_ratio=4, norm_layer=partial(platform_layers.LayerNorm, eps=1e-6), **kwargs)
     return model
 
 

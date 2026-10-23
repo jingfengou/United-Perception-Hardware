@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+from up_platform import layers as platform_layers
 
 
 import torch
@@ -16,7 +17,7 @@ __all__ = ['hrnet18', 'hrnet48', '_hrnet', 'hrnet18_small_v2', 'hrnet18_small_v1
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
+    return platform_layers.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=False)
 
 
@@ -27,7 +28,7 @@ class BasicBlock(nn.Module):
         super(BasicBlock, self).__init__()
         self.conv1 = conv3x3(inplanes, planes, stride)
         self.bn1 = build_norm_layer(planes, normalize)[1]
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
         self.conv2 = conv3x3(planes, planes)
         self.bn2 = build_norm_layer(planes, normalize)[1]
         self.downsample = downsample
@@ -57,15 +58,15 @@ class Bottleneck(nn.Module):
 
     def __init__(self, inplanes, planes, stride=1, downsample=None, normalize={'type': 'solo_bn'}):
         super(Bottleneck, self).__init__()
-        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
+        self.conv1 = platform_layers.Conv2d(inplanes, planes, kernel_size=1, bias=False)
         self.bn1 = build_norm_layer(planes, normalize)[1]
-        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride,
+        self.conv2 = platform_layers.Conv2d(planes, planes, kernel_size=3, stride=stride,
                                padding=1, bias=False)
         self.bn2 = build_norm_layer(planes, normalize)[1]
-        self.conv3 = nn.Conv2d(planes, planes * self.expansion, kernel_size=1,
+        self.conv3 = platform_layers.Conv2d(planes, planes * self.expansion, kernel_size=1,
                                bias=False)
         self.bn3 = build_norm_layer(planes * self.expansion, normalize)[1]
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
 
@@ -108,7 +109,7 @@ class HighResolutionModule(nn.Module):
         self.branches = self._make_branches(
             num_branches, blocks, num_blocks, num_channels, normalize=normalize)
         self.fuse_layers = self._make_fuse_layers(normalize=normalize)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
     def _check_branches(self, num_branches, blocks, num_blocks,
                         num_inchannels, num_channels):
@@ -136,7 +137,7 @@ class HighResolutionModule(nn.Module):
         if stride != 1 or \
            self.num_inchannels[branch_index] != num_channels[branch_index] * block.expansion:
             downsample = nn.Sequential(
-                nn.Conv2d(self.num_inchannels[branch_index],
+                platform_layers.Conv2d(self.num_inchannels[branch_index],
                           num_channels[branch_index] * block.expansion,
                           kernel_size=1, stride=stride, bias=False),
                 build_norm_layer(num_channels[branch_index] * block.expansion, normalize)[1],
@@ -174,7 +175,7 @@ class HighResolutionModule(nn.Module):
             for j in range(num_branches):
                 if j > i:
                     fuse_layer.append(nn.Sequential(
-                        nn.Conv2d(num_inchannels[j],
+                        platform_layers.Conv2d(num_inchannels[j],
                                   num_inchannels[i],
                                   1,
                                   1,
@@ -189,18 +190,18 @@ class HighResolutionModule(nn.Module):
                         if k == i - j - 1:
                             num_outchannels_conv3x3 = num_inchannels[i]
                             conv3x3s.append(nn.Sequential(
-                                nn.Conv2d(num_inchannels[j],
+                                platform_layers.Conv2d(num_inchannels[j],
                                           num_outchannels_conv3x3,
                                           3, 2, 1, bias=False),
                                 build_norm_layer(num_outchannels_conv3x3, normalize)[1]))
                         else:
                             num_outchannels_conv3x3 = num_inchannels[j]
                             conv3x3s.append(nn.Sequential(
-                                nn.Conv2d(num_inchannels[j],
+                                platform_layers.Conv2d(num_inchannels[j],
                                           num_outchannels_conv3x3,
                                           3, 2, 1, bias=False),
                                 build_norm_layer(num_outchannels_conv3x3, normalize)[1],
-                                nn.ReLU(inplace=True)))
+                                platform_layers.ReLU(inplace=True)))
                     fuse_layer.append(nn.Sequential(*conv3x3s))
             fuse_layers.append(nn.ModuleList(fuse_layer))
 
@@ -225,7 +226,7 @@ class HighResolutionModule(nn.Module):
                 elif j > i:
                     width_output = x[i].shape[-1]
                     height_output = x[i].shape[-2]
-                    upsample = nn.UpsamplingBilinear2d(size=(height_output, width_output))
+                    upsample = platform_layers.UpsamplingBilinear2d(size=(height_output, width_output))
                     # y = y + F.interpolate(
                     #     self.fuse_layers[i][j](x[j]),
                     #     size=[height_output, width_output],
@@ -250,13 +251,13 @@ class HighResolutionNet(nn.Module):
         extra = stages
         super(HighResolutionNet, self).__init__()
         # stem net
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1,
+        self.conv1 = platform_layers.Conv2d(3, 64, kernel_size=3, stride=2, padding=1,
                                bias=False)
         self.bn1 = build_norm_layer(64, normalize)[1]
-        self.conv2 = nn.Conv2d(64, 64, kernel_size=3, stride=2, padding=1,
+        self.conv2 = platform_layers.Conv2d(64, 64, kernel_size=3, stride=2, padding=1,
                                bias=False)
         self.bn2 = build_norm_layer(64, normalize)[1]
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
         self.stage1_cfg = extra['stage1']
         num_channels = self.stage1_cfg['num_channels'][0]
@@ -308,14 +309,14 @@ class HighResolutionNet(nn.Module):
             if i < num_branches_pre:
                 if num_channels_cur_layer[i] != num_channels_pre_layer[i]:
                     transition_layers.append(nn.Sequential(
-                        nn.Conv2d(num_channels_pre_layer[i],
+                        platform_layers.Conv2d(num_channels_pre_layer[i],
                                   num_channels_cur_layer[i],
                                   3,
                                   1,
                                   1,
                                   bias=False),
                         build_norm_layer(num_channels_cur_layer[i], normalize)[1],
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                 else:
                     transition_layers.append(None)
             else:
@@ -324,8 +325,8 @@ class HighResolutionNet(nn.Module):
                     inchannels = num_channels_pre_layer[-1]
                     outchannels = num_channels_cur_layer[i] \
                         if j == i - num_branches_pre else inchannels
-                    conv3x3s.append(nn.Sequential(nn.Conv2d(inchannels, outchannels, 3, 2, 1, bias=False),
-                                    build_norm_layer(outchannels, normalize)[1], nn.ReLU(inplace=True)))
+                    conv3x3s.append(nn.Sequential(platform_layers.Conv2d(inchannels, outchannels, 3, 2, 1, bias=False),
+                                    build_norm_layer(outchannels, normalize)[1], platform_layers.ReLU(inplace=True)))
                 transition_layers.append(nn.Sequential(*conv3x3s))
 
         return nn.ModuleList(transition_layers)
@@ -333,7 +334,7 @@ class HighResolutionNet(nn.Module):
     def _make_layer(self, block, inplanes, planes, blocks, stride=1, normalize={'type': 'solo_bn'}):
         downsample = None
         if stride != 1 or inplanes != planes * block.expansion:
-            downsample = nn.Sequential(nn.Conv2d(inplanes, planes * block.expansion,
+            downsample = nn.Sequential(platform_layers.Conv2d(inplanes, planes * block.expansion,
                                        kernel_size=1, stride=stride, bias=False),
                                        build_norm_layer(planes * block.expansion, normalize)[1])
 
@@ -418,7 +419,7 @@ class HighResolutionNet(nn.Module):
         # x1 = F.interpolate(x[1], size=(x0_h, x0_w), mode='bilinear')
         # x2 = F.interpolate(x[2], size=(x0_h, x0_w), mode='bilinear')
         # x3 = F.interpolate(x[3], size=(x0_h, x0_w), mode='bilinear')
-        upsample = nn.UpsamplingBilinear2d(size=(x0_h, x0_w))
+        upsample = platform_layers.UpsamplingBilinear2d(size=(x0_h, x0_w))
         x1 = upsample(x[1])
         x2 = upsample(x[2])
         x3 = upsample(x[3])

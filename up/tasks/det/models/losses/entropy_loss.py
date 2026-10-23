@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 import torch.nn.functional as F
@@ -70,14 +71,14 @@ class SoftMaxCrossEntropyLoss(GeneralizedCrossEntropyLoss):
             input = input.reshape(N, C, D)
             target = target.reshape(N, D)
         if weights is not None:
-            loss = F.cross_entropy(input, target, reduction='none', ignore_index=self.ignore_index)
+            loss = get_platform().category('loss').cross_entropy(input, target, reduction='none', ignore_index=self.ignore_index)
             loss = loss * weights
             loss = _reduce(loss, reduction=reduction, normalizer=normalizer)
             return loss
         if normalizer is None:
-            loss = F.cross_entropy(input, target, reduction=reduction, ignore_index=self.ignore_index)
+            loss = get_platform().category('loss').cross_entropy(input, target, reduction=reduction, ignore_index=self.ignore_index)
         else:
-            loss = F.cross_entropy(input, target, reduction='none', ignore_index=self.ignore_index)
+            loss = get_platform().category('loss').cross_entropy(input, target, reduction='none', ignore_index=self.ignore_index)
             loss = _reduce(loss, reduction, normalizer=normalizer)
         return loss
 
@@ -110,7 +111,7 @@ class SigmoidCrossEntropyLoss(GeneralizedCrossEntropyLoss):
         input = input.reshape(-1)
         target = target.reshape(-1)
         sample_mask = (target != self.ignore_index)
-        loss = F.binary_cross_entropy_with_logits(input, target.float(), reduction='none')
+        loss = get_platform().category('loss').binary_cross_entropy_with_logits(input, target.float(), reduction='none')
 
         # Don't multiply sample mask if no sample is ignored
         # this is for performance optimization
@@ -151,7 +152,7 @@ class BinaryCrossEntropyLoss(GeneralizedCrossEntropyLoss):
         input = input
         target = target
         sample_mask = (target != self.ignore_index)
-        loss = F.binary_cross_entropy(input, target, reduction='none')
+        loss = get_platform().category('loss').binary_cross_entropy(input, target, reduction='none')
 
         # Don't multiply sample mask if no sample is ignored
         # this is for performance optimization
@@ -200,9 +201,9 @@ def apply_class_activation(input, activation, remove_background_channel=True):
     """
     """
     if activation == 'sigmoid':
-        results = input.sigmoid()
+        results = get_platform().category('activation').sigmoid(input)
     elif activation == 'softmax':
-        results = F.softmax(input, dim=-1)
+        results = get_platform().category('activation').softmax(input, dim=-1)
     else:
         raise NotImplementedError('{} is not supported'.format(activation))
     return results

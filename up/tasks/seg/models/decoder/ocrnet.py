@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 
 
 import numpy as np
@@ -21,7 +23,7 @@ ALIGN_CORNERS = True
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
+    return platform_layers.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=False)
 
 
@@ -41,8 +43,8 @@ class SpatialGather_Module(nn.Module):
         probs = probs.view(batch_size, c, -1)
         feats = feats.view(batch_size, feats.size(1), -1)
         feats = feats.permute(0, 2, 1)  # batch x hw x c
-        probs = F.softmax(self.scale * probs, dim=2)  # batch x k x hw
-        ocr_context = torch.matmul(probs, feats).permute(0, 2, 1).unsqueeze(3)  # batch x k x c
+        probs = get_platform().category('activation').softmax(self.scale * probs, dim=2)  # batch x k x hw
+        ocr_context = get_platform().category('matrix').matmul(probs, feats).permute(0, 2, 1).unsqueeze(3)  # batch x k x c
         # ocr_context = torch.mm(probs.squeeze(0), feats.squeeze(0)).unsqueeze(0).permute(0, 2, 1).unsqueeze(3)
         return ocr_context
 
@@ -69,38 +71,38 @@ class _ObjectAttentionBlock(nn.Module):
         self.scale = scale
         self.in_channels = in_channels
         self.key_channels = key_channels
-        self.pool = nn.MaxPool2d(kernel_size=(scale, scale))
+        self.pool = platform_layers.MaxPool2d(kernel_size=(scale, scale))
         self.f_pixel = nn.Sequential(
-            nn.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
+            platform_layers.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.key_channels, normalize)[1],
-            nn.ReLU(),
-            nn.Conv2d(in_channels=self.key_channels, out_channels=self.key_channels,
+            platform_layers.ReLU(),
+            platform_layers.Conv2d(in_channels=self.key_channels, out_channels=self.key_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.key_channels, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.f_object = nn.Sequential(
-            nn.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
+            platform_layers.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.key_channels, normalize)[1],
-            nn.ReLU(),
-            nn.Conv2d(in_channels=self.key_channels, out_channels=self.key_channels,
+            platform_layers.ReLU(),
+            platform_layers.Conv2d(in_channels=self.key_channels, out_channels=self.key_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.key_channels, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.f_down = nn.Sequential(
-            nn.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
+            platform_layers.Conv2d(in_channels=self.in_channels, out_channels=self.key_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.key_channels, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.f_up = nn.Sequential(
-            nn.Conv2d(in_channels=self.key_channels, out_channels=self.in_channels,
+            platform_layers.Conv2d(in_channels=self.key_channels, out_channels=self.in_channels,
                       kernel_size=1, stride=1, padding=0, bias=False),
             build_norm_layer(self.in_channels, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
 
     def forward(self, x, proxy):
@@ -114,21 +116,21 @@ class _ObjectAttentionBlock(nn.Module):
         value = self.f_down(proxy).view(batch_size, self.key_channels, -1)
         value = value.permute(0, 2, 1)
 
-        sim_map = torch.matmul(query, key)
+        sim_map = get_platform().category('matrix').matmul(query, key)
         # sim_map = torch.mm(query.squeeze(0), key.squeeze(0)).unsqueeze(0)
 
         sim_map = (self.key_channels**-.5) * sim_map
-        sim_map = F.softmax(sim_map, dim=-1)
+        sim_map = get_platform().category('activation').softmax(sim_map, dim=-1)
 
         # add bg context ...
-        context = torch.matmul(sim_map, value)
+        context = get_platform().category('matrix').matmul(sim_map, value)
         # context = torch.mm(sim_map.squeeze(0), value.squeeze(0)).unsqueeze(0)
 
         context = context.permute(0, 2, 1).contiguous()
         context = context.view(batch_size, self.key_channels, *x.size()[2:])
         context = self.f_up(context)
         if self.scale > 1:
-            upsample = nn.UpsamplingBilinear2d(size=(h, w))
+            upsample = platform_layers.UpsamplingBilinear2d(size=(h, w))
             context = upsample(context)
 
         return context
@@ -167,10 +169,10 @@ class SpatialOCR_Module(nn.Module):
         _in_channels = 2 * in_channels
 
         self.conv_bn_dropout = nn.Sequential(
-            nn.Conv2d(_in_channels, out_channels, kernel_size=1, padding=0, bias=False),
+            platform_layers.Conv2d(_in_channels, out_channels, kernel_size=1, padding=0, bias=False),
             build_norm_layer(out_channels, normalize)[1],
-            nn.ReLU(),
-            nn.Dropout2d(dropout)
+            platform_layers.ReLU(),
+            platform_layers.Dropout2d(dropout)
         )
 
     def forward(self, feats, proxy_feats):
@@ -186,15 +188,15 @@ class OCR(nn.Module):
     def __init__(self, inplanes, num_classes=19, loss=None, normalize={'type': 'solo_bn'}):
         super(OCR, self).__init__()
         self.prefix = self.__class__.__name__
-        last_inp_channels = np.int(np.sum(inplanes))
+        last_inp_channels = int(np.sum(inplanes))
         ocr_mid_channels = 512
         ocr_key_channels = 256
 
         self.conv3x3_ocr = nn.Sequential(
-            nn.Conv2d(last_inp_channels, ocr_mid_channels,
+            platform_layers.Conv2d(last_inp_channels, ocr_mid_channels,
                       kernel_size=3, stride=1, padding=1),
             build_norm_layer(ocr_mid_channels, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.ocr_gather_head = SpatialGather_Module(num_classes)
 
@@ -205,15 +207,15 @@ class OCR(nn.Module):
                                                  dropout=0.05,
                                                  normalize=normalize
                                                  )
-        self.cls_head = nn.Conv2d(
+        self.cls_head = platform_layers.Conv2d(
             ocr_mid_channels, num_classes, kernel_size=1, stride=1, padding=0, bias=True)
 
         self.aux_head = nn.Sequential(
-            nn.Conv2d(last_inp_channels, last_inp_channels,
+            platform_layers.Conv2d(last_inp_channels, last_inp_channels,
                       kernel_size=1, stride=1, padding=0),
             build_norm_layer(last_inp_channels, normalize)[1],
-            nn.ReLU(),
-            nn.Conv2d(last_inp_channels, num_classes,
+            platform_layers.ReLU(),
+            platform_layers.Conv2d(last_inp_channels, num_classes,
                       kernel_size=1, stride=1, padding=0, bias=True)
         )
         self.loss = build_loss(loss)
@@ -233,13 +235,13 @@ class OCR(nn.Module):
 
         if self.training:
             target = input['gt_semantic_seg']
-            upsample = nn.UpsamplingBilinear2d(size=input_size)
+            upsample = platform_layers.UpsamplingBilinear2d(size=input_size)
             aux_out = upsample(out)
             aux_aux_out = upsample(out_aux)
             out_aux_seg = aux_out, aux_aux_out
             return {f"{self.prefix}.loss": self.loss(out_aux_seg, target), "blob_pred": out_aux_seg[0]}
         else:
-            upsample = nn.UpsamplingBilinear2d(size=input_size)
+            upsample = platform_layers.UpsamplingBilinear2d(size=input_size)
             aux_out = upsample(out)
             return {"blob_pred": aux_out}
 
@@ -249,17 +251,17 @@ class Seghead(nn.Module):
     def __init__(self, inplanes , num_classes=19, loss=None, normalize={'type': 'solo_bn'}):
         super(Seghead, self).__init__()
         self.prefix = self.__class__.__name__
-        last_inp_channels = np.int(np.sum(inplanes))
+        last_inp_channels = int(np.sum(inplanes))
         self.last_layer = nn.Sequential(
-            nn.Conv2d(
+            platform_layers.Conv2d(
                 in_channels=last_inp_channels,
                 out_channels=last_inp_channels,
                 kernel_size=1,
                 stride=1,
                 padding=0),
             build_norm_layer(last_inp_channels, normalize)[1],
-            nn.ReLU(inplace=True),
-            nn.Conv2d(
+            platform_layers.ReLU(inplace=True),
+            platform_layers.Conv2d(
                 in_channels=last_inp_channels,
                 out_channels=num_classes,
                 kernel_size=1,
@@ -274,10 +276,10 @@ class Seghead(nn.Module):
         x = self.last_layer(x)
         if self.training:
             target = input['gt_semantic_seg']
-            upsample = nn.UpsamplingBilinear2d(size=input_size)
+            upsample = platform_layers.UpsamplingBilinear2d(size=input_size)
             out = upsample(x)
             return {f"{self.prefix}.loss": self.loss(out, target), "blob_pred": out}
         else:
-            upsample = nn.UpsamplingBilinear2d(size=input_size)
+            upsample = platform_layers.UpsamplingBilinear2d(size=input_size)
             out = upsample(x)
             return {"blob_pred": out}

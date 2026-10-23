@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 import torch
 import torch.nn as nn
@@ -84,13 +85,13 @@ class BigRoiHead(BignasSearchSpace):
                                          use_bn=False, act_func='',
                                          normalize=normalize),
                         norm_layer(feat_planes),
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
                 else:
                     layers.append(nn.Sequential(
                         self.mlvl_heads[-1][conv_idx][0],
                         norm_layer(feat_planes),
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
             self.mlvl_heads.append(nn.Sequential(*layers))
 
@@ -213,13 +214,13 @@ class BignasRoiHead(nn.Module):
                         ConvBlock(inplanes, feat_planes, kernel_size=kernel_size, stride=1,
                                   use_bn=False, act_func=''),
                         NormLayer(feat_planes),
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
                 else:
                     layers.append(nn.Sequential(
                         self.mlvl_heads[-1][conv_idx][0],
                         NormLayer(feat_planes),
-                        nn.ReLU(inplace=True)))
+                        platform_layers.ReLU(inplace=True)))
                     inplanes = feat_planes
             self.mlvl_heads.append(nn.Sequential(*layers))
 

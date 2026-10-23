@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
 
@@ -35,22 +36,22 @@ class ADAP(nn.Module):
             if kernel_size == 3:
                 if with_relu:
                     self.conv.append(nn.Sequential(
-                        nn.Conv2d(self.inplanes[idx], self.outplanes[idx], 3, padding=(1, 1)),
-                        nn.ReLU(),
+                        platform_layers.Conv2d(self.inplanes[idx], self.outplanes[idx], 3, padding=(1, 1)),
+                        platform_layers.ReLU(),
                     ))
                 else:
                     self.conv.append(nn.Sequential(
-                        nn.Conv2d(self.inplanes[idx], self.outplanes[idx], 3, padding=(1, 1)),
+                        platform_layers.Conv2d(self.inplanes[idx], self.outplanes[idx], 3, padding=(1, 1)),
                     ))
             elif kernel_size == 1:
                 if with_relu:
                     self.conv.append(nn.Sequential(
-                        nn.Conv2d(self.inplanes[idx], self.outplanes[idx], 1),
-                        nn.ReLU(),
+                        platform_layers.Conv2d(self.inplanes[idx], self.outplanes[idx], 1),
+                        platform_layers.ReLU(),
                     ))
                 else:
                     self.conv.append(nn.Sequential(
-                        nn.Conv2d(self.inplanes[idx], self.outplanes[idx], 1),
+                        platform_layers.Conv2d(self.inplanes[idx], self.outplanes[idx], 1),
                     ))
             else:
                 raise ValueError("other kernel size not completed")

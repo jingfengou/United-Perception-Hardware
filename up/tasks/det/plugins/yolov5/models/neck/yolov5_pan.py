@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 
 # Import from third library
@@ -75,7 +76,7 @@ class DarknetPAFPN(nn.Module):
                 conv_block = ConvBnAct(plane, plane // 2, 1, 1, normalize=normalize, act_fn=act_fn)
                 self.up_sample_stream.append(conv_block)
                 plane = plane // 2
-            upsample = nn.Upsample(None, 2, 'nearest')
+            upsample = platform_layers.Upsample(None, 2, 'nearest')
             self.up_sample_stream.append(upsample)
             cat = Concat(1)
             self.up_sample_stream.append(cat)

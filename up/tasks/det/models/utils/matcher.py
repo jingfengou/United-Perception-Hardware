@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 
@@ -14,12 +15,12 @@ __all_ = ['MaxIoUMatcher', 'RetinaOTAMatcher']
 
 
 def cuda_memory_available(device, needed_memory):
-    if torch.cuda.is_available():
+    if get_platform().device.available():
         global GPU_MEMORY
         gbytes = 1024.0**3
         if GPU_MEMORY is None:
-            GPU_MEMORY = torch.cuda.get_device_properties(device.index).total_memory
-        alloated_memory = torch.cuda.memory_allocated()
+            GPU_MEMORY = get_platform().device.properties(device.index).total_memory
+        alloated_memory = get_platform().device.memory_allocated()
         spare_memory = 0.5 * gbytes
         available_memory = GPU_MEMORY - alloated_memory - spare_memory
         if needed_memory < available_memory:
@@ -191,7 +192,7 @@ class RetinaOTAMatcher(object):
         else:
             preds_box = masked_preds[:, self.num_classes:]
 
-        with torch.cuda.amp.autocast(enabled=False):
+        with get_platform().execution.autocast(enabled=False):
             decoded_preds_box = offset2bbox(masked_all_anchors, preds_box.float())
 
             pair_wise_ious = bbox_iou_overlaps(
@@ -210,12 +211,12 @@ class RetinaOTAMatcher(object):
                 cls_preds_ = cls_preds_.sqrt_()
             else:
                 cls_preds_ = preds_cls.float().unsqueeze(0).repeat(G, 1, 1).sigmoid_()
-            pair_wise_cls_loss = F.binary_cross_entropy(
+            pair_wise_cls_loss = get_platform().category('loss').binary_cross_entropy(
                 cls_preds_,
                 gt_cls_per_image,
                 reduction="none").sum(-1)
             if not self.use_SimOTA:
-                cls_loss_bg = F.binary_cross_entropy(
+                cls_loss_bg = get_platform().category('loss').binary_cross_entropy(
                     cls_preds_,
                     torch.zeros_like(cls_preds_),
                     reduction="none").sum(-1)
@@ -238,10 +239,10 @@ class RetinaOTAMatcher(object):
         del pair_wise_cls_loss, cost, pair_wise_ious, pair_wise_ious_loss
 
         if mode == "cpu":
-            gt_matched_classes = gt_matched_classes.cuda()
-            fg_mask = fg_mask.cuda()
+            gt_matched_classes = get_platform().device.move(gt_matched_classes)
+            fg_mask = get_platform().device.move(fg_mask)
             # pred_ious_this_matching = pred_ious_this_matching.cuda()
-            matched_gt_inds = matched_gt_inds.cuda()
+            matched_gt_inds = get_platform().device.move(matched_gt_inds)
             # expanded_strides = expanded_strides.cuda()
 
         return num_fg, gt_matched_classes, matched_gt_inds, fg_mask

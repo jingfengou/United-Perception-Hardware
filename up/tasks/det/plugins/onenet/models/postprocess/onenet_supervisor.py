@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 
 import torch
@@ -95,7 +96,7 @@ class OnenetMatcher(object):
     @torch.no_grad()
     def match(self, outputs, targets):
         B, K, _ = outputs[0].shape
-        batch_pred_logits = outputs[0].sigmoid()
+        batch_pred_logits = get_platform().category('activation').sigmoid(outputs[0])
         batch_pred_bboxes = outputs[1]
 
         indices = []

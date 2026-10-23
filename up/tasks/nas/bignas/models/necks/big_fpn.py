@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 # Import from pod
 # Import from third library
 import torch
@@ -129,7 +131,7 @@ class BigFPN(BignasSearchSpace):
                 if self.downsample == 'pool':
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
-                        nn.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
+                        platform_layers.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
                 else:
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
@@ -199,7 +201,7 @@ class BigFPN(BignasSearchSpace):
         for lvl_idx in range(len(self.inplanes))[::-1]:
             if lvl_idx < len(self.inplanes) - 1:
                 if self.tocaffe_friendly:
-                    laterals[lvl_idx] += F.interpolate(laterals[lvl_idx + 1],
+                    laterals[lvl_idx] += get_platform().category('pooling').interpolate(laterals[lvl_idx + 1],
                                                        scale_factor=2,
                                                        mode=self.upsample,
                                                        align_corners=self.align_corners)
@@ -207,7 +209,7 @@ class BigFPN(BignasSearchSpace):
                     # nart_tools may not support to interpolate to the size of other feature
                     # you may need to modify upsample or interp layer in prototxt manually.
                     upsize = laterals[lvl_idx].shape[-2:]
-                    laterals[lvl_idx] += F.interpolate(laterals[lvl_idx + 1],
+                    laterals[lvl_idx] += get_platform().category('pooling').interpolate(laterals[lvl_idx + 1],
                                                        size=upsize,
                                                        mode=self.upsample,
                                                        align_corners=self.align_corners)
@@ -403,7 +405,7 @@ class BignasFPN(nn.Module):
                 if self.downsample == 'pool':
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
-                        nn.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
+                        platform_layers.MaxPool2d(kernel_size=1, stride=2, padding=0))  # strange pooling
                 else:
                     self.add_module(
                         self.get_downsample_name(lvl_idx),
@@ -472,7 +474,7 @@ class BignasFPN(nn.Module):
         for lvl_idx in range(len(self.inplanes))[::-1]:
             if lvl_idx < len(self.inplanes) - 1:
                 if self.tocaffe_friendly:
-                    laterals[lvl_idx] += F.interpolate(laterals[lvl_idx + 1],
+                    laterals[lvl_idx] += get_platform().category('pooling').interpolate(laterals[lvl_idx + 1],
                                                        scale_factor=2,
                                                        mode=self.upsample,
                                                        align_corners=self.align_corners)
@@ -480,7 +482,7 @@ class BignasFPN(nn.Module):
                     # nart_tools may not support to interpolate to the size of other feature
                     # you may need to modify upsample or interp layer in prototxt manually.
                     upsize = laterals[lvl_idx].shape[-2:]
-                    laterals[lvl_idx] += F.interpolate(laterals[lvl_idx + 1],
+                    laterals[lvl_idx] += get_platform().category('pooling').interpolate(laterals[lvl_idx + 1],
                                                        size=upsize,
                                                        mode=self.upsample,
                                                        align_corners=self.align_corners)

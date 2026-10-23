@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 
 from .models.utils import mlvl_extract_roi_features, mlvl_extract_gt_masks, match_gts  # noqa
@@ -246,8 +247,8 @@ class FRS_Mimicker(Mimicker):
             pred_s = []
             pred_t = []
             for ldx in range(len(feature_t)):
-                stu_cls_score_sigmoid = stu_cls_score[ldx].sigmoid()
-                tea_cls_score_sigmoid = tea_cls_score[ldx].sigmoid()
+                stu_cls_score_sigmoid = get_platform().category('activation').sigmoid(stu_cls_score[ldx])
+                tea_cls_score_sigmoid = get_platform().category('activation').sigmoid(tea_cls_score[ldx])
                 mask = torch.max(tea_cls_score_sigmoid, dim=1).values
                 mask = mask.detach()
                 masks.append(mask[:, None, :, :])

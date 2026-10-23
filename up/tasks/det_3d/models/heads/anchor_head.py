@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import json
@@ -48,13 +50,13 @@ class AnchorHeadSingle(BaseAnchorHead):
         self.num_anchors = sum(num_anchors_per_location)
         self.tocaffe = False
 
-        self.cls_subnet_pred = nn.Conv2d(
+        self.cls_subnet_pred = platform_layers.Conv2d(
             inplanes, self.num_anchors * self.num_classes, kernel_size=1)
-        self.box_subnet_pred = nn.Conv2d(
+        self.box_subnet_pred = platform_layers.Conv2d(
             inplanes, self.num_anchors * code_size, kernel_size=1)
 
         if use_direction_classifier:
-            self.dir_subnet_pred = nn.Conv2d(
+            self.dir_subnet_pred = platform_layers.Conv2d(
                 inplanes, self.num_anchors * num_dir_bins, kernel_size=1)
         else:
             self.dir_subnet_pred = None
@@ -81,7 +83,7 @@ class AnchorHeadSingle(BaseAnchorHead):
         cls_preds, box_preds, dir_cls_preds = self.forward_net(features)
 
         if self.tocaffe:
-            cls_preds = torch.sigmoid(cls_preds)
+            cls_preds = get_platform().category('activation').sigmoid(cls_preds)
             output.update({'blobs.rpn_cls': cls_preds, 'blobs.rpn_reg': box_preds,
                            'blobs.rpn_dir': dir_cls_preds})
         else:

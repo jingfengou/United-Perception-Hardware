@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import numpy as np
 import torch
 import torch.nn as nn
@@ -34,50 +35,50 @@ class BaseBEVBackbone(nn.Module):
         self.tocaffe = tocaffe
         for idx in range(num_levels):
             cur_layers = [
-                nn.Conv2d(
+                platform_layers.Conv2d(
                     c_in_list[idx], num_filters[idx], kernel_size=3,
                     stride=layer_strides[idx], padding=1, bias=False
                 ),
                 build_norm_layer(num_filters[idx], normalize)[1],
-                nn.ReLU()
+                platform_layers.ReLU()
             ]
             for k in range(layer_nums[idx]):
                 cur_layers.extend([
-                    nn.Conv2d(num_filters[idx], num_filters[idx], kernel_size=3, padding=1, bias=False),
+                    platform_layers.Conv2d(num_filters[idx], num_filters[idx], kernel_size=3, padding=1, bias=False),
                     build_norm_layer(num_filters[idx], normalize)[1],
-                    nn.ReLU()
+                    platform_layers.ReLU()
                 ])
             self.blocks.append(nn.Sequential(*cur_layers))
             if len(upsample_strides) > 0:
                 stride = upsample_strides[idx]
                 if stride >= 1:
                     self.deblocks.append(nn.Sequential(
-                        nn.ConvTranspose2d(
+                        platform_layers.ConvTranspose2d(
                             num_filters[idx], num_upsample_filters[idx],
                             upsample_strides[idx],
                             stride=upsample_strides[idx], bias=False
                         ),
                         build_norm_layer(num_upsample_filters[idx], normalize)[1],
-                        nn.ReLU()
+                        platform_layers.ReLU()
                     ))
                 else:
-                    stride = np.round(1 / stride).astype(np.int)
+                    stride = np.round(1 / stride).astype(int)
                     self.deblocks.append(nn.Sequential(
-                        nn.Conv2d(
+                        platform_layers.Conv2d(
                             num_filters[idx], num_upsample_filters[idx],
                             stride,
                             stride=stride, bias=False
                         ),
                         build_norm_layer(num_upsample_filters[idx], normalize)[1],
-                        nn.ReLU()
+                        platform_layers.ReLU()
                     ))
 
         c_in = sum(num_upsample_filters)
         if len(upsample_strides) > num_levels:
             self.deblocks.append(nn.Sequential(
-                nn.ConvTranspose2d(c_in, c_in, upsample_strides[-1], stride=upsample_strides[-1], bias=False),
+                platform_layers.ConvTranspose2d(c_in, c_in, upsample_strides[-1], stride=upsample_strides[-1], bias=False),
                 build_norm_layer(c_in, normalize)[1],
-                nn.ReLU(),
+                platform_layers.ReLU(),
             ))
         self.out_planes = c_in
 

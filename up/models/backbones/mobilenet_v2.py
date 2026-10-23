@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 import math
 
@@ -33,17 +34,17 @@ def _make_divisible(v, divisor, min_value=None):
 
 def conv_bn(inp, oup, stride, normalize):
     return nn.Sequential(
-        nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
+        platform_layers.Conv2d(inp, oup, 3, stride, 1, bias=False),
         build_norm_layer(oup, normalize)[1],
-        nn.ReLU6(inplace=True)
+        platform_layers.ReLU6(inplace=True)
     )
 
 
 def conv_1x1_bn(inp, oup, dilation=1, normalize={'type': 'solo_bn'}):
     return nn.Sequential(
-        nn.Conv2d(inp, oup, 1, 1, 0, dilation=dilation, bias=False),
+        platform_layers.Conv2d(inp, oup, 1, 1, 0, dilation=dilation, bias=False),
         build_norm_layer(oup, normalize)[1],
-        nn.ReLU6(inplace=True)
+        platform_layers.ReLU6(inplace=True)
     )
 
 
@@ -56,11 +57,11 @@ class InvertedResidual(nn.Module):
 
         self.conv = nn.Sequential(
             # pw
-            nn.Conv2d(inp, inp * expand_ratio, 1, 1, 0, bias=False),
+            platform_layers.Conv2d(inp, inp * expand_ratio, 1, 1, 0, bias=False),
             build_norm_layer(inp * expand_ratio, normalize)[1],
-            nn.ReLU6(inplace=True),
+            platform_layers.ReLU6(inplace=True),
             # dw
-            nn.Conv2d(inp * expand_ratio,
+            platform_layers.Conv2d(inp * expand_ratio,
                       inp * expand_ratio,
                       3,
                       stride,
@@ -69,9 +70,9 @@ class InvertedResidual(nn.Module):
                       bias=False,
                       dilation=dilation),
             build_norm_layer(inp * expand_ratio, normalize)[1],
-            nn.ReLU6(inplace=True),
+            platform_layers.ReLU6(inplace=True),
             # pw-linear
-            nn.Conv2d(inp * expand_ratio, oup, 1, 1, 0, bias=False),
+            platform_layers.Conv2d(inp * expand_ratio, oup, 1, 1, 0, bias=False),
             build_norm_layer(oup, normalize)[1],
         )
 

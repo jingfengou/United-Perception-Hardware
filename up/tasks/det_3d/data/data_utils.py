@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import numpy as np
 import torch
 try:
@@ -56,7 +57,7 @@ def rotate_points_along_z(points, angle):
         -sina, cosa, zeros,
         zeros, zeros, ones
     ), dim=1).view(-1, 3, 3).float()
-    points_rot = torch.matmul(points[:, :, 0:3], rot_matrix)
+    points_rot = get_platform().category('matrix').matmul(points[:, :, 0:3], rot_matrix)
     points_rot = torch.cat((points_rot, points[:, :, 3:]), dim=-1)
     return points_rot.numpy() if is_numpy else points_rot
 

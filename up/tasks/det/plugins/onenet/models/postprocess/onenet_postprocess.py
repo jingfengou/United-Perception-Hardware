@@ -1,9 +1,9 @@
+from up_platform import get_platform
 import copy
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.distributed as dist
 
 from up.utils.env.dist_helper import allreduce, env
 from up.utils.general.registry_factory import MODULE_PROCESS_REGISTRY
@@ -142,7 +142,7 @@ class OnenetPostProcess(nn.Module):
         cls_targets, reg_targets, cls_preds, pos_loc_preds = targets[:4]
         img_whwh, num_boxes, pos_cls_targets, pos_cls_preds, pos_idx = targets[4:]
 
-        if self.all_reduce_norm and dist.is_initialized():
+        if self.all_reduce_norm and get_platform().category('communication').is_initialized():
             num_fgs = self.get_ave_normalizer(num_boxes)
         else:
             num_fgs = num_boxes.item()
@@ -164,12 +164,12 @@ class OnenetPostProcess(nn.Module):
 
         if self.l1_weight > 0:
             if num_fgs > 0:
-                l1_loss = F.l1_loss(pos_loc_preds, reg_targets, reduction='none') / img_whwh
+                l1_loss = get_platform().category('loss').l1_loss(pos_loc_preds, reg_targets, reduction='none') / img_whwh
                 l1_loss = l1_loss.sum() / num_fgs * self.l1_weight
             else:
                 l1_loss = pos_loc_preds.sum()
         else:
-            l1_loss = torch.tensor(0.0).cuda()
+            l1_loss = get_platform().device.move(torch.tensor(0.0))
 
         acc = self.get_acc(pos_cls_preds, pos_cls_targets)
 

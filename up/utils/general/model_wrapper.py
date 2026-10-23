@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 
@@ -43,7 +44,7 @@ class ClsWrapper(torch.nn.Module):
         self.detector = detector
         self.add_softmax = add_softmax
         if self.add_softmax:
-            self.softmax = nn.Softmax(dim=1)
+            self.softmax = platform_layers.Softmax(dim=1)
 
     def forward(self, image, return_metas=False):
         b, c, height, width = map(int, image.size())

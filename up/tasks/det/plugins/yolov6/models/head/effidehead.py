@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import math
@@ -121,19 +122,19 @@ def build_effidehead_layer(channels_list, num_anchors, num_classes, normalize, a
             act_fn=act_fn
         ),
         # cls_pred0
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[0],
             out_channels=num_classes * num_anchors,
             kernel_size=1
         ),
         # reg_pred0
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[0],
             out_channels=4 * num_anchors,
             kernel_size=1
         ),
         # obj_pred0
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[0],
             out_channels=1 * num_anchors,
             kernel_size=1
@@ -166,19 +167,19 @@ def build_effidehead_layer(channels_list, num_anchors, num_classes, normalize, a
             act_fn=act_fn
         ),
         # cls_pred1
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[1],
             out_channels=num_classes * num_anchors,
             kernel_size=1
         ),
         # reg_pred1
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[1],
             out_channels=4 * num_anchors,
             kernel_size=1
         ),
         # obj_pred1
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[1],
             out_channels=1 * num_anchors,
             kernel_size=1
@@ -209,19 +210,19 @@ def build_effidehead_layer(channels_list, num_anchors, num_classes, normalize, a
             act_fn=act_fn
         ),
         # cls_pred2
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[2],
             out_channels=num_classes * num_anchors,
             kernel_size=1
         ),
         # reg_pred2
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[2],
             out_channels=4 * num_anchors,
             kernel_size=1
         ),
         # obj_pred2
-        nn.Conv2d(
+        platform_layers.Conv2d(
             in_channels=channels_list[2],
             out_channels=1 * num_anchors,
             kernel_size=1

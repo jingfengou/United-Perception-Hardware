@@ -1,3 +1,4 @@
+from up_platform import get_platform
 from up.utils.general.registry_factory import SAVER_REGISTRY, MODEL_HELPER_REGISTRY
 from up.utils.general.saver_helper import Saver
 from up.utils.general.model_load_utils import load
@@ -75,7 +76,7 @@ class NasSaver(Saver):
         super_model = model_helper_ins(self.save_cfg['supernet'])
         logger.info('load supernet state')
         super_model.load(super_state, strict=strict)
-        subnet = self.get_subnet_weight(super_model.cuda(), self.save_cfg)
+        subnet = self.get_subnet_weight(get_platform().device.move(super_model), self.save_cfg)
         subnet_model = model_helper_ins(self.save_cfg['subnet'])
         for mname, module in subnet_model.named_children():
             if mname not in subnet:

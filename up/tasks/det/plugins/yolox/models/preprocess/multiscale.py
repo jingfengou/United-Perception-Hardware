@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch.nn as nn
 import torch
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
@@ -30,7 +31,7 @@ class Multiscale(nn.Module):
 
     def get_target_size(self, input):
         _, _, h, w = input['image'].size()
-        tensor = torch.LongTensor(2).cuda()
+        tensor = get_platform().device.move(torch.LongTensor(2))
         if env.is_master():
             size = random.randint(*self.random_size)
             scale = float(size * self.scale_step) / max(h, w)
@@ -47,7 +48,7 @@ class Multiscale(nn.Module):
         scale_w = self.cur_size[1] / float(w)
         if scale_h == 1 and scale_w == 1:
             return
-        input['image'] = nn.functional.interpolate(input['image'],
+        input['image'] = get_platform().category('pooling').interpolate(input['image'],
                                                    self.cur_size,
                                                    mode=self.mode,
                                                    align_corners=self.align_corners)

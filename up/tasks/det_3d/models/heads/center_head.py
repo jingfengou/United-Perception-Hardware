@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch.nn as nn
 from up.utils.general.registry_factory import MODULE_ZOO_REGISTRY
 from up.utils.model.normalize import build_norm_layer
@@ -28,11 +29,11 @@ class SeparateHead(nn.Module):
             fc_list = []
             for k in range(num_conv - 1):
                 fc_list.append(nn.Sequential(
-                    nn.Conv2d(self.inplanes, self.inplanes, kernel_size=3, stride=1, padding=1, bias=use_bias),
+                    platform_layers.Conv2d(self.inplanes, self.inplanes, kernel_size=3, stride=1, padding=1, bias=use_bias),
                     build_norm_layer(self.inplanes, normalize)[1],
-                    nn.ReLU()
+                    platform_layers.ReLU()
                 ))
-            fc_list.append(nn.Conv2d(self.inplanes, output_channels, kernel_size=3, stride=1, padding=1, bias=True))
+            fc_list.append(platform_layers.Conv2d(self.inplanes, output_channels, kernel_size=3, stride=1, padding=1, bias=True))
             fc = nn.Sequential(*fc_list)
 
             if 'hm' in cur_name:
@@ -55,12 +56,12 @@ class CenterHead(nn.Module):
                  sep_head_dict, use_bias_before_norm=True, normalize={'type': 'solo_bn'}):
         super().__init__()
         self.shared_conv = nn.Sequential(
-            nn.Conv2d(
+            platform_layers.Conv2d(
                 inplanes, shared_conv_channel, 3, stride=1, padding=1,
                 bias=use_bias_before_norm,
             ),
             build_norm_layer(shared_conv_channel, normalize)[1],
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.heads_list = nn.ModuleList()
         hm_head = {'out_channels': len(class_names), 'num_conv': num_hm_conv}

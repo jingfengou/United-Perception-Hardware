@@ -1,3 +1,4 @@
+from up_platform import get_platform
 #!/usr/bin/env python3
 # Code are based on
 # https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/launch.py
@@ -7,7 +8,6 @@ from datetime import timedelta
 from ..general.log_helper import default_logger as logger
 
 import torch
-import torch.distributed as dist
 import torch.multiprocessing as mp
 from up.utils.env import dist_helper as dist_helper
 
@@ -79,13 +79,15 @@ def _distributed_worker(
     args,
     timeout=DEFAULT_TIMEOUT,
 ):
+    from up_platform import configure_platform
+    configure_platform(args.platform_config, purpose=args.platform_purpose)
     assert (
-        torch.cuda.is_available()
-    ), "cuda is not available. Please check your installation."
+        get_platform().device.available()
+    ), "The selected platform device is unavailable. Check the vendor runtime installation."
     global_rank = machine_rank * num_gpus_per_machine + local_rank
     logger.info("Rank {} initialization finished.".format(global_rank))
     try:
-        dist.init_process_group(
+        get_platform().category('communication').init_process_group(
             backend=backend,
             init_method=dist_url,
             world_size=world_size,
@@ -103,7 +105,7 @@ def _distributed_worker(
         ranks_on_i = list(
             range(i * num_gpus_per_machine, (i + 1) * num_gpus_per_machine)
         )
-        pg = dist.new_group(ranks_on_i)
+        pg = get_platform().category('communication').new_group(ranks_on_i)
         if i == machine_rank:
             dist_helper._LOCAL_PROCESS_GROUP = pg
 
@@ -112,6 +114,6 @@ def _distributed_worker(
 
     dist_helper.barrier()
 
-    assert num_gpus_per_machine <= torch.cuda.device_count()
-    torch.cuda.set_device(local_rank)
+    assert num_gpus_per_machine <= get_platform().device.device_count()
+    get_platform().device.set_device(local_rank)
     main_func(args)

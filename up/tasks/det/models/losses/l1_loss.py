@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 import numpy as np
@@ -50,7 +51,7 @@ class L1Loss(BaseLoss):
         self.code_weights = code_weights
         if self.code_weights is not None:
             self.code_weights = np.array(self.code_weights, dtype=np.float32)
-            self.code_weights = torch.from_numpy(self.code_weights).cuda()
+            self.code_weights = get_platform().device.move(torch.from_numpy(self.code_weights))
 
     def forward(self, input, target, reduction, normalizer=None):
         """

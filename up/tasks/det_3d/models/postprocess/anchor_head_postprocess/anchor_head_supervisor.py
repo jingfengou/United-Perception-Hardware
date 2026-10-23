@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import numpy as np
 import torch
 import json
@@ -136,11 +137,11 @@ class AxisAlignedSupervisor(object):
             anchor_by_gt_overlap = iou3d_nms_utils.boxes_iou3d_gpu(anchors[:, 0:7], gt_boxes[:, 0:7]) \
                 if self.match_height else box_utils.boxes3d_nearest_bev_iou(anchors[:, 0:7], gt_boxes[:, 0:7])
 
-            anchor_to_gt_argmax = torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=1)).cuda()
+            anchor_to_gt_argmax = get_platform().device.move(torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=1)))
             anchor_to_gt_max = anchor_by_gt_overlap[
                 torch.arange(num_anchors, device=anchors.device), anchor_to_gt_argmax
             ]
-            gt_to_anchor_argmax = torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=0)).cuda()
+            gt_to_anchor_argmax = get_platform().device.move(torch.from_numpy(anchor_by_gt_overlap.cpu().numpy().argmax(axis=0)))
             gt_to_anchor_max = anchor_by_gt_overlap[gt_to_anchor_argmax, torch.arange(num_gt, device=anchors.device)]
             empty_gt_mask = gt_to_anchor_max == 0
             gt_to_anchor_max[empty_gt_mask] = -1

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 from up.utils.general.registry_factory import LOSSES_REGISTRY
 from up.tasks.det.models.losses.focal_loss import dynamic_normalizer
@@ -30,7 +31,7 @@ class CenterNetFocalLoss(BaseLoss):
         if self.dynamic_normalizer:
             normalizer = dynamic_normalizer(input, target, self.alpha, self.gamma)
         if self.activation_type == 'sigmoid':
-            input = torch.clamp(input.sigmoid(), min=1e-4, max=1 - 1e-4)
+            input = torch.clamp(get_platform().category('activation').sigmoid(input), min=1e-4, max=1 - 1e-4)
         losses = self.center_focal_loss(input, target)
         losses = _reduce(losses, reduction, normalizer=normalizer)
         return losses

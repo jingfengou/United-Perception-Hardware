@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import copy
 import torch
 import torch.nn as nn
@@ -100,9 +101,9 @@ class Bbox_PostProcess(nn.Module):
             loc_pred = loc_pred.float()
 
             if self.cls_loss.activation_type == 'sigmoid':
-                cls_pred = torch.sigmoid(cls_pred)
+                cls_pred = get_platform().category('activation').sigmoid(cls_pred)
             elif self.cls_loss.activation_type == 'softmax':
-                cls_pred = F.softmax(cls_pred, dim=1)
+                cls_pred = get_platform().category('activation').softmax(cls_pred, dim=1)
             else:
                 cls_pred = self.cls_loss.get_activation(cls_pred)
 

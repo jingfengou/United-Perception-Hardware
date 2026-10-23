@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 from torch.nn.modules.loss import _Loss
 import torch.nn.functional as F
@@ -27,7 +29,7 @@ class LabelSmoothCELoss(_Loss):
             one_hot = label.clone()
             one_hot -= one_hot * (self.smooth_ratio - self.v)
             one_hot[one_hot == 0.] += self.v
-        loss = - torch.sum(F.log_softmax(input, 1) * (one_hot.detach())) / input.size(0)
+        loss = - torch.sum(get_platform().category('activation').log_softmax(input, 1) * (one_hot.detach())) / input.size(0)
 
         return loss * self.loss_weight
 
@@ -36,14 +38,14 @@ class LabelSmoothCELoss(_Loss):
 class BCE_LOSS(_Loss):
     def __init__(self, loss_weight=1.0, bias=False):
         super().__init__()
-        self.bce_loss = torch.nn.BCEWithLogitsLoss()
+        self.bce_loss = platform_layers.BCEWithLogitsLoss()
         self.loss_weight = loss_weight
         self.bias = bias
 
     def forward(self, input, label):
         C = input.size(1) if self.bias else 1
         if label.dim() == 1:
-            one_hot = torch.zeros_like(input).cuda()
+            one_hot = get_platform().device.move(torch.zeros_like(input))
             label = label.reshape(one_hot.shape[0], 1)
             one_hot.scatter_(1, label, 1)
             loss = self.bce_loss(input, one_hot)
@@ -57,7 +59,7 @@ class BCE_LOSS(_Loss):
 class CrossEntropyLoss(_Loss):
     def __init__(self, loss_weight=1.0):
         super().__init__()
-        self.ce_loss = torch.nn.CrossEntropyLoss()
+        self.ce_loss = platform_layers.CrossEntropyLoss()
         self.loss_weight = loss_weight
 
     def forward(self, input, label):
@@ -99,7 +101,7 @@ class SoftmaxEQLLoss(_Loss):
         factor = matrix[label.long(), :].pow(self.tau)
 
         cls_score = input + (factor.log() * (1 - one_hot.detach()))
-        loss = F.cross_entropy(cls_score, label)
+        loss = get_platform().category('loss').cross_entropy(cls_score, label)
         return loss * self.loss_weight
 
     def collect_grad(self, grad):
@@ -151,7 +153,7 @@ class SoftmaxEQLV2Loss(_Loss):
         indicator = indicator / (indicator.sum() + self.eps)
         indicator = (indicator ** self.tau + 1e-9).log()
         cls_score = input + indicator[None, :]
-        loss = F.cross_entropy(cls_score, label)
+        loss = get_platform().category('loss').cross_entropy(cls_score, label)
         return loss * self.loss_weight
 
     def collect_grad(self, grad):
@@ -175,5 +177,5 @@ class SoftTargetCrossEntropy(_Loss):
         self.loss_weight = loss_weight
 
     def forward(self, input, label) -> torch.Tensor:
-        loss = torch.sum(-label * F.log_softmax(input, dim=-1), dim=-1)
+        loss = torch.sum(-label * get_platform().category('activation').log_softmax(input, dim=-1), dim=-1)
         return loss.mean() * self.loss_weight

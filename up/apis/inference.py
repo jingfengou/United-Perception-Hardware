@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import os
 import cv2
 import numpy as np
@@ -23,6 +24,8 @@ class BaseInference(object):
         self.args = config.get('args', {})
         opts = self.args.get('opts', [])
         config = merge_opts_into_cfg(opts, config)
+        from up.utils.env.platform import configure_from_up
+        configure_from_up(config, purpose='inference')
         self.config = config
         self.class_names = visualizer.get('class_names', None)
         self.work_dir = work_dir
@@ -84,7 +87,7 @@ class BaseInference(object):
         model_helper_cfg = self.config['runtime'].get('model_helper', {})
         model_helper_cfg['type'] = model_helper_cfg.get('type', 'base')
         model_helper_cfg['kwargs'] = model_helper_cfg.get('kwargs', {'cfg': self.config['net']})
-        self.detector = MODEL_HELPER_REGISTRY.build(model_helper_cfg).cuda().eval()
+        self.detector = get_platform().device.move(MODEL_HELPER_REGISTRY.build(model_helper_cfg)).eval()
 
     def build_data(self):
         data_cfg = self.config['dataset']
@@ -186,7 +189,7 @@ class BaseInference(object):
         pad_w, pad_h = data.get('dw', 0), data.get('dh', 0)
         data.image_info = [new_image_h, new_image_w, scale_factor,
                            image_h, image_w, data.flipped, pad_w, pad_h, filename]
-        data.image = data.image.cuda()
+        data.image = get_platform().device.move(data.image)
         return data
 
     def fetch(self, filename_list):

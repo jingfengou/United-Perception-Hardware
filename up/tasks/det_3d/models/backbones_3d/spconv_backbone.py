@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 from functools import partial
 import torch.nn as nn
 import numpy as np
@@ -6,17 +8,6 @@ from up.tasks.det_3d.models.backbones_3d.vfe.mean_vfe import build_vfe
 from up.tasks.det_3d.models.backbones_3d.map_to_bev import build_map_to_bev
 from up.utils.general.log_helper import default_logger as logger
 from typing import Set
-try:
-    try:
-        import spconv.pytorch as spconv
-        from spconv.pytorch import SparseModule
-    except BaseException:
-        import spconv as spconv
-        from spconv import SparseModule
-except Exception as err:  # ugly code, fake spconv module to avoid error
-    logger.warning(f"import error {err}; If you need spconv, you should install spconv !!!. Or just ignore this error")
-    spconv = None
-    SparseModule = nn.Module
 
 __all__ = ["VoxelResBackBone8x", "VoxelBackBone8x"]
 
@@ -24,37 +15,40 @@ __all__ = ["VoxelResBackBone8x", "VoxelBackBone8x"]
 def post_act_block(in_channels, out_channels, kernel_size, indice_key=None, stride=1, padding=0,
                    conv_type='subm', norm_fn=None):
     if conv_type == 'subm':
-        conv = spconv.SubMConv3d(in_channels, out_channels, kernel_size, bias=False, indice_key=indice_key)
+        conv = get_platform().category('sparse').SubMConv3d(in_channels, out_channels, kernel_size, bias=False, indice_key=indice_key)
     elif conv_type == 'spconv':
-        conv = spconv.SparseConv3d(in_channels, out_channels, kernel_size, stride=stride, padding=padding,
+        conv = get_platform().category('sparse').SparseConv3d(in_channels, out_channels, kernel_size, stride=stride, padding=padding,
                                    bias=False, indice_key=indice_key)
     elif conv_type == 'inverseconv':
-        conv = spconv.SparseInverseConv3d(in_channels, out_channels, kernel_size, indice_key=indice_key, bias=False)
+        conv = get_platform().category('sparse').SparseInverseConv3d(in_channels, out_channels, kernel_size, indice_key=indice_key, bias=False)
     else:
         raise NotImplementedError
 
-    m = spconv.SparseSequential(
+    m = get_platform().category('sparse').SparseSequential(
         conv,
         norm_fn(out_channels),
-        nn.ReLU(),
+        platform_layers.ReLU(),
     )
 
     return m
 
 
-class SparseBasicBlock(SparseModule):
+class SparseBasicBlock(nn.Module):
     expansion = 1
+
+    def __new__(cls, *args, **kwargs):
+        return get_platform().category('sparse').module_instance(cls)
 
     def __init__(self, inplanes, planes, stride=1, norm_fn=None, downsample=None, indice_key=None):
         super(SparseBasicBlock, self).__init__()
         assert norm_fn is not None
         bias = norm_fn is not None
-        self.conv1 = spconv.SubMConv3d(
+        self.conv1 = get_platform().category('sparse').SubMConv3d(
             inplanes, planes, kernel_size=3, stride=stride, padding=1, bias=bias, indice_key=indice_key
         )
         self.bn1 = norm_fn(planes)
-        self.relu = nn.ReLU()
-        self.conv2 = spconv.SubMConv3d(
+        self.relu = platform_layers.ReLU()
+        self.conv2 = get_platform().category('sparse').SubMConv3d(
             planes, planes, kernel_size=3, stride=stride, padding=1, bias=bias, indice_key=indice_key
         )
         self.bn2 = norm_fn(planes)
@@ -87,49 +81,49 @@ class VoxelBackBone8x(nn.Module):
                      - np.array(point_cloud_range[0:3])) / np.array(voxel_size)
         grid_size = np.round(grid_size).astype(np.int64)
 
-        norm_fn = partial(nn.BatchNorm1d, eps=1e-3, momentum=0.01)
+        norm_fn = partial(platform_layers.BatchNorm1d, eps=1e-3, momentum=0.01)
         self.last_pad = last_pad
         self.sparse_shape = grid_size[::-1] + [1, 0, 0]
 
         # Submanifold Sparse Convolution
-        self.conv_input = spconv.SparseSequential(
-            spconv.SubMConv3d(input_channels, 16, 3, padding=1, bias=False, indice_key='subm1'),
+        self.conv_input = get_platform().category('sparse').SparseSequential(
+            get_platform().category('sparse').SubMConv3d(input_channels, 16, 3, padding=1, bias=False, indice_key='subm1'),
             norm_fn(16),
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         block = post_act_block
 
-        self.conv1 = spconv.SparseSequential(
+        self.conv1 = get_platform().category('sparse').SparseSequential(
             block(16, 16, 3, norm_fn=norm_fn, padding=1, indice_key='subm1'),
         )
 
-        self.conv2 = spconv.SparseSequential(
+        self.conv2 = get_platform().category('sparse').SparseSequential(
             # [1600, 1408, 41] <- [800, 704, 21]
             block(16, 32, 3, norm_fn=norm_fn, stride=2, padding=1, indice_key='spconv2', conv_type='spconv'),
             block(32, 32, 3, norm_fn=norm_fn, padding=1, indice_key='subm2'),
             block(32, 32, 3, norm_fn=norm_fn, padding=1, indice_key='subm2'),
         )
 
-        self.conv3 = spconv.SparseSequential(
+        self.conv3 = get_platform().category('sparse').SparseSequential(
             # [800, 704, 21] <- [400, 352, 11]
             block(32, 64, 3, norm_fn=norm_fn, stride=2, padding=1, indice_key='spconv3', conv_type='spconv'),
             block(64, 64, 3, norm_fn=norm_fn, padding=1, indice_key='subm3'),
             block(64, 64, 3, norm_fn=norm_fn, padding=1, indice_key='subm3'),
         )
 
-        self.conv4 = spconv.SparseSequential(
+        self.conv4 = get_platform().category('sparse').SparseSequential(
             # [400, 352, 11] <- [200, 176, 5]
             block(64, 64, 3, norm_fn=norm_fn, stride=2, padding=(0, 1, 1), indice_key='spconv4', conv_type='spconv'),
             block(64, 64, 3, norm_fn=norm_fn, padding=1, indice_key='subm4'),
             block(64, 64, 3, norm_fn=norm_fn, padding=1, indice_key='subm4'),
         )
 
-        self.conv_out = spconv.SparseSequential(
+        self.conv_out = get_platform().category('sparse').SparseSequential(
             # [200, 150, 5] -> [200, 150, 2]
-            spconv.SparseConv3d(64, self.num_point_features, (3, 1, 1), stride=(2, 1, 1), padding=self.last_pad,
+            get_platform().category('sparse').SparseConv3d(64, self.num_point_features, (3, 1, 1), stride=(2, 1, 1), padding=self.last_pad,
                                 bias=False, indice_key='spconv_down2'),
             norm_fn(128),
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.backbone_channels = {
             'x_conv1': 16,
@@ -153,7 +147,7 @@ class VoxelBackBone8x(nn.Module):
             batch_dict:
                 encoded_spconv_tensor: sparse tensor
         """
-        input_sp_tensor = spconv.SparseConvTensor(
+        input_sp_tensor = get_platform().category('sparse').SparseConvTensor(
             features=voxel_features,
             indices=voxel_coords.int(),
             spatial_shape=self.sparse_shape,
@@ -220,50 +214,50 @@ class VoxelResBackBone8x(nn.Module):
                      - np.array(point_cloud_range[0:3])) / np.array(voxel_size)
         grid_size = np.round(grid_size).astype(np.int64)
 
-        norm_fn = partial(nn.BatchNorm1d, eps=1e-3, momentum=0.01)
+        norm_fn = partial(platform_layers.BatchNorm1d, eps=1e-3, momentum=0.01)
         self.last_pad = last_pad
         self.sparse_shape = grid_size[::-1] + [1, 0, 0]
 
         # Submanifold Sparse Convolution
-        self.conv_input = spconv.SparseSequential(
-            spconv.SubMConv3d(input_channels, 16, 3, padding=1, bias=False, indice_key='subm1'),
+        self.conv_input = get_platform().category('sparse').SparseSequential(
+            get_platform().category('sparse').SubMConv3d(input_channels, 16, 3, padding=1, bias=False, indice_key='subm1'),
             norm_fn(16),
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         block = post_act_block
 
-        self.conv1 = spconv.SparseSequential(
+        self.conv1 = get_platform().category('sparse').SparseSequential(
             SparseBasicBlock(16, 16, norm_fn=norm_fn, indice_key='res1'),
             SparseBasicBlock(16, 16, norm_fn=norm_fn, indice_key='res1'),
         )
 
-        self.conv2 = spconv.SparseSequential(
+        self.conv2 = get_platform().category('sparse').SparseSequential(
             # [1600, 1408, 41] <- [800, 704, 21]
             block(16, 32, 3, norm_fn=norm_fn, stride=2, padding=1, indice_key='spconv2', conv_type='spconv'),
             SparseBasicBlock(32, 32, norm_fn=norm_fn, indice_key='res2'),
             SparseBasicBlock(32, 32, norm_fn=norm_fn, indice_key='res2'),
         )
 
-        self.conv3 = spconv.SparseSequential(
+        self.conv3 = get_platform().category('sparse').SparseSequential(
             # [800, 704, 21] <- [400, 352, 11]
             block(32, 64, 3, norm_fn=norm_fn, stride=2, padding=1, indice_key='spconv3', conv_type='spconv'),
             SparseBasicBlock(64, 64, norm_fn=norm_fn, indice_key='res3'),
             SparseBasicBlock(64, 64, norm_fn=norm_fn, indice_key='res3'),
         )
 
-        self.conv4 = spconv.SparseSequential(
+        self.conv4 = get_platform().category('sparse').SparseSequential(
             # [400, 352, 11] <- [200, 176, 5]
             block(64, 128, 3, norm_fn=norm_fn, stride=2, padding=(0, 1, 1), indice_key='spconv4', conv_type='spconv'),
             SparseBasicBlock(128, 128, norm_fn=norm_fn, indice_key='res4'),
             SparseBasicBlock(128, 128, norm_fn=norm_fn, indice_key='res4'),
         )
 
-        self.conv_out = spconv.SparseSequential(
+        self.conv_out = get_platform().category('sparse').SparseSequential(
             # [200, 150, 5] -> [200, 150, 2]
-            spconv.SparseConv3d(128, self.num_point_features, (3, 1, 1), stride=(2, 1, 1), padding=self.last_pad,
+            get_platform().category('sparse').SparseConv3d(128, self.num_point_features, (3, 1, 1), stride=(2, 1, 1), padding=self.last_pad,
                                 bias=False, indice_key='spconv_down2'),
             norm_fn(128),
-            nn.ReLU(),
+            platform_layers.ReLU(),
         )
         self.backbone_channels = {
             'x_conv1': 16,
@@ -287,7 +281,7 @@ class VoxelResBackBone8x(nn.Module):
             batch_dict:
                 encoded_spconv_tensor: sparse tensor
         """
-        input_sp_tensor = spconv.SparseConvTensor(
+        input_sp_tensor = get_platform().category('sparse').SparseConvTensor(
             features=voxel_features,
             indices=voxel_coords.int(),
             spatial_shape=self.sparse_shape,
@@ -343,7 +337,7 @@ def find_all_spconv_keys(model: nn.Module, prefix="") -> Set[str]:
     for name, child in model.named_children():
         new_prefix = f"{prefix}.{name}" if prefix != "" else name
 
-        if isinstance(child, spconv.conv.SparseConvolution):
+        if get_platform().category('sparse').is_sparse_convolution(child):
             new_prefix = f"{new_prefix}.weight"
             found_keys.add(new_prefix)
 
@@ -353,9 +347,4 @@ def find_all_spconv_keys(model: nn.Module, prefix="") -> Set[str]:
 
 
 def replace_feature(out, new_features):
-    if "replace_feature" in out.__dir__():
-        # spconv 2.x behaviour
-        return out.replace_feature(new_features)
-    else:
-        out.features = new_features
-        return out
+    return get_platform().category('sparse').replace_feature(out, new_features)

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Import from third library
 import torch
 
@@ -69,7 +70,7 @@ class EqualizedFocalLoss(GeneralizedCrossEntropyLoss):
         self.cache_mask = sample_mask
         self.cache_target = expand_target
 
-        pred = torch.sigmoid(inputs)
+        pred = get_platform().category('activation').sigmoid(inputs)
         pred_t = pred * targets + (1 - pred) * (1 - targets)
 
         map_val = 1 - self.pos_neg.detach()

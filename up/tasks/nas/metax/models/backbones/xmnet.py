@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 from up.utils.model.normalize import build_norm_layer, build_conv_norm
@@ -20,20 +21,20 @@ class MBConv(nn.Module):
         if in_features != hidden_features or stride != 1:
             layers_b1 = []
             layers_b1.append(build_norm_layer(in_features, normalize)[1])  # (norm_layer(in_features))
-            layers_b1.append(nn.Conv2d(in_features, hidden_features, kernel_size=(1, 1),
+            layers_b1.append(platform_layers.Conv2d(in_features, hidden_features, kernel_size=(1, 1),
                                        stride=1, padding=(0, 0), bias=False))
             layers_b1.append(build_norm_layer(hidden_features, normalize)[1])  # (norm_layer(hidden_features))
-            layers_b1.append(nn.ReLU(inplace=True))
+            layers_b1.append(platform_layers.ReLU(inplace=True))
             self.b1 = nn.Sequential(*layers_b1)
 
         layers = []
         padding = kernel_size // 2
-        layers.append(nn.Conv2d(hidden_features, hidden_features, kernel_size=kernel_size, padding=padding,
+        layers.append(platform_layers.Conv2d(hidden_features, hidden_features, kernel_size=kernel_size, padding=padding,
                                 groups=hidden_features, stride=stride, bias=False))
         layers.append(build_norm_layer(hidden_features, normalize)[1])  # (norm_layer(hidden_features))
-        layers.append(nn.ReLU(inplace=True))
+        layers.append(platform_layers.ReLU(inplace=True))
 
-        layers.append(nn.Conv2d(hidden_features, out_features, kernel_size=(1, 1), padding=(0, 0)))
+        layers.append(platform_layers.Conv2d(hidden_features, out_features, kernel_size=(1, 1), padding=(0, 0)))
         layers.append(build_norm_layer(out_features, normalize)[1])  # (norm_layer(out_features))
         self.b2 = nn.Sequential(*layers)
 
@@ -54,11 +55,11 @@ class FusedConv(nn.Module):
         super().__init__()
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
-        self.fc1 = nn.Conv2d(in_features, hidden_features, kernel_size=kernel_size,
+        self.fc1 = platform_layers.Conv2d(in_features, hidden_features, kernel_size=kernel_size,
                              padding=kernel_size // 2, bias=False, stride=stride)
         self.norm1 = build_norm_layer(hidden_features, normalize)[1]  # norm_layer(hidden_features)
-        self.act1 = nn.ReLU(inplace=True)
-        self.fc2 = nn.Conv2d(hidden_features, out_features, kernel_size=1, padding=0, bias=False)
+        self.act1 = platform_layers.ReLU(inplace=True)
+        self.fc2 = platform_layers.Conv2d(hidden_features, out_features, kernel_size=1, padding=0, bias=False)
         # self.fc2 = nn.Conv2d(hidden_features, out_features, kernel_size=(3, 3), padding=(1, 1), bias=False)
         self.norm2 = build_norm_layer(out_features, normalize)[1]  # norm_layer(out_features)
         self.use_residual = (in_features == out_features and stride == 1)

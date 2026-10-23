@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import copy
 
 import torch
@@ -119,13 +120,13 @@ class BaseDetPostProcess(nn.Module):
         for idx, preds in enumerate(mlvl_preds):
             cls_pred, loc_pred = preds[:2]
             if self.class_activation == 'sigmoid':
-                cls_pred = cls_pred.sigmoid()
+                cls_pred = get_platform().category('activation').sigmoid(cls_pred)
             else:
                 assert self.class_activation == 'softmax'
                 _, _, h, w = cls_pred.shape
                 c = cls_pred.shape[1] // self.num_anchors
                 cls_pred = cls_pred.view(-1, c, h, w).permute(0, 2, 3, 1).contiguous()
-                cls_pred = F.softmax(cls_pred, dim=-1)
+                cls_pred = get_platform().category('activation').softmax(cls_pred, dim=-1)
                 cls_pred = cls_pred.permute(0, 3, 1, 2).contiguous().view(-1, self.num_anchors * c, h, w)
             output[self.prefix + '.blobs.cls' + str(idx)] = cls_pred
             output[self.prefix + '.blobs.loc' + str(idx)] = loc_pred
@@ -309,9 +310,9 @@ class IOUPostProcess(BaseDetPostProcess):
             if self.class_activation == 'sigmoid':
                 _, c, h, w = cls_pred.shape
                 num_classes = int(c / self.num_anchors)
-                iou_pred = F.sigmoid(iou_pred.view(-1, 1, h, w)).view(-1, self.num_anchors * 1, h, w)
+                iou_pred = get_platform().category('activation').sigmoid(iou_pred.view(-1, 1, h, w)).view(-1, self.num_anchors * 1, h, w)
                 if not self.export_iou:
-                    cls_pred = cls_pred.sigmoid() * torch.cat([iou_pred for _ in range(num_classes)], dim=1)
+                    cls_pred = get_platform().category('activation').sigmoid(cls_pred) * torch.cat([iou_pred for _ in range(num_classes)], dim=1)
             else:
                 raise NotImplementedError
             output[self.prefix + '.blobs.cls' + str(idx)] = cls_pred

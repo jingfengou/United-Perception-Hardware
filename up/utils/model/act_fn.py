@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import numpy as np
 import torch
 import torch.nn as nn
@@ -7,30 +9,30 @@ import torch.nn.functional as F
 class SiLU(nn.Module):
     @staticmethod
     def forward(x):
-        return x * torch.sigmoid(x)
+        return x * get_platform().category('activation').sigmoid(x)
 
 
 class Hardswish(nn.Module):  # export-friendly version of nn.Hardswish()
     @staticmethod
     def forward(x):
         # return x * F.hardsigmoid(x)  # for torchscript and CoreML
-        return x * F.hardtanh(x + 3, 0., 6.) / 6.  # for torchscript, CoreML and ONNX
+        return x * get_platform().category('activation').hardtanh(x + 3, 0., 6.) / 6.  # for torchscript, CoreML and ONNX
 
 
 class GELU(nn.Module):
     @staticmethod
     def forward(x):
-        erf = F.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * torch.pow(x, 3)))
+        erf = get_platform().category('activation').tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * torch.pow(x, 3)))
         return 0.5 * x * (1 + erf)
 
 
 _act_cfg = {
-    'Hardswish': ('act', torch.nn.Hardswish if hasattr(torch.nn, 'Hardswish') else Hardswish),
-    'LeakyReLU': ('act', torch.nn.LeakyReLU),
-    'ReLU': ('act', torch.nn.ReLU),
+    'Hardswish': ('act', platform_layers.Hardswish if hasattr(torch.nn, 'Hardswish') else Hardswish),
+    'LeakyReLU': ('act', platform_layers.LeakyReLU),
+    'ReLU': ('act', platform_layers.ReLU),
     'Identity': ('act', torch.nn.Identity),
-    'Silu': ('act', torch.nn.SiLU if hasattr(torch.nn, 'SiLU') else SiLU),
-    'GELU': ('act', torch.nn.GELU if hasattr(torch.nn, 'GELU') else GELU)
+    'Silu': ('act', platform_layers.SiLU if hasattr(torch.nn, 'SiLU') else SiLU),
+    'GELU': ('act', platform_layers.GELU if hasattr(torch.nn, 'GELU') else GELU)
 }
 
 

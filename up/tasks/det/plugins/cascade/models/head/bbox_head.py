@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import copy
 import torch
 import torch.nn as nn
@@ -55,8 +57,8 @@ class DropBlock(nn.Module):
         mask_shape = (N, C, H - self.block_size + 1, W - self.block_size + 1)
         mask = torch.bernoulli(torch.full(mask_shape, gamma, device=x.device))
 
-        mask = F.pad(mask, [self.block_size // 2] * 4, value=0)
-        mask = F.max_pool2d(
+        mask = get_platform().category('pooling').pad(mask, [self.block_size // 2] * 4, value=0)
+        mask = get_platform().category('pooling').max_pool2d(
             input=mask,
             stride=(1, 1),
             kernel_size=(self.block_size, self.block_size),
@@ -368,9 +370,9 @@ class CascadeBboxNet(nn.Module):
             loc_pred = loc_pred.detach()[recover_inds]
             # cls_pred = F.softmax(cls_pred, dim=1)
             if self.cls_loss.activation_type == 'softmax':
-                cls_pred = F.softmax(cls_pred, dim=1)
+                cls_pred = get_platform().category('activation').softmax(cls_pred, dim=1)
             else:
-                cls_pred = torch.sigmoid(cls_pred)
+                cls_pred = get_platform().category('activation').sigmoid(cls_pred)
             stage_scores.append(cls_pred)
 
             if cascade_i < self.num_stage - 1:
@@ -405,7 +407,7 @@ class CascadeFC(CascadeBboxNet):
         super(CascadeFC, self).__init__(inplanes, num_classes, cfg)
 
         inplanes = self.inplanes
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
         self.fc6_list = nn.ModuleList()
         self.fc7_list = nn.ModuleList()
@@ -413,19 +415,19 @@ class CascadeFC(CascadeBboxNet):
         self.fc_rcnn_loc_list = nn.ModuleList()
         cls_out_channel = num_classes if self.cls_loss.activation_type == 'softmax' else num_classes - 1
         for i in range(self.num_stage):
-            fc6 = nn.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
+            fc6 = platform_layers.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
             self.fc6_list.append(fc6)
-            fc7 = nn.Linear(feat_planes, feat_planes)
+            fc7 = platform_layers.Linear(feat_planes, feat_planes)
             self.fc7_list.append(fc7)
 
             # fc_rcnn_cls = nn.Linear(feat_planes, num_classes)
-            fc_rcnn_cls = nn.Linear(feat_planes, cls_out_channel)
+            fc_rcnn_cls = platform_layers.Linear(feat_planes, cls_out_channel)
             self.fc_rcnn_cls_list.append(fc_rcnn_cls)
             if self.cfg.get('share_location', False):
-                fc_rcnn_loc = nn.Linear(feat_planes, 4)
+                fc_rcnn_loc = platform_layers.Linear(feat_planes, 4)
             else:
                 # fc_rcnn_loc = nn.Linear(feat_planes, num_classes * 4)
-                fc_rcnn_loc = nn.Linear(feat_planes, cls_out_channel * 4)
+                fc_rcnn_loc = platform_layers.Linear(feat_planes, cls_out_channel * 4)
             self.fc_rcnn_loc_list.append(fc_rcnn_loc)
 
         initialize_from_cfg(self, initializer)
@@ -469,7 +471,7 @@ class ConvFC(CascadeBboxNet):
         super(ConvFC, self).__init__(inplanes, num_classes, cfg)
 
         inplanes = self.inplanes
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
         self.fc6_list = nn.ModuleList()
         self.fc7_list = nn.ModuleList()
@@ -488,19 +490,19 @@ class ConvFC(CascadeBboxNet):
                             drop_block=drop_block,
                             coord_conv=coord_conv))
             self.conv_list.append(convs)
-            fc6 = nn.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
+            fc6 = platform_layers.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
             self.fc6_list.append(fc6)
-            fc7 = nn.Linear(feat_planes, feat_planes)
+            fc7 = platform_layers.Linear(feat_planes, feat_planes)
             self.fc7_list.append(fc7)
 
             # fc_rcnn_cls = nn.Linear(feat_planes, num_classes)
-            fc_rcnn_cls = nn.Linear(feat_planes, cls_out_channel)
+            fc_rcnn_cls = platform_layers.Linear(feat_planes, cls_out_channel)
             self.fc_rcnn_cls_list.append(fc_rcnn_cls)
             if self.cfg.get('share_location', False):
-                fc_rcnn_loc = nn.Linear(feat_planes, 4)
+                fc_rcnn_loc = platform_layers.Linear(feat_planes, 4)
             else:
                 # fc_rcnn_loc = nn.Linear(feat_planes, num_classes * 4)
-                fc_rcnn_loc = nn.Linear(feat_planes, cls_out_channel * 4)
+                fc_rcnn_loc = platform_layers.Linear(feat_planes, cls_out_channel * 4)
             self.fc_rcnn_loc_list.append(fc_rcnn_loc)
 
         initialize_from_cfg(self, initializer)

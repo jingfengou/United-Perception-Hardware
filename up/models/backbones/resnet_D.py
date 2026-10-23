@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 from collections.abc import Iterable
 
@@ -22,7 +23,7 @@ model_urls = {
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
-    return nn.Conv2d(
+    return platform_layers.Conv2d(
         in_planes,
         out_planes,
         kernel_size=3,
@@ -47,7 +48,7 @@ class BasicBlock(nn.Module):
         self.norm1_name, norm1 = build_norm_layer(planes, normalize, 1)
         self.norm2_name, norm2 = build_norm_layer(planes, normalize, 2)
 
-        self.conv1 = nn.Conv2d(
+        self.conv1 = platform_layers.Conv2d(
             inplanes,
             planes,
             kernel_size=3,
@@ -57,7 +58,7 @@ class BasicBlock(nn.Module):
             bias=False)
 
         self.add_module(self.norm1_name, norm1)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
         self.conv2 = conv3x3(planes, planes)
         self.add_module(self.norm2_name, norm2)
         self.downsample = downsample
@@ -108,7 +109,7 @@ class Bottleneck(nn.Module):
 
         stride_1x1, stride_3x3 = (stride, 1) if stride_in_1x1 else (1, stride)
 
-        self.conv1 = nn.Conv2d(
+        self.conv1 = platform_layers.Conv2d(
             inplanes,
             planes,
             kernel_size=1,
@@ -117,7 +118,7 @@ class Bottleneck(nn.Module):
         )
         self.add_module(self.norm1_name, norm1)
 
-        self.conv2 = nn.Conv2d(
+        self.conv2 = platform_layers.Conv2d(
             planes,
             planes,
             kernel_size=3,
@@ -128,9 +129,9 @@ class Bottleneck(nn.Module):
         )
 
         self.add_module(self.norm2_name, norm2)
-        self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
+        self.conv3 = platform_layers.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
         self.add_module(self.norm3_name, norm3)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
 
@@ -182,11 +183,11 @@ def make_layer4(inplanes,
         batch_norm_layer = build_norm_layer(planes * block.expansion, normalize)[1]
         batch_norm_layer.apply(bn_weights_init)
         downsample = nn.Sequential(
-            nn.ZeroPad2d((1, 0, 1, 0)),
-            nn.AvgPool2d(
+            platform_layers.ZeroPad2d((1, 0, 1, 0)),
+            platform_layers.AvgPool2d(
                 kernel_size=2,
                 stride=stride),
-            nn.Conv2d(
+            platform_layers.Conv2d(
                 inplanes,
                 planes * block.expansion,
                 kernel_size=1,
@@ -329,23 +330,23 @@ class ResNet(nn.Module):
 
         super(ResNet, self).__init__()
         if not deep_stem:
-            self.conv1 = nn.Conv2d(input_channel, layer_out_planes[0], kernel_size=7, stride=2, padding=3, bias=False)
+            self.conv1 = platform_layers.Conv2d(input_channel, layer_out_planes[0], kernel_size=7, stride=2, padding=3, bias=False)
         else:
             inner_planes = layer_out_planes[0] // 2
             self.conv1 = nn.Sequential(
-                nn.Conv2d(input_channel, inner_planes, kernel_size=3, stride=2, padding=1, bias=False),
+                platform_layers.Conv2d(input_channel, inner_planes, kernel_size=3, stride=2, padding=1, bias=False),
                 build_norm_layer(inner_planes, normalize)[1],
-                nn.ReLU(inplace=True),
-                nn.Conv2d(inner_planes, inner_planes, kernel_size=3, stride=1, padding=1, bias=False),
+                platform_layers.ReLU(inplace=True),
+                platform_layers.Conv2d(inner_planes, inner_planes, kernel_size=3, stride=1, padding=1, bias=False),
                 build_norm_layer(inner_planes, normalize)[1],
-                nn.ReLU(inplace=True),
-                nn.Conv2d(inner_planes, layer_out_planes[0], kernel_size=3, stride=1, padding=1, bias=False),
+                platform_layers.ReLU(inplace=True),
+                platform_layers.Conv2d(inner_planes, layer_out_planes[0], kernel_size=3, stride=1, padding=1, bias=False),
             )
         self.add_module(self.norm1_name, norm1)
-        self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        self.relu = platform_layers.ReLU(inplace=True)
+        self.maxpool = platform_layers.MaxPool2d(kernel_size=3, stride=2, padding=1)
         if nnie:
-            self.maxpool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
+            self.maxpool = platform_layers.MaxPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=True)
         self.layer0 = nn.Sequential(self.conv1, self.norm1, self.relu, self.maxpool)
         self.layer1 = self._make_layer(block, layer_in_planes[1], layers[0], normalize=normalize)
         self.layer2 = self._make_layer(block, layer_in_planes[2], layers[1], stride=2,
@@ -404,11 +405,11 @@ class ResNet(nn.Module):
             batch_norm_layer = build_norm_layer(planes * block.expansion, normalize)[1]
             batch_norm_layer.apply(bn_weights_init)
             downsample = nn.Sequential(
-                nn.ZeroPad2d((1, 0, 1, 0)),
-                nn.AvgPool2d(
+                platform_layers.ZeroPad2d((1, 0, 1, 0)),
+                platform_layers.AvgPool2d(
                     kernel_size=2,
                     stride=stride),
-                nn.Conv2d(
+                platform_layers.Conv2d(
                     self.inplanes,
                     planes * block.expansion,
                     kernel_size=1,

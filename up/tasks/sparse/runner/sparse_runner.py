@@ -1,8 +1,8 @@
+from up_platform import get_platform
 from up.utils.general.log_helper import default_logger as logger
 from up.utils.general.cfg_helper import format_cfg
 from up.utils.env.gene_env import get_env_info, print_network
 from up.utils.env.dist_helper import env, DistModule
-from torch.nn.parallel import DistributedDataParallel as DDP
 from up.utils.general.registry_factory import (
     RUNNER_REGISTRY,
     MODEL_HELPER_REGISTRY
@@ -48,9 +48,9 @@ class SparseRunner(BaseRunner):
 
     def sparse_post_process(self):
         if self.config["sparsity"]["scheduler"]["type"] == "AmbaLevelPruneScheduler":
-            self.sparse_scheduler.set_lr_scheduler(self.lr_scheduler)
+            get_platform().category('pruning').set_lr_scheduler(self.sparse_scheduler, self.lr_scheduler)
         elif self.config["sparsity"]["scheduler"]["type"] == "AmpereScheduler":
-            self.sparse_scheduler.init_optimizer(self.optimizer)
+            get_platform().category('pruning').init_optimizer(self.sparse_scheduler, self.optimizer)
 
     def load_ckpt(self):
         self.ckpt = self.saver.load_pretrain_or_resume()
@@ -68,14 +68,14 @@ class SparseRunner(BaseRunner):
             start_epoch = self.ckpt['epoch']
             self.optimizer.load_state_dict(self.ckpt['optimizer'])
             self.lr_scheduler.load_state_dict(self.ckpt['lr_scheduler'])
-            self.sparse_scheduler.iteration = self.ckpt['iter']
+            get_platform().category('pruning').set_iteration(self.sparse_scheduler, self.ckpt['iter'])
             logger.info(f'resume from epoch:{start_epoch} iteration:{self.cur_iter}')
 
     def prepare_dist_model(self):
         if env.distributed:
             if self.backend == 'dist':
                 logger.info('using ddp')
-                self.model = DDP(self.model, device_ids=[env.local_rank], broadcast_buffers=False)
+                self.model = get_platform().execution.wrap_ddp(self.model, device_ids=[env.local_rank], broadcast_buffers=False)
             else:
                 self.model = DistModule(self.model, not self.args.get('asynchronize', False))
 
@@ -86,13 +86,13 @@ class SparseRunner(BaseRunner):
                 self.data_loaders[dataset_name].batch_sampler.set_start_iter(self.start_iter)
 
     def train(self):
-        self.model.cuda().train()
+        get_platform().device.move(self.model).train()
         for iter_idx in range(self.start_iter, self.max_iter):
             batch = self.get_batch('train')
             loss = self.forward_train(batch)
             self.backward(loss)
             self.update()
-            self.sparse_scheduler.prune_model(self.model, iter_idx)
+            get_platform().category('pruning').prune(self.sparse_scheduler, self.model, iter_idx)
             if self.ema is not None:
                 self.ema.step(self.model, curr_step=iter_idx)
             if self.is_test(iter_idx):
@@ -104,7 +104,7 @@ class SparseRunner(BaseRunner):
                     all_reduce_norm(self.model)
                     if self.ema is not None:
                         all_reduce_norm(self.ema.model)
-                logger.info("current sparse rate = {}".format(self.sparse_scheduler.compute_sparse_rate(self.model)))
+                logger.info("current sparse rate = {}".format(get_platform().category('pruning').sparse_rate(self.sparse_scheduler, self.model)))
                 self.evaluate()
                 self.model.train()
             if self.only_save_latest:
@@ -123,8 +123,8 @@ class SparseRunner(BaseRunner):
             logger.debug(self.model)
             logger.debug(self.model_list)
             logger.debug(self.model_map)
-        if self.device == 'cuda':
-            self.model = self.model.cuda()
+        if get_platform().device.device_type != 'cpu':
+            self.model = get_platform().device.move(self.model)
         if self.config['runtime']['special_bn_init']:
             self.special_bn_init()
         if self.fp16 and self.backend == 'linklink':
@@ -132,9 +132,8 @@ class SparseRunner(BaseRunner):
         logger.debug(print_network(self.model))
 
     def get_leaf_module(self, leaf_module):
-        from msbench.nn.modules import FrozenBatchNorm2d
         from up.tasks.det.plugins.yolov5.models.components import Space2Depth
-        leaf_module_map = {'FrozenBatchNorm2d': FrozenBatchNorm2d,
+        leaf_module_map = {'FrozenBatchNorm2d': get_platform().category('pruning').module_type('FrozenBatchNorm2d'),
                            'Space2Depth': Space2Depth}
         leaf_module_ret = [leaf_module_map[k] for k in leaf_module]
         return tuple(leaf_module_ret)
@@ -155,15 +154,14 @@ class SparseRunner(BaseRunner):
         if leaf_module is not None:
             prepare_custom_config_dict["leaf_module"] = self.get_leaf_module(leaf_module)
 
-        from msbench.scheduler import build_sparse_scheduler
-        self.sparse_scheduler = build_sparse_scheduler(prepare_custom_config_dict)
+        self.sparse_scheduler = get_platform().category('pruning').build_scheduler(prepare_custom_config_dict)
         self.model.train()
         if prepare_custom_config_dict["scheduler"]["type"] == 'AmpereScheduler':
-            self.model = self.sparse_scheduler.prepare_sparse_model(model=self.model)
+            self.model = get_platform().category('pruning').prepare(self.sparse_scheduler, model=self.model)
         else:
             for mname in self.model_list:
                 mod = getattr(self.model, mname)
-                mod = self.sparse_scheduler.prepare_sparse_model(model=mod)
+                mod = get_platform().category('pruning').prepare(self.sparse_scheduler, model=mod)
                 setattr(self.model, mname, mod)
                 if env.is_master():
                     logger.info(mod)
@@ -174,16 +172,13 @@ class SparseRunner(BaseRunner):
     @property
     def cur_iter(self):
         if hasattr(self, "lr_scheduler"):
-            if hasattr(self.sparse_scheduler, "get_last_prune_step"):
-                return self.lr_scheduler.last_iter + self.sparse_scheduler.get_last_prune_step()
-            else:
-                return self.lr_scheduler.last_iter
+            return self.lr_scheduler.last_iter + get_platform().category('pruning').last_prune_step(self.sparse_scheduler)
 
     def is_save(self, iter_idx):
         cur_iter = iter_idx + 1
         if cur_iter == self.max_iter:
             # apply mask to layer's weight, and disable the fake sparsification process
-            self.sparse_scheduler.export_sparse_model(self.model)
+            get_platform().category('pruning').export(self.sparse_scheduler, self.model)
             return True
         epoch_size = self.train_epoch_size
         if self.iter_base:

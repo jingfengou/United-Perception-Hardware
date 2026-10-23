@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 import copy
 import torch
 import torch.nn as nn
@@ -189,15 +190,15 @@ class FC(BboxNet):
         super(FC, self).__init__(inplanes, num_classes, cfg)
 
         inplanes = self.inplanes
-        self.relu = nn.ReLU(inplace=True)
-        self.fc6 = nn.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
-        self.fc7 = nn.Linear(feat_planes, feat_planes)
+        self.relu = platform_layers.ReLU(inplace=True)
+        self.fc6 = platform_layers.Linear(self.pool_size * self.pool_size * inplanes, feat_planes)
+        self.fc7 = platform_layers.Linear(feat_planes, feat_planes)
 
-        self.fc_rcnn_cls = nn.Linear(feat_planes, self.cls_out_channel)
+        self.fc_rcnn_cls = platform_layers.Linear(feat_planes, self.cls_out_channel)
         if self.cfg.get('share_location', False):
-            self.fc_rcnn_loc = nn.Linear(feat_planes, 4)
+            self.fc_rcnn_loc = platform_layers.Linear(feat_planes, 4)
         else:
-            self.fc_rcnn_loc = nn.Linear(feat_planes, self.cls_out_channel * 4)
+            self.fc_rcnn_loc = platform_layers.Linear(feat_planes, self.cls_out_channel * 4)
 
         initialize_from_cfg(self, initializer)
         init_weights_normal(self.fc_rcnn_cls, 0.01)
@@ -290,15 +291,15 @@ class Res5(BboxNet):
 
         stride = cfg['roipooling']['pool_size'] // 7
         self.layer4 = make_layer4(self.inplanes, block, 512, layer[3], stride=stride, normalize=normalize)
-        self.avgpool = nn.AvgPool2d(7, stride=1)
+        self.avgpool = platform_layers.AvgPool2d(7, stride=1)
 
         # self.fc_cls = nn.Linear(512 * block.expansion, num_classes)
-        self.fc_cls = nn.Linear(512 * block.expansion, self.cls_out_channel)
+        self.fc_cls = platform_layers.Linear(512 * block.expansion, self.cls_out_channel)
         if self.cfg.get('share_location', False):
-            self.fc_loc = nn.Linear(512 * block.expansion, 4)
+            self.fc_loc = platform_layers.Linear(512 * block.expansion, 4)
         else:
             # self.fc_loc = nn.Linear(512 * block.expansion, num_classes * 4)
-            self.fc_loc = nn.Linear(512 * block.expansion, self.cls_out_channel * 4)
+            self.fc_loc = platform_layers.Linear(512 * block.expansion, self.cls_out_channel * 4)
 
         initialize_from_cfg(self, initializer)
         init_weights_normal(self.fc_cls, 0.01)
@@ -352,15 +353,15 @@ class RFCN(BboxNet):
         inplanes = self.inplanes
 
         self.add_relu_after_feature_conv = self.cfg.get("add_relu_after_feature_conv", False)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = platform_layers.ReLU(inplace=True)
 
-        self.new_conv = nn.Conv2d(inplanes, feat_planes, kernel_size=1, bias=False)
-        self.rfcn_score = nn.Conv2d(feat_planes, ps * ps * self.cls_out_channel, kernel_size=1)
+        self.new_conv = platform_layers.Conv2d(inplanes, feat_planes, kernel_size=1, bias=False)
+        self.rfcn_score = platform_layers.Conv2d(feat_planes, ps * ps * self.cls_out_channel, kernel_size=1)
         if self.cfg.get('share_location', False):
-            self.rfcn_bbox = nn.Conv2d(feat_planes, ps * ps * 4, kernel_size=1)
+            self.rfcn_bbox = platform_layers.Conv2d(feat_planes, ps * ps * 4, kernel_size=1)
         else:
-            self.rfcn_bbox = nn.Conv2d(feat_planes, ps * ps * 4 * self.cls_out_channel, kernel_size=1)
-        self.pool = nn.AvgPool2d((ps, ps), stride=(ps, ps))
+            self.rfcn_bbox = platform_layers.Conv2d(feat_planes, ps * ps * 4 * self.cls_out_channel, kernel_size=1)
+        self.pool = platform_layers.AvgPool2d((ps, ps), stride=(ps, ps))
 
         initialize_from_cfg(self, initializer)
 

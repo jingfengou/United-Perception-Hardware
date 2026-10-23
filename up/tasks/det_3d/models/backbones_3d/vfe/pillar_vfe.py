@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -190,16 +192,16 @@ class PFNLayer(nn.Module):
 
         if self.tocaffe:
             if self.use_norm:
-                self.linear = nn.Conv2d(in_channels, out_channels, 1, bias=False)
-                self.norm = nn.BatchNorm2d(out_channels, eps=1e-3, momentum=0.01)
+                self.linear = platform_layers.Conv2d(in_channels, out_channels, 1, bias=False)
+                self.norm = platform_layers.BatchNorm2d(out_channels, eps=1e-3, momentum=0.01)
             else:
-                self.linear = nn.Conv2d(in_channels, out_channels, 1, bias=True)
+                self.linear = platform_layers.Conv2d(in_channels, out_channels, 1, bias=True)
         else:
             if self.use_norm:
-                self.linear = nn.Linear(in_channels, out_channels, bias=False)
-                self.norm = nn.BatchNorm1d(out_channels, eps=1e-3, momentum=0.01)
+                self.linear = platform_layers.Linear(in_channels, out_channels, bias=False)
+                self.norm = platform_layers.BatchNorm1d(out_channels, eps=1e-3, momentum=0.01)
             else:
-                self.linear = nn.Linear(in_channels, out_channels, bias=True)
+                self.linear = platform_layers.Linear(in_channels, out_channels, bias=True)
 
         self.part = 50000
         self.out_planes = out_channels
@@ -219,15 +221,15 @@ class PFNLayer(nn.Module):
                 x = torch.cat(part_linear_out, dim=0)
             else:
                 x = self.linear(inputs)
-            torch.backends.cudnn.enabled = False
+            get_platform().device.convolution_flags(enabled=False)
             x = self.norm(x.permute(0, 2, 1)).permute(0, 2, 1) if self.use_norm else x
-            torch.backends.cudnn.enabled = True
+            get_platform().device.convolution_flags(enabled=True)
 
-        x = F.relu(x)
+        x = get_platform().category('activation').relu(x)
         if self.tocaffe:
             max_points_per_voxel = x.shape[1]
             x = x.unsqueeze(0)  # N, P, C => 1, N, P, C
-            mp2d = nn.MaxPool2d(
+            mp2d = platform_layers.MaxPool2d(
                 kernel_size=(max_points_per_voxel, 1),
                 stride=1, padding=(0, 0))
             x_max = mp2d(x)  # 1, N, 1, C

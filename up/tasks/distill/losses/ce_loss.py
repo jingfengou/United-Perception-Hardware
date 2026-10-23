@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -20,8 +21,8 @@ class CELoss(nn.Module):
     def forward(self, s_preds, t_preds, **kwargs):
         loss = 0
         for s_pred, t_pred in zip(s_preds, t_preds):
-            s = F.log_softmax(s_pred / self.t, dim=1)
-            t = F.softmax(t_pred / self.t, dim=1)
+            s = get_platform().category('activation').log_softmax(s_pred / self.t, dim=1)
+            t = get_platform().category('activation').softmax(t_pred / self.t, dim=1)
             loss += torch.mean(torch.sum(- t * s, 1))
         return loss * self.loss_weight
 
@@ -46,7 +47,7 @@ class BCELoss(nn.Module):
 
         total_loss = 0
         for idx, (s, t) in enumerate(zip(pred_s, pred_t)):
-            loss = torch.sum(F.binary_cross_entropy(s, t, reduction='none') * masks[idx])
+            loss = torch.sum(get_platform().category('loss').binary_cross_entropy(s, t, reduction='none') * masks[idx])
             if self.batch_mean:
                 loss = loss / s.size(0)
             elif masks[idx].sum() != 0:

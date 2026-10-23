@@ -1,4 +1,5 @@
 from __future__ import division
+from up_platform import get_platform
 
 # Standard Library
 import copy
@@ -119,7 +120,7 @@ class BaseToOnnx(object):
 
     def _convert(self):
         input_names = ['data']
-        torch.onnx.export(self.model,
+        get_platform().execution.export_onnx(self.model,
                           self.dummp_input,
                           self.save_prefix,
                           verbose=True,

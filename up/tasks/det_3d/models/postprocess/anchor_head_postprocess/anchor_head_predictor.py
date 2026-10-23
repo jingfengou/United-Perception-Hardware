@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 from up.utils.general.registry_factory import ROI_PREDICTOR_REGISTRY
 from up.tasks.det_3d.models.utils.model_nms_utils import class_agnostic_nms, multi_classes_nms
@@ -58,12 +59,12 @@ class AxisAlignedPredictor(object):
                 assert cls_preds.shape[1] in [1, self.num_classes]
 
                 if not cls_preds_normalized:
-                    cls_preds = torch.sigmoid(cls_preds)
+                    cls_preds = get_platform().category('activation').sigmoid(cls_preds)
             else:
                 cls_preds = [x[batch_mask] for x in batch_cls_preds]
                 src_cls_preds = cls_preds
                 if not cls_preds_normalized:
-                    cls_preds = [torch.sigmoid(x) for x in cls_preds]
+                    cls_preds = [get_platform().category('activation').sigmoid(x) for x in cls_preds]
 
             if self.nms_cfg['multi_classes_nms']:
                 if not isinstance(cls_preds, list):

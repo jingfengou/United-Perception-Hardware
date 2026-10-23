@@ -211,7 +211,10 @@ class RandomErasing(TorchAugmentation):
         data.image = image
         return data
 
-    def _get_pixels(self, per_pixel, rand_color, patch_size, dtype=torch.float32, device='cuda'):
+    def _get_pixels(self, per_pixel, rand_color, patch_size, dtype=torch.float32, device=None):
+        if device is None:
+            from up_platform import get_platform
+            device = get_platform().device.device()
         if per_pixel:
             return torch.empty(patch_size, dtype=dtype, device=device).normal_()
         elif rand_color:

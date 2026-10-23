@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 import copy
 import torch
@@ -105,7 +106,7 @@ class FcosPostProcess(nn.Module):
         mlvl_activated_preds = []
         for lvl_idx, preds in enumerate(mlvl_preds):
             cls_pred = apply_class_activation(preds[0], self.class_activation)
-            ctr_pred = preds[2].sigmoid()
+            ctr_pred = get_platform().category('activation').sigmoid(preds[2])
             if self.with_background_channel and remove_background_channel_if_any:
                 cls_pred = cls_pred[..., 1:]
             cls_pred *= ctr_pred

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 import json
 import os
@@ -89,9 +90,9 @@ class Saver(object):
     @staticmethod
     def load_checkpoint(ckpt_path, convert=False):
         # assert os.path.exists(ckpt_path), f'No such file: {ckpt_path}'
-        device = torch.cuda.current_device()
+        device = get_platform().device.current_device()
         # ckpt_dict = torch.load(ckpt_path, map_location=lambda storage, loc: storage.cuda(device))
-        ckpt_dict = PetrelHelper.load(ckpt_path, map_location=lambda storage, loc: storage.cuda(device))
+        ckpt_dict = PetrelHelper.load(ckpt_path, map_location=lambda storage, loc: get_platform().device.move(storage, device))
         return Saver.process_checkpoint(ckpt_dict, convert)
 
     @staticmethod

@@ -1,3 +1,4 @@
+from up_platform import get_platform
 # Standard Library
 import json
 import copy
@@ -13,7 +14,6 @@ from collections import defaultdict
 
 import torch
 import torch.nn as nn
-from torch.nn.utils import clip_grad_norm_
 
 from .registry_factory import HOOK_REGISTRY, VISUALIZER_REGISTRY
 from up.data.metrics.base_evaluator import Metric
@@ -275,7 +275,7 @@ class TrainEvalLogger(Hook):
                 lr=runner.lr_scheduler.get_lr()[0],
                 eta=eta_string,
                 timer=self.train_timers,
-                memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0,
+                memory=get_platform().device.max_memory_allocated() / 1024.0 / 1024.0,
             ))
         output, loss_str = self.get_loss(self.output)
         del self.output
@@ -307,7 +307,7 @@ class TrainEvalLogger(Hook):
                 "{timers}",
             ]).format(
                 progress=min(cur_iter / test_len * 100, 100),
-                memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0,
+                memory=get_platform().device.max_memory_allocated() / 1024.0 / 1024.0,
                 cur_iter=cur_iter,
                 test_len=test_len,
                 eta=eta_string,
@@ -722,7 +722,7 @@ class GradClipper(Hook):
             for idx in range(len(parameters)):
                 if parameters[idx].dtype != self.max_norm.dtype:
                     parameters[idx] = parameters[idx].to(dtype=self.max_norm.dtype)
-        clip_grad_norm_(parameters, self.max_norm, self.norm_type)
+        get_platform().execution.clip_grad_norm_(parameters, self.max_norm, self.norm_type)
 
 
 @HOOK_REGISTRY.register('auto_save_best')
@@ -944,8 +944,8 @@ class GPUMemoryEmpty(Hook):
 
     def after_update(self, cur_iter):
         if cur_iter % self.freq == 0 and cur_iter > 0:
-            torch.cuda.empty_cache()
-            torch.cuda.memory.reset_peak_memory_stats()
+            get_platform().device.empty_cache()
+            get_platform().device.reset_peak_memory_stats()
 
 
 @HOOK_REGISTRY.register('memory_checkpoint')

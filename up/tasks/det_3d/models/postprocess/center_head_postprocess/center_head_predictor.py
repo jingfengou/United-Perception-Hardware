@@ -1,3 +1,4 @@
+from up_platform import get_platform
 import torch
 import torch.nn.functional as F
 from up.utils.general.registry_factory import ROI_PREDICTOR_REGISTRY
@@ -27,14 +28,14 @@ class CenterPredictor(object):
     def predict(self, batch_size, voxel_infos, pred_dict):
         self.voxel_size = voxel_infos['voxel_size']
         self.point_cloud_range = voxel_infos['point_cloud_range']
-        post_center_limit_range = torch.tensor(self.post_center_limit_range).cuda().float()
+        post_center_limit_range = get_platform().device.move(torch.tensor(self.post_center_limit_range)).float()
         ret_dict = [{
             'pred_boxes': [],
             'pred_scores': [],
             'pred_labels': [],
         } for k in range(batch_size)]
 
-        batch_hm = pred_dict['hm'].sigmoid()
+        batch_hm = get_platform().category('activation').sigmoid(pred_dict['hm'])
         batch_center = pred_dict['center']
         batch_center_z = pred_dict['center_z']
         batch_dim = pred_dict['dim'].exp()
@@ -166,6 +167,6 @@ def hm_maxpool_square(heatmap, pool_size=3):
         assert pool_size[0] != pool_size[1]
         pad = (pool_size[0] - 1) // 2
 
-    heatmap_max = F.max_pool2d(heatmap, pool_size, stride=1, padding=pad)
+    heatmap_max = get_platform().category('pooling').max_pool2d(heatmap, pool_size, stride=1, padding=pad)
     keep = (heatmap_max == heatmap).float()
     return heatmap * keep

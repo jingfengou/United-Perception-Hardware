@@ -1,6 +1,8 @@
+from up_platform import get_platform
 # Standard Library
 import time
-from collections import Iterable, OrderedDict
+from collections import OrderedDict
+from collections.abc import Iterable
 
 import numpy as np
 import torch
@@ -11,12 +13,12 @@ from up.utils.env.gene_env import to_device
 
 
 def get_cur_time():
-    torch.cuda.synchronize()
+    get_platform().device.synchronize()
     return time.time()
 
 
 def get_diff_time(pre_time):
-    torch.cuda.synchronize()
+    get_platform().device.synchronize()
     diff_time = time.time() - pre_time
     return diff_time, time.time()
 
@@ -98,12 +100,12 @@ def profile(model, inputs, verbose=True, depth=0):
     def register_memory_hooks(module):
 
         def pre_forward_hook(m, input):
-            m.pre_memory = torch.cuda.memory_allocated()
+            m.pre_memory = get_platform().device.memory_allocated()
             m.start_time = get_cur_time()
 
         def forward_hook(m, input, output):
-            m.total_memory = torch.cuda.memory_allocated() - m.pre_memory
-            torch.cuda.empty_cache()
+            m.total_memory = get_platform().device.memory_allocated() - m.pre_memory
+            get_platform().device.empty_cache()
             m.total_time, _ = get_diff_time(m.start_time)
 
         handler = module.register_forward_pre_hook(pre_forward_hook)

@@ -1,3 +1,5 @@
+from up_platform import get_platform
+from up_platform import layers as platform_layers
 import torch
 import torch.nn as nn
 from up.utils.env.dist_helper import env, broadcast, allgather
@@ -29,11 +31,11 @@ class MoCo(nn.Module):
         dim_q = q_plane
         dim_k = k_plane
         if mlp:  # hack: brute-force replacement
-            self.encoder_q_fc = nn.Sequential(nn.Linear(dim_q, dim_q), nn.ReLU(), nn.Linear(dim_q, dim))
-            self.encoder_k_fc = nn.Sequential(nn.Linear(dim_k, dim_k), nn.ReLU(), nn.Linear(dim_k, dim))
+            self.encoder_q_fc = nn.Sequential(platform_layers.Linear(dim_q, dim_q), platform_layers.ReLU(), platform_layers.Linear(dim_q, dim))
+            self.encoder_k_fc = nn.Sequential(platform_layers.Linear(dim_k, dim_k), platform_layers.ReLU(), platform_layers.Linear(dim_k, dim))
         else:
-            self.encoder_q_fc = nn.Sequential(nn.Linear(dim_q, dim))
-            self.encoder_k_fc = nn.Sequential(nn.Linear(dim_k, dim))
+            self.encoder_q_fc = nn.Sequential(platform_layers.Linear(dim_q, dim))
+            self.encoder_k_fc = nn.Sequential(platform_layers.Linear(dim_k, dim))
 
         for param_q, param_k in zip(self.encoder_q.parameters(), self.encoder_k.parameters()):
             param_k.data.copy_(param_q.data)  # initialize
@@ -44,7 +46,7 @@ class MoCo(nn.Module):
 
         # create the queue
         self.register_buffer("queue", torch.randn(dim, K))
-        self.queue = nn.functional.normalize(self.queue, dim=0)
+        self.queue = get_platform().category('normalization').normalize(self.queue, dim=0)
 
         self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
 
@@ -91,7 +93,7 @@ class MoCo(nn.Module):
         num_gpus = batch_size_all // batch_size_this
 
         # random shuffle index
-        idx_shuffle = torch.randperm(batch_size_all).cuda()
+        idx_shuffle = get_platform().device.move(torch.randperm(batch_size_all))
 
         # broadcast to all gpus
         broadcast(idx_shuffle, 0, group_idx=self.group_idx)
@@ -129,7 +131,7 @@ class MoCo(nn.Module):
         # compute query features
         q = self.encoder_q({'image' : im_q})  # queries: NxC
         q = self.encoder_q_fc(q['features'][-1].mean(dim=[2, 3]))
-        q = nn.functional.normalize(q, dim=1)
+        q = get_platform().category('normalization').normalize(q, dim=1)
 
         # compute key features
         with torch.no_grad():  # no gradient to keys
@@ -141,7 +143,7 @@ class MoCo(nn.Module):
             k = self.encoder_k({'image' : im_k})  # keys: NxC
             k = self.encoder_k_fc(k['features'][-1].mean(dim=[2, 3]))
 
-            k = nn.functional.normalize(k, dim=1)
+            k = get_platform().category('normalization').normalize(k, dim=1)
 
             # undo shuffle
             k = self._batch_unshuffle_ddp(k, idx_unshuffle)
@@ -149,9 +151,9 @@ class MoCo(nn.Module):
         # compute logits
         # Einstein sum is more intuitive
         # positive logits: Nx1
-        l_pos = torch.einsum('nc,nc->n', [q, k]).unsqueeze(-1)
+        l_pos = get_platform().category('matrix').einsum('nc,nc->n', [q, k]).unsqueeze(-1)
         # negative logits: NxK
-        l_neg = torch.einsum('nc,ck->nk', [q, self.queue.clone().detach()])
+        l_neg = get_platform().category('matrix').einsum('nc,ck->nk', [q, self.queue.clone().detach()])
 
         # logits: Nx(1+K)
         logits = torch.cat([l_pos, l_neg], dim=1)
@@ -202,15 +204,15 @@ class MoCo_ViT(nn.Module):
             dim1 = input_dim if i == 0 else mlp_dim
             dim2 = output_dim if i == num_layers - 1 else mlp_dim
 
-            mlp.append(nn.Linear(dim1, dim2, bias=False))
+            mlp.append(platform_layers.Linear(dim1, dim2, bias=False))
 
             if i < num_layers - 1:
-                mlp.append(nn.BatchNorm1d(dim2))
-                mlp.append(nn.ReLU(inplace=True))
+                mlp.append(platform_layers.BatchNorm1d(dim2))
+                mlp.append(platform_layers.ReLU(inplace=True))
             elif last_bn:
                 # follow SimCLR's design: https://github.com/google-research/simclr/blob/master/model_util.py#L157
                 # for simplicity, we further removed gamma in BN
-                mlp.append(nn.BatchNorm1d(dim2, affine=False))
+                mlp.append(platform_layers.BatchNorm1d(dim2, affine=False))
 
         return nn.Sequential(*mlp)
 
@@ -259,20 +261,20 @@ class MoCo_ViT(nn.Module):
             k2 = self.momentum_encoder(x2)
 
         # normalize
-        q1 = nn.functional.normalize(q1, dim=1)
-        k2 = nn.functional.normalize(k2, dim=1)
+        q1 = get_platform().category('normalization').normalize(q1, dim=1)
+        k2 = get_platform().category('normalization').normalize(k2, dim=1)
         # gather all targets
         k2 = concat_all_gather(k2, self.group_size, self.group_idx)
         # Einstein sum is more intuitive
-        q1_k2_logits = torch.einsum('nc,mc->nm', [q1, k2]) / self.T
+        q1_k2_logits = get_platform().category('matrix').einsum('nc,mc->nm', [q1, k2]) / self.T
 
         # normalize
-        q2 = nn.functional.normalize(q2, dim=1)
-        k1 = nn.functional.normalize(k1, dim=1)
+        q2 = get_platform().category('normalization').normalize(q2, dim=1)
+        k1 = get_platform().category('normalization').normalize(k1, dim=1)
         # gather all targets
         k1 = concat_all_gather(k1, self.group_size, self.group_idx)
         # Einstein sum is more intuitive
-        q2_k1_logits = torch.einsum('nc,mc->nm', [q2, k1]) / self.T
+        q2_k1_logits = get_platform().category('matrix').einsum('nc,mc->nm', [q2, k1]) / self.T
 
         logits = torch.stack([q1_k2_logits, q2_k1_logits])
 

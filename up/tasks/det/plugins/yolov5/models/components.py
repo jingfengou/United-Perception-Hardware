@@ -1,3 +1,4 @@
+from up_platform import layers as platform_layers
 # Standard Library
 
 # Import from third library
@@ -25,7 +26,7 @@ class ConvBnAct(nn.Module):
         self.norm1_name, norm1 = build_norm_layer(out_planes, normalize, 1)
         self.act1_name, act1 = build_act_fn(act_fn)
 
-        self.conv = nn.Conv2d(in_planes,
+        self.conv = platform_layers.Conv2d(in_planes,
                               out_planes,
                               kernel_size=kernel_size,
                               stride=stride,
@@ -130,8 +131,8 @@ class BottleneckCSP(nn.Module):
         self.norm1_name, norm1 = build_norm_layer(2 * hidden_planes, normalize, 1)
 
         self.conv_block1 = ConvBnAct(in_planes, hidden_planes, 1, 1, normalize=normalize, act_fn=act_fn)
-        self.conv2 = nn.Conv2d(in_planes, hidden_planes, 1, 1, bias=False)
-        self.conv3 = nn.Conv2d(hidden_planes, hidden_planes, 1, 1, bias=False)
+        self.conv2 = platform_layers.Conv2d(in_planes, hidden_planes, 1, 1, bias=False)
+        self.conv3 = platform_layers.Conv2d(hidden_planes, hidden_planes, 1, 1, bias=False)
         self.conv_block4 = ConvBnAct(2 * hidden_planes, out_planes, 1, 1, normalize=normalize, act_fn=act_fn)
         self.add_module(self.norm1_name, norm1)   # applied to cat(conv2, conv3)
         self.act1_name, act1 = build_act_fn(act_fn)
@@ -172,7 +173,7 @@ class SPP(nn.Module):
         self.conv_block1 = ConvBnAct(in_planes, hidden_planes, 1, 1, normalize=normalize, act_fn=act_fn)
         self.conv_block2 = ConvBnAct(hidden_planes * (len(kernels) + 1), out_planes, 1, 1,
                                      normalize=normalize, act_fn=act_fn)
-        self.pooling_blocks = nn.ModuleList([nn.MaxPool2d(kernel_size=x, stride=1, padding=x // 2) for x in kernels])
+        self.pooling_blocks = nn.ModuleList([platform_layers.MaxPool2d(kernel_size=x, stride=1, padding=x // 2) for x in kernels])
 
     def forward(self, x):
         x = self.conv_block1(x)
