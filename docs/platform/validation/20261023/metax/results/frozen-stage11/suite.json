@@ -1,0 +1,117 @@
+{
+  "vendor": "metax",
+  "source_sha256": "a4853d3b73e02a65525d3e65d7aca69baf252a49fa37d186b789ebae3ce7fb05",
+  "numerics": "native",
+  "scope": "compatibility, not dataset accuracy",
+  "records": [
+    {
+      "name": "cpu",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/platform",
+        "-q",
+        "--junitxml=/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/cpu.xml"
+      ],
+      "visible_devices": "",
+      "exit_code": 1,
+      "started_utc": "2026-10-23T10:43:08.032623+00:00",
+      "ended_utc": "2026-10-23T10:43:48.148172+00:00"
+    },
+    {
+      "name": "native-training",
+      "command": [
+        "tools/compare_platform_native.py",
+        "--vendor",
+        "metax",
+        "--purpose",
+        "training",
+        "--baseline",
+        "/workspace/up-run/up-platform-clean-20261023/baseline",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/native-training.json",
+        "--reference-psroi-layout-fix"
+      ],
+      "visible_devices": "2",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:43:48.152474+00:00",
+      "ended_utc": "2026-10-23T10:44:10.351334+00:00"
+    },
+    {
+      "name": "native-inference",
+      "command": [
+        "tools/compare_platform_native.py",
+        "--vendor",
+        "metax",
+        "--purpose",
+        "inference",
+        "--baseline",
+        "/workspace/up-run/up-platform-clean-20261023/baseline",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/native-inference.json",
+        "--reference-psroi-layout-fix"
+      ],
+      "visible_devices": "2",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:44:10.355332+00:00",
+      "ended_utc": "2026-10-23T10:44:32.217485+00:00"
+    },
+    {
+      "name": "toolchains",
+      "command": [
+        "tools/compare_platform_toolchains.py",
+        "--vendor",
+        "metax",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/toolchains"
+      ],
+      "visible_devices": "2",
+      "exit_code": 1,
+      "started_utc": "2026-10-23T10:44:32.222074+00:00",
+      "ended_utc": "2026-10-23T10:48:42.661932+00:00"
+    },
+    {
+      "name": "distributed",
+      "command": [
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node=2",
+        "tools/validate_platform_distributed.py",
+        "--vendor",
+        "metax",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/distributed"
+      ],
+      "visible_devices": "2,3",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:48:42.665846+00:00",
+      "ended_utc": "2026-10-23T10:49:29.614823+00:00"
+    },
+    {
+      "name": "models",
+      "command": [
+        "tools/compare_platform_models.py",
+        "--root",
+        "/workspace/up-run/up-platform-clean-20261023",
+        "--baseline",
+        "/workspace/up-run/up-platform-clean-20261023/baseline",
+        "--vendor",
+        "metax",
+        "--deterministic",
+        "--models",
+        "resnet18",
+        "yolov5s",
+        "vit_b16",
+        "faster_rcnn",
+        "pointpillar",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage11/models"
+      ],
+      "visible_devices": "2",
+      "exit_code": 1,
+      "started_utc": "2026-10-23T10:49:29.619364+00:00",
+      "ended_utc": "2026-10-23T11:06:38.475207+00:00"
+    }
+  ]
+}

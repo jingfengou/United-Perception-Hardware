@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="18" time="31.035" timestamp="2026-10-23T10:43:08.426201+00:00" hostname="ed0db0d48661"><testcase classname="tests.platform.test_contracts.ContractTest" name="test_platform_does_not_import_up" time="0.200" /><testcase classname="tests.platform.test_contracts.ContractTest" name="test_templates_match_each_base_signature" time="0.110" /><testcase classname="tests.platform.test_public_import.PublicImportTest" name="test_import_does_not_load_torch_up_or_vendor" time="0.046" /><testcase classname="tests.platform.test_public_import.PublicImportTest" name="test_selection_requires_an_explicit_purpose" time="0.003" /><testcase classname="tests.platform.test_runtime" name="test_explicit_device_zero_rng_is_not_replaced_by_current_device" time="0.003" /><testcase classname="tests.platform.test_runtime" name="test_move_preserves_nested_containers_and_parameter_identity" time="0.025" /><testcase classname="tests.platform.test_runtime" name="test_validation_restores_mixed_modes_and_does_not_change_state_on_error" time="0.764" /><testcase classname="tests.platform.test_runtime" name="test_legacy_export_uses_symbolic_exporter" time="0.003" /><testcase classname="tests.platform.test_selection" name="test_new_device_single_override_and_fixed_purpose" time="0.065" /><testcase classname="tests.platform.test_selection" name="test_training_and_inference_modules_load_separately" time="18.594" /><testcase classname="tests.platform.test_selection" name="test_inference_has_no_optimizer_or_validation_switch" time="0.073" /><testcase classname="tests.platform.test_selection" name="test_dependency_availability_does_not_claim_verification" time="0.029" /><testcase classname="tests.platform.test_torch_bindings" name="test_vendor_bindings_are_explicit" time="0.053" /><testcase classname="tests.platform.test_torch_bindings" name="test_original_module_identity_rng_parameters_and_gradients" time="0.011" /><testcase classname="tests.platform.test_torch_bindings" name="test_validation_restores_heterogeneous_modes_and_does_not_update_state" time="0.003" /><testcase classname="tests.platform.test_torch_bindings" name="test_missing_capabilities_are_not_verified" time="0.053" /><testcase classname="tests.platform.test_vendor_template" name="test_generated_plugin_reuses_torch_and_overrides_one_operation" time="9.385"><failure message="subprocess.CalledProcessError: Command '['/workspace/up-run/venv/bin/python', '-c', 'import sys\nsys.path.insert(0, \'/workspace/up-run/tmp/pytest-of-oujingfeng/pytest-14/test_generated_plugin_reuses_t0\')\nfrom up_platform import configure_platform\nimport torch\np = configure_platform({&quot;backend&quot;:&quot;sample_gpu&quot;,&quot;plugins&quot;:[&quot;sample_gpu&quot;]},purpose=&quot;training&quot;)\nx = torch.ones(2,3,requires_grad=True)\ny = p.category(&quot;matrix&quot;).linear(x,torch.ones(4,3,requires_grad=True))\ny.sum().backward()\nassert y.shape == (2,4) and x.grad is not None\nassert p.category(&quot;matrix&quot;).linear.__module__ == &quot;sample_gpu.ops.matrix&quot;\nassert p.category(&quot;matrix&quot;).mm.__module__ == &quot;up_platform.ops.matrix.torch_impl&quot;\nassert not p.capabilities()[&quot;detection.naive_nms&quot;].registered\n']' returned non-zero exit status 1.">tmp_path = PosixPath('/workspace/up-run/tmp/pytest-of-oujingfeng/pytest-14/test_generated_plugin_reuses_t0')
+
+    def test_generated_plugin_reuses_torch_and_overrides_one_operation(tmp_path):
+        root = Path(__file__).resolve().parents[2]
+        plugin = tmp_path/'sample_gpu'
+        subprocess.run([sys.executable, str(root/'tools/new_platform_vendor.py'), '--vendor', 'sample_gpu',
+                        '--device', 'cpu', '--output', str(plugin), '--reuse-torch'], check=True)
+        # A real backend would use its registered device name, not this test-only CPU.
+        with (plugin/'ops/matrix.py').open('a') as file:
+            file.write('\ndef linear(input, weight, bias=None):\n    return torch_impl.linear(input, weight, bias)\nSampleGpuMatrixOps.linear = staticmethod(linear)\n')
+        source = f'''import sys
+    sys.path.insert(0, {str(tmp_path)!r})
+    from up_platform import configure_platform
+    import torch
+    p = configure_platform({{"backend":"sample_gpu","plugins":["sample_gpu"]}},purpose="training")
+    x = torch.ones(2,3,requires_grad=True)
+    y = p.category("matrix").linear(x,torch.ones(4,3,requires_grad=True))
+    y.sum().backward()
+    assert y.shape == (2,4) and x.grad is not None
+    assert p.category("matrix").linear.__module__ == "sample_gpu.ops.matrix"
+    assert p.category("matrix").mm.__module__ == "up_platform.ops.matrix.torch_impl"
+    assert not p.capabilities()["detection.naive_nms"].registered
+    '''
+&gt;       subprocess.run([sys.executable, '-c', source], check=True, cwd=root)
+
+tests/platform/test_vendor_template.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+input = None, capture_output = False, timeout = None, check = True
+popenargs = (['/workspace/up-run/venv/bin/python', '-c', 'import sys\nsys.path.insert(0, \'/workspace/up-run/tmp/pytest-of-oujingf....__module__ == "up_platform.ops.matrix.torch_impl"\nassert not p.capabilities()["detection.naive_nms"].registered\n'],)
+kwargs = {'cwd': PosixPath('/workspace/up-run/up-platform-clean-20261023')}
+process = &lt;Popen: returncode: 1 args: ['/workspace/up-run/venv/bin/python', '-c', 'imp...&gt;
+stdout = None, stderr = None, retcode = 1
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['/workspace/up-run/venv/bin/python', '-c', 'import sys\nsys.path.insert(0, \'/workspace/up-run/tmp/pytest-of-oujingfeng/pytest-14/test_generated_plugin_reuses_t0\')\nfrom up_platform import configure_platform\nimport torch\np = configure_platform({"backend":"sample_gpu","plugins":["sample_gpu"]},purpose="training")\nx = torch.ones(2,3,requires_grad=True)\ny = p.category("matrix").linear(x,torch.ones(4,3,requires_grad=True))\ny.sum().backward()\nassert y.shape == (2,4) and x.grad is not None\nassert p.category("matrix").linear.__module__ == "sample_gpu.ops.matrix"\nassert p.category("matrix").mm.__module__ == "up_platform.ops.matrix.torch_impl"\nassert not p.capabilities()["detection.naive_nms"].registered\n']' returned non-zero exit status 1.
+
+/opt/conda/lib/python3.12/subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="tests.platform.test_vendor_template" name="test_sdk_example_checks_full_backward_and_optional_bias" time="0.021" /></testsuite></testsuites>

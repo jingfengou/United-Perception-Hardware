@@ -1,0 +1,17 @@
+{
+  "vendor": "nvidia",
+  "variant": "original",
+  "model": "vit_b16",
+  "purpose": "training",
+  "passed_execution": true,
+  "config": "configs/cls/vision_transformer/vit_b16_224.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "source": "/data2/oujingfeng/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  }
+}

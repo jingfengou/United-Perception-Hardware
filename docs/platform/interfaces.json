@@ -1,0 +1,3029 @@
+[
+  {
+    "name": "device.available",
+    "signature": "(self)",
+    "source": "up_platform/base.py",
+    "line": 13,
+    "description": "Return bool without substituting another device."
+  },
+  {
+    "name": "device.convolution_flags",
+    "signature": "(self, *, enabled=None, benchmark=None, deterministic=None, allow_tf32=None)",
+    "source": "up_platform/base.py",
+    "line": 77,
+    "description": "Set only explicitly supplied flags; return all current flag values."
+  },
+  {
+    "name": "device.current_device",
+    "signature": "(self)",
+    "source": "up_platform/base.py",
+    "line": 29,
+    "description": "Return the current device index."
+  },
+  {
+    "name": "device.device",
+    "signature": "(self, index=None)",
+    "source": "up_platform/base.py",
+    "line": 17,
+    "description": "Return the selected torch.device; index=None preserves current device."
+  },
+  {
+    "name": "device.device_count",
+    "signature": "(self)",
+    "source": "up_platform/base.py",
+    "line": 25,
+    "description": "Return visible devices, respecting the vendor visibility setting."
+  },
+  {
+    "name": "device.empty_cache",
+    "signature": "(self)",
+    "source": "up_platform/base.py",
+    "line": 49,
+    "description": "Release unused allocator cache, not live tensor storage."
+  },
+  {
+    "name": "device.environment",
+    "signature": "(self)",
+    "source": "up_platform/base.py",
+    "line": 81,
+    "description": "Return runtime and SDK identity; do not infer validation from version."
+  },
+  {
+    "name": "device.get_rng_state",
+    "signature": "(self, device=None)",
+    "source": "up_platform/base.py",
+    "line": 65,
+    "description": "Return a CPU ByteTensor containing device generator state."
+  },
+  {
+    "name": "device.is_accelerator",
+    "signature": "(self, tensor)",
+    "source": "up_platform/base.py",
+    "line": 37,
+    "description": "Whether tensor belongs to this vendor's accelerator device type."
+  },
+  {
+    "name": "device.manual_seed",
+    "signature": "(self, seed)",
+    "source": "up_platform/base.py",
+    "line": 73,
+    "description": "Seed the current device, not Python/NumPy/CPU generators."
+  },
+  {
+    "name": "device.max_memory_allocated",
+    "signature": "(self, device=None)",
+    "source": "up_platform/base.py",
+    "line": 57,
+    "description": "Peak allocated bytes since the last peak reset."
+  },
+  {
+    "name": "device.memory_allocated",
+    "signature": "(self, device=None)",
+    "source": "up_platform/base.py",
+    "line": 53,
+    "description": "Allocated bytes on this device."
+  },
+  {
+    "name": "device.move",
+    "signature": "(self, value, device=None, non_blocking=False)",
+    "source": "up_platform/base.py",
+    "line": 41,
+    "description": "Move Tensor/Module or nested dict/list/tuple, preserving container types."
+  },
+  {
+    "name": "device.properties",
+    "signature": "(self, index=None)",
+    "source": "up_platform/base.py",
+    "line": 33,
+    "description": "Return vendor properties with name and total_memory fields."
+  },
+  {
+    "name": "device.reset_peak_memory_stats",
+    "signature": "(self, device=None)",
+    "source": "up_platform/base.py",
+    "line": 61,
+    "description": "Reset allocator peak counters only."
+  },
+  {
+    "name": "device.set_device",
+    "signature": "(self, index)",
+    "source": "up_platform/base.py",
+    "line": 21,
+    "description": "Bind this process to one device; no effect on other processes."
+  },
+  {
+    "name": "device.set_rng_state",
+    "signature": "(self, state, device=None)",
+    "source": "up_platform/base.py",
+    "line": 69,
+    "description": "Restore device generator state without reseeding CPU/Python RNGs."
+  },
+  {
+    "name": "device.synchronize",
+    "signature": "(self, device=None)",
+    "source": "up_platform/base.py",
+    "line": 45,
+    "description": "Wait for work on the selected device; no extra host computation."
+  },
+  {
+    "name": "training.autocast",
+    "signature": "(self, enabled=True, dtype=None, cache_enabled=True)",
+    "source": "up_platform/training/base.py",
+    "line": 5,
+    "description": "Return a context manager. Do not change persistent precision defaults."
+  },
+  {
+    "name": "training.clip_grad_norm_",
+    "signature": "(self, parameters, max_norm, norm_type=2.0, **kwargs)",
+    "source": "up_platform/training/base.py",
+    "line": 29,
+    "description": "Original in-place gradient clipping and returned total norm."
+  },
+  {
+    "name": "training.fused_optimizer",
+    "signature": "(self, name, params, **kwargs)",
+    "source": "up_platform/training/base.py",
+    "line": 21,
+    "description": "Construct the requested vendor optimizer; no replacement by an unfused algorithm."
+  },
+  {
+    "name": "training.grad_scaler",
+    "signature": "(self, init_scale=65536.0, growth_factor=2.0, backoff_factor=0.5, growth_interval=2000, enabled=True)",
+    "source": "up_platform/training/base.py",
+    "line": 9,
+    "description": "Return a scaler supporting step/update and original state_dict keys."
+  },
+  {
+    "name": "training.optimizer",
+    "signature": "(self, name, **kwargs)",
+    "source": "up_platform/training/base.py",
+    "line": 25,
+    "description": "Construct the original torch.optim class with original parameter groups."
+  },
+  {
+    "name": "training.validation",
+    "signature": "(self, module)",
+    "source": "up_platform/training/base.py",
+    "line": 17,
+    "description": "eval/no_grad context; restore every submodule's entry mode on success/error."
+  },
+  {
+    "name": "training.wrap_ddp",
+    "signature": "(self, module, **kwargs)",
+    "source": "up_platform/training/base.py",
+    "line": 13,
+    "description": "Return distributed wrapper, passing original DDP kwargs unchanged."
+  },
+  {
+    "name": "inference.autocast",
+    "signature": "(self, enabled=True, dtype=None, cache_enabled=True)",
+    "source": "up_platform/inference/base.py",
+    "line": 5,
+    "description": "Return the inference autocast context, without enabling quantization."
+  },
+  {
+    "name": "inference.export_onnx",
+    "signature": "(self, model, args, destination, **kwargs)",
+    "source": "up_platform/inference/base.py",
+    "line": 9,
+    "description": "Run the original export with unchanged opset, symbols and named outputs."
+  },
+  {
+    "name": "activation.Dropout",
+    "signature": "(p=0.5, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 165,
+    "description": "nn.Dropout module; training flag, RNG consumption and mask scaling unchanged.",
+    "contract": {
+      "source": "torch.nn.Dropout",
+      "output": "nn.Dropout module; training flag, RNG consumption and mask scaling unchanged.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.Dropout2d",
+    "signature": "(p=0.5, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 173,
+    "description": "nn.Dropout2d module; channel mask, training flag and RNG unchanged.",
+    "contract": {
+      "source": "torch.nn.Dropout2d",
+      "output": "nn.Dropout2d module; channel mask, training flag and RNG unchanged.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.GELU",
+    "signature": "(approximate='none')",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 109,
+    "description": "nn.GELU module, approximation unchanged.",
+    "contract": {
+      "source": "torch.nn.GELU",
+      "output": "nn.GELU module, approximation unchanged.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.Hardswish",
+    "signature": "(inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 7,
+    "description": "",
+    "contract": {
+      "source": "torch.nn.Hardswish",
+      "output": "Original PyTorch result.",
+      "gradients": "Original input and parameter gradients.",
+      "state": "Original module and autograd state updates.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.LeakyReLU",
+    "signature": "(negative_slope=0.01, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 133,
+    "description": "nn.LeakyReLU module, slope and alias semantics unchanged.",
+    "contract": {
+      "source": "torch.nn.LeakyReLU",
+      "output": "nn.LeakyReLU module, slope and alias semantics unchanged.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.ReLU",
+    "signature": "(inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 93,
+    "description": "nn.ReLU module preserving in-place behavior.",
+    "contract": {
+      "source": "torch.nn.ReLU",
+      "output": "nn.ReLU module preserving in-place behavior.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.ReLU6",
+    "signature": "(inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 101,
+    "description": "nn.ReLU6 module.",
+    "contract": {
+      "source": "torch.nn.ReLU6",
+      "output": "nn.ReLU6 module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.SELU",
+    "signature": "(inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 125,
+    "description": "nn.SELU module.",
+    "contract": {
+      "source": "torch.nn.SELU",
+      "output": "nn.SELU module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.SiLU",
+    "signature": "(inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 117,
+    "description": "nn.SiLU module.",
+    "contract": {
+      "source": "torch.nn.SiLU",
+      "output": "nn.SiLU module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.Sigmoid",
+    "signature": "()",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 141,
+    "description": "nn.Sigmoid module.",
+    "contract": {
+      "source": "torch.nn.Sigmoid",
+      "output": "nn.Sigmoid module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.Softmax",
+    "signature": "(dim=None)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 157,
+    "description": "nn.Softmax module, preserve dim.",
+    "contract": {
+      "source": "torch.nn.Softmax",
+      "output": "nn.Softmax module, preserve dim.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.Tanh",
+    "signature": "()",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 149,
+    "description": "nn.Tanh module.",
+    "contract": {
+      "source": "torch.nn.Tanh",
+      "output": "nn.Tanh module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.gelu",
+    "signature": "(input, approximate='none')",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 37,
+    "description": "Same-shape Tensor; do not change approximation mode.",
+    "contract": {
+      "source": "torch.nn.functional.gelu",
+      "output": "Same-shape Tensor; do not change approximation mode.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.hardtanh",
+    "signature": "(input, min_val=-1.0, max_val=1.0, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 29,
+    "description": "Same-shape Tensor clamped to min_val/max_val.",
+    "contract": {
+      "source": "torch.nn.functional.hardtanh",
+      "output": "Same-shape Tensor clamped to min_val/max_val.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.log_softmax",
+    "signature": "(input, dim=None, _stacklevel=3, dtype=None)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 77,
+    "description": "Same-shape Tensor, numerically stable log-softmax, unchanged dim/dtype.",
+    "contract": {
+      "source": "torch.nn.functional.log_softmax",
+      "output": "Same-shape Tensor, numerically stable log-softmax, unchanged dim/dtype.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.relu",
+    "signature": "(input, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 13,
+    "description": "Same-shape Tensor; preserve in-place alias/version-counter behavior.",
+    "contract": {
+      "source": "torch.nn.functional.relu",
+      "output": "Same-shape Tensor; preserve in-place alias/version-counter behavior.",
+      "gradients": "input, subject to upstream in-place restrictions",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.relu6",
+    "signature": "(input, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 21,
+    "description": "Same-shape Tensor clipped to [0,6]; preserve in-place behavior.",
+    "contract": {
+      "source": "torch.nn.functional.relu6",
+      "output": "Same-shape Tensor clipped to [0,6]; preserve in-place behavior.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.sigmoid",
+    "signature": "(input)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 53,
+    "description": "Same-shape Tensor with original Torch sigmoid semantics.",
+    "contract": {
+      "source": "torch.sigmoid",
+      "output": "Same-shape Tensor with original Torch sigmoid semantics.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.silu",
+    "signature": "(input, inplace=False)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 45,
+    "description": "Same-shape Tensor input*sigmoid(input).",
+    "contract": {
+      "source": "torch.nn.functional.silu",
+      "output": "Same-shape Tensor input*sigmoid(input).",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.softmax",
+    "signature": "(input, dim=None, _stacklevel=3, dtype=None)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 69,
+    "description": "Same-shape Tensor normalized along dim; preserve optional dtype conversion.",
+    "contract": {
+      "source": "torch.nn.functional.softmax",
+      "output": "Same-shape Tensor normalized along dim; preserve optional dtype conversion.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.softplus",
+    "signature": "(input, beta=1, threshold=20)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 85,
+    "description": "Same-shape Tensor with original threshold branch.",
+    "contract": {
+      "source": "torch.nn.functional.softplus",
+      "output": "Same-shape Tensor with original threshold branch.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "activation.tanh",
+    "signature": "(input)",
+    "source": "up_platform/ops/activation/base.py",
+    "line": 61,
+    "description": "Same-shape Tensor with original Torch tanh semantics.",
+    "contract": {
+      "source": "torch.tanh",
+      "output": "Same-shape Tensor with original Torch tanh semantics.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "attention.MultiheadAttention",
+    "signature": "(embed_dim, num_heads, dropout=0.0, bias=True, add_bias_kv=False, add_zero_attn=False, kdim=None, vdim=None, batch_first=False, device=None, dtype=None)",
+    "source": "up_platform/ops/attention/base.py",
+    "line": 7,
+    "description": "Original nn.MultiheadAttention module, weights, dropout, masks and state_dict; no implicit FlashAttention replacement.",
+    "contract": {
+      "source": "torch.nn.MultiheadAttention",
+      "output": "Original nn.MultiheadAttention module, weights, dropout, masks and state_dict; no implicit FlashAttention replacement.",
+      "gradients": "query, key, value and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.all_gather",
+    "signature": "(tensor_list, tensor, group=None, async_op=False)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 111,
+    "description": "Write tensor_list in rank order; None or Work.",
+    "contract": {
+      "source": "communication.all_gather",
+      "output": "Write tensor_list in rank order; None or Work.",
+      "gradients": "No automatic autograd wrapper",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.all_gather_object",
+    "signature": "(object_list, obj, group=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 127,
+    "description": "Write rank-ordered pickled Python objects; CPU serialization is explicit.",
+    "contract": {
+      "source": "communication.all_gather_object",
+      "output": "Write rank-ordered pickled Python objects; CPU serialization is explicit.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.all_reduce",
+    "signature": "(tensor, op=None, group=None, async_op=False)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 95,
+    "description": "In-place tensor reduction; None or Work.",
+    "contract": {
+      "source": "communication.all_reduce",
+      "output": "In-place tensor reduction; None or Work.",
+      "gradients": "No automatic autograd wrapper; same as torch.distributed",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.barrier",
+    "signature": "(group=None, async_op=False, device_ids=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 87,
+    "description": "None or original asynchronous Work handle.",
+    "contract": {
+      "source": "communication.barrier",
+      "output": "None or original asynchronous Work handle.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.broadcast",
+    "signature": "(tensor, src, group=None, async_op=False)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 103,
+    "description": "In-place tensor broadcast; None or Work.",
+    "contract": {
+      "source": "communication.broadcast",
+      "output": "In-place tensor broadcast; None or Work.",
+      "gradients": "No automatic autograd wrapper",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.broadcast_object_list",
+    "signature": "(object_list, src=0, group=None, device=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 135,
+    "description": "Write original object list with explicit serialization device.",
+    "contract": {
+      "source": "communication.broadcast_object_list",
+      "output": "Write original object list with explicit serialization device.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.destroy_process_group",
+    "signature": "(group=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 71,
+    "description": "Destroy only the requested process group.",
+    "contract": {
+      "source": "communication.destroy_process_group",
+      "output": "Destroy only the requested process group.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.gather",
+    "signature": "(tensor, gather_list=None, dst=0, group=None, async_op=False)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 119,
+    "description": "Write gather_list only at destination; None or Work.",
+    "contract": {
+      "source": "communication.gather",
+      "output": "Write gather_list only at destination; None or Work.",
+      "gradients": "No automatic autograd wrapper",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.get_backend",
+    "signature": "(group=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 39,
+    "description": "Original process group backend string.",
+    "contract": {
+      "source": "communication.get_backend",
+      "output": "Original process group backend string.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.get_rank",
+    "signature": "(group=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 23,
+    "description": "Integer rank in group; original nonmember semantics.",
+    "contract": {
+      "source": "communication.get_rank",
+      "output": "Integer rank in group; original nonmember semantics.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.get_world_size",
+    "signature": "(group=None)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 31,
+    "description": "Integer group size.",
+    "contract": {
+      "source": "communication.get_world_size",
+      "output": "Integer group size.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.init_process_group",
+    "signature": "(backend=None, **kwargs)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 63,
+    "description": "Initialize process group with the original arguments.",
+    "contract": {
+      "source": "communication.init_process_group",
+      "output": "Initialize process group with the original arguments.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.is_available",
+    "signature": "()",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 7,
+    "description": "bool; whether the communication library is built.",
+    "contract": {
+      "source": "communication.is_available",
+      "output": "bool; whether the communication library is built.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.is_initialized",
+    "signature": "()",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 15,
+    "description": "bool; whether the default process group exists.",
+    "contract": {
+      "source": "communication.is_initialized",
+      "output": "bool; whether the default process group exists.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.new_group",
+    "signature": "(ranks=None, **kwargs)",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 79,
+    "description": "Original process group; identical rank ordering.",
+    "contract": {
+      "source": "communication.new_group",
+      "output": "Original process group; identical rank ordering.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.sum_op",
+    "signature": "()",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 55,
+    "description": "Original ReduceOp.SUM enum, not a replacement reduction.",
+    "contract": {
+      "source": "communication.sum_op",
+      "output": "Original ReduceOp.SUM enum, not a replacement reduction.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "communication.world_group",
+    "signature": "()",
+    "source": "up_platform/ops/communication/base.py",
+    "line": 47,
+    "description": "The original WORLD process group object.",
+    "contract": {
+      "source": "communication.world_group",
+      "output": "The original WORLD process group object.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "convolution.Conv2d",
+    "signature": "(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True, padding_mode='zeros', device=None, dtype=None)",
+    "source": "up_platform/ops/convolution/base.py",
+    "line": 23,
+    "description": "nn.Conv2d-compatible module; no wrapper prefix in state_dict; preserve RNG draws.",
+    "contract": {
+      "source": "torch.nn.Conv2d",
+      "output": "nn.Conv2d-compatible module; no wrapper prefix in state_dict; preserve RNG draws.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "convolution.ConvTranspose2d",
+    "signature": "(in_channels, out_channels, kernel_size, stride=1, padding=0, output_padding=0, groups=1, bias=True, dilation=1, padding_mode='zeros', device=None, dtype=None)",
+    "source": "up_platform/ops/convolution/base.py",
+    "line": 31,
+    "description": "nn.ConvTranspose2d-compatible module with original state_dict and initialization.",
+    "contract": {
+      "source": "torch.nn.ConvTranspose2d",
+      "output": "nn.ConvTranspose2d-compatible module with original state_dict and initialization.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "convolution.conv2d",
+    "signature": "(input, weight, bias=None, stride=1, padding=0, dilation=1, groups=1)",
+    "source": "up_platform/ops/convolution/base.py",
+    "line": 7,
+    "description": "NCHW output; preserve grouped/dilated convolution and original padding.",
+    "contract": {
+      "source": "torch.nn.functional.conv2d",
+      "output": "NCHW output; preserve grouped/dilated convolution and original padding.",
+      "gradients": "input, weight and optional bias",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "convolution.conv_transpose2d",
+    "signature": "(input, weight, bias=None, stride=1, padding=0, output_padding=0, groups=1, dilation=1)",
+    "source": "up_platform/ops/convolution/base.py",
+    "line": 15,
+    "description": "NCHW transpose-convolution output; preserve output_padding and original weight layout.",
+    "contract": {
+      "source": "torch.nn.functional.conv_transpose2d",
+      "output": "NCHW transpose-convolution output; preserve output_padding and original weight layout.",
+      "gradients": "input, weight and optional bias",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "deformable.deform_conv",
+    "signature": "(input, offset, weight, out_channels, kernel_size, stride, pad, dilations, groups, deformable_groups)",
+    "source": "up_platform/ops/deformable/base.py",
+    "line": 7,
+    "description": "Input NCHW, offsets[N,2*deformable_groups*Kh*Kw,Hout,Wout], weights[Cout,Cin/groups,Kh,Kw] -> output NCHW.",
+    "contract": {
+      "source": "up/extensions/python/deformable_conv.py:18",
+      "output": "Input NCHW, offsets[N,2*deformable_groups*Kh*Kw,Hout,Wout], weights[Cout,Cin/groups,Kh,Kw] -> output NCHW.",
+      "gradients": "input, offsets, weights; save columns/ones buffers",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Float16/32/64, matching inputs, original layout.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original output-size validation.",
+      "export": "Original DeformConv symbol and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.iou_overlap",
+    "signature": "(b1, b2, mode='IoU')",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 62,
+    "description": "b1[N,>=4], b2[M,>=4] -> [N,M] IoU/IoF/IoS, original inclusive coordinates.",
+    "contract": {
+      "source": "up/extensions/python/iou_overlap.py:5",
+      "output": "b1[N,>=4], b2[M,>=4] -> [N,M] IoU/IoF/IoS, original inclusive coordinates.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Float16/32/64 matching dtypes, contiguous slices.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Either input empty -> shape (0,), not (N,M).",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.naive_nms",
+    "signature": "(dets, thresh, *, offset)",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 40,
+    "description": "dets[N,5] in score order -> device int64 indices[K]; offset explicit.",
+    "contract": {
+      "source": "up/extensions/python/nms.py:9",
+      "output": "dets[N,5] in score order -> device int64 indices[K]; offset explicit.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Dets converted to float32 as upstream.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty handling.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.psroi_align",
+    "signature": "(features, rois, group_size, spatial_scale, output_dim, sampling_ratio)",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 18,
+    "description": "features[N,C,H,W], rois[R,>=5] -> [R,output_dim,group_size,group_size].",
+    "contract": {
+      "source": "up/extensions/python/psroi_align.py:7",
+      "output": "features[N,C,H,W], rois[R,>=5] -> [R,output_dim,group_size,group_size].",
+      "gradients": "features only; save mapping_channel",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Float16/32/64 matching features/rois, contiguous.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original empty behavior; upstream CPU export unavailable.",
+      "export": "Original PSRoiAlign symbol.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.psroi_pool",
+    "signature": "(features, rois, group_size, spatial_scale, output_dim)",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 29,
+    "description": "features[N,C,H,W], rois[R,>=5] -> [R,output_dim,group_size,group_size].",
+    "contract": {
+      "source": "up/extensions/python/psroi_pool.py:12",
+      "output": "features[N,C,H,W], rois[R,>=5] -> [R,output_dim,group_size,group_size].",
+      "gradients": "features only; save mapping_channel",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Float16/32/64 matching features/rois, contiguous.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original empty behavior; CPU placeholder only for export.",
+      "export": "Original PSRoiPool symbol.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.roi_align",
+    "signature": "(features, rois, pooled_h, pooled_w, spatial_scale, sampling_ratio, pooled_mode, *, aligned)",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 7,
+    "description": "features[N,C,H,W], rois[R,5] -> [R,C,pooled_h,pooled_w]; aligned coordinates explicit.",
+    "contract": {
+      "source": "up/extensions/python/roi_align.py:15",
+      "output": "features[N,C,H,W], rois[R,5] -> [R,C,pooled_h,pooled_w]; aligned coordinates explicit.",
+      "gradients": "features only; save features/rois/aligned",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Float16/32/64 matching features/rois, contiguous.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Empty ROI -> zero-sized output and zero feature gradient.",
+      "export": "Original RoiAlign symbol/attributes. Upstream binds AVG only, not MAX.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "detection.softer_nms",
+    "signature": "(dets, thresh=0.0001, sigma=0.5, iou_thresh=0.3, iou_method='linear', iou_sigma=0.02, method='var_voting')",
+    "source": "up_platform/ops/detection/base.py",
+    "line": 51,
+    "description": "dets[N,9] -> (filtered dets[K,9], original indices[K]); original CPU variance voting.",
+    "contract": {
+      "source": "up/extensions/python/nms.py:29",
+      "output": "dets[N,9] -> (filtered dets[K,9], original indices[K]); original CPU variance voting.",
+      "gradients": "Not differentiable, detach input",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Explicit original CPU operation; preserve returned device/type.",
+      "dtype": "Float32 dets; int64 indices.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original empty/filter behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "focal.cross_sigmoid_focal_loss",
+    "signature": "(preds, targets, weight_pos, gamma, alpha, num_classes, gt_class_to_avoid, reduction)",
+    "source": "up_platform/ops/focal/base.py",
+    "line": 29,
+    "description": "Return float32[1], including reduction=none, matching upstream.",
+    "contract": {
+      "source": "up/extensions/python/cross_focal_loss.py:9",
+      "output": "preds[N,C], int32 targets[N], avoidance map -> float32[1]. Upstream early return ignores reduction in forward.",
+      "gradients": "preds only; save avoidance map and normalizer",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Kernel float16/32/64; int32 targets/map.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original kernel empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "focal.sigmoid_focal_loss",
+    "signature": "(preds, targets, weight_pos, gamma, alpha, num_classes, reduction)",
+    "source": "up_platform/ops/focal/base.py",
+    "line": 7,
+    "description": "preds[N,C], int32 targets[N], scalar normalizer -> float32[1] or [N,C] for reduction=none. Original background/ignore convention.",
+    "contract": {
+      "source": "up/extensions/python/focal_loss.py:9",
+      "output": "preds[N,C], int32 targets[N], scalar normalizer -> float32[1] or [N,C] for reduction=none. Original background/ignore convention.",
+      "gradients": "preds only; save original normalizer",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Kernel float16/32/64; legacy FloatTensor output contract retained.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original kernel empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "focal.softmax_focal_loss",
+    "signature": "(preds, targets, weight_pos, gamma, alpha, num_classes)",
+    "source": "up_platform/ops/focal/base.py",
+    "line": 18,
+    "description": "preds[N,C], int32 targets[N], normalizer -> float32[1].",
+    "contract": {
+      "source": "up/extensions/python/focal_loss.py:79",
+      "output": "preds[N,C], int32 targets[N], normalizer -> float32[1].",
+      "gradients": "preds only; save priors and normalizer",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "Kernel float16/32/64; legacy FloatTensor output contract retained.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original kernel empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.BCEWithLogitsLoss",
+    "signature": "(weight=None, size_average=None, reduce=None, reduction='mean', pos_weight=None)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 55,
+    "description": "nn.BCEWithLogitsLoss; weight/pos_weight remain buffers.",
+    "contract": {
+      "source": "torch.nn.BCEWithLogitsLoss",
+      "output": "nn.BCEWithLogitsLoss; weight/pos_weight remain buffers.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.CosineSimilarity",
+    "signature": "(dim=1, eps=1e-08)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 79,
+    "description": "nn.CosineSimilarity module; preserve dim and eps.",
+    "contract": {
+      "source": "torch.nn.CosineSimilarity",
+      "output": "nn.CosineSimilarity module; preserve dim and eps.",
+      "gradients": "both inputs",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.CrossEntropyLoss",
+    "signature": "(weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean', label_smoothing=0.0)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 47,
+    "description": "nn.CrossEntropyLoss; weight remains a registered buffer.",
+    "contract": {
+      "source": "torch.nn.CrossEntropyLoss",
+      "output": "nn.CrossEntropyLoss; weight remains a registered buffer.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.KLDivLoss",
+    "signature": "(size_average=None, reduce=None, reduction='mean', log_target=False)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 63,
+    "description": "nn.KLDivLoss with original reduction.",
+    "contract": {
+      "source": "torch.nn.KLDivLoss",
+      "output": "nn.KLDivLoss with original reduction.",
+      "gradients": "input and floating target",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.L1Loss",
+    "signature": "(size_average=None, reduce=None, reduction='mean')",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 71,
+    "description": "nn.L1Loss with original reduction.",
+    "contract": {
+      "source": "torch.nn.L1Loss",
+      "output": "nn.L1Loss with original reduction.",
+      "gradients": "input and target",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.binary_cross_entropy",
+    "signature": "(input, target, weight=None, size_average=None, reduce=None, reduction='mean')",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 7,
+    "description": "Tensor scalar or elementwise by reduction; legacy size_average/reduce precedence preserved.",
+    "contract": {
+      "source": "torch.nn.functional.binary_cross_entropy",
+      "output": "Tensor scalar or elementwise by reduction; legacy size_average/reduce precedence preserved.",
+      "gradients": "input and supported floating target",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.binary_cross_entropy_with_logits",
+    "signature": "(input, target, weight=None, size_average=None, reduce=None, reduction='mean', pos_weight=None)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 15,
+    "description": "Tensor scalar/elementwise; pos_weight broadcast and logits formulation unchanged.",
+    "contract": {
+      "source": "torch.nn.functional.binary_cross_entropy_with_logits",
+      "output": "Tensor scalar/elementwise; pos_weight broadcast and logits formulation unchanged.",
+      "gradients": "input and supported floating target",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.cross_entropy",
+    "signature": "(input, target, weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean', label_smoothing=0.0)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 23,
+    "description": "Scalar or unreduced loss, integer/probability target and ignore_index unchanged.",
+    "contract": {
+      "source": "torch.nn.functional.cross_entropy",
+      "output": "Scalar or unreduced loss, integer/probability target and ignore_index unchanged.",
+      "gradients": "input and supported probability target",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.kl_div",
+    "signature": "(input, target, size_average=None, reduce=None, reduction='mean', log_target=False)",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 31,
+    "description": "Loss with original reduction; mean and batchmean not interchangeable.",
+    "contract": {
+      "source": "torch.nn.functional.kl_div",
+      "output": "Loss with original reduction; mean and batchmean not interchangeable.",
+      "gradients": "input and floating target",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "loss.l1_loss",
+    "signature": "(input, target, size_average=None, reduce=None, reduction='mean')",
+    "source": "up_platform/ops/loss/base.py",
+    "line": 39,
+    "description": "Scalar or elementwise L1 loss with original broadcast semantics.",
+    "contract": {
+      "source": "torch.nn.functional.l1_loss",
+      "output": "Scalar or elementwise L1 loss with original broadcast semantics.",
+      "gradients": "input and target",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.Linear",
+    "signature": "(in_features, out_features, bias=True, device=None, dtype=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 55,
+    "description": "nn.Linear-compatible module with original weight/bias keys, shapes and initialization.",
+    "contract": {
+      "source": "torch.nn.Linear",
+      "output": "nn.Linear-compatible module with original weight/bias keys, shapes and initialization.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.addmm",
+    "signature": "(input, mat1, mat2, *, beta=1, alpha=1, out=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 39,
+    "description": "Tensor beta*input + alpha*(mat1@mat2), following upstream accumulation and promotion.",
+    "contract": {
+      "source": "torch.addmm",
+      "output": "Tensor beta*input + alpha*(mat1@mat2), following upstream accumulation and promotion.",
+      "gradients": "floating inputs unless out is used",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.bmm",
+    "signature": "(input, mat2, *, out=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 31,
+    "description": "Tensor (B,N,P) from (B,N,M) and (B,M,P); no broadcasting.",
+    "contract": {
+      "source": "torch.bmm",
+      "output": "Tensor (B,N,P) from (B,N,M) and (B,M,P); no broadcasting.",
+      "gradients": "input and mat2 unless out is used",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.einsum",
+    "signature": "(equation, *operands)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 47,
+    "description": "Tensor according to the original string equation; operand order is unchanged.",
+    "contract": {
+      "source": "torch.einsum",
+      "output": "Tensor according to the original string equation; operand order is unchanged.",
+      "gradients": "floating operands",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.linear",
+    "signature": "(input, weight, bias=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 7,
+    "description": "Tensor (*, out_features); weight=(out_features, in_features); optional bias=(out_features,).",
+    "contract": {
+      "source": "torch.nn.functional.linear",
+      "output": "Tensor (*, out_features); weight=(out_features, in_features); optional bias=(out_features,).",
+      "gradients": "input, weight and optional bias",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.matmul",
+    "signature": "(input, other, *, out=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 15,
+    "description": "Tensor with PyTorch vector/matrix/batched broadcasting; out follows PyTorch autograd restrictions.",
+    "contract": {
+      "source": "torch.matmul",
+      "output": "Tensor with PyTorch vector/matrix/batched broadcasting; out follows PyTorch autograd restrictions.",
+      "gradients": "input and other unless out is used",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "matrix.mm",
+    "signature": "(input, mat2, *, out=None)",
+    "source": "up_platform/ops/matrix/base.py",
+    "line": 23,
+    "description": "Tensor (N,P) from (N,M) and (M,P); no broadcasting.",
+    "contract": {
+      "source": "torch.mm",
+      "output": "Tensor (N,P) from (N,M) and (M,P); no broadcasting.",
+      "gradients": "input and mat2 unless out is used",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.BatchNorm1d",
+    "signature": "(num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True, device=None, dtype=None)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 57,
+    "description": "nn.BatchNorm1d-compatible module; preserve running_mean/var and num_batches_tracked.",
+    "contract": {
+      "source": "torch.nn.BatchNorm1d",
+      "output": "nn.BatchNorm1d-compatible module; preserve running_mean/var and num_batches_tracked.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.BatchNorm2d",
+    "signature": "(num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True, device=None, dtype=None)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 65,
+    "description": "nn.BatchNorm2d-compatible module; preserve running_mean/var and num_batches_tracked.",
+    "contract": {
+      "source": "torch.nn.BatchNorm2d",
+      "output": "nn.BatchNorm2d-compatible module; preserve running_mean/var and num_batches_tracked.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.LayerNorm",
+    "signature": "(normalized_shape, eps=1e-05, elementwise_affine=True, bias=True, device=None, dtype=None)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 73,
+    "description": "nn.LayerNorm-compatible module with original parameter names and initialization.",
+    "contract": {
+      "source": "torch.nn.LayerNorm",
+      "output": "nn.LayerNorm-compatible module with original parameter names and initialization.",
+      "gradients": "input and parameters",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.batch_norm",
+    "signature": "(input, running_mean, running_var, weight=None, bias=None, training=False, momentum=0.1, eps=1e-05)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 25,
+    "description": "Tensor same shape as input; mutate running stats in training exactly as upstream.",
+    "contract": {
+      "source": "torch.nn.functional.batch_norm",
+      "output": "Tensor same shape as input; mutate running stats in training exactly as upstream.",
+      "gradients": "input, weight, bias; not running statistics",
+      "state": "Update running_mean/running_var only when training=True, in place.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.batch_norm_module_forward",
+    "signature": "(module, input)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 7,
+    "description": "",
+    "contract": {
+      "source": "torch.nn.BatchNorm2d.forward",
+      "output": "Original PyTorch result.",
+      "gradients": "Original input and parameter gradients.",
+      "state": "Original module and autograd state updates.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.group_norm",
+    "signature": "(input, num_groups, weight=None, bias=None, eps=1e-05)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 41,
+    "description": "Tensor same NCHW shape; num_groups must divide C.",
+    "contract": {
+      "source": "torch.nn.functional.group_norm",
+      "output": "Tensor same NCHW shape; num_groups must divide C.",
+      "gradients": "input, weight, bias",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.layer_norm",
+    "signature": "(input, normalized_shape, weight=None, bias=None, eps=1e-05)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 33,
+    "description": "Tensor same shape; normalize trailing normalized_shape dimensions.",
+    "contract": {
+      "source": "torch.nn.functional.layer_norm",
+      "output": "Tensor same shape; normalize trailing normalized_shape dimensions.",
+      "gradients": "input, weight, bias",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.normalize",
+    "signature": "(input, p=2.0, dim=1, eps=1e-12, out=None)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 49,
+    "description": "Same-shape Lp normalization with original eps and dimension.",
+    "contract": {
+      "source": "torch.nn.functional.normalize",
+      "output": "Same-shape Lp normalization with original eps and dimension.",
+      "gradients": "input unless out is used",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.sync_batch_norm",
+    "signature": "(input, weight, bias, running_mean, running_var, eps, momentum, process_group, world_size)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 19,
+    "description": "",
+    "contract": {
+      "source": "sync_batch_norm_function.apply",
+      "output": "Original PyTorch result.",
+      "gradients": "Original input and parameter gradients.",
+      "state": "Original module and autograd state updates.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "normalization.sync_batch_norm_forward",
+    "signature": "(module, input)",
+    "source": "up_platform/ops/normalization/base.py",
+    "line": 13,
+    "description": "",
+    "contract": {
+      "source": "torch.nn.SyncBatchNorm.forward",
+      "output": "Original PyTorch result.",
+      "gradients": "Original input and parameter gradients.",
+      "state": "Original module and autograd state updates.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.boxes_bev_iou_cpu",
+    "signature": "(boxes_a, boxes_b)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 66,
+    "description": "boxes_a[N,7], boxes_b[M,7] -> CPU[N,M]; preserve NumPy return convention.",
+    "contract": {
+      "source": "up/extensions/python/iou3d_nms_utils.py:11",
+      "output": "boxes_a[N,7], boxes_b[M,7] -> CPU[N,M]; preserve NumPy return convention.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Explicit original CPU operation; preserve returned device/type.",
+      "dtype": "CPU float32, center/dimensions/heading.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original CPU empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.boxes_iou3d",
+    "signature": "(boxes_a, boxes_b)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 88,
+    "description": "boxes_a[N,7], boxes_b[M,7] -> GPU[N,M], original BEV plus height formula.",
+    "contract": {
+      "source": "up/extensions/python/iou3d_nms_utils.py:47",
+      "output": "boxes_a[N,7], boxes_b[M,7] -> GPU[N,M], original BEV plus height formula.",
+      "gradients": "Partial autograd through Torch height/volume only; native BEV overlap has no backward",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32, center/dimensions/heading.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.boxes_iou_bev",
+    "signature": "(boxes_a, boxes_b)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 77,
+    "description": "boxes_a[N,7], boxes_b[M,7] -> float32 GPU[N,M].",
+    "contract": {
+      "source": "up/extensions/python/iou3d_nms_utils.py:30",
+      "output": "boxes_a[N,7], boxes_b[M,7] -> float32 GPU[N,M].",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32 contiguous.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.nms3d",
+    "signature": "(boxes, scores, thresh, pre_maxsize=None, **kwargs)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 99,
+    "description": "boxes[N,7], scores[N] -> (device int64 indices[K], None); sort and optional pre_maxsize.",
+    "contract": {
+      "source": "up/extensions/python/iou3d_nms_utils.py:81",
+      "output": "boxes[N,7], scores[N] -> (device int64 indices[K], None); sort and optional pre_maxsize.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32 boxes; original score sort.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.nms3d_normal",
+    "signature": "(boxes, scores, thresh, **kwargs)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 110,
+    "description": "boxes[N,7], scores[N] -> (device int64 indices[K], None); original nonrotated NMS.",
+    "contract": {
+      "source": "up/extensions/python/iou3d_nms_utils.py:99",
+      "output": "boxes[N,7], scores[N] -> (device int64 indices[K], None); original nonrotated NMS.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32 boxes.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.points_in_boxes_cpu",
+    "signature": "(points, boxes)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 22,
+    "description": "points[P,3], boxes[B,7] -> CPU int32[B,P]; preserve original NumPy flag.",
+    "contract": {
+      "source": "up/extensions/python/roiaware_pool3d_utils.py:15",
+      "output": "points[P,3], boxes[B,7] -> CPU int32[B,P]; preserve original NumPy flag.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Explicit original CPU operation; preserve returned device/type.",
+      "dtype": "Explicit CPU float32 contiguous conversion.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original CPU loops handle empty counts.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.points_in_boxes_gpu",
+    "signature": "(points, boxes)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 33,
+    "description": "points[B,P,3], boxes[B,T,7] -> int32[B,P], first box index or -1.",
+    "contract": {
+      "source": "up/extensions/python/roiaware_pool3d_utils.py:34",
+      "output": "points[B,P,3], boxes[B,T,7] -> int32[B,P], first box index or -1.",
+      "gradients": "Not differentiable",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32 contiguous inputs.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.roiaware_pool3d",
+    "signature": "(rois, pts, pts_feature, out_size, max_pts_each_voxel, pool_method)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 44,
+    "description": "rois[R,7], pts[P,3], feature[P,C] -> [R,X,Y,Z,C]; max/avg.",
+    "contract": {
+      "source": "up/extensions/python/roiaware_pool3d_utils.py:61",
+      "output": "rois[R,7], pts[P,3], feature[P,C] -> [R,X,Y,Z,C]; max/avg.",
+      "gradients": "pts_feature only; save argmax and voxel point indices",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32 contiguous inputs; int32 state.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.roipoint_pool3d",
+    "signature": "(points, point_features, boxes3d, pool_extra_width, num_sampled_points=512)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 55,
+    "description": "points[B,P,3], features[B,P,C], boxes[B,R,7] -> ([B,R,S,3+C], int32[B,R] flags).",
+    "contract": {
+      "source": "up/extensions/python/roipoint_pool3d_utils.py:29",
+      "output": "points[B,P,3], features[B,P,C], boxes[B,R,7] -> ([B,R,S,3+C], int32[B,R] flags).",
+      "gradients": "No backward in upstream; do not fabricate gradients",
+      "state": "Original autograd buffers retained; no extra numerical policy.",
+      "device": "Original device contract; no new CPU fallback.",
+      "dtype": "GPU float32; extra_width follows original helper.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Original native empty behavior and empty-box flags.",
+      "export": "No added export support.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pointcloud.rotate_iou_eval",
+    "signature": "(boxes, query_boxes, criterion=-1, device_id=0)",
+    "source": "up_platform/ops/pointcloud/base.py",
+    "line": 7,
+    "description": "criterion=-1 IoU; 0 divide query area; 1 divide box area; otherwise intersection.",
+    "contract": {
+      "source": "up/tasks/det_3d/data/metrics/kitti_object_eval_python/rotate_iou.py",
+      "output": "NumPy float32[N,K] overlap for boxes[N,5], query_boxes[K,5]; clockwise angle.",
+      "gradients": "Not differentiable; evaluation metric.",
+      "state": "Select device_id; no model state changes.",
+      "device": "Explicit host arrays in/out; geometry executes on selected accelerator.",
+      "dtype": "Cast host inputs to float32 as in upstream.",
+      "layout": "Contiguous [N,5]; center_x, center_y, width, height, clockwise angle.",
+      "empty": "Return zeros[N,K] if N or K is zero.",
+      "export": "Metric only, not part of model export.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.AdaptiveAvgPool2d",
+    "signature": "(output_size)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 39,
+    "description": "nn.AdaptiveAvgPool2d module.",
+    "contract": {
+      "source": "torch.nn.AdaptiveAvgPool2d",
+      "output": "nn.AdaptiveAvgPool2d module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.AvgPool2d",
+    "signature": "(kernel_size, stride=None, padding=0, ceil_mode=False, count_include_pad=True, divisor_override=None)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 47,
+    "description": "nn.AvgPool2d module; divisor and padding semantics unchanged.",
+    "contract": {
+      "source": "torch.nn.AvgPool2d",
+      "output": "nn.AvgPool2d module; divisor and padding semantics unchanged.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.MaxPool2d",
+    "signature": "(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 55,
+    "description": "nn.MaxPool2d module; return_indices and ceil_mode retain constructor order.",
+    "contract": {
+      "source": "torch.nn.MaxPool2d",
+      "output": "nn.MaxPool2d module; return_indices and ceil_mode retain constructor order.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.Upsample",
+    "signature": "(size=None, scale_factor=None, mode='nearest', align_corners=None, recompute_scale_factor=None)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 63,
+    "description": "nn.Upsample module; original interpolation behavior.",
+    "contract": {
+      "source": "torch.nn.Upsample",
+      "output": "nn.Upsample module; original interpolation behavior.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.UpsamplingBilinear2d",
+    "signature": "(size=None, scale_factor=None)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 71,
+    "description": "nn.UpsamplingBilinear2d module; original align_corners behavior.",
+    "contract": {
+      "source": "torch.nn.UpsamplingBilinear2d",
+      "output": "nn.UpsamplingBilinear2d module; original align_corners behavior.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.ZeroPad2d",
+    "signature": "(padding)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 79,
+    "description": "nn.ZeroPad2d module.",
+    "contract": {
+      "source": "torch.nn.ZeroPad2d",
+      "output": "nn.ZeroPad2d module.",
+      "gradients": "input",
+      "state": "Construct the original module with original parameter identities, initialization and RNG consumption. Running stats and RNG change only as in upstream forward.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.adaptive_avg_pool2d",
+    "signature": "(input, output_size)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 7,
+    "description": "Tensor with requested H,W, same N,C.",
+    "contract": {
+      "source": "torch.nn.functional.adaptive_avg_pool2d",
+      "output": "Tensor with requested H,W, same N,C.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.interpolate",
+    "signature": "(input, size=None, scale_factor=None, mode='nearest', align_corners=None, recompute_scale_factor=None, antialias=False)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 23,
+    "description": "Resized Tensor; all coordinate conventions and align_corners unchanged.",
+    "contract": {
+      "source": "torch.nn.functional.interpolate",
+      "output": "Resized Tensor; all coordinate conventions and align_corners unchanged.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.max_pool2d",
+    "signature": "(input, kernel_size, stride=None, padding=0, dilation=1, ceil_mode=False, return_indices=False)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 15,
+    "description": "Tensor, or (Tensor, indices) when requested; indices retain upstream layout.",
+    "contract": {
+      "source": "torch.nn.functional.max_pool2d",
+      "output": "Tensor, or (Tensor, indices) when requested; indices retain upstream layout.",
+      "gradients": "input only",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pooling.pad",
+    "signature": "(input, pad, mode='constant', value=None)",
+    "source": "up_platform/ops/pooling/base.py",
+    "line": 31,
+    "description": "Padded Tensor; pad order and mode unchanged.",
+    "contract": {
+      "source": "torch.nn.functional.pad",
+      "output": "Padded Tensor; pad order and mode unchanged.",
+      "gradients": "input",
+      "state": "Preserve original aliasing and RNG behavior; no additional persistent state.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.build_scheduler",
+    "signature": "(config)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 31,
+    "description": "Original pruning scheduler and policy; same config object semantics.",
+    "contract": {
+      "source": "pruning.build_scheduler",
+      "output": "Original pruning scheduler and policy; same config object semantics.",
+      "gradients": "Original MSBench masks/gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.export",
+    "signature": "(scheduler, model)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 55,
+    "description": "Original in-place materialization of masks.",
+    "contract": {
+      "source": "pruning.export",
+      "output": "Original in-place materialization of masks.",
+      "gradients": "Original MSBench semantics",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.init_optimizer",
+    "signature": "(scheduler, optimizer)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 79,
+    "description": "Original optimizer attachment and state changes.",
+    "contract": {
+      "source": "pruning.init_optimizer",
+      "output": "Original optimizer attachment and state changes.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.last_prune_step",
+    "signature": "(scheduler)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 14,
+    "description": "Read the optional prune-step offset using the original UP zero default.",
+    "contract": {
+      "source": "msbench.scheduler.get_last_prune_step",
+      "output": "Original last prune step, or zero if the scheduler has no such method.",
+      "gradients": "None",
+      "state": "No persistent state is changed.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.module_type",
+    "signature": "(name)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 23,
+    "description": "Original MSBench class; no duplicate wrapper parameters.",
+    "contract": {
+      "source": "pruning.module_type",
+      "output": "Original MSBench class; no duplicate wrapper parameters.",
+      "gradients": "Class-dependent",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.prepare",
+    "signature": "(scheduler, model)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 39,
+    "description": "Original prepared model, masks and checkpoint keys.",
+    "contract": {
+      "source": "pruning.prepare",
+      "output": "Original prepared model, masks and checkpoint keys.",
+      "gradients": "Original MSBench masks/gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.prune",
+    "signature": "(scheduler, model, iteration)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 47,
+    "description": "Original in-place mask update at given iteration.",
+    "contract": {
+      "source": "pruning.prune",
+      "output": "Original in-place mask update at given iteration.",
+      "gradients": "Original MSBench masks/gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.set_iteration",
+    "signature": "(scheduler, iteration)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 6,
+    "description": "Restore the original pruning iteration field.",
+    "contract": {
+      "source": "msbench.scheduler.iteration",
+      "output": "None.",
+      "gradients": "None",
+      "state": "Restore scheduler.iteration from the original UP checkpoint without changing masks.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.set_lr_scheduler",
+    "signature": "(scheduler, lr_scheduler)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 71,
+    "description": "Original scheduler attachment, no schedule modifications.",
+    "contract": {
+      "source": "pruning.set_lr_scheduler",
+      "output": "Original scheduler attachment, no schedule modifications.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "pruning.sparse_rate",
+    "signature": "(scheduler, model)",
+    "source": "up_platform/ops/pruning/base.py",
+    "line": 63,
+    "description": "Original sparse-rate measurement.",
+    "contract": {
+      "source": "pruning.sparse_rate",
+      "output": "Original sparse-rate measurement.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.backend_types",
+    "signature": "()",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 7,
+    "description": "MQBench BackendType enum; deployment target remains an explicit UP choice.",
+    "contract": {
+      "source": "quantization.backend_types",
+      "output": "MQBench BackendType enum; deployment target remains an explicit UP choice.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.convert_deploy",
+    "signature": "(model, backend_type, **kwargs)",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 55,
+    "description": "Original deployment artifacts; backend does not imply a runtime engine.",
+    "contract": {
+      "source": "quantization.convert_deploy",
+      "output": "Original deployment artifacts; backend does not imply a runtime engine.",
+      "gradients": "None; export path",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.enable_calibration",
+    "signature": "(model, quantizer_type='fake_quant')",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 31,
+    "description": "Enable the original observer state; no implicit data movement.",
+    "contract": {
+      "source": "quantization.enable_calibration",
+      "output": "Enable the original observer state; no implicit data movement.",
+      "gradients": "Original observer semantics",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.enable_quantization",
+    "signature": "(model, weight_cali_on=False, act_cali_on=False)",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 39,
+    "description": "Update original quantizer/observer flags in place.",
+    "contract": {
+      "source": "quantization.enable_quantization",
+      "output": "Update original quantizer/observer flags in place.",
+      "gradients": "Original fake-quant gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.module_type",
+    "signature": "(name)",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 15,
+    "description": "Original MQBench class for construction or isinstance checks.",
+    "contract": {
+      "source": "quantization.module_type",
+      "output": "Original MQBench class for construction or isinstance checks.",
+      "gradients": "Class-dependent",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.prepare",
+    "signature": "(model, backend_type, prepare_custom_config_dict=None)",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 23,
+    "description": "Original MQBench prepared model; observer/quantizer state and FX graph.",
+    "contract": {
+      "source": "quantization.prepare",
+      "output": "Original MQBench prepared model; observer/quantizer state and FX graph.",
+      "gradients": "Preserve MQBench fake quantization gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "quantization.reconstruct",
+    "signature": "(model, cali_data, config, graph_module_list=None)",
+    "source": "up_platform/ops/quantization/base.py",
+    "line": 47,
+    "description": "Original MQBench PTQ result with original algorithm/config.",
+    "contract": {
+      "source": "quantization.reconstruct",
+      "output": "Original MQBench PTQ result with original algorithm/config.",
+      "gradients": "Original reconstruction gradients",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.SparseConv3d",
+    "signature": "(in_channels, out_channels, kernel_size, **kwargs)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 26,
+    "description": "Original sparse module; original indice mapping and weight layout.",
+    "contract": {
+      "source": "sparse.SparseConv3d",
+      "output": "Original sparse module; original indice mapping and weight layout.",
+      "gradients": "Features and weights",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.SparseConvTensor",
+    "signature": "(features, indices, spatial_shape, batch_size, **kwargs)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 50,
+    "description": "Vendor sparse tensor with int32 [N,4] indices and original cache semantics.",
+    "contract": {
+      "source": "sparse.SparseConvTensor",
+      "output": "Vendor sparse tensor with int32 [N,4] indices and original cache semantics.",
+      "gradients": "Features only",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.SparseInverseConv3d",
+    "signature": "(in_channels, out_channels, kernel_size, indice_key, **kwargs)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 34,
+    "description": "Original inverse sparse convolution; requires corresponding indice state.",
+    "contract": {
+      "source": "sparse.SparseInverseConv3d",
+      "output": "Original inverse sparse convolution; requires corresponding indice state.",
+      "gradients": "Features and weights",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.SparseSequential",
+    "signature": "(*modules)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 42,
+    "description": "Original sparse sequential module; no extra checkpoint prefix.",
+    "contract": {
+      "source": "sparse.SparseSequential",
+      "output": "Original sparse sequential module; no extra checkpoint prefix.",
+      "gradients": "According to contained modules",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.SubMConv3d",
+    "signature": "(in_channels, out_channels, kernel_size, **kwargs)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 18,
+    "description": "Original sparse module and parameter layout.",
+    "contract": {
+      "source": "sparse.SubMConv3d",
+      "output": "Original sparse module and parameter layout.",
+      "gradients": "Features and weights",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.dense",
+    "signature": "(tensor, channels_first=True)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 74,
+    "description": "Dense tensor using original spconv layout.",
+    "contract": {
+      "source": "sparse.dense",
+      "output": "Dense tensor using original spconv layout.",
+      "gradients": "Features",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.features",
+    "signature": "(tensor)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 66,
+    "description": "Original feature tensor without clone/detach.",
+    "contract": {
+      "source": "sparse.features",
+      "output": "Original feature tensor without clone/detach.",
+      "gradients": "Preserve graph and aliasing",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.is_sparse_convolution",
+    "signature": "(module)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 82,
+    "description": "Whether module is an actual spconv SparseConvolution.",
+    "contract": {
+      "source": "sparse.is_sparse_convolution",
+      "output": "Whether module is an actual spconv SparseConvolution.",
+      "gradients": "None",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.module_instance",
+    "signature": "(module_type)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 90,
+    "description": "Uninitialized instance retaining UP class methods and vendor SparseModule recognition.",
+    "contract": {
+      "source": "sparse.module_instance",
+      "output": "Uninitialized instance retaining UP class methods and vendor SparseModule recognition.",
+      "gradients": "Not applicable",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.replace_feature",
+    "signature": "(tensor, features)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 58,
+    "description": "Sparse tensor preserving indices and indice dictionaries.",
+    "contract": {
+      "source": "sparse.replace_feature",
+      "output": "Sparse tensor preserving indices and indice dictionaries.",
+      "gradients": "Features",
+      "state": "Preserve dependency state updates, parameter identity and call order.",
+      "device": "Inputs and output remain on the selected device; no CPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Preserve the underlying PyTorch ONNX symbolic and attributes.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  },
+  {
+    "name": "sparse.voxelize_cpu",
+    "signature": "(generator, points)",
+    "source": "up_platform/ops/sparse/base.py",
+    "line": 6,
+    "description": "Call the original Point2VoxelCPU3d/cumm bridge and return independent arrays.",
+    "contract": {
+      "source": "cumm.tensorview.from_numpy",
+      "output": "Tuple of owned NumPy voxel, coordinate and count arrays.",
+      "gradients": "None: original explicitly CPU data preprocessing.",
+      "state": "The supplied Point2VoxelCPU3d generator owns scratch storage; returned arrays must own copies.",
+      "device": "CPU NumPy inputs/outputs only; this is not a GPU fallback.",
+      "dtype": "Preserve upstream dtype support and PyTorch promotion/autocast rules.",
+      "layout": "Preserve upstream shapes, strides and broadcasting requirements.",
+      "empty": "Preserve upstream empty-input output or error; do not fabricate output.",
+      "export": "Not part of the model export graph.",
+      "scopes": [
+        "training",
+        "inference"
+      ]
+    }
+  }
+]

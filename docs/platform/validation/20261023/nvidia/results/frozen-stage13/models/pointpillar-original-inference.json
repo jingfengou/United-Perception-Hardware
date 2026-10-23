@@ -1,0 +1,24 @@
+{
+  "vendor": "nvidia",
+  "variant": "original",
+  "model": "pointpillar",
+  "purpose": "inference",
+  "passed_execution": true,
+  "tasks": "cls:det:det_3d",
+  "config": "configs/det_3d/pointpillar/pointpillar.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "reference_adaptations": [
+    "collections.Iterable Python 3.12 alias",
+    "NumPy removed float/int/bool builtin aliases",
+    "defer unused Open3D PCD reader import"
+  ],
+  "source": "/data2/oujingfeng/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  }
+}

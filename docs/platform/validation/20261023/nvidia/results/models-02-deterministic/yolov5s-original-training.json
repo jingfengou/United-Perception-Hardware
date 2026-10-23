@@ -1,0 +1,18 @@
+{
+  "vendor": "nvidia",
+  "variant": "original",
+  "model": "yolov5s",
+  "purpose": "training",
+  "passed_execution": true,
+  "config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "source": "/data2/oujingfeng/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  }
+}

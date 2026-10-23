@@ -1,0 +1,12 @@
+{
+  "vendor": "metax",
+  "command": [
+    "/workspace/up-run/venv/bin/python",
+    "setup.py",
+    "build_ext",
+    "--inplace"
+  ],
+  "returncode": 0,
+  "seconds": 210.70022988319397,
+  "log_sha256": "8a123d056c1649bc31aaa7a685f14305789ba63686f3d330a7648560f8847324"
+}

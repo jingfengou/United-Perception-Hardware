@@ -1,0 +1,194 @@
+{
+  "trial_source_sha256": "3cde2cff75871d7cc583838651fd976b8a81a45e0615c5c3407d79b9bde71cd3",
+  "normalization": "CRLF to LF only",
+  "scope": "up/, up_platform/, configs/; tools/tests retain their separate trial manifests",
+  "published_evidence_files_verified": 164,
+  "runtime_files": 781,
+  "identical_files": 745,
+  "unused_import_only": [
+    {
+      "path": "up/models/backbones/convnext.py",
+      "before": "7495b0f55056fc1bc98becd5ac55157bd40b3f7334e5e795b372c79c168db8a8",
+      "after": "752ab0cfafc0fc8097ac248581449bb688c11d4f5013a648575e83b1523e583d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "before": "b9a343e90ada6a7b16f786d754ec0f7839b53f76d0ee5011446ed2fc45af18f5",
+      "after": "6a5b34434ac56bb63cb80837a4e24d1f7377d576eb51093f56d49ccdfa3aba27"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "before": "07b33c25fadceb27efd0c56af987478ba040665ecf6dd67f124fc3c11ac72df5",
+      "after": "acf02189079ace05c9a42796bb85cd2b2a757dfb0b5f5f7f4d06acc3dc0eb9e0"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "before": "f12e6b1a490198ce01b7579ef6c227cea767a1761ae1d52c403c64e2caf71e26",
+      "after": "ab217b38e80701b29fd54ae927cb38fd96f27a92cae4e29c3d93515d32711f82"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "before": "e02e0a76be9364bef92918212c7df93d8953bc78edd4aa74e48ecfa34bca44d5",
+      "after": "aa7bafd04b92a2a98377f120740cba433ebc5780ef6a9a70a3aab6ee8d11f97e"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "before": "4cd4d06f3a9ae93c38b19af519c0b3d8fe9e3e03617c2f65457eac205266e142",
+      "after": "7ab8f55b349025a16ef4094e233f95dfa790ca7da9f306fa4c3abb2ebb5cf21e"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "before": "5bd6ab2aed5c64aa18cc4618099dde4d2e0e9e8a8cf17e6a1bb5d9a0cbb03cc0",
+      "after": "f209a6f5e8cc0dc9470c26f9f770fdc310a967a8960b64b299a98d60e0c91a9a"
+    },
+    {
+      "path": "up/tasks/det/models/utils/anchor_generator.py",
+      "before": "de255e6f6509555f063d476ba14395f375a5142c3afd3284f739c5875ea2d02b",
+      "after": "589ad37d0200ab0240a3ca0bdb16463e9a13556626259922a9adb9555272a87b"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/head/fcos_head.py",
+      "before": "d68caec39dabef0821c1c81b6dc9c24a590102ba4d0d11b0bc752d621c69d589",
+      "after": "441efd1c1f96daa3720da74aead4a6357f2e9cbbc85070eb0909caf39496db2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/backbone/darknetv5.py",
+      "before": "a90c66b5f54469240e2fc5f3b24ff248155039101ce5c716df3b6c03ad04173b",
+      "after": "193436423fa5367056def8aae17b1fc130349df457774bf37dbe668783bf5032"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/components.py",
+      "before": "6a620d3a6ff2a5ab2bec43546f7798a0c31ef382e6618ed70172b85c6e7d27d1",
+      "after": "e259e78ae47d4b7a308adefea7abb2a9a994935b60ec6e4f09da698687e89cb5"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/head/yolov5_head.py",
+      "before": "78eef9ce3786118e1f0026592048c4d109b29ebc87b5d5847de04c53ec6c3947",
+      "after": "9578295925fc55b6c0d9b40d978e5ac1453c57febd7cb50f0e00d853af5877aa"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/initializer.py",
+      "before": "ae5957cc2afed338f2ca4e86c48f0fcb5148163174caaaa1d51813b23cd5b43f",
+      "after": "3fc795e7544cbb8f16456a84159ce85b88ca1c7998d9e2365cf0cbb4b85ba600"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/neck/yolov5_pan.py",
+      "before": "130d266c6e0c0fd8f658f7ff80009d5a0bf2dd688f9d260114146cdc1864d877",
+      "after": "54dd4a854fbe393de69620e9b1e939482bbd87a38b89d3dfdc91ad62dec289fb"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "before": "ad1f16895eb58780abc052ce3f74e48d4610af56c696b780f056d1fd55d3983a",
+      "after": "1da98b90fb579b1c0005f375e596bc1ea7423f2a3bbcb4b679653c2032928914"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "before": "b85fb0dd7ff8afad35ff908ba915fd79909d1b0b54d3d4ade61250e3ec647d0e",
+      "after": "b9971f1097475275b179f8830be318c4346843f3f98bc89f9147c29236625558"
+    },
+    {
+      "path": "up/tasks/det_3d/data/box_utils.py",
+      "before": "da09714c37cd072550807cc1e8a50e4003e2159db058f10d4bd1327f5d1b10f7",
+      "after": "a1386abaa94c27aa260e61d1ad08338bb080006f9fa306f93688a12428b26057"
+    },
+    {
+      "path": "up/tasks/det_3d/data/data_reader.py",
+      "before": "59888cdbc6bb5ee036f11bff51e7f4f95e505ef0829d577e261e2ede847b7fe6",
+      "after": "4fc3db2cd6d7614bf6f4ef71c01c4c1715c226efbc4a3768e43dbda5ee919a9b"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "before": "08e8907b10ada9468affc2b148809c79862770947609056dd49bc4780c4a31a8",
+      "after": "5a51e6366195931f80e699b77a7314192a0cf617c976403f2637dea436ccb9c8"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "before": "b1d99bae34d49ef567d7c1b007ffafe61e816401d0689116b40d6fb401646adf",
+      "after": "3758f1d1d81717e4054b4bdd350931811ba67dbbef0179e719b4a83724d57fe2"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "before": "111e1519bfe44dafc446256dae8f96ec10a58b1bb1694c35de49d6d082ebcdb6",
+      "after": "c7d12bda979bcf3ee9d67157a96d938fb776e4d82f23c0077e07e5cae3b7900f"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_fc_cls.py",
+      "before": "12183234e5258b5be433460a6d3516056ae97ccf530639fddbe08bca7c4788c3",
+      "after": "b4d374d02bc7fd6fa91dfcc6b8ac0cddd557513a832348a3bca1d93ec2c3634f"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_retina_cls.py",
+      "before": "f34dd5493724091a3f6b6f47e5cff035a63da85d4594667865032632f475cbee",
+      "after": "0f394e51f778d0d59aaf0d3d515569e735c9ab974b38d2fc93db8521aa28fbf9"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_regnet.py",
+      "before": "8d8ae2dd6efb02d8f144e74f3832303f2e52b0ce81df679037ab915f9646e86e",
+      "after": "08c104b273e75649a06d89635db36585fdbaaa1494eace645a83c282acff26de"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_resnet_basic.py",
+      "before": "94778cb091931b74886383202fb53d4bd1ed94bef40f91d3b6c1a8d61d9cc1f1",
+      "after": "e48d988ed8471028ca009d58f31d3069608e11e0c7e4fb5141156a4943e2cd52"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_clshead.py",
+      "before": "35d4c4bfc0f0f27aa3d34329402c3138d36e93b3fb9fbad070bef43f5eab9f74",
+      "after": "fadb0a8bf7e15221ea82583114de7944d5a2caf5cb4091c360e30caa893d8c60"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_retinanetwithbn.py",
+      "before": "2664f4f7dd9ececcb1e40f036ebfc3b2e9905e853a9d6adaf5a25744ebb27543",
+      "after": "0675e3f96ac364f4d4fabf3e7b45a8d8b0a889bd58d5211455ae92b468d9768f"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "before": "f15f677ed543c0e2aeb7c1f7c5958527539a383e58977c5e8d39ee1b84b792d0",
+      "after": "c1e1d4a0815c793d12a8af6647590d5b6916b4de293ae0b35eeaf9f4aa2692fe"
+    },
+    {
+      "path": "up/tasks/nas/metax/commands/search.py",
+      "before": "238256d92644d7957a1032e67cdfd2343171e6befe20338a9a54755c36afc07d",
+      "after": "94cd4b5898ed28827e0ed0d66ec2bdc9e8592b3deadd4b913a8c13dbca786f95"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "before": "02ea3119d45453537cd6a96bae9643af706a31fc469d75d3df3b6024d064f15f",
+      "after": "5ab8d1b8988abf9bc4d7bb16b0f6df9f17440f9c46bba7a9d250f2bf7b9ad22d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "before": "f1b75541c9f84c57c26d931b8be5c50cf5786a09fdccbdf507bd1f12a0cc4e79",
+      "after": "c31b522ab578f2879bfaad369af5c022bcaa16d8634ec09fbf547d7ae6ba69bc"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "before": "a5974a3949554b60fcbfce835036cca8206aefbc73e0209b5788d65eba2fc145",
+      "after": "7a51a33287292be436a810fa8529906bb18d830327779682209ea83f0f97bc45"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "before": "73330443d9e67860062bfb0ccd788fb9b0cbc8f6d119f90609f31ce3b4a485c0",
+      "after": "24ca749bbb236eba5dfa79f0b882e01218ab6227f193b28ab002ed5e54ac1468"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "before": "9c30bd6af32d90ef57e2b44f448599ef5ce36185b54dd52384ca0f4eea10555f",
+      "after": "958a897512fd6921d0b48d9ded5ff60df6e70489e8571c7b722c36dbcda1b74f"
+    },
+    {
+      "path": "up/utils/general/fp16_helper.py",
+      "before": "bd0a58d5b46981848efd4890b9ced6b2b15044bdf65b64b8c62775ea9fea01d5",
+      "after": "cff2c8f611339d19d7590e3777e35877b72ef4c34d8f6e4b6340e0f951cc2cc7"
+    },
+    {
+      "path": "up/utils/general/model_wrapper.py",
+      "before": "11644f85b374a2cd85e1b0edf819bced5d1ad97bd500c8f75abc8078e1084ca9",
+      "after": "f55829d4c24fef92918720b5be92370a87fa4ebf9972255e6050f89f18401600"
+    }
+  ],
+  "reference_archive": "stage-13.tar.gz",
+  "reference_archive_sha256": "6ee586d217739eda586457655b97aa017f88ec74c1fad33f224727318723acc6",
+  "other_runtime_changes": 0,
+  "passed": true
+}

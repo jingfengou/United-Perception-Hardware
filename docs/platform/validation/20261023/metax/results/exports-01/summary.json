@@ -1,0 +1,379 @@
+{
+  "records": [
+    {
+      "case": "0-roi_align",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "1-roi_align",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "2-roi_align",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "3-roi_align",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "RoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "pooled_height": "0a0d706f6f6c65645f6865696768741802a00102",
+                "pooled_mode": "0a0b706f6f6c65645f6d6f64652203415647a00103",
+                "pooled_width": "0a0c706f6f6c65645f77696474681802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "4-psroi_align",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "PSRoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "group_size": "0a0a67726f75705f73697a651802a00102",
+                "output_dim": "0a0a6f75747075745f64696d1802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "PSRoiAlign",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "group_size": "0a0a67726f75705f73697a651802a00102",
+                "output_dim": "0a0a6f75747075745f64696d1802a00102",
+                "sample_num": "0a0a73616d706c655f6e756d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "5-psroi_pool",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "PSRoiPool",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "group_size": "0a0a67726f75705f73697a651802a00102",
+                "output_dim": "0a0a6f75747075745f64696d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "PSRoiPool",
+              "inputs": [
+                "input:0",
+                "input:1"
+              ],
+              "attributes": {
+                "group_size": "0a0a67726f75705f73697a651802a00102",
+                "output_dim": "0a0a6f75747075745f64696d1802a00102",
+                "spatial_scale": "0a0d7370617469616c5f7363616c65150000803fa00101"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    },
+    {
+      "case": "6-deform_conv",
+      "graphs": {
+        "original": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "DeformConv",
+              "inputs": [
+                "input:0",
+                "input:1",
+                "input:2"
+              ],
+              "attributes": {
+                "deformable_groups": "0a116465666f726d61626c655f67726f7570731801a00102",
+                "dilations": "0a0964696c6174696f6e7340014001a00107",
+                "groups": "0a0667726f7570731801a00102",
+                "kernel_size": "0a0b6b65726e656c5f73697a6540034003a00107",
+                "out_channels": "0a0c6f75745f6368616e6e656c731802a00102",
+                "pad": "0a0370616440014001a00107",
+                "stride": "0a0673747269646540014001a00107"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        },
+        "routed": {
+          "nodes": [
+            {
+              "domain": "",
+              "op": "DeformConv",
+              "inputs": [
+                "input:0",
+                "input:1",
+                "input:2"
+              ],
+              "attributes": {
+                "deformable_groups": "0a116465666f726d61626c655f67726f7570731801a00102",
+                "dilations": "0a0964696c6174696f6e7340014001a00107",
+                "groups": "0a0667726f7570731801a00102",
+                "kernel_size": "0a0b6b65726e656c5f73697a6540034003a00107",
+                "out_channels": "0a0c6f75745f6368616e6e656c731802a00102",
+                "pad": "0a0370616440014001a00107",
+                "stride": "0a0673747269646540014001a00107"
+              }
+            }
+          ],
+          "outputs": [
+            "node:0:0"
+          ],
+          "initializers": []
+        }
+      },
+      "errors": {},
+      "passed": true
+    }
+  ],
+  "scope": "Legacy graph topology and symbolic attributes; not execution by a deployment engine",
+  "reference_adaptations": [
+    "PSRoIPool scratch .contiguous()"
+  ]
+}

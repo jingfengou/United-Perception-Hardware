@@ -1,0 +1,18 @@
+{
+  "vendor": "metax",
+  "variant": "repeat",
+  "model": "vit_b16",
+  "purpose": "training",
+  "passed_execution": true,
+  "config": "configs/cls/vision_transformer/vit_b16_224.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "source": "/workspace/up-run/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "metax",
+    "device_type": "cuda",
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda_api_version": "11.6"
+  }
+}

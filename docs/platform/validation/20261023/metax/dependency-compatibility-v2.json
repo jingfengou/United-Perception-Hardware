@@ -1,0 +1,15 @@
+{
+  "pins": {
+    "MQBench": "00f477d58ef67c1c1bbe71d14312731fd3a4960d",
+    "msbench": "b00632036c8a03cacff6ae94814195e98f1361f8"
+  },
+  "torch": "2.10",
+  "scope": "imports and legacy ONNX exporter only",
+  "patches": [
+    {
+      "path": "msbench/msbench/scheduler/nv_asp_cores/asp.py",
+      "before": "bf8742bbfa0bdda88ccf6d3ed23b60a4af2cdd692ef5b34917c0c2d870436b93",
+      "after": "13a1dbab22431994102a3b0ab0ad6370d454395ba918a060b4885c5a4e49dab5"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "scope": "UP ModelHelper, actual losses, three updates with checkpoint restore; synthetic inputs, not full Runner or accuracy",
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "records": [
+    {
+      "model": "pointpillar",
+      "purpose": "training",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 891,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 891,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "b1c5e9e3eb5c30deb5010fac50d179aa0e9823ceb207e71a27b7ab10ce045040",
+        "repeat": "8d433767ec7085c705f77cd10bbe41ac7d819c6b89e9572d6f3aa081cae8c445",
+        "routed": "d78f79cdddbd474b6de79ecc6fa146ff8e90cd41468848b41a2b059b4804c235"
+      }
+    },
+    {
+      "model": "pointpillar",
+      "purpose": "inference",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 30,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 30,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "c60a079ecf15655abc624104364edb9c7e83590c9f50a04c3cf0b1a4db6d40fe",
+        "repeat": "f9507b482e0d4f2ad29954d745d2310d9e2332f1c01b45f5e68e2b069c8b805a",
+        "routed": "305f63547446e15c08882839d0d6a3d9756cdf61d85e316395d60dbcf989bf9d"
+      }
+    }
+  ]
+}

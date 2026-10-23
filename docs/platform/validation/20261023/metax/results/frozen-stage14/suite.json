@@ -1,0 +1,44 @@
+{
+  "vendor": "metax",
+  "source_sha256": "99963ffdb77faee08f095c6d9a96fb14996d1406da7b1ddfd03493742e8cf9b3",
+  "numerics": "native",
+  "scope": "compatibility, not dataset accuracy",
+  "records": [
+    {
+      "name": "cpu",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/platform",
+        "-q",
+        "--junitxml=/workspace/up-run/up-platform-clean-20261023/results/frozen-stage14/cpu.xml"
+      ],
+      "visible_devices": "",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T11:21:38.134784+00:00",
+      "ended_utc": "2026-10-23T11:22:18.033760+00:00"
+    },
+    {
+      "name": "models",
+      "command": [
+        "tools/compare_platform_models.py",
+        "--root",
+        "/workspace/up-run/up-platform-clean-20261023",
+        "--baseline",
+        "/workspace/up-run/up-platform-clean-20261023/baseline",
+        "--vendor",
+        "metax",
+        "--deterministic",
+        "--models",
+        "pointpillar",
+        "--output",
+        "/workspace/up-run/up-platform-clean-20261023/results/frozen-stage14/models",
+        "--reference-defer-kitti"
+      ],
+      "visible_devices": "2",
+      "exit_code": 1,
+      "started_utc": "2026-10-23T11:22:18.037545+00:00",
+      "ended_utc": "2026-10-23T11:26:12.071844+00:00"
+    }
+  ]
+}

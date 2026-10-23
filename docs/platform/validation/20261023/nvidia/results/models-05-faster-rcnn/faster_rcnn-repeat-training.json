@@ -1,0 +1,22 @@
+{
+  "vendor": "nvidia",
+  "variant": "repeat",
+  "model": "faster_rcnn",
+  "purpose": "training",
+  "passed_execution": true,
+  "config": "configs/det/faster_rcnn/faster_rcnn_r50_fpn_1x.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "reference_adaptations": [
+    "collections.Iterable Python 3.12 alias",
+    "NumPy removed float/int/bool builtin aliases"
+  ],
+  "source": "/data2/oujingfeng/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  }
+}

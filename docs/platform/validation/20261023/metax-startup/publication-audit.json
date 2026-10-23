@@ -1,0 +1,15 @@
+{
+  "trial_source_sha256": "9d8ff921f027f4fef3eda34ec7a4a5cd5624fa8b9defac10d68ef6aae8f86027",
+  "normalization": "CRLF to LF only",
+  "scope": "up/, up_platform/, configs/; tools/tests retain their separate trial manifests",
+  "published_evidence_files_verified": 8,
+  "runtime_files": 781,
+  "identical_files": 781,
+  "unused_import_only": [],
+  "additional_validated_changes": [],
+  "followup_source_sha256": null,
+  "reference_archive": null,
+  "reference_archive_sha256": null,
+  "other_runtime_changes": 0,
+  "passed": true
+}

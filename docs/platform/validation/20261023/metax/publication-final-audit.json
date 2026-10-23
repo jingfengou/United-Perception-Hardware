@@ -1,0 +1,28 @@
+{
+  "trial_source_sha256": "99963ffdb77faee08f095c6d9a96fb14996d1406da7b1ddfd03493742e8cf9b3",
+  "normalization": "CRLF to LF only",
+  "scope": "up/, up_platform/, configs/; tools/tests retain their separate trial manifests",
+  "published_evidence_files_verified": 140,
+  "runtime_files": 781,
+  "identical_files": 779,
+  "unused_import_only": [],
+  "additional_validated_changes": [
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "before": "7a51a33287292be436a810fa8529906bb18d830327779682209ea83f0f97bc45",
+      "after": "16f6c0cdf6a2ca68922ff94267632efaaab4ea6820fdec93bc4f59b6056dd420",
+      "validation": "startup-stage15: default identity, RNG, forward/gradients and CLI"
+    },
+    {
+      "path": "up_platform/layers.py",
+      "before": "8c56cf7762cfa2d30fffa5ce7e0ff5d6cbeba0883b8ecc88a08ed1c58548056f",
+      "after": "8cd86c4307e1aee3686807e209addcd7e265a738f0e68970a3e12875745a735d",
+      "validation": "startup-stage15: default identity, RNG, forward/gradients and CLI"
+    }
+  ],
+  "followup_source_sha256": "7ff5bde4b465b3c34805ced1d68b38714b9a6725440b4d139c04dbff7b3fa796",
+  "reference_archive": null,
+  "reference_archive_sha256": null,
+  "other_runtime_changes": 0,
+  "passed": true
+}

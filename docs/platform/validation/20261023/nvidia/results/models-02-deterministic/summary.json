@@ -1,0 +1,121 @@
+{
+  "scope": "UP ModelHelper, actual losses, three updates with checkpoint restore; synthetic inputs, not full Runner or accuracy",
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "records": [
+    {
+      "model": "resnet18",
+      "purpose": "training",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 706,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 706,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "390dfcd59d01f011069be12c9a18e4c1d830ebd7a39ab3f90689aa40bc799eb5",
+        "repeat": "fd596a9c31e0ce8016068b48e88411fb89c3bd417bf810708aad3720095707fe",
+        "routed": "5d3d8c8abad1197d1ecf8300f731c260fc4fedc55e64bf7009415960a6cb3569"
+      }
+    },
+    {
+      "model": "resnet18",
+      "purpose": "inference",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 26,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 26,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "bd6071afa11d86d5f0bd14dcac5ac138a98e634f17534a4b6f029194c0ba91b6",
+        "repeat": "9205c27c44ffeacbe550f69419751dbc2e45d2bac432e4f739c65d574a6f00a0",
+        "routed": "ec6d1b65b1c8d1dcea46ca313eb5ce955159521c62cc79177b9ff9942b9d5c76"
+      }
+    },
+    {
+      "model": "yolov5s",
+      "purpose": "training",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 2098,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 2098,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "38314c47e214cbfe86124a5a8a56491cc83ec20483d10a43cc508db86a5225be",
+        "repeat": "caf302eafdadb8a427e64b59d61b5355f2cadd696201563a7bf8ae14b2fed2ae",
+        "routed": "a1bb979da65877f9446fc02e94c56b7b63b9104afc9becb4b77b73a188113a7a"
+      }
+    },
+    {
+      "model": "yolov5s",
+      "purpose": "inference",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 34,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 34,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "40a1f984b5ffc55f5b9c719c531410988c2b65d147639872be96fc5f6ace6519",
+        "repeat": "6666cb0950b406396d80c168995fb77be0883bea85316f7737fcfb2f31979db9",
+        "routed": "16e4e0fa7a8fb88fd0a00800298b3d00e76199d40ce0b903f873726818b0f02a"
+      }
+    },
+    {
+      "model": "vit_b16",
+      "purpose": "training",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 1613,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 1613,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "33b7e22c33fd8f9cd464b367a4bad2269b1c9e4d782bd7f6890434a25403ecd1",
+        "repeat": "885c9efa2a35d47313a82084413ba6b847d15a84cd1b3f288c174ba6d7ccba44",
+        "routed": "59cbfd27b3ce569569156ec290f1283909fd7b74ba45a8c9923a75ff97acdd1d"
+      }
+    },
+    {
+      "model": "vit_b16",
+      "purpose": "inference",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 26,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 26,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "24c809fc9dfeabb95d089bb94f780da27ae5973f0b02bd02321c2014aee19df1",
+        "repeat": "bfffdf9b2b3a18bdf4a3fff07e9fba3ef66fbc9492808e00ff3b890ee5d728b9",
+        "routed": "3102f245d14cad97a1313741e924442f1c2242ab6d1f841f5fd3a1633afb09d5"
+      }
+    }
+  ]
+}

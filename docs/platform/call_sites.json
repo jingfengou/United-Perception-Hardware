@@ -1,0 +1,4675 @@
+{
+  "scope": "Statically resolved current calls; see upstream_inventory.json for original candidates and limitations",
+  "calls": [
+    {
+      "path": "up/apis/inference.py",
+      "line": 90,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/apis/inference.py",
+      "line": 192,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/commands/flops.py",
+      "line": 68,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/extensions/python/cross_focal_loss.py",
+      "line": 12,
+      "interface": "focal.cross_sigmoid_focal_loss"
+    },
+    {
+      "path": "up/extensions/python/deformable_conv.py",
+      "line": 21,
+      "interface": "deformable.deform_conv"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 12,
+      "interface": "focal.sigmoid_focal_loss"
+    },
+    {
+      "path": "up/extensions/python/focal_loss.py",
+      "line": 18,
+      "interface": "focal.softmax_focal_loss"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 11,
+      "interface": "pointcloud.boxes_bev_iou_cpu"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 15,
+      "interface": "pointcloud.boxes_iou_bev"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 19,
+      "interface": "pointcloud.boxes_iou3d"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 23,
+      "interface": "pointcloud.nms3d"
+    },
+    {
+      "path": "up/extensions/python/iou3d_nms_utils.py",
+      "line": 27,
+      "interface": "pointcloud.nms3d_normal"
+    },
+    {
+      "path": "up/extensions/python/iou_overlap.py",
+      "line": 6,
+      "interface": "detection.iou_overlap"
+    },
+    {
+      "path": "up/extensions/python/nms.py",
+      "line": 9,
+      "interface": "detection.naive_nms"
+    },
+    {
+      "path": "up/extensions/python/nms.py",
+      "line": 13,
+      "interface": "detection.softer_nms"
+    },
+    {
+      "path": "up/extensions/python/psroi_align.py",
+      "line": 10,
+      "interface": "detection.psroi_align"
+    },
+    {
+      "path": "up/extensions/python/psroi_pool.py",
+      "line": 15,
+      "interface": "detection.psroi_pool"
+    },
+    {
+      "path": "up/extensions/python/roi_align.py",
+      "line": 18,
+      "interface": "detection.roi_align"
+    },
+    {
+      "path": "up/extensions/python/roiaware_pool3d_utils.py",
+      "line": 16,
+      "interface": "pointcloud.points_in_boxes_cpu"
+    },
+    {
+      "path": "up/extensions/python/roiaware_pool3d_utils.py",
+      "line": 20,
+      "interface": "pointcloud.points_in_boxes_gpu"
+    },
+    {
+      "path": "up/extensions/python/roiaware_pool3d_utils.py",
+      "line": 37,
+      "interface": "pointcloud.roiaware_pool3d"
+    },
+    {
+      "path": "up/extensions/python/roipoint_pool3d_utils.py",
+      "line": 31,
+      "interface": "pointcloud.roipoint_pool3d"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 23,
+      "interface": "activation.GELU"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 25,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 27,
+      "interface": "activation.GELU"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 29,
+      "interface": "activation.SELU"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 31,
+      "interface": "activation.LeakyReLU"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 48,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 50,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 52,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 96,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/convnext.py",
+      "line": 103,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 17,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 19,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 20,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 43,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 45,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 95,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 96,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 99,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 121,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 130,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 131,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 166,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 213,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 247,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/cswin.py",
+      "line": 248,
+      "interface": "normalization.LayerNorm"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 223,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 232,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 263,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 268,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 283,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 285,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 286,
+      "interface": "activation.Sigmoid"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 289,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 298,
+      "interface": "pooling.adaptive_avg_pool2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 395,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/efficientnet.py",
+      "line": 404,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mae_vit.py",
+      "line": 30,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mae_vit.py",
+      "line": 71,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/mae_vit.py",
+      "line": 84,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/mae_vit.py",
+      "line": 132,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/models/backbones/mae_vit.py",
+      "line": 145,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 37,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 39,
+      "interface": "activation.ReLU6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 45,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 47,
+      "interface": "activation.ReLU6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 60,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 62,
+      "interface": "activation.ReLU6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 64,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 73,
+      "interface": "activation.ReLU6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v2.py",
+      "line": 75,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 44,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 52,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 64,
+      "interface": "activation.relu6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 73,
+      "interface": "activation.relu6"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 79,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 81,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 82,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 83,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 123,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 131,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 137,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 250,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 251,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 259,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/mobilenet_v3.py",
+      "line": 260,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 105,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 119,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 120,
+      "interface": "activation.Tanh"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 126,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 129,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 161,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 163,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 231,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 232,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 263,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 264,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 265,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/moco_vit.py",
+      "line": 268,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 51,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 68,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 71,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 72,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 73,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 74,
+      "interface": "activation.Sigmoid"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 94,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 96,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 98,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 102,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 108,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 126,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 137,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 153,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/regnet.py",
+      "line": 154,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 61,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 88,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 98,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 218,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 223,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 277,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 286,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 297,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 299,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 360,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 370,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 376,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 378,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 431,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 583,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 587,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 589,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 590,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 592,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 593,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 596,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 598,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 600,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 604,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 606,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 670,
+      "interface": "pooling.AvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 671,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet.py",
+      "line": 677,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 26,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 51,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 61,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 112,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 121,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 132,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 134,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 186,
+      "interface": "pooling.ZeroPad2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 187,
+      "interface": "pooling.AvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 190,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 333,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 337,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 339,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 340,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 342,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 343,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 346,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 347,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 349,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 408,
+      "interface": "pooling.ZeroPad2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 409,
+      "interface": "pooling.AvgPool2d"
+    },
+    {
+      "path": "up/models/backbones/resnet_D.py",
+      "line": 412,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 30,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 32,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 33,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 116,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 117,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 118,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 119,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 122,
+      "interface": "activation.Softmax"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 136,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 153,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 227,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 277,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 295,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 436,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 447,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 449,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 538,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/swin_transformer.py",
+      "line": 633,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 34,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 45,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 47,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 48,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 73,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 74,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 75,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 76,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 83,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 84,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 87,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 138,
+      "interface": "normalization.LayerNorm"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 195,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 227,
+      "interface": "normalization.LayerNorm"
+    },
+    {
+      "path": "up/models/backbones/vision_transformer.py",
+      "line": 228,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/models/model_helper.py",
+      "line": 131,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 61,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 76,
+      "interface": "training.grad_scaler"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 237,
+      "interface": "device.convolution_flags"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 347,
+      "interface": "training.wrap_ddp"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 375,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 404,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 540,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 541,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 653,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 680,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/runner/base_runner.py",
+      "line": 742,
+      "interface": "inference.autocast|training.autocast"
+    },
+    {
+      "path": "up/tasks/cls/data/cls_transforms.py",
+      "line": 217,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 21,
+      "interface": "matrix.mm"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 21,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 21,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 38,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 40,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 51,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 58,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 125,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 127,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 179,
+      "interface": "normalization.LayerNorm"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 210,
+      "interface": "normalization.BatchNorm1d"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 216,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/cls/models/heads/cls_head.py",
+      "line": 217,
+      "interface": "activation.Tanh"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 32,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 41,
+      "interface": "loss.BCEWithLogitsLoss"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 48,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 62,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 104,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 156,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/cls/models/losses/cls_loss.py",
+      "line": 180,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/cls/models/postprocess/cls_postprocess.py",
+      "line": 50,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/det/data/datasets/det_transforms.py",
+      "line": 439,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 193,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 194,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 195,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 197,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 199,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 201,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 294,
+      "interface": "pooling.AvgPool2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 297,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 299,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 302,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 356,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 358,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 359,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 361,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 363,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/bbox_head/bbox_head.py",
+      "line": 364,
+      "interface": "pooling.AvgPool2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 79,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 80,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 83,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 84,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 135,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 137,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 147,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 148,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 213,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 269,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 271,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 277,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 334,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 336,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/models/heads/roi_head/retina_head.py",
+      "line": 385,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 74,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 79,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 81,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 114,
+      "interface": "loss.binary_cross_entropy_with_logits"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 155,
+      "interface": "loss.binary_cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 204,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/losses/entropy_loss.py",
+      "line": 206,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 83,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 289,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 290,
+      "interface": "loss.binary_cross_entropy_with_logits"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 361,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 388,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/losses/focal_loss.py",
+      "line": 403,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/losses/l1_loss.py",
+      "line": 54,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/losses/smooth_l1_loss.py",
+      "line": 46,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/necks/fpn.py",
+      "line": 72,
+      "interface": "convolution.ConvTranspose2d"
+    },
+    {
+      "path": "up/tasks/det/models/necks/fpn.py",
+      "line": 92,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/det/models/necks/fpn.py",
+      "line": 96,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/models/necks/fpn.py",
+      "line": 157,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/bbox_post_process.py",
+      "line": 104,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/bbox_post_process.py",
+      "line": 106,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/retina_post_process.py",
+      "line": 123,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/retina_post_process.py",
+      "line": 129,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/retina_post_process.py",
+      "line": 313,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/retina_post_process.py",
+      "line": 315,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/models/postprocess/roi_supervisor.py",
+      "line": 449,
+      "interface": "device.empty_cache"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 44,
+      "interface": "device.is_accelerator"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 50,
+      "interface": "device.properties"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 51,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 132,
+      "interface": "device.is_accelerator"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 137,
+      "interface": "device.properties"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 138,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 471,
+      "interface": "device.synchronize"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 474,
+      "interface": "device.max_memory_allocated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/bbox_helper.py",
+      "line": 479,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 18,
+      "interface": "device.available"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 22,
+      "interface": "device.properties"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 23,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 195,
+      "interface": "inference.autocast|training.autocast"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 214,
+      "interface": "loss.binary_cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 219,
+      "interface": "loss.binary_cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 242,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 243,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/models/utils/matcher.py",
+      "line": 245,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 60,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 61,
+      "interface": "pooling.max_pool2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 373,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 375,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 410,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 418,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 420,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 424,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 427,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 430,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 474,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 493,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 495,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 499,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 502,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/cascade/models/head/bbox_head.py",
+      "line": 505,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/head/condinst_head.py",
+      "line": 25,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/head/condinst_head.py",
+      "line": 28,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/head/condinst_head.py",
+      "line": 33,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/head/condinst_head.py",
+      "line": 56,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/head/condinst_head.py",
+      "line": 90,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/postprocess/condinst_postprocess.py",
+      "line": 149,
+      "interface": "convolution.conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/postprocess/condinst_postprocess.py",
+      "line": 155,
+      "interface": "activation.relu"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/postprocess/condinst_postprocess.py",
+      "line": 241,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/postprocess/condinst_predictor.py",
+      "line": 26,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/condinst/models/postprocess/condinst_predictor.py",
+      "line": 87,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det/plugins/efl/models/losses/efl.py",
+      "line": 73,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/efl/models/losses/eqfl.py",
+      "line": 103,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/efl/models/losses/eqfl.py",
+      "line": 112,
+      "interface": "loss.binary_cross_entropy_with_logits"
+    },
+    {
+      "path": "up/tasks/det/plugins/efl/models/losses/eqfl.py",
+      "line": 119,
+      "interface": "loss.binary_cross_entropy_with_logits"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/head/fcos_head.py",
+      "line": 75,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/head/fcos_head.py",
+      "line": 76,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/head/fcos_head.py",
+      "line": 77,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/head/fcos_head.py",
+      "line": 79,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det/plugins/fcos/models/postprocess/fcos_postprocess.py",
+      "line": 109,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "line": 145,
+      "interface": "communication.is_initialized"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "line": 167,
+      "interface": "loss.l1_loss"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_postprocess.py",
+      "line": 172,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/onenet/models/postprocess/onenet_supervisor.py",
+      "line": 99,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/data/transforms.py",
+      "line": 419,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/backbone/darknetv5.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/components.py",
+      "line": 29,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/components.py",
+      "line": 134,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/components.py",
+      "line": 135,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/components.py",
+      "line": 176,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/head/yolov5_head.py",
+      "line": 44,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/head/yolov5_head.py",
+      "line": 46,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/head/yolov5_head.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/head/yolov5_head.py",
+      "line": 48,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/neck/yolov5_pan.py",
+      "line": 79,
+      "interface": "pooling.Upsample"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/postprocess/roi_predictor.py",
+      "line": 123,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/postprocess/roi_predictor.py",
+      "line": 124,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/postprocess/roi_predictor.py",
+      "line": 125,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/postprocess/yolov5_post_process.py",
+      "line": 108,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov5/models/postprocess/yolov5_post_process.py",
+      "line": 109,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 77,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 109,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 125,
+      "interface": "convolution.ConvTranspose2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 155,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 270,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/components.py",
+      "line": 300,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 125,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 131,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 137,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 170,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 176,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 182,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 213,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 219,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolov6/models/head/effidehead.py",
+      "line": 225,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 104,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 113,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 122,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 206,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 211,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 216,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/head/yolox_head.py",
+      "line": 243,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/neck/pafpn.py",
+      "line": 99,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/neck/pafpn.py",
+      "line": 108,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 77,
+      "interface": "device.empty_cache"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 159,
+      "interface": "inference.autocast|training.autocast"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 174,
+      "interface": "loss.binary_cross_entropy"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 191,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 192,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 193,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 194,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/roi_supervisor.py",
+      "line": 195,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 44,
+      "interface": "loss.L1Loss"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 63,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 64,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 102,
+      "interface": "activation.relu"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 144,
+      "interface": "communication.is_initialized"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/postprocess/yolox_postprocess.py",
+      "line": 176,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/preprocess/multiscale.py",
+      "line": 34,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det/plugins/yolox/models/preprocess/multiscale.py",
+      "line": 51,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/det_3d/data/box_coder_utils.py",
+      "line": 157,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/data/data_utils.py",
+      "line": 60,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/tasks/det_3d/data/dataset/transforms.py",
+      "line": 492,
+      "interface": "sparse.voxelize_cpu"
+    },
+    {
+      "path": "up/tasks/det_3d/data/metrics/kitti_object_eval_python/rotate_iou.py",
+      "line": 6,
+      "interface": "pointcloud.rotate_iou_eval"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 38,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 43,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 49,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 56,
+      "interface": "convolution.ConvTranspose2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 62,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 67,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 73,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 79,
+      "interface": "convolution.ConvTranspose2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_2d/base_bev_backbone.py",
+      "line": 81,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/map_to_bev.py",
+      "line": 22,
+      "interface": "sparse.dense"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 18,
+      "interface": "sparse.SubMConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 20,
+      "interface": "sparse.SparseConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 23,
+      "interface": "sparse.SparseInverseConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 27,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 30,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 40,
+      "interface": "sparse.module_instance"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 46,
+      "interface": "sparse.SubMConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 50,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 51,
+      "interface": "sparse.SubMConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 89,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 90,
+      "interface": "sparse.SubMConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 92,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 96,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 100,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 107,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 114,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 121,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 123,
+      "interface": "sparse.SparseConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 126,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 150,
+      "interface": "sparse.SparseConvTensor"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 222,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 223,
+      "interface": "sparse.SubMConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 225,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 229,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 234,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 241,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 248,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 255,
+      "interface": "sparse.SparseSequential"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 257,
+      "interface": "sparse.SparseConv3d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 260,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 284,
+      "interface": "sparse.SparseConvTensor"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 340,
+      "interface": "sparse.is_sparse_convolution"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/spconv_backbone.py",
+      "line": 350,
+      "interface": "sparse.replace_feature"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 195,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 196,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 198,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 201,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 202,
+      "interface": "normalization.BatchNorm1d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 204,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 224,
+      "interface": "device.convolution_flags"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 226,
+      "interface": "device.convolution_flags"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 228,
+      "interface": "activation.relu"
+    },
+    {
+      "path": "up/tasks/det_3d/models/backbones_3d/vfe/pillar_vfe.py",
+      "line": 232,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/anchor_head.py",
+      "line": 53,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/anchor_head.py",
+      "line": 55,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/anchor_head.py",
+      "line": 59,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/anchor_head.py",
+      "line": 86,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "line": 32,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "line": 34,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "line": 36,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "line": 59,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/heads/center_head.py",
+      "line": 64,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/det_3d/models/losses/center_loss.py",
+      "line": 34,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_post_process.py",
+      "line": 53,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_predictor.py",
+      "line": 62,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_predictor.py",
+      "line": 67,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "line": 140,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/anchor_head_postprocess/anchor_head_supervisor.py",
+      "line": 144,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+      "line": 31,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+      "line": 38,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/det_3d/models/postprocess/center_head_postprocess/center_head_predictor.py",
+      "line": 170,
+      "interface": "pooling.max_pool2d"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "line": 39,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator.py",
+      "line": 42,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "line": 45,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/models/utils/anchor_generator_eagle.py",
+      "line": 48,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 28,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 30,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 32,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/tasks/det_3d/runner/point_runner.py",
+      "line": 33,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/tasks/distill/losses/ce_loss.py",
+      "line": 24,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/ce_loss.py",
+      "line": 25,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/ce_loss.py",
+      "line": 50,
+      "interface": "loss.binary_cross_entropy"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 24,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 25,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 26,
+      "interface": "loss.kl_div"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 30,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 32,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 33,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 34,
+      "interface": "loss.kl_div"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 66,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 67,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 76,
+      "interface": "loss.kl_div"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 97,
+      "interface": "loss.KLDivLoss"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 98,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 102,
+      "interface": "activation.log_softmax"
+    },
+    {
+      "path": "up/tasks/distill/losses/kl_loss.py",
+      "line": 103,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/distill/mimicker.py",
+      "line": 250,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/distill/mimicker.py",
+      "line": 251,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 39,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 40,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 44,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 49,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 50,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/distill/models/mimic_adapt.py",
+      "line": 54,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 33,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 35,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 131,
+      "interface": "inference.autocast|training.autocast"
+    },
+    {
+      "path": "up/tasks/distill/runner/kd_runner.py",
+      "line": 150,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_fc_cls.py",
+      "line": 35,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_fc_cls.py",
+      "line": 55,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_fc_cls.py",
+      "line": 61,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_retina_cls.py",
+      "line": 43,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_retina_cls.py",
+      "line": 55,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_retina_cls.py",
+      "line": 57,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/multitask/models/union_heads/union_retina_cls.py",
+      "line": 58,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/multitask/runner/multitask_runner.py",
+      "line": 198,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 185,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 331,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 343,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/base_controller.py",
+      "line": 344,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/tasks/nas/bignas/controller/utils/misc.py",
+      "line": 301,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_regnet.py",
+      "line": 156,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_regnet.py",
+      "line": 400,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_resnet_basic.py",
+      "line": 126,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_resnet_basic.py",
+      "line": 159,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_resnet_basic.py",
+      "line": 388,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/backbone/big_resnet_basic.py",
+      "line": 416,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_clshead.py",
+      "line": 20,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_retinanetwithbn.py",
+      "line": 143,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_retinanetwithbn.py",
+      "line": 146,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "line": 88,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "line": 94,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "line": 217,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+      "line": 223,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 134,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 204,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 212,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 408,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 477,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/necks/big_fpn.py",
+      "line": 485,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 32,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 481,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 483,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 491,
+      "interface": "pooling.adaptive_avg_pool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 496,
+      "interface": "convolution.conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_blocks.py",
+      "line": 503,
+      "interface": "convolution.conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 97,
+      "interface": "matrix.linear"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 132,
+      "interface": "convolution.conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 172,
+      "interface": "matrix.linear"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 214,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 233,
+      "interface": "normalization.layer_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 251,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 261,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 460,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 476,
+      "interface": "device.is_accelerator"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 508,
+      "interface": "communication.world_group"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 511,
+      "interface": "communication.get_world_size"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 517,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 528,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 544,
+      "interface": "normalization.sync_batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+      "line": 555,
+      "interface": "normalization.sync_batch_norm"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 73,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 75,
+      "interface": "activation.LeakyReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 77,
+      "interface": "activation.ReLU6"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 79,
+      "interface": "activation.Tanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 81,
+      "interface": "activation.Sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 88,
+      "interface": "activation.SiLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 121,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 138,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 148,
+      "interface": "activation.relu6"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 158,
+      "interface": "activation.relu6"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 164,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 172,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 177,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 188,
+      "interface": "activation.softplus"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 188,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 196,
+      "interface": "activation.softplus"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 196,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 201,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 202,
+      "interface": "activation.softplus"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 202,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 242,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 243,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 261,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 262,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 263,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 289,
+      "interface": "activation.hardtanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/dynamic_utils.py",
+      "line": 322,
+      "interface": "activation.hardtanh"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 63,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 66,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 98,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 100,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 105,
+      "interface": "pooling.adaptive_avg_pool2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 130,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 171,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 178,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 190,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 229,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 240,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 247,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 282,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 289,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 298,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/models/ops/normal_blocks.py",
+      "line": 307,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 76,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+      "line": 131,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/nas/bignas/utils/saver_helper.py",
+      "line": 79,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/nas/metax/commands/search.py",
+      "line": 36,
+      "interface": "activation.Softmax"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 24,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 27,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 32,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 35,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 37,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 58,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 61,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/backbones/xmnet.py",
+      "line": 62,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 33,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 35,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 36,
+      "interface": "activation.Dropout2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 37,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 48,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/nas/metax/models/decoder/deeplab.py",
+      "line": 52,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 26,
+      "interface": "quantization.enable_quantization"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 32,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 44,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/deploy/quant_deploy.py",
+      "line": 52,
+      "interface": "quantization.convert_deploy"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 38,
+      "interface": "quantization.enable_quantization"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 55,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 84,
+      "interface": "quantization.backend_types"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 85,
+      "interface": "quantization.backend_types"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 86,
+      "interface": "quantization.backend_types"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 87,
+      "interface": "quantization.backend_types"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 88,
+      "interface": "quantization.backend_types"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 98,
+      "interface": "quantization.module_type"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 105,
+      "interface": "quantization.module_type"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 106,
+      "interface": "quantization.module_type"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 127,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 130,
+      "interface": "quantization.prepare"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 144,
+      "interface": "quantization.module_type"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 147,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 167,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 169,
+      "interface": "quantization.enable_calibration"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 173,
+      "interface": "quantization.enable_calibration"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 177,
+      "interface": "quantization.enable_quantization"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 239,
+      "interface": "quantization.enable_quantization"
+    },
+    {
+      "path": "up/tasks/quant/runner/quant_runner.py",
+      "line": 274,
+      "interface": "quantization.reconstruct"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 24,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 32,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 47,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 49,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 50,
+      "interface": "activation.Dropout2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 51,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 65,
+      "interface": "pooling.AdaptiveAvgPool2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 66,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 68,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 69,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 71,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 72,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 75,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 76,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 79,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 80,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 83,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/components.py",
+      "line": 92,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 26,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 46,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 47,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 74,
+      "interface": "pooling.MaxPool2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 76,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 79,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 80,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 83,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 86,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 89,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 90,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 93,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 96,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 99,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 102,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 105,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 119,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 123,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 126,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 133,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 172,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 174,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 175,
+      "interface": "activation.Dropout2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 196,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 199,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 210,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 214,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 217,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 218,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 238,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 244,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 256,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 263,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 264,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 279,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/ocrnet.py",
+      "line": 283,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/segformer_decoder.py",
+      "line": 40,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/segformer_decoder.py",
+      "line": 42,
+      "interface": "activation.Dropout2d"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/segformer_decoder.py",
+      "line": 78,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/seg/models/decoder/segformer_decoder.py",
+      "line": 90,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 20,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 31,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 61,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 63,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 66,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 69,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 112,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 140,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 178,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 193,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 200,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 204,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 229,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 254,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 257,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 260,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 312,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 319,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 328,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 329,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 337,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/hrnet.py",
+      "line": 422,
+      "interface": "pooling.UpsamplingBilinear2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 57,
+      "interface": "attention.MultiheadAttention"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 60,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 189,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 196,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 204,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 210,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/tasks/seg/models/encoder/segformer_encoder.py",
+      "line": 269,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/seg/models/losses/seg_loss.py",
+      "line": 54,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/seg/models/losses/seg_loss.py",
+      "line": 58,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/seg/models/losses/seg_loss.py",
+      "line": 67,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/tasks/seg/models/losses/seg_loss.py",
+      "line": 140,
+      "interface": "loss.cross_entropy"
+    },
+    {
+      "path": "up/tasks/seg/utils/embed.py",
+      "line": 71,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/seg/utils/embed.py",
+      "line": 73,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/tasks/seg/utils/embed.py",
+      "line": 138,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 51,
+      "interface": "pruning.set_lr_scheduler"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 53,
+      "interface": "pruning.init_optimizer"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 71,
+      "interface": "pruning.set_iteration"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 78,
+      "interface": "training.wrap_ddp"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 89,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 95,
+      "interface": "pruning.prune"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 107,
+      "interface": "pruning.sparse_rate"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 127,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 136,
+      "interface": "pruning.module_type"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 157,
+      "interface": "pruning.build_scheduler"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 160,
+      "interface": "pruning.prepare"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 164,
+      "interface": "pruning.prepare"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 175,
+      "interface": "pruning.last_prune_step"
+    },
+    {
+      "path": "up/tasks/sparse/runner/sparse_runner.py",
+      "line": 181,
+      "interface": "pruning.export"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 17,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 24,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 33,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 41,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 42,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 57,
+      "interface": "loss.CrossEntropyLoss"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 62,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/ssl/models/losses/ssl_loss.py",
+      "line": 72,
+      "interface": "loss.CosineSimilarity"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 34,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 34,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 34,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 35,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 35,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 35,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 37,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 38,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 49,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 96,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 134,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 146,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 154,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 156,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 207,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 210,
+      "interface": "normalization.BatchNorm1d"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 211,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 215,
+      "interface": "normalization.BatchNorm1d"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 264,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 265,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 269,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 272,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 273,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/moco.py",
+      "line": 277,
+      "interface": "matrix.einsum"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 23,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 27,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 27,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 28,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 36,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 45,
+      "interface": "normalization.normalize"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simclr.py",
+      "line": 47,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 27,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 29,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 30,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 32,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 33,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 36,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 38,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/tasks/ssl/wrapper/simsiam.py",
+      "line": 39,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 30,
+      "interface": "communication.all_reduce"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 41,
+      "interface": "communication.broadcast"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 52,
+      "interface": "communication.all_gather"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 63,
+      "interface": "communication.gather"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 72,
+      "interface": "communication.is_available"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 74,
+      "interface": "communication.is_initialized"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 76,
+      "interface": "communication.get_rank"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 91,
+      "interface": "communication.is_available"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 93,
+      "interface": "communication.is_initialized"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 95,
+      "interface": "communication.get_world_size"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 123,
+      "interface": "communication.is_available"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 125,
+      "interface": "communication.is_initialized"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 127,
+      "interface": "communication.get_world_size"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 130,
+      "interface": "communication.barrier"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 176,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 183,
+      "interface": "communication.all_reduce"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 300,
+      "interface": "communication.init_process_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 302,
+      "interface": "communication.init_process_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 303,
+      "interface": "communication.get_rank"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 304,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 305,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 334,
+      "interface": "communication.init_process_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 335,
+      "interface": "communication.get_rank"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 336,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 337,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 342,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 343,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 347,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 348,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 355,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 377,
+      "interface": "communication.get_backend"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 378,
+      "interface": "communication.new_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 380,
+      "interface": "communication.world_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 392,
+      "interface": "communication.get_backend"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 394,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 543,
+      "interface": "communication.destroy_process_group"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 555,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 673,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/utils/env/dist_helper.py",
+      "line": 674,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 34,
+      "interface": "device.manual_seed"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 40,
+      "interface": "device.manual_seed"
+    },
+    {
+      "path": "up/utils/env/gene_env.py",
+      "line": 51,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 85,
+      "interface": "device.available"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 90,
+      "interface": "communication.init_process_group"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 108,
+      "interface": "communication.new_group"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 117,
+      "interface": "device.device_count"
+    },
+    {
+      "path": "up/utils/env/launch.py",
+      "line": 118,
+      "interface": "device.set_device"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 16,
+      "interface": "device.synchronize"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 21,
+      "interface": "device.synchronize"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 103,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 107,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/computation_calculator.py",
+      "line": 108,
+      "interface": "device.empty_cache"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 23,
+      "interface": "device.get_rng_state"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 57,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 58,
+      "interface": "device.synchronize"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 61,
+      "interface": "device.synchronize"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 62,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 177,
+      "interface": "device.set_rng_state"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 388,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 404,
+      "interface": "device.empty_cache"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 405,
+      "interface": "device.reset_peak_memory_stats"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 419,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 440,
+      "interface": "device.memory_allocated"
+    },
+    {
+      "path": "up/utils/general/dc_manager.py",
+      "line": 468,
+      "interface": "device.max_memory_allocated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 278,
+      "interface": "device.max_memory_allocated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 310,
+      "interface": "device.max_memory_allocated"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 725,
+      "interface": "training.clip_grad_norm_"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 947,
+      "interface": "device.empty_cache"
+    },
+    {
+      "path": "up/utils/general/hook_helper.py",
+      "line": 948,
+      "interface": "device.reset_peak_memory_stats"
+    },
+    {
+      "path": "up/utils/general/model_wrapper.py",
+      "line": 47,
+      "interface": "activation.Softmax"
+    },
+    {
+      "path": "up/utils/general/saver_helper.py",
+      "line": 93,
+      "interface": "device.current_device"
+    },
+    {
+      "path": "up/utils/general/saver_helper.py",
+      "line": 95,
+      "interface": "device.move"
+    },
+    {
+      "path": "up/utils/general/toonnx_helper.py",
+      "line": 123,
+      "interface": "inference.export_onnx"
+    },
+    {
+      "path": "up/utils/model/accuracy.py",
+      "line": 17,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/utils/model/accuracy.py",
+      "line": 29,
+      "interface": "activation.Sigmoid"
+    },
+    {
+      "path": "up/utils/model/accuracy.py",
+      "line": 49,
+      "interface": "device.device"
+    },
+    {
+      "path": "up/utils/model/act_fn.py",
+      "line": 12,
+      "interface": "activation.sigmoid"
+    },
+    {
+      "path": "up/utils/model/act_fn.py",
+      "line": 19,
+      "interface": "activation.hardtanh"
+    },
+    {
+      "path": "up/utils/model/act_fn.py",
+      "line": 25,
+      "interface": "activation.tanh"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 35,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 38,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 47,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 50,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 57,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 61,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 68,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 95,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 143,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 166,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 172,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/block_helper.py",
+      "line": 189,
+      "interface": "pooling.pad"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 19,
+      "interface": "normalization.batch_norm_module_forward"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 57,
+      "interface": "normalization.group_norm"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 66,
+      "interface": "normalization.sync_batch_norm_forward"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 89,
+      "interface": "communication.new_group"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 156,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 173,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 200,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 237,
+      "interface": "communication.world_group"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 240,
+      "interface": "communication.get_world_size"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 245,
+      "interface": "normalization.batch_norm"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 257,
+      "interface": "normalization.sync_batch_norm"
+    },
+    {
+      "path": "up/utils/model/bn_helper.py",
+      "line": 286,
+      "interface": "normalization.BatchNorm2d"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 36,
+      "interface": "quantization.module_type"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 40,
+      "interface": "pruning.module_type"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 115,
+      "interface": "convolution.Conv2d"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 126,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 133,
+      "interface": "activation.ReLU"
+    },
+    {
+      "path": "up/utils/model/normalize.py",
+      "line": 156,
+      "interface": "normalization.layer_norm"
+    },
+    {
+      "path": "up/utils/model/optimizer_helper.py",
+      "line": 148,
+      "interface": "training.optimizer"
+    },
+    {
+      "path": "up/utils/model/pos_embed.py",
+      "line": 95,
+      "interface": "pooling.interpolate"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 49,
+      "interface": "activation.relu6"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 103,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 104,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 105,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 106,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 113,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 114,
+      "interface": "activation.softmax"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 117,
+      "interface": "matrix.matmul"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 148,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 150,
+      "interface": "matrix.Linear"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 151,
+      "interface": "activation.Dropout"
+    },
+    {
+      "path": "up/utils/model/utils.py",
+      "line": 175,
+      "interface": "convolution.Conv2d"
+    }
+  ]
+}

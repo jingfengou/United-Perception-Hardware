@@ -1,0 +1,83 @@
+{
+  "reference_sha256": "b1bace744f0f8f21037b4c55e7bd8c457d09163d835195f4a335e7157bd54bb3",
+  "reference": "Original upstream Numba CUDA, no numerical edits",
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  },
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "records": [
+    {
+      "criterion": -1,
+      "implementation": "routed",
+      "passed": true,
+      "max_abs": 0.0
+    },
+    {
+      "criterion": -1,
+      "implementation": "compiled_port",
+      "passed": false,
+      "max_abs": 1.000000238418579
+    },
+    {
+      "criterion": 0,
+      "implementation": "routed",
+      "passed": true,
+      "max_abs": 0.0
+    },
+    {
+      "criterion": 0,
+      "implementation": "compiled_port",
+      "passed": false,
+      "max_abs": 1.0000001192092896
+    },
+    {
+      "criterion": 1,
+      "implementation": "routed",
+      "passed": true,
+      "max_abs": 0.0
+    },
+    {
+      "criterion": 1,
+      "implementation": "compiled_port",
+      "passed": false,
+      "max_abs": 1.0000001192092896
+    },
+    {
+      "criterion": 2,
+      "implementation": "routed",
+      "passed": true,
+      "max_abs": 0.0
+    },
+    {
+      "criterion": 2,
+      "implementation": "compiled_port",
+      "passed": false,
+      "max_abs": 7.961597442626953
+    },
+    {
+      "empty": [
+        0,
+        3
+      ],
+      "passed": true
+    },
+    {
+      "empty": [
+        3,
+        0
+      ],
+      "passed": true
+    },
+    {
+      "empty": [
+        0,
+        0
+      ],
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "vendor": "nvidia",
+  "source_sha256": "5e74ccfc95b3051bef9ca2cb4373fd5ba8f5527dd774d5b3f858996452b857b6",
+  "numerics": "native",
+  "scope": "compatibility, not dataset accuracy",
+  "records": [
+    {
+      "name": "cpu",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/platform",
+        "-q",
+        "--junitxml=/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage13/cpu.xml"
+      ],
+      "visible_devices": "",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T11:05:42.717145+00:00",
+      "ended_utc": "2026-10-23T11:05:51.294811+00:00"
+    },
+    {
+      "name": "models",
+      "command": [
+        "tools/compare_platform_models.py",
+        "--root",
+        "/data2/oujingfeng/up-platform-clean-20261023",
+        "--baseline",
+        "/data2/oujingfeng/up-platform-clean-20261023/baseline",
+        "--vendor",
+        "nvidia",
+        "--deterministic",
+        "--models",
+        "pointpillar",
+        "--output",
+        "/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage13/models"
+      ],
+      "visible_devices": "1",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T11:05:51.295424+00:00",
+      "ended_utc": "2026-10-23T11:07:22.215604+00:00"
+    }
+  ]
+}

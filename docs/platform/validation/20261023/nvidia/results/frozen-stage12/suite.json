@@ -1,0 +1,90 @@
+{
+  "vendor": "nvidia",
+  "source_sha256": "1528ac390dca7060d347e1c185bd7165fea742b64f27d12c0cb67c838c0756df",
+  "numerics": "native",
+  "scope": "compatibility, not dataset accuracy",
+  "records": [
+    {
+      "name": "cpu",
+      "command": [
+        "-m",
+        "pytest",
+        "tests/platform",
+        "-q",
+        "--junitxml=/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage12/cpu.xml"
+      ],
+      "visible_devices": "",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:49:30.165070+00:00",
+      "ended_utc": "2026-10-23T10:49:38.731077+00:00"
+    },
+    {
+      "name": "native-training",
+      "command": [
+        "tools/compare_platform_native.py",
+        "--vendor",
+        "nvidia",
+        "--purpose",
+        "training",
+        "--baseline",
+        "/data2/oujingfeng/up-platform-clean-20261023/baseline",
+        "--output",
+        "/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage12/native-training.json"
+      ],
+      "visible_devices": "1",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:49:38.731731+00:00",
+      "ended_utc": "2026-10-23T10:49:42.298680+00:00"
+    },
+    {
+      "name": "native-inference",
+      "command": [
+        "tools/compare_platform_native.py",
+        "--vendor",
+        "nvidia",
+        "--purpose",
+        "inference",
+        "--baseline",
+        "/data2/oujingfeng/up-platform-clean-20261023/baseline",
+        "--output",
+        "/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage12/native-inference.json"
+      ],
+      "visible_devices": "1",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:49:42.299344+00:00",
+      "ended_utc": "2026-10-23T10:49:44.852918+00:00"
+    },
+    {
+      "name": "toolchains",
+      "command": [
+        "tools/compare_platform_toolchains.py",
+        "--vendor",
+        "nvidia",
+        "--output",
+        "/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage12/toolchains"
+      ],
+      "visible_devices": "1",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:49:44.853673+00:00",
+      "ended_utc": "2026-10-23T10:50:42.520616+00:00"
+    },
+    {
+      "name": "distributed",
+      "command": [
+        "-m",
+        "torch.distributed.run",
+        "--standalone",
+        "--nproc_per_node=2",
+        "tools/validate_platform_distributed.py",
+        "--vendor",
+        "nvidia",
+        "--output",
+        "/data2/oujingfeng/up-platform-clean-20261023/results/frozen-stage12/distributed"
+      ],
+      "visible_devices": "1,0",
+      "exit_code": 0,
+      "started_utc": "2026-10-23T10:50:42.521525+00:00",
+      "ended_utc": "2026-10-23T10:50:49.666739+00:00"
+    }
+  ]
+}

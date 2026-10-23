@@ -1,0 +1,1105 @@
+{
+  "vendor": "metax",
+  "purpose": "inference",
+  "numerics": "native",
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "scope": "same-vendor routing/autograd; shared upstream native source; not full acceptance",
+  "reference_adaptations": [
+    "PSRoIPool integer workspace .cuda().contiguous()"
+  ],
+  "environment": {
+    "vendor": "metax",
+    "device_type": "cuda",
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda_api_version": "11.6"
+  },
+  "device": "MetaX C500",
+  "raw_sha256": "c1a95578e10d423ef7a95eeadce9e0b6fb6cb1c658ba3299da1868b4b9f4af27",
+  "passed": true,
+  "records": [
+    {
+      "operation": "detection.roi_align/0",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.roi_align/1",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.roi_align/2",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.roi_align/3",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0,
+              4,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.psroi_align/4",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.psroi_pool/5",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2,
+              2,
+              2,
+              2
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "deformable.deform_conv/6",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              2,
+              5,
+              5
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              2,
+              5,
+              5
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "focal.sigmoid_focal_loss/7",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "focal.cross_sigmoid_focal_loss/8",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "focal.sigmoid_focal_loss/9",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              6,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              6,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "focal.cross_sigmoid_focal_loss/10",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "focal.softmax_focal_loss/11",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.naive_nms/12",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.naive_nms/13",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.naive_nms/14",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.naive_nms/15",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              2
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.softer_nms/16",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              9
+            ],
+            "dtype": "torch.float32"
+          },
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              9
+            ],
+            "dtype": "torch.float32"
+          },
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.iou_overlap/17",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.iou_overlap/18",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.iou_overlap/19",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "detection.iou_overlap/20",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              0
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.points_in_boxes_cpu/21",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              16
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              16
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.points_in_boxes_gpu/22",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              16
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              16
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.roiaware_pool3d/23",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              2,
+              2,
+              2,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              2,
+              2,
+              2,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.roiaware_pool3d/24",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              2,
+              2,
+              2,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              2,
+              2,
+              2,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.roipoint_pool3d/25",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              3,
+              8,
+              6
+            ],
+            "dtype": "torch.float32"
+          },
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              3
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              3,
+              8,
+              6
+            ],
+            "dtype": "torch.float32"
+          },
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              1,
+              3
+            ],
+            "dtype": "torch.int32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.boxes_bev_iou_cpu/26",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.boxes_iou_bev/27",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.boxes_iou3d/28",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3,
+              3
+            ],
+            "dtype": "torch.float32"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.nms3d/29",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    },
+    {
+      "operation": "pointcloud.nms3d_normal/30",
+      "reference_repeat": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      },
+      "routed": {
+        "passed": true,
+        "comparisons": [
+          {
+            "passed": true,
+            "kind": "output",
+            "abs_max": 0.0,
+            "shape": [
+              3
+            ],
+            "dtype": "torch.int64"
+          }
+        ]
+      }
+    }
+  ]
+}

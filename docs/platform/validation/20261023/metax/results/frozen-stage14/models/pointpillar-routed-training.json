@@ -1,0 +1,25 @@
+{
+  "vendor": "metax",
+  "variant": "routed",
+  "model": "pointpillar",
+  "purpose": "training",
+  "passed_execution": true,
+  "tasks": "cls:det:det_3d",
+  "config": "configs/det_3d/pointpillar/pointpillar.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "reference_adaptations": [
+    "collections.Iterable Python 3.12 alias",
+    "NumPy removed float/int/bool builtin aliases",
+    "defer unused Open3D PCD reader import",
+    "defer unused KITTI Numba CUDA JIT import; original calculation unchanged if called"
+  ],
+  "source": "/workspace/up-run/up-platform-clean-20261023/up/__init__.py",
+  "environment": {
+    "vendor": "metax",
+    "device_type": "cuda",
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda_api_version": "11.6"
+  }
+}

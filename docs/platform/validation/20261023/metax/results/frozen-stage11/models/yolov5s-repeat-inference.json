@@ -1,0 +1,22 @@
+{
+  "vendor": "metax",
+  "variant": "repeat",
+  "model": "yolov5s",
+  "purpose": "inference",
+  "passed_execution": true,
+  "config": "configs/det/yolov5/yolov5_small_silu.yaml",
+  "seed": 131,
+  "numerics": "native",
+  "deterministic_algorithms": true,
+  "reference_adaptations": [
+    "collections.Iterable Python 3.12 alias",
+    "NumPy removed float/int/bool builtin aliases"
+  ],
+  "source": "/workspace/up-run/up-platform-clean-20261023/baseline/up/__init__.py",
+  "environment": {
+    "vendor": "metax",
+    "device_type": "cuda",
+    "torch": "2.10.0+metax3.8.1.0",
+    "cuda_api_version": "11.6"
+  }
+}

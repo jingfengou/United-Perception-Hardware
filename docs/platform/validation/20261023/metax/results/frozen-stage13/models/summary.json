@@ -1,0 +1,24 @@
+{
+  "scope": "UP ModelHelper, actual losses, three updates with checkpoint restore; synthetic inputs, not full Runner or accuracy",
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "records": [
+    {
+      "model": "pointpillar",
+      "purpose": "training",
+      "failed_execution": [
+        "original",
+        "repeat"
+      ]
+    },
+    {
+      "model": "pointpillar",
+      "purpose": "inference",
+      "failed_execution": [
+        "original",
+        "repeat",
+        "routed"
+      ]
+    }
+  ]
+}

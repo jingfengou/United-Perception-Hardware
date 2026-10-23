@@ -1,0 +1,40 @@
+{
+  "pins": {
+    "MQBench": "00f477d58ef67c1c1bbe71d14312731fd3a4960d",
+    "msbench": "b00632036c8a03cacff6ae94814195e98f1361f8"
+  },
+  "torch": "2.10",
+  "scope": "imports and legacy ONNX exporter only",
+  "patches": [
+    {
+      "path": "MQBench/mqbench/convert_deploy.py",
+      "before": "c854ee17f4a0824496c6c8087659127a64733419fb2bf3f7f6b4cc6a5494c082",
+      "after": "5b0e874f0ea19dfab6121e30c6fdd8957ace7b960d16f4cc4d24c1921bd1a8fa"
+    },
+    {
+      "path": "MQBench/mqbench/custom_symbolic_opset.py",
+      "before": "a36c5a724184d280071b63be4628bdf0e5ac213d7b3adeb2ecc4e8410dcff2b9",
+      "after": "8da3217a9e8bd0936517e3f40208fe11b78272601159d3d3accff4b64e0ed85c"
+    },
+    {
+      "path": "MQBench/mqbench/fake_quantize/dsq.py",
+      "before": "ff29889fb18bdf9ecc71749ad5a1251ae817fee84d078cd22d9eb08ad45241d4",
+      "after": "f777ee9662d7bd0b67fd86c8d07bd8276de739db814b24fe241ed9c4f8f94b8b"
+    },
+    {
+      "path": "MQBench/mqbench/fake_quantize/lsq.py",
+      "before": "95a4611918b240ed87d41a19d0aa47a60dc99fd0637910862887be212807ec70",
+      "after": "03ef4a7c63f51463c833e06e6bc9dc94ae27af0281bd5ef3910e8bb050ca4c23"
+    },
+    {
+      "path": "MQBench/mqbench/fake_quantize/tqt.py",
+      "before": "2475abd808d3bf4324b098d88f544c7b2894b002a107837594e9263dd7c72da7",
+      "after": "8e641c2021618323e72d83137c1eaf4eaaa01e429ea6767bf60338d3912dad21"
+    },
+    {
+      "path": "msbench/msbench/fake_sparse/__init__.py",
+      "before": "d5ebf8f6b78ca7b806d4dd29616eb12f28dff62f670d994c709e05ef35cb4b8b",
+      "after": "b9eb9ce176872116c31f3117844646e8cd1da4c1fe4caf0512dacb25ea42e725"
+    }
+  ]
+}

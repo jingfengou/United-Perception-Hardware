@@ -1,0 +1,111 @@
+{
+  "records": [
+    {
+      "case": "0-roi_align",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', 2 defined in (%0 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Long(requires_grad=0, device=cpu), %4 : Double(requires_grad=0, device=cpu), %5 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', pooled_h.1 defined in (%features.1 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %pooled_h.1 : Long(requires_grad=0, device=cpu), %pooled_w.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %sampling_ratio.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "1-roi_align",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', 2 defined in (%0 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(0, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Long(requires_grad=0, device=cpu), %4 : Double(requires_grad=0, device=cpu), %5 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', pooled_h.1 defined in (%features.1 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(0, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %pooled_h.1 : Long(requires_grad=0, device=cpu), %pooled_w.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %sampling_ratio.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "2-roi_align",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', 2 defined in (%0 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Long(requires_grad=0, device=cpu), %4 : Double(requires_grad=0, device=cpu), %5 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', pooled_h.1 defined in (%features.1 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %pooled_h.1 : Long(requires_grad=0, device=cpu), %pooled_w.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %sampling_ratio.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "3-roi_align",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', 2 defined in (%0 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(0, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Long(requires_grad=0, device=cpu), %4 : Double(requires_grad=0, device=cpu), %5 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::RoiAlign(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'pooled_height', pooled_h.1 defined in (%features.1 : Float(2, 4, 8, 8, strides=[256, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(0, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %pooled_h.1 : Long(requires_grad=0, device=cpu), %pooled_w.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %sampling_ratio.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating RoIAlignFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "4-psroi_align",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::PSRoiAlign(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'group_size', 2 defined in (%0 : Float(2, 8, 8, 8, strides=[512, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Double(requires_grad=0, device=cpu), %4 : Long(requires_grad=0, device=cpu), %5 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating PSRoIAlignFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %6 : Tensor = onnx::PSRoiAlign(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'group_size', group_size.1 defined in (%features.1 : Float(2, 8, 8, 8, strides=[512, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %group_size.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %output_dim.1 : Long(requires_grad=0, device=cpu), %sampling_ratio.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating PSRoIAlignFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "5-psroi_pool",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %5 : Tensor = onnx::PSRoiPool(%0, %1), scope: __main__.main.<locals>.Wrapper::\n, 'group_size', 2 defined in (%0 : Float(2, 8, 8, 8, strides=[512, 64, 8, 1], requires_grad=0, device=cuda:0), %1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %2 : Long(requires_grad=0, device=cpu), %3 : Double(requires_grad=0, device=cpu), %4 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating PSRoIPoolFunction)"
+        },
+        "routed": {
+          "type": "TypeError",
+          "message": "i_(): incompatible function arguments. The following argument types are supported:\n    1. (self: torch._C.Node, arg0: str, arg1: typing.SupportsInt) -> torch._C.Node\n\nInvoked with: %5 : Tensor = onnx::PSRoiPool(%features.1, %rois.1), scope: __main__.main.<locals>.Wrapper::\n, 'group_size', group_size.1 defined in (%features.1 : Float(2, 8, 8, 8, strides=[512, 64, 8, 1], requires_grad=0, device=cuda:0), %rois.1 : Float(2, 5, strides=[5, 1], requires_grad=0, device=cuda:0), %group_size.1 : Long(requires_grad=0, device=cpu), %spatial_scale.1 : Double(requires_grad=0, device=cpu), %output_dim.1 : Long(requires_grad=0, device=cpu) = prim::Param()\n) (occurred when translating PSRoIPoolFunction)"
+        }
+      },
+      "passed": false
+    },
+    {
+      "case": "6-deform_conv",
+      "graphs": {},
+      "errors": {
+        "original": {
+          "type": "RuntimeError",
+          "message": "unordered_map::at"
+        },
+        "routed": {
+          "type": "RuntimeError",
+          "message": "unordered_map::at"
+        }
+      },
+      "passed": false
+    }
+  ],
+  "scope": "Legacy graph topology and symbolic attributes; not execution by a deployment engine",
+  "reference_adaptations": []
+}

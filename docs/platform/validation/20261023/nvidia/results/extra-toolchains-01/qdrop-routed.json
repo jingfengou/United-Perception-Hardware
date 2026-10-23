@@ -1,0 +1,12 @@
+{
+  "case": "qdrop",
+  "route": "routed",
+  "executed": true,
+  "reference_adaptations": [],
+  "environment": {
+    "vendor": "nvidia",
+    "device_type": "cuda",
+    "torch": "2.10.0+cu126",
+    "cuda_api_version": "12.6"
+  }
+}

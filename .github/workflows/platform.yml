@@ -1,0 +1,56 @@
+name: Clean Platform
+on:
+  push:
+    branches: [codex/up-platform-clean]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  public-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build markdown-it-py
+      - run: python -m build
+      - run: >-
+          python -c "from pathlib import Path; from zipfile import ZipFile;
+          expected={p.as_posix() for p in Path('up_platform/ops/_native/csrc').rglob('*') if p.is_file()};
+          wheel=next(Path('dist').glob('*.whl')); names=set(ZipFile(wheel).namelist());
+          assert expected <= names; assert not any(n.endswith('.so') for n in names)"
+      - run: python -m pip install --no-deps dist/*.whl
+      - run: python -I -c "import up_platform, sys; assert 'torch' not in sys.modules; assert 'up' not in sys.modules"
+      - run: python tools/platform_inventory.py
+      - run: python tools/platform_contracts.py
+      - run: python tools/platform_call_sites.py
+      - run: python tools/check_platform_boundaries.py
+      - run: python tools/check_platform_docs.py
+      - run: python -m unittest discover -s tests/platform -p test_contracts.py -v
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-packages
+          path: dist/
+  cpu-contracts:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install pytest numpy
+      - run: python -m pytest tests/platform -q --junitxml=platform-tests.xml
+        env:
+          CUDA_VISIBLE_DEVICES: ''
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cpu-tests-${{ matrix.python }}
+          path: platform-tests.xml

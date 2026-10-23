@@ -1,0 +1,68 @@
+[
+  {
+    "path": "up/models/backbones/mobilenet_v3.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/models/backbones/regnet.py",
+    "import": "spring.linklink",
+    "statement": "from spring import linklink",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/tasks/nas/bignas/controller/utils/misc.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/tasks/nas/bignas/models/heads/big_roi_head.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/tasks/nas/bignas/models/ops/dynamic_ops.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/tasks/nas/bignas/models/search_space/base_bignas_searchspace.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/tasks/nas/bignas/runner/bignas_runner.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as linklink",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/utils/env/dist_helper.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/utils/general/fp16_helper.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as linklink",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/utils/model/bn_helper.py",
+    "import": "spring.linklink",
+    "statement": "import spring.linklink as link",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  },
+  {
+    "path": "up/utils/model/optimizer_helper.py",
+    "import": "spring.linklink",
+    "statement": "from spring import linklink",
+    "reason": "Matching SDK unavailable; not validated or replaced"
+  }
+]

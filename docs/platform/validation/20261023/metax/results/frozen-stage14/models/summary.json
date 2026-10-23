@@ -1,0 +1,2139 @@
+{
+  "scope": "UP ModelHelper, actual losses, three updates with checkpoint restore; synthetic inputs, not full Runner or accuracy",
+  "rtol": 0.0001,
+  "atol": 1e-05,
+  "records": [
+    {
+      "model": "pointpillar",
+      "purpose": "training",
+      "original_repeat": {
+        "passed": false,
+        "tensor_count": 891,
+        "failures": [
+          {
+            "tensor": "/final/backbone.blocks.0.0.weight",
+            "max_abs": 3.956258296966553e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.3.weight",
+            "max_abs": 5.4623931646347046e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.6.weight",
+            "max_abs": 4.268251359462738e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.9.weight",
+            "max_abs": 2.8450973331928253e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.0.weight",
+            "max_abs": 6.44586980342865e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.1.bias",
+            "max_abs": 1.115094346459955e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.10.bias",
+            "max_abs": 1.7600206774659455e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.12.weight",
+            "max_abs": 7.802806794643402e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.15.weight",
+            "max_abs": 0.00010273326188325882
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.3.weight",
+            "max_abs": 8.21426510810852e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.4.bias",
+            "max_abs": 2.2981570509728044e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.6.weight",
+            "max_abs": 6.587989628314972e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.7.bias",
+            "max_abs": 1.1841111700050533e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.9.weight",
+            "max_abs": 8.790474385023117e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.0.weight",
+            "max_abs": 0.00010889396071434021
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.10.bias",
+            "max_abs": 1.5753084880998358e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.12.weight",
+            "max_abs": 0.00010739732533693314
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.15.weight",
+            "max_abs": 0.00012639816850423813
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.3.weight",
+            "max_abs": 0.00011276639997959137
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.4.bias",
+            "max_abs": 1.4945318980608135e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.6.weight",
+            "max_abs": 0.000144709600135684
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.9.weight",
+            "max_abs": 0.00011226721107959747
+          },
+          {
+            "tensor": "/final/backbone.deblocks.1.0.weight",
+            "max_abs": 6.299465894699097e-05
+          },
+          {
+            "tensor": "/final/backbone.deblocks.2.0.weight",
+            "max_abs": 0.00012504053302109241
+          },
+          {
+            "tensor": "/optimizer/state/0/exp_avg",
+            "max_abs": 0.11468505859375
+          },
+          {
+            "tensor": "/optimizer/state/0/exp_avg_sq",
+            "max_abs": 0.26469993591308594
+          },
+          {
+            "tensor": "/optimizer/state/1/exp_avg",
+            "max_abs": 0.030642002820968628
+          },
+          {
+            "tensor": "/optimizer/state/1/exp_avg_sq",
+            "max_abs": 0.02360624074935913
+          },
+          {
+            "tensor": "/optimizer/state/10/exp_avg",
+            "max_abs": 0.017164883203804493
+          },
+          {
+            "tensor": "/optimizer/state/10/exp_avg_sq",
+            "max_abs": 0.014281868934631348
+          },
+          {
+            "tensor": "/optimizer/state/11/exp_avg",
+            "max_abs": 0.0009379982948303223
+          },
+          {
+            "tensor": "/optimizer/state/11/exp_avg_sq",
+            "max_abs": 2.983736339956522e-05
+          },
+          {
+            "tensor": "/optimizer/state/12/exp_avg",
+            "max_abs": 0.07465815544128418
+          },
+          {
+            "tensor": "/optimizer/state/12/exp_avg_sq",
+            "max_abs": 0.11578738689422607
+          },
+          {
+            "tensor": "/optimizer/state/13/exp_avg",
+            "max_abs": 0.014845490455627441
+          },
+          {
+            "tensor": "/optimizer/state/13/exp_avg_sq",
+            "max_abs": 0.010906815528869629
+          },
+          {
+            "tensor": "/optimizer/state/14/exp_avg",
+            "max_abs": 0.0009336322546005249
+          },
+          {
+            "tensor": "/optimizer/state/14/exp_avg_sq",
+            "max_abs": 2.969452179968357e-05
+          },
+          {
+            "tensor": "/optimizer/state/15/exp_avg",
+            "max_abs": 0.04451938159763813
+          },
+          {
+            "tensor": "/optimizer/state/15/exp_avg_sq",
+            "max_abs": 0.04154038429260254
+          },
+          {
+            "tensor": "/optimizer/state/16/exp_avg",
+            "max_abs": 0.01010095328092575
+          },
+          {
+            "tensor": "/optimizer/state/16/exp_avg_sq",
+            "max_abs": 0.002553582191467285
+          },
+          {
+            "tensor": "/optimizer/state/17/exp_avg",
+            "max_abs": 0.0008959146216511726
+          },
+          {
+            "tensor": "/optimizer/state/18/exp_avg",
+            "max_abs": 0.04015398025512695
+          },
+          {
+            "tensor": "/optimizer/state/18/exp_avg_sq",
+            "max_abs": 0.022352218627929688
+          },
+          {
+            "tensor": "/optimizer/state/19/exp_avg",
+            "max_abs": 0.010390178300440311
+          },
+          {
+            "tensor": "/optimizer/state/19/exp_avg_sq",
+            "max_abs": 0.001984730362892151
+          },
+          {
+            "tensor": "/optimizer/state/2/exp_avg",
+            "max_abs": 0.0191524475812912
+          },
+          {
+            "tensor": "/optimizer/state/2/exp_avg_sq",
+            "max_abs": 0.008708849549293518
+          },
+          {
+            "tensor": "/optimizer/state/20/exp_avg",
+            "max_abs": 0.0008087509777396917
+          },
+          {
+            "tensor": "/optimizer/state/20/exp_avg_sq",
+            "max_abs": 1.0814386769197881e-05
+          },
+          {
+            "tensor": "/optimizer/state/21/exp_avg",
+            "max_abs": 0.06695739924907684
+          },
+          {
+            "tensor": "/optimizer/state/21/exp_avg_sq",
+            "max_abs": 0.037742167711257935
+          },
+          {
+            "tensor": "/optimizer/state/22/exp_avg",
+            "max_abs": 0.00940011441707611
+          },
+          {
+            "tensor": "/optimizer/state/22/exp_avg_sq",
+            "max_abs": 0.0009221909567713737
+          },
+          {
+            "tensor": "/optimizer/state/23/exp_avg",
+            "max_abs": 0.0007664854638278484
+          },
+          {
+            "tensor": "/optimizer/state/24/exp_avg",
+            "max_abs": 0.06874174624681473
+          },
+          {
+            "tensor": "/optimizer/state/24/exp_avg_sq",
+            "max_abs": 0.0336347371339798
+          },
+          {
+            "tensor": "/optimizer/state/25/exp_avg",
+            "max_abs": 0.006702423095703125
+          },
+          {
+            "tensor": "/optimizer/state/25/exp_avg_sq",
+            "max_abs": 0.0008466579020023346
+          },
+          {
+            "tensor": "/optimizer/state/26/exp_avg",
+            "max_abs": 0.0006079728212853297
+          },
+          {
+            "tensor": "/optimizer/state/27/exp_avg",
+            "max_abs": 0.09695490822196007
+          },
+          {
+            "tensor": "/optimizer/state/27/exp_avg_sq",
+            "max_abs": 0.03433513641357422
+          },
+          {
+            "tensor": "/optimizer/state/28/exp_avg",
+            "max_abs": 0.005647808313369751
+          },
+          {
+            "tensor": "/optimizer/state/28/exp_avg_sq",
+            "max_abs": 0.0009044026955962181
+          },
+          {
+            "tensor": "/optimizer/state/29/exp_avg",
+            "max_abs": 0.0007669045589864254
+          },
+          {
+            "tensor": "/optimizer/state/3/exp_avg",
+            "max_abs": 0.10653619468212128
+          },
+          {
+            "tensor": "/optimizer/state/3/exp_avg_sq",
+            "max_abs": 0.3538362979888916
+          },
+          {
+            "tensor": "/optimizer/state/30/exp_avg",
+            "max_abs": 0.04954253137111664
+          },
+          {
+            "tensor": "/optimizer/state/30/exp_avg_sq",
+            "max_abs": 0.011336356401443481
+          },
+          {
+            "tensor": "/optimizer/state/31/exp_avg",
+            "max_abs": 0.004072844982147217
+          },
+          {
+            "tensor": "/optimizer/state/31/exp_avg_sq",
+            "max_abs": 0.0008082091808319092
+          },
+          {
+            "tensor": "/optimizer/state/32/exp_avg",
+            "max_abs": 0.0004195128567516804
+          },
+          {
+            "tensor": "/optimizer/state/33/exp_avg",
+            "max_abs": 0.022203665226697922
+          },
+          {
+            "tensor": "/optimizer/state/33/exp_avg_sq",
+            "max_abs": 0.0024518147110939026
+          },
+          {
+            "tensor": "/optimizer/state/34/exp_avg",
+            "max_abs": 0.0027047768235206604
+          },
+          {
+            "tensor": "/optimizer/state/34/exp_avg_sq",
+            "max_abs": 0.0001602228730916977
+          },
+          {
+            "tensor": "/optimizer/state/35/exp_avg",
+            "max_abs": 0.00045730825513601303
+          },
+          {
+            "tensor": "/optimizer/state/36/exp_avg",
+            "max_abs": 0.024778450839221478
+          },
+          {
+            "tensor": "/optimizer/state/36/exp_avg_sq",
+            "max_abs": 0.002390824258327484
+          },
+          {
+            "tensor": "/optimizer/state/37/exp_avg",
+            "max_abs": 0.002151496708393097
+          },
+          {
+            "tensor": "/optimizer/state/37/exp_avg_sq",
+            "max_abs": 7.274746894836426e-05
+          },
+          {
+            "tensor": "/optimizer/state/38/exp_avg",
+            "max_abs": 0.0002509250771254301
+          },
+          {
+            "tensor": "/optimizer/state/39/exp_avg",
+            "max_abs": 0.013934986665844917
+          },
+          {
+            "tensor": "/optimizer/state/39/exp_avg_sq",
+            "max_abs": 0.0014026053249835968
+          },
+          {
+            "tensor": "/optimizer/state/4/exp_avg",
+            "max_abs": 0.018530607223510742
+          },
+          {
+            "tensor": "/optimizer/state/4/exp_avg_sq",
+            "max_abs": 0.014333724975585938
+          },
+          {
+            "tensor": "/optimizer/state/40/exp_avg",
+            "max_abs": 0.0025953873991966248
+          },
+          {
+            "tensor": "/optimizer/state/40/exp_avg_sq",
+            "max_abs": 0.00014620693400502205
+          },
+          {
+            "tensor": "/optimizer/state/41/exp_avg",
+            "max_abs": 0.0002520103007555008
+          },
+          {
+            "tensor": "/optimizer/state/42/exp_avg",
+            "max_abs": 0.013520479202270508
+          },
+          {
+            "tensor": "/optimizer/state/42/exp_avg_sq",
+            "max_abs": 0.002117388416081667
+          },
+          {
+            "tensor": "/optimizer/state/43/exp_avg",
+            "max_abs": 0.0020296387374401093
+          },
+          {
+            "tensor": "/optimizer/state/43/exp_avg_sq",
+            "max_abs": 0.0001279604621231556
+          },
+          {
+            "tensor": "/optimizer/state/44/exp_avg",
+            "max_abs": 0.0003567511448636651
+          },
+          {
+            "tensor": "/optimizer/state/45/exp_avg",
+            "max_abs": 0.009056342765688896
+          },
+          {
+            "tensor": "/optimizer/state/45/exp_avg_sq",
+            "max_abs": 0.0011021420359611511
+          },
+          {
+            "tensor": "/optimizer/state/46/exp_avg",
+            "max_abs": 0.0017404966056346893
+          },
+          {
+            "tensor": "/optimizer/state/46/exp_avg_sq",
+            "max_abs": 7.213139906525612e-05
+          },
+          {
+            "tensor": "/optimizer/state/47/exp_avg",
+            "max_abs": 0.00020672171376645565
+          },
+          {
+            "tensor": "/optimizer/state/48/exp_avg",
+            "max_abs": 0.014756947755813599
+          },
+          {
+            "tensor": "/optimizer/state/48/exp_avg_sq",
+            "max_abs": 0.001407724805176258
+          },
+          {
+            "tensor": "/optimizer/state/49/exp_avg",
+            "max_abs": 0.0019145794212818146
+          },
+          {
+            "tensor": "/optimizer/state/49/exp_avg_sq",
+            "max_abs": 0.0001493021845817566
+          },
+          {
+            "tensor": "/optimizer/state/5/exp_avg",
+            "max_abs": 0.0006998125463724136
+          },
+          {
+            "tensor": "/optimizer/state/5/exp_avg_sq",
+            "max_abs": 1.566787250339985e-05
+          },
+          {
+            "tensor": "/optimizer/state/50/exp_avg",
+            "max_abs": 0.0002876012586057186
+          },
+          {
+            "tensor": "/optimizer/state/51/exp_avg",
+            "max_abs": 0.028264760971069336
+          },
+          {
+            "tensor": "/optimizer/state/51/exp_avg_sq",
+            "max_abs": 0.025781631469726562
+          },
+          {
+            "tensor": "/optimizer/state/52/exp_avg",
+            "max_abs": 0.0004165172576904297
+          },
+          {
+            "tensor": "/optimizer/state/52/exp_avg_sq",
+            "max_abs": 0.0005021095275878906
+          },
+          {
+            "tensor": "/optimizer/state/53/exp_avg",
+            "max_abs": 0.00011552870273590088
+          },
+          {
+            "tensor": "/optimizer/state/54/exp_avg",
+            "max_abs": 0.042209140956401825
+          },
+          {
+            "tensor": "/optimizer/state/54/exp_avg_sq",
+            "max_abs": 0.01374208927154541
+          },
+          {
+            "tensor": "/optimizer/state/55/exp_avg",
+            "max_abs": 0.00024366378784179688
+          },
+          {
+            "tensor": "/optimizer/state/55/exp_avg_sq",
+            "max_abs": 0.00014400482177734375
+          },
+          {
+            "tensor": "/optimizer/state/56/exp_avg",
+            "max_abs": 0.0001724380999803543
+          },
+          {
+            "tensor": "/optimizer/state/57/exp_avg",
+            "max_abs": 0.06459647417068481
+          },
+          {
+            "tensor": "/optimizer/state/57/exp_avg_sq",
+            "max_abs": 0.03311982750892639
+          },
+          {
+            "tensor": "/optimizer/state/58/exp_avg",
+            "max_abs": 0.00023788213729858398
+          },
+          {
+            "tensor": "/optimizer/state/58/exp_avg_sq",
+            "max_abs": 8.895993232727051e-05
+          },
+          {
+            "tensor": "/optimizer/state/59/exp_avg",
+            "max_abs": 0.0004075579345226288
+          },
+          {
+            "tensor": "/optimizer/state/59/exp_avg_sq",
+            "max_abs": 1.7513521015644073e-05
+          },
+          {
+            "tensor": "/optimizer/state/6/exp_avg",
+            "max_abs": 0.09931199252605438
+          },
+          {
+            "tensor": "/optimizer/state/6/exp_avg_sq",
+            "max_abs": 0.21031665802001953
+          },
+          {
+            "tensor": "/optimizer/state/60/exp_avg",
+            "max_abs": 0.004902839660644531
+          },
+          {
+            "tensor": "/optimizer/state/60/exp_avg_sq",
+            "max_abs": 0.04248046875
+          },
+          {
+            "tensor": "/optimizer/state/61/exp_avg",
+            "max_abs": 0.000171661376953125
+          },
+          {
+            "tensor": "/optimizer/state/61/exp_avg_sq",
+            "max_abs": 6.42538070678711e-05
+          },
+          {
+            "tensor": "/optimizer/state/62/exp_avg",
+            "max_abs": 0.008055686950683594
+          },
+          {
+            "tensor": "/optimizer/state/62/exp_avg_sq",
+            "max_abs": 0.058872222900390625
+          },
+          {
+            "tensor": "/optimizer/state/63/exp_avg",
+            "max_abs": 0.00014474429190158844
+          },
+          {
+            "tensor": "/optimizer/state/63/exp_avg_sq",
+            "max_abs": 3.0446797609329224e-05
+          },
+          {
+            "tensor": "/optimizer/state/64/exp_avg",
+            "max_abs": 0.00022798776626586914
+          },
+          {
+            "tensor": "/optimizer/state/64/exp_avg_sq",
+            "max_abs": 3.76775860786438e-05
+          },
+          {
+            "tensor": "/optimizer/state/7/exp_avg",
+            "max_abs": 0.016231447458267212
+          },
+          {
+            "tensor": "/optimizer/state/7/exp_avg_sq",
+            "max_abs": 0.008065283298492432
+          },
+          {
+            "tensor": "/optimizer/state/8/exp_avg",
+            "max_abs": 0.0006221737712621689
+          },
+          {
+            "tensor": "/optimizer/state/9/exp_avg",
+            "max_abs": 0.07699859142303467
+          },
+          {
+            "tensor": "/optimizer/state/9/exp_avg_sq",
+            "max_abs": 0.1161729097366333
+          },
+          {
+            "tensor": "/steps/1/eval/dir_pred",
+            "max_abs": 3.531947731971741e-05
+          },
+          {
+            "tensor": "/steps/1/eval/spatial_features_2d",
+            "max_abs": 0.00011577457189559937
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.0.weight",
+            "max_abs": 0.02386617660522461
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.1.bias",
+            "max_abs": 0.0002397969365119934
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.1.weight",
+            "max_abs": 0.004346013069152832
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.10.bias",
+            "max_abs": 0.00011269748210906982
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.10.weight",
+            "max_abs": 0.0010094642639160156
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.3.weight",
+            "max_abs": 0.015346527099609375
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.4.bias",
+            "max_abs": 0.00017894059419631958
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.4.weight",
+            "max_abs": 0.0021827220916748047
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.6.weight",
+            "max_abs": 0.009045600891113281
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.7.bias",
+            "max_abs": 0.00012376904487609863
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.7.weight",
+            "max_abs": 0.001798391342163086
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.9.weight",
+            "max_abs": 0.00906229019165039
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.0.weight",
+            "max_abs": 0.004437446594238281
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.1.bias",
+            "max_abs": 5.093216896057129e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.1.weight",
+            "max_abs": 0.000586092472076416
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.10.bias",
+            "max_abs": 1.5750527381896973e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.10.weight",
+            "max_abs": 1.71661376953125e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.12.weight",
+            "max_abs": 0.00021719932556152344
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.15.weight",
+            "max_abs": 0.0001468658447265625
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.3.weight",
+            "max_abs": 0.0026407241821289062
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.4.bias",
+            "max_abs": 2.7924776077270508e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.4.weight",
+            "max_abs": 0.0001996457576751709
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.6.weight",
+            "max_abs": 0.0020478367805480957
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.7.bias",
+            "max_abs": 2.43503600358963e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.7.weight",
+            "max_abs": 6.508827209472656e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.9.weight",
+            "max_abs": 0.0008077621459960938
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.linear.weight",
+            "max_abs": 0.17914295196533203
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.norm.bias",
+            "max_abs": 0.0024611949920654297
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.norm.weight",
+            "max_abs": 0.004548549652099609
+          },
+          {
+            "tensor": "/steps/2/eval/dir_pred",
+            "max_abs": 8.643791079521179e-05
+          },
+          {
+            "tensor": "/steps/2/eval/spatial_features",
+            "max_abs": 0.00011944770812988281
+          },
+          {
+            "tensor": "/steps/2/eval/spatial_features_2d",
+            "max_abs": 0.0005534030497074127
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.0.weight",
+            "max_abs": 1.0661907196044922
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.1.bias",
+            "max_abs": 0.0070281922817230225
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.1.weight",
+            "max_abs": 0.18921704962849617
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.10.bias",
+            "max_abs": 0.009294599294662476
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.10.weight",
+            "max_abs": 0.1488349437713623
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.3.weight",
+            "max_abs": 0.9977076053619385
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.4.bias",
+            "max_abs": 0.006168840453028679
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.4.weight",
+            "max_abs": 0.16274237632751465
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.6.weight",
+            "max_abs": 0.7684199810028076
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.7.bias",
+            "max_abs": 0.009362548589706421
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.7.weight",
+            "max_abs": 0.17280496656894684
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.9.weight",
+            "max_abs": 0.7469115257263184
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.0.weight",
+            "max_abs": 0.4450274705886841
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.1.bias",
+            "max_abs": 0.008955388329923153
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.1.weight",
+            "max_abs": 0.10087543725967407
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.10.bias",
+            "max_abs": 0.0060770525597035885
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.10.weight",
+            "max_abs": 0.06702998280525208
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.12.weight",
+            "max_abs": 0.9695881605148315
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.13.bias",
+            "max_abs": 0.007670632563531399
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.13.weight",
+            "max_abs": 0.05647829920053482
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.15.weight",
+            "max_abs": 0.49542558193206787
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.16.bias",
+            "max_abs": 0.004194953478872776
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.16.weight",
+            "max_abs": 0.04072850942611694
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.3.weight",
+            "max_abs": 0.4012500047683716
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.4.bias",
+            "max_abs": 0.008078423328697681
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.4.weight",
+            "max_abs": 0.10395729541778564
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.6.weight",
+            "max_abs": 0.6696305274963379
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.7.bias",
+            "max_abs": 0.007661942392587662
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.7.weight",
+            "max_abs": 0.09399709105491638
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.9.weight",
+            "max_abs": 0.6874284744262695
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.0.weight",
+            "max_abs": 0.2220366515684873
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.1.bias",
+            "max_abs": 0.004572860896587372
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.1.weight",
+            "max_abs": 0.02704779803752899
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.10.bias",
+            "max_abs": 0.0035675119142979383
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.10.weight",
+            "max_abs": 0.020296376198530197
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.12.weight",
+            "max_abs": 0.09056344628334045
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.13.bias",
+            "max_abs": 0.0020672152750194073
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.13.weight",
+            "max_abs": 0.017404988408088684
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.15.weight",
+            "max_abs": 0.147569477558136
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.16.bias",
+            "max_abs": 0.0028760097920894623
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.16.weight",
+            "max_abs": 0.019145790487527847
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.3.weight",
+            "max_abs": 0.24778449535369873
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.4.bias",
+            "max_abs": 0.0025092512369155884
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.4.weight",
+            "max_abs": 0.02151496708393097
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.6.weight",
+            "max_abs": 0.13934986107051373
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.7.bias",
+            "max_abs": 0.002520104870200157
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.7.weight",
+            "max_abs": 0.025953859090805054
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.9.weight",
+            "max_abs": 0.13520485162734985
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.0.weight",
+            "max_abs": 0.28264451026916504
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.1.bias",
+            "max_abs": 0.0011552795767784119
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.1.weight",
+            "max_abs": 0.004165172576904297
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.0.weight",
+            "max_abs": 0.42209141701459885
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.1.bias",
+            "max_abs": 0.0017243847250938416
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.1.weight",
+            "max_abs": 0.0024368762969970703
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.0.weight",
+            "max_abs": 0.6459650993347168
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.1.bias",
+            "max_abs": 0.004075571894645691
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.1.weight",
+            "max_abs": 0.0023790597915649414
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.linear.weight",
+            "max_abs": 1.1492414474487305
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.norm.bias",
+            "max_abs": 0.1923201084136963
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.norm.weight",
+            "max_abs": 0.3079249858856201
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.box_subnet_pred.bias",
+            "max_abs": 0.001447439193725586
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.box_subnet_pred.weight",
+            "max_abs": 0.08055496215820312
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.cls_subnet_pred.bias",
+            "max_abs": 0.0017161369323730469
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.cls_subnet_pred.weight",
+            "max_abs": 0.04902935028076172
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.dir_subnet_pred.bias",
+            "max_abs": 1.8328428268432617e-05
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.dir_subnet_pred.weight",
+            "max_abs": 0.0022796988487243652
+          },
+          {
+            "tensor": "/steps/2/losses/AnchorHeadSingle.dir_loss",
+            "max_abs": 0.0001252889633178711
+          },
+          {
+            "tensor": "/steps/2/losses/AnchorHeadSingle.loc_loss",
+            "max_abs": 0.0002110004425048828
+          }
+        ]
+      },
+      "routed": {
+        "passed": false,
+        "tensor_count": 891,
+        "failures": [
+          {
+            "tensor": "/final/backbone.blocks.0.0.weight",
+            "max_abs": 3.672391176223755e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.3.weight",
+            "max_abs": 4.36131376773119e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.4.bias",
+            "max_abs": 1.2677541235461831e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.6.weight",
+            "max_abs": 6.739422678947449e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.7.bias",
+            "max_abs": 2.3004162358120084e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.0.9.weight",
+            "max_abs": 5.078176036477089e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.0.weight",
+            "max_abs": 0.00011918041855096817
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.1.bias",
+            "max_abs": 1.569785263200174e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.10.bias",
+            "max_abs": 1.0580115485936403e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.12.weight",
+            "max_abs": 9.085237979888916e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.13.bias",
+            "max_abs": 1.4049699530005455e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.15.weight",
+            "max_abs": 0.00011307420209050179
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.3.weight",
+            "max_abs": 0.00011797063052654266
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.6.weight",
+            "max_abs": 6.619654595851898e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.7.bias",
+            "max_abs": 2.414517439319752e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.1.9.weight",
+            "max_abs": 9.169988334178925e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.0.weight",
+            "max_abs": 0.00011026300489902496
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.1.bias",
+            "max_abs": 1.7508980818092823e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.10.bias",
+            "max_abs": 3.068564546993002e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.12.weight",
+            "max_abs": 0.0001235748641192913
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.13.bias",
+            "max_abs": 2.068298715585115e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.15.weight",
+            "max_abs": 0.00012724753469228745
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.3.weight",
+            "max_abs": 0.00013162940740585327
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.4.bias",
+            "max_abs": 1.701965811662376e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.6.weight",
+            "max_abs": 0.00014577247202396393
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.7.bias",
+            "max_abs": 1.0719581041485071e-05
+          },
+          {
+            "tensor": "/final/backbone.blocks.2.9.weight",
+            "max_abs": 0.00012413226068019867
+          },
+          {
+            "tensor": "/final/backbone.deblocks.1.0.weight",
+            "max_abs": 6.280466914176941e-05
+          },
+          {
+            "tensor": "/final/backbone.deblocks.2.0.weight",
+            "max_abs": 0.000125126913189888
+          },
+          {
+            "tensor": "/final/backbone3d.pfn_layers.0.norm.bias",
+            "max_abs": 1.1412688763812184e-05
+          },
+          {
+            "tensor": "/optimizer/state/0/exp_avg",
+            "max_abs": 0.10055696964263916
+          },
+          {
+            "tensor": "/optimizer/state/0/exp_avg_sq",
+            "max_abs": 0.25490474700927734
+          },
+          {
+            "tensor": "/optimizer/state/1/exp_avg",
+            "max_abs": 0.026677370071411133
+          },
+          {
+            "tensor": "/optimizer/state/1/exp_avg_sq",
+            "max_abs": 0.02185879647731781
+          },
+          {
+            "tensor": "/optimizer/state/10/exp_avg",
+            "max_abs": 0.03742135316133499
+          },
+          {
+            "tensor": "/optimizer/state/10/exp_avg_sq",
+            "max_abs": 0.015822917222976685
+          },
+          {
+            "tensor": "/optimizer/state/11/exp_avg",
+            "max_abs": 0.0013749804347753525
+          },
+          {
+            "tensor": "/optimizer/state/11/exp_avg_sq",
+            "max_abs": 1.734925899654627e-05
+          },
+          {
+            "tensor": "/optimizer/state/12/exp_avg",
+            "max_abs": 0.13251376152038574
+          },
+          {
+            "tensor": "/optimizer/state/12/exp_avg_sq",
+            "max_abs": 0.22513210773468018
+          },
+          {
+            "tensor": "/optimizer/state/13/exp_avg",
+            "max_abs": 0.01954340934753418
+          },
+          {
+            "tensor": "/optimizer/state/13/exp_avg_sq",
+            "max_abs": 0.01873081922531128
+          },
+          {
+            "tensor": "/optimizer/state/14/exp_avg",
+            "max_abs": 0.0011567920446395874
+          },
+          {
+            "tensor": "/optimizer/state/14/exp_avg_sq",
+            "max_abs": 4.7198496758937836e-05
+          },
+          {
+            "tensor": "/optimizer/state/15/exp_avg",
+            "max_abs": 0.060788124799728394
+          },
+          {
+            "tensor": "/optimizer/state/15/exp_avg_sq",
+            "max_abs": 0.049585431814193726
+          },
+          {
+            "tensor": "/optimizer/state/16/exp_avg",
+            "max_abs": 0.012171432375907898
+          },
+          {
+            "tensor": "/optimizer/state/16/exp_avg_sq",
+            "max_abs": 0.0020765699446201324
+          },
+          {
+            "tensor": "/optimizer/state/17/exp_avg",
+            "max_abs": 0.0007961494848132133
+          },
+          {
+            "tensor": "/optimizer/state/18/exp_avg",
+            "max_abs": 0.05364091694355011
+          },
+          {
+            "tensor": "/optimizer/state/18/exp_avg_sq",
+            "max_abs": 0.043084144592285156
+          },
+          {
+            "tensor": "/optimizer/state/19/exp_avg",
+            "max_abs": 0.012763038277626038
+          },
+          {
+            "tensor": "/optimizer/state/19/exp_avg_sq",
+            "max_abs": 0.0023155640810728073
+          },
+          {
+            "tensor": "/optimizer/state/2/exp_avg",
+            "max_abs": 0.015007060021162033
+          },
+          {
+            "tensor": "/optimizer/state/2/exp_avg_sq",
+            "max_abs": 0.005985960364341736
+          },
+          {
+            "tensor": "/optimizer/state/20/exp_avg",
+            "max_abs": 0.0009451219812035561
+          },
+          {
+            "tensor": "/optimizer/state/20/exp_avg_sq",
+            "max_abs": 1.2845819583162665e-05
+          },
+          {
+            "tensor": "/optimizer/state/21/exp_avg",
+            "max_abs": 0.08589339256286621
+          },
+          {
+            "tensor": "/optimizer/state/21/exp_avg_sq",
+            "max_abs": 0.0642317533493042
+          },
+          {
+            "tensor": "/optimizer/state/22/exp_avg",
+            "max_abs": 0.011887609958648682
+          },
+          {
+            "tensor": "/optimizer/state/22/exp_avg_sq",
+            "max_abs": 0.0012523150071501732
+          },
+          {
+            "tensor": "/optimizer/state/23/exp_avg",
+            "max_abs": 0.0009292195609305054
+          },
+          {
+            "tensor": "/optimizer/state/23/exp_avg_sq",
+            "max_abs": 1.0110205039381981e-05
+          },
+          {
+            "tensor": "/optimizer/state/24/exp_avg",
+            "max_abs": 0.06345482543110847
+          },
+          {
+            "tensor": "/optimizer/state/24/exp_avg_sq",
+            "max_abs": 0.030666649341583252
+          },
+          {
+            "tensor": "/optimizer/state/25/exp_avg",
+            "max_abs": 0.01063297688961029
+          },
+          {
+            "tensor": "/optimizer/state/25/exp_avg_sq",
+            "max_abs": 0.0010560881346464157
+          },
+          {
+            "tensor": "/optimizer/state/26/exp_avg",
+            "max_abs": 0.0009337641531601548
+          },
+          {
+            "tensor": "/optimizer/state/27/exp_avg",
+            "max_abs": 0.07134842872619629
+          },
+          {
+            "tensor": "/optimizer/state/27/exp_avg_sq",
+            "max_abs": 0.017739444971084595
+          },
+          {
+            "tensor": "/optimizer/state/28/exp_avg",
+            "max_abs": 0.011526882648468018
+          },
+          {
+            "tensor": "/optimizer/state/28/exp_avg_sq",
+            "max_abs": 0.0012131929397583008
+          },
+          {
+            "tensor": "/optimizer/state/29/exp_avg",
+            "max_abs": 0.0006709689041599631
+          },
+          {
+            "tensor": "/optimizer/state/3/exp_avg",
+            "max_abs": 0.09731599688529968
+          },
+          {
+            "tensor": "/optimizer/state/3/exp_avg_sq",
+            "max_abs": 0.4486808776855469
+          },
+          {
+            "tensor": "/optimizer/state/30/exp_avg",
+            "max_abs": 0.05085241049528122
+          },
+          {
+            "tensor": "/optimizer/state/30/exp_avg_sq",
+            "max_abs": 0.01711404323577881
+          },
+          {
+            "tensor": "/optimizer/state/31/exp_avg",
+            "max_abs": 0.009660497307777405
+          },
+          {
+            "tensor": "/optimizer/state/31/exp_avg_sq",
+            "max_abs": 0.0016089081764221191
+          },
+          {
+            "tensor": "/optimizer/state/32/exp_avg",
+            "max_abs": 0.0008041448891162872
+          },
+          {
+            "tensor": "/optimizer/state/32/exp_avg_sq",
+            "max_abs": 1.4934485079720616e-05
+          },
+          {
+            "tensor": "/optimizer/state/33/exp_avg",
+            "max_abs": 0.021310859825462103
+          },
+          {
+            "tensor": "/optimizer/state/33/exp_avg_sq",
+            "max_abs": 0.0028811562806367874
+          },
+          {
+            "tensor": "/optimizer/state/34/exp_avg",
+            "max_abs": 0.0043261051177978516
+          },
+          {
+            "tensor": "/optimizer/state/34/exp_avg_sq",
+            "max_abs": 0.00027272244915366173
+          },
+          {
+            "tensor": "/optimizer/state/35/exp_avg",
+            "max_abs": 0.00048173777759075165
+          },
+          {
+            "tensor": "/optimizer/state/36/exp_avg",
+            "max_abs": 0.026973734609782696
+          },
+          {
+            "tensor": "/optimizer/state/36/exp_avg_sq",
+            "max_abs": 0.0042705293744802475
+          },
+          {
+            "tensor": "/optimizer/state/37/exp_avg",
+            "max_abs": 0.003603510558605194
+          },
+          {
+            "tensor": "/optimizer/state/37/exp_avg_sq",
+            "max_abs": 0.00023303506895899773
+          },
+          {
+            "tensor": "/optimizer/state/38/exp_avg",
+            "max_abs": 0.0005036363436374813
+          },
+          {
+            "tensor": "/optimizer/state/39/exp_avg",
+            "max_abs": 0.015794239938259125
+          },
+          {
+            "tensor": "/optimizer/state/39/exp_avg_sq",
+            "max_abs": 0.003937672823667526
+          },
+          {
+            "tensor": "/optimizer/state/4/exp_avg",
+            "max_abs": 0.024293512105941772
+          },
+          {
+            "tensor": "/optimizer/state/4/exp_avg_sq",
+            "max_abs": 0.015479624271392822
+          },
+          {
+            "tensor": "/optimizer/state/40/exp_avg",
+            "max_abs": 0.0033444459550082684
+          },
+          {
+            "tensor": "/optimizer/state/40/exp_avg_sq",
+            "max_abs": 0.00013979198411107063
+          },
+          {
+            "tensor": "/optimizer/state/41/exp_avg",
+            "max_abs": 0.00039283838123083115
+          },
+          {
+            "tensor": "/optimizer/state/42/exp_avg",
+            "max_abs": 0.028638401068747044
+          },
+          {
+            "tensor": "/optimizer/state/42/exp_avg_sq",
+            "max_abs": 0.0027154088020324707
+          },
+          {
+            "tensor": "/optimizer/state/43/exp_avg",
+            "max_abs": 0.005220111459493637
+          },
+          {
+            "tensor": "/optimizer/state/43/exp_avg_sq",
+            "max_abs": 0.00016502104699611664
+          },
+          {
+            "tensor": "/optimizer/state/44/exp_avg",
+            "max_abs": 0.0004479746930883266
+          },
+          {
+            "tensor": "/optimizer/state/45/exp_avg",
+            "max_abs": 0.05755190551280975
+          },
+          {
+            "tensor": "/optimizer/state/45/exp_avg_sq",
+            "max_abs": 0.00974007323384285
+          },
+          {
+            "tensor": "/optimizer/state/46/exp_avg",
+            "max_abs": 0.0016836784780025482
+          },
+          {
+            "tensor": "/optimizer/state/46/exp_avg_sq",
+            "max_abs": 7.192743942141533e-05
+          },
+          {
+            "tensor": "/optimizer/state/47/exp_avg",
+            "max_abs": 0.0007505530957132578
+          },
+          {
+            "tensor": "/optimizer/state/48/exp_avg",
+            "max_abs": 0.012796197086572647
+          },
+          {
+            "tensor": "/optimizer/state/48/exp_avg_sq",
+            "max_abs": 0.0014888755977153778
+          },
+          {
+            "tensor": "/optimizer/state/49/exp_avg",
+            "max_abs": 0.002149254083633423
+          },
+          {
+            "tensor": "/optimizer/state/49/exp_avg_sq",
+            "max_abs": 0.00013383477926254272
+          },
+          {
+            "tensor": "/optimizer/state/5/exp_avg",
+            "max_abs": 0.0007260199636220932
+          },
+          {
+            "tensor": "/optimizer/state/5/exp_avg_sq",
+            "max_abs": 1.2123462511226535e-05
+          },
+          {
+            "tensor": "/optimizer/state/50/exp_avg",
+            "max_abs": 0.00019942084327340126
+          },
+          {
+            "tensor": "/optimizer/state/51/exp_avg",
+            "max_abs": 0.027412891387939453
+          },
+          {
+            "tensor": "/optimizer/state/51/exp_avg_sq",
+            "max_abs": 0.02509593963623047
+          },
+          {
+            "tensor": "/optimizer/state/52/exp_avg",
+            "max_abs": 0.00030410289764404297
+          },
+          {
+            "tensor": "/optimizer/state/52/exp_avg_sq",
+            "max_abs": 0.0003247261047363281
+          },
+          {
+            "tensor": "/optimizer/state/53/exp_avg",
+            "max_abs": 0.00010732561349868774
+          },
+          {
+            "tensor": "/optimizer/state/54/exp_avg",
+            "max_abs": 0.042197734117507935
+          },
+          {
+            "tensor": "/optimizer/state/54/exp_avg_sq",
+            "max_abs": 0.013859868049621582
+          },
+          {
+            "tensor": "/optimizer/state/55/exp_avg",
+            "max_abs": 0.0003126859664916992
+          },
+          {
+            "tensor": "/optimizer/state/55/exp_avg_sq",
+            "max_abs": 0.0001800060272216797
+          },
+          {
+            "tensor": "/optimizer/state/56/exp_avg",
+            "max_abs": 0.00017031095921993256
+          },
+          {
+            "tensor": "/optimizer/state/57/exp_avg",
+            "max_abs": 0.064197838306427
+          },
+          {
+            "tensor": "/optimizer/state/57/exp_avg_sq",
+            "max_abs": 0.032976001501083374
+          },
+          {
+            "tensor": "/optimizer/state/58/exp_avg",
+            "max_abs": 0.00018018484115600586
+          },
+          {
+            "tensor": "/optimizer/state/58/exp_avg_sq",
+            "max_abs": 6.774067878723145e-05
+          },
+          {
+            "tensor": "/optimizer/state/59/exp_avg",
+            "max_abs": 0.00041386857628822327
+          },
+          {
+            "tensor": "/optimizer/state/59/exp_avg_sq",
+            "max_abs": 1.6544247046113014e-05
+          },
+          {
+            "tensor": "/optimizer/state/6/exp_avg",
+            "max_abs": 0.1321420706808567
+          },
+          {
+            "tensor": "/optimizer/state/6/exp_avg_sq",
+            "max_abs": 0.22414064407348633
+          },
+          {
+            "tensor": "/optimizer/state/60/exp_avg",
+            "max_abs": 0.0046787261962890625
+          },
+          {
+            "tensor": "/optimizer/state/60/exp_avg_sq",
+            "max_abs": 0.040252685546875
+          },
+          {
+            "tensor": "/optimizer/state/61/exp_avg",
+            "max_abs": 0.00012981891632080078
+          },
+          {
+            "tensor": "/optimizer/state/61/exp_avg_sq",
+            "max_abs": 5.316734313964844e-05
+          },
+          {
+            "tensor": "/optimizer/state/62/exp_avg",
+            "max_abs": 0.005876123905181885
+          },
+          {
+            "tensor": "/optimizer/state/62/exp_avg_sq",
+            "max_abs": 0.03108978271484375
+          },
+          {
+            "tensor": "/optimizer/state/63/exp_avg",
+            "max_abs": 0.00011783093214035034
+          },
+          {
+            "tensor": "/optimizer/state/63/exp_avg_sq",
+            "max_abs": 3.591179847717285e-05
+          },
+          {
+            "tensor": "/optimizer/state/64/exp_avg",
+            "max_abs": 0.0002122819423675537
+          },
+          {
+            "tensor": "/optimizer/state/64/exp_avg_sq",
+            "max_abs": 3.750622272491455e-05
+          },
+          {
+            "tensor": "/optimizer/state/7/exp_avg",
+            "max_abs": 0.02434701006859541
+          },
+          {
+            "tensor": "/optimizer/state/7/exp_avg_sq",
+            "max_abs": 0.01567065715789795
+          },
+          {
+            "tensor": "/optimizer/state/8/exp_avg",
+            "max_abs": 0.00071718730032444
+          },
+          {
+            "tensor": "/optimizer/state/8/exp_avg_sq",
+            "max_abs": 1.2507196515798569e-05
+          },
+          {
+            "tensor": "/optimizer/state/9/exp_avg",
+            "max_abs": 0.10789167881011963
+          },
+          {
+            "tensor": "/optimizer/state/9/exp_avg_sq",
+            "max_abs": 0.13447046279907227
+          },
+          {
+            "tensor": "/steps/1/eval/dir_pred",
+            "max_abs": 3.937631845474243e-05
+          },
+          {
+            "tensor": "/steps/1/eval/spatial_features_2d",
+            "max_abs": 0.00010529160499572754
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.0.weight",
+            "max_abs": 0.03240489959716797
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.1.bias",
+            "max_abs": 0.0002180337905883789
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.1.weight",
+            "max_abs": 0.005608677864074707
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.10.bias",
+            "max_abs": 0.00015754252672195435
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.10.weight",
+            "max_abs": 0.0035181045532226562
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.3.weight",
+            "max_abs": 0.023329734802246094
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.4.bias",
+            "max_abs": 0.00023841112852096558
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.4.weight",
+            "max_abs": 0.0042572021484375
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.6.weight",
+            "max_abs": 0.018881797790527344
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.7.bias",
+            "max_abs": 0.0001569688320159912
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.7.weight",
+            "max_abs": 0.0046089887619018555
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.0.9.weight",
+            "max_abs": 0.013823151588439941
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.0.weight",
+            "max_abs": 0.010567069053649902
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.1.bias",
+            "max_abs": 0.00012839771807193756
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.1.weight",
+            "max_abs": 0.001799464225769043
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.10.bias",
+            "max_abs": 9.131617844104767e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.10.weight",
+            "max_abs": 0.0011053085327148438
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.12.weight",
+            "max_abs": 0.004232048988342285
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.13.bias",
+            "max_abs": 0.00010946765542030334
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.13.weight",
+            "max_abs": 0.000912785530090332
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.15.weight",
+            "max_abs": 0.0031538009643554688
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.16.bias",
+            "max_abs": 6.0930848121643066e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.16.weight",
+            "max_abs": 0.0005911588668823242
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.3.weight",
+            "max_abs": 0.008958578109741211
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.4.bias",
+            "max_abs": 0.00010115839540958405
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.4.weight",
+            "max_abs": 0.0017686784267425537
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.6.weight",
+            "max_abs": 0.006596565246582031
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.7.bias",
+            "max_abs": 0.0001133158802986145
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.7.weight",
+            "max_abs": 0.0011036396026611328
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.1.9.weight",
+            "max_abs": 0.00568079948425293
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.0.weight",
+            "max_abs": 0.0019669532775878906
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.1.bias",
+            "max_abs": 3.738142549991608e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.1.weight",
+            "max_abs": 0.0003436170518398285
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.10.bias",
+            "max_abs": 2.0815059542655945e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.10.weight",
+            "max_abs": 0.0002657175064086914
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.12.weight",
+            "max_abs": 0.0010219812393188477
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.13.bias",
+            "max_abs": 1.4355406165122986e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.13.weight",
+            "max_abs": 0.00011581182479858398
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.15.weight",
+            "max_abs": 0.000850677490234375
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.16.weight",
+            "max_abs": 0.00013679265975952148
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.3.weight",
+            "max_abs": 0.0015390515327453613
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.4.bias",
+            "max_abs": 3.707967698574066e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.4.weight",
+            "max_abs": 0.0003128349781036377
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.6.weight",
+            "max_abs": 0.0013470649719238281
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.7.bias",
+            "max_abs": 2.5745481252670288e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.7.weight",
+            "max_abs": 0.00026479363441467285
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.blocks.2.9.weight",
+            "max_abs": 0.0011814534664154053
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.0.0.weight",
+            "max_abs": 0.0018739700317382812
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.0.1.weight",
+            "max_abs": 0.0001926422119140625
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.1.0.weight",
+            "max_abs": 0.001323699951171875
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.1.1.weight",
+            "max_abs": 0.000160902738571167
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.2.0.weight",
+            "max_abs": 0.0008760690689086914
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone.deblocks.2.1.weight",
+            "max_abs": 8.992105722427368e-05
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.linear.weight",
+            "max_abs": 0.16006255149841309
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.norm.bias",
+            "max_abs": 0.003369748592376709
+          },
+          {
+            "tensor": "/steps/1/gradients/backbone3d.pfn_layers.0.norm.weight",
+            "max_abs": 0.006309151649475098
+          },
+          {
+            "tensor": "/steps/1/gradients/roi_head.box_subnet_pred.weight",
+            "max_abs": 0.003734588623046875
+          },
+          {
+            "tensor": "/steps/1/gradients/roi_head.cls_subnet_pred.weight",
+            "max_abs": 0.0029144287109375
+          },
+          {
+            "tensor": "/steps/1/gradients/roi_head.dir_subnet_pred.weight",
+            "max_abs": 0.00018978118896484375
+          },
+          {
+            "tensor": "/steps/2/eval/dir_pred",
+            "max_abs": 0.00010118633508682251
+          },
+          {
+            "tensor": "/steps/2/eval/spatial_features",
+            "max_abs": 0.004400111734867096
+          },
+          {
+            "tensor": "/steps/2/eval/spatial_features_2d",
+            "max_abs": 0.000444948673248291
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.0.weight",
+            "max_abs": 0.9659146070480347
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.1.bias",
+            "max_abs": 0.007241800427436829
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.1.weight",
+            "max_abs": 0.2443995475769043
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.10.bias",
+            "max_abs": 0.011555135250091553
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.10.weight",
+            "max_abs": 0.1961369514465332
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.3.weight",
+            "max_abs": 1.3312172889709473
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.4.bias",
+            "max_abs": 0.007190689444541931
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.4.weight",
+            "max_abs": 0.24730154871940613
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.6.weight",
+            "max_abs": 1.0843329429626465
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.7.bias",
+            "max_abs": 0.013732194900512695
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.7.weight",
+            "max_abs": 0.3743499219417572
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.0.9.weight",
+            "max_abs": 1.3252829313278198
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.0.weight",
+            "max_abs": 0.6071667224168777
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.1.bias",
+            "max_abs": 0.00794513151049614
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.1.weight",
+            "max_abs": 0.12118595838546753
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.10.bias",
+            "max_abs": 0.009328173473477364
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.10.weight",
+            "max_abs": 0.10702040791511536
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.12.weight",
+            "max_abs": 0.7136553041636944
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.13.bias",
+            "max_abs": 0.006703082472085953
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.13.weight",
+            "max_abs": 0.11537882685661316
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.15.weight",
+            "max_abs": 0.5090509876608849
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.16.bias",
+            "max_abs": 0.008049234747886658
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.16.weight",
+            "max_abs": 0.09644132852554321
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.3.weight",
+            "max_abs": 0.5359886288642883
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.4.bias",
+            "max_abs": 0.009479036554694176
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.4.weight",
+            "max_abs": 0.12849056720733643
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.6.weight",
+            "max_abs": 0.8598494529724121
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.7.bias",
+            "max_abs": 0.009291058406233788
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.7.weight",
+            "max_abs": 0.11947828531265259
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.1.9.weight",
+            "max_abs": 0.6333827972412109
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.0.weight",
+            "max_abs": 0.21260429546236992
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.1.bias",
+            "max_abs": 0.004805486649274826
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.1.weight",
+            "max_abs": 0.04339856654405594
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.10.bias",
+            "max_abs": 0.004481174983084202
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.10.weight",
+            "max_abs": 0.05209715664386749
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.12.weight",
+            "max_abs": 0.5754624605178833
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.13.bias",
+            "max_abs": 0.007505163550376892
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.13.weight",
+            "max_abs": 0.016779273748397827
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.15.weight",
+            "max_abs": 0.12776528298854828
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.16.bias",
+            "max_abs": 0.0019961558282375336
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.16.weight",
+            "max_abs": 0.021492738276720047
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.3.weight",
+            "max_abs": 0.2700839340686798
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.4.bias",
+            "max_abs": 0.005032758228480816
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.4.weight",
+            "max_abs": 0.03599225729703903
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.6.weight",
+            "max_abs": 0.15807196125388145
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.7.bias",
+            "max_abs": 0.00391840934753418
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.7.weight",
+            "max_abs": 0.03350191842764616
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.blocks.2.9.weight",
+            "max_abs": 0.28637926280498505
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.0.weight",
+            "max_abs": 0.2732529640197754
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.1.bias",
+            "max_abs": 0.0010723024606704712
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.0.1.weight",
+            "max_abs": 0.003050565719604492
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.0.weight",
+            "max_abs": 0.42187702655792236
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.1.bias",
+            "max_abs": 0.0017022304236888885
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.1.1.weight",
+            "max_abs": 0.0031058788299560547
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.0.weight",
+            "max_abs": 0.6419994831085205
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.1.bias",
+            "max_abs": 0.00413927435874939
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone.deblocks.2.1.weight",
+            "max_abs": 0.001788020133972168
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.linear.weight",
+            "max_abs": 1.0009537935256958
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.norm.bias",
+            "max_abs": 0.15101343393325806
+          },
+          {
+            "tensor": "/steps/2/gradients/backbone3d.pfn_layers.0.norm.weight",
+            "max_abs": 0.2706798315048218
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.box_subnet_pred.bias",
+            "max_abs": 0.0011736154556274414
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.box_subnet_pred.weight",
+            "max_abs": 0.0587615966796875
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.cls_subnet_pred.bias",
+            "max_abs": 0.0013413429260253906
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.cls_subnet_pred.weight",
+            "max_abs": 0.04697608947753906
+          },
+          {
+            "tensor": "/steps/2/gradients/roi_head.dir_subnet_pred.weight",
+            "max_abs": 0.002115905284881592
+          },
+          {
+            "tensor": "/steps/2/losses/AnchorHeadSingle.cls_loss",
+            "max_abs": 0.007350921630859375
+          },
+          {
+            "tensor": "/steps/2/losses/AnchorHeadSingle.dir_loss",
+            "max_abs": 0.00012195110321044922
+          },
+          {
+            "tensor": "/steps/2/losses/AnchorHeadSingle.loc_loss",
+            "max_abs": 0.0001914501190185547
+          }
+        ]
+      },
+      "artifact_sha256": {
+        "original": "3268b26547d914af8907fa4c9453be3816f6e37c381ba1af0390d7e92a36800c",
+        "repeat": "28727bd75c5a4b4291b3820f32118112d980bfad9f08f304a2e71a138a2b91c1",
+        "routed": "7c4d849629f915f3fab0341c15fe676a56e6ac2ac9708cca011e9e9561967d23"
+      }
+    },
+    {
+      "model": "pointpillar",
+      "purpose": "inference",
+      "original_repeat": {
+        "passed": true,
+        "tensor_count": 30,
+        "failures": []
+      },
+      "routed": {
+        "passed": true,
+        "tensor_count": 30,
+        "failures": []
+      },
+      "artifact_sha256": {
+        "original": "26d6233e8546f7172cb34e59e24b5971b107736bd7366f8edbcc3fe5a11126cb",
+        "repeat": "58cce442c709e2c62e84b6c2b84376a8eec94d7840506e4006956e196983637b",
+        "routed": "f7418aa8c2bb7de25f2646dfc3562f8f24b4160651621feb4676279df7444110"
+      }
+    }
+  ]
+}

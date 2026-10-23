@@ -1,0 +1,42 @@
+{
+  "records": [
+    {
+      "case": "sparse",
+      "passed": true,
+      "tensor_count": 16,
+      "failures": []
+    },
+    {
+      "case": "sparse_block",
+      "passed": true,
+      "tensor_count": 16,
+      "failures": []
+    },
+    {
+      "case": "quantization",
+      "passed": false,
+      "execution_failures": [
+        "direct",
+        "routed"
+      ]
+    },
+    {
+      "case": "quantization_export",
+      "passed": false,
+      "execution_failures": [
+        "direct",
+        "routed"
+      ]
+    },
+    {
+      "case": "pruning",
+      "passed": false,
+      "execution_failures": [
+        "direct",
+        "routed"
+      ]
+    }
+  ],
+  "rtol": 0.0001,
+  "atol": 1e-05
+}

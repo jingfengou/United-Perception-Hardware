@@ -1,0 +1,18 @@
+# Observed shared Python dependency subset for the two Python 3.12 test environments.
+# Not a complete environment lock. Keep vendor torch/torchvision/spconv/SDK packages.
+# Use an isolated environment; model-specific and toolchain dependencies are separate.
+numpy==1.26.4
+scipy==1.16.0
+easydict==1.13
+opencv-python==4.11.0.86
+tensorboardX==2.6.4
+matplotlib==3.10.3
+pillow==11.2.1
+lvis==0.5.3
+prettytable==3.16.0
+numba==0.59.1
+psutil==7.0.0
+scikit-learn==1.6.1
+onnx==1.17.0
+einops==0.8.1
+PyYAML==6.0.3

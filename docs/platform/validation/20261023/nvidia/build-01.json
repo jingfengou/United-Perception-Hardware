@@ -1,0 +1,12 @@
+{
+  "vendor": "nvidia",
+  "command": [
+    "/data2/oujingfeng/UP-current-validation-20261022/venv/bin/python",
+    "setup.py",
+    "build_ext",
+    "--inplace"
+  ],
+  "returncode": 0,
+  "seconds": 239.093092918396,
+  "log_sha256": "5e2008a51ccb37d04eeb1d2cf30ada7f1183d8ea2beadf02e636b17af5bd2e06"
+}

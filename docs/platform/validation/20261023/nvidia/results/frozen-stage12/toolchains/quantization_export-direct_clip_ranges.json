@@ -1,0 +1,10 @@
+{
+    "tensorrt": {
+        "blob_range": {
+            "onnx::QuantizeLinear_0": 3.103154420852661,
+            "/relu/Relu_output_0": 1.6943241357803345,
+            "/4/Flatten_output_0": 0.36093974113464355,
+            "/3/GlobalAveragePool_output_0": 0.36093974113464355
+        }
+    }
+}
